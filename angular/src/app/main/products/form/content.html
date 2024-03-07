@@ -1,0 +1,89 @@
+<div layout-gt-sm="row">
+	<md-input-container class="md-block" flex-gt-sm>
+		<label><span translate="OTHER.NAME"></span></label>
+		<input ng-model="vm.form.name" required ng-maxlength="100" name="name" >
+		<div ng-messages="formProduct.name.$error">
+			<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+			<div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_100"></span></div>
+		</div>
+	</md-input-container>
+	<md-input-container class="md-block" flex-gt-sm>
+		<label><span translate="PRODUCTS_FORM.TYPE"></span></label>
+		<md-select ng-model="vm.form.type" required name="type" ng-if="!translate_loading">
+			<md-option ng-value="'article'" ><span translate="PRODUCTS_FORM.TYPE_1"></span></md-option>
+			<md-option ng-value="'service'" ><span translate="PRODUCTS_FORM.TYPE_2"></span></md-option>
+		</md-select>
+		<div ng-messages="formProduct.type.$error" role="alert">
+			<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+		</div>
+	</md-input-container>
+</div>
+<div layout-gt-sm="row">
+	<md-input-container class="md-block" flex-gt-sm>
+		<label>
+			<span ng-if="vm.root_scope.vat_payer" translate="PRODUCTS_FORM.PRICE_NET"></span>
+			<span ng-if="!vm.root_scope.vat_payer" translate="PRODUCTS_FORM.PRICE"></span>
+		</label>
+		<input ng-model="vm.form.price_net" type="number" step="0.01" min="0.01" name="price_net" ng-change="vm.changePrice()" >
+		<div ng-messages="formProduct.price_net.$error">
+			<div ng-message="number" ><span translate="ERRORS.FORM.NUMBER_2_DP"></span></div>
+			<div ng-message="min" ><span translate="ERRORS.FORM.NUMBER_2_DP"></span></div>
+			<div ng-message="step" ><span translate="ERRORS.FORM.NUMBER_2_DP"></span></div>
+		</div>
+	</md-input-container>
+	<md-input-container class="md-block" flex-gt-sm ng-if="vm.root_scope.vat_payer">
+		<label><span translate="PRODUCTS_FORM.TAX"></span></label>
+		<md-select ng-model="vm.form.vat_rate_id" required name="vat_rate_id" ng-if="!translate_loading" ng-change="vm.changePrice()">
+			<md-option ng-value="tax.id" ng-repeat="tax in vm.taxes" ng-if="tax.id">{{tax.name}}</md-option>
+		</md-select>
+		<div ng-messages="formProduct.vat_rate_id.$error" role="alert">
+			<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+		</div>
+	</md-input-container>
+</div>
+<div layout-gt-sm="row">
+	<md-input-container class="md-block" flex-gt-sm >
+		<label><span translate="PRODUCTS_FORM.UNIT"></span></label>
+		<md-select ng-model="vm.form.service_unit_id" required name="service_unit_id" ng-if="!translate_loading" >
+			<md-option ng-value="unit.id" ng-repeat="unit in vm.units" ng-if="unit.id">{{unit.slug}}</md-option>
+		</md-select>
+		<div ng-messages="formProduct.service_unit_id.$error" role="alert">
+			<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+		</div>
+	</md-input-container>
+	<md-input-container class="md-block" flex-gt-sm>
+		<label><span translate="PRODUCTS_FORM.PKWIU"></span></label>
+		<input ng-model="vm.form.pkwiu" ng-maxlength="20" name="pkwiu">
+		<div ng-messages="formProduct.pkwiu.$error">
+			<div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_20"></span></div>
+		</div>
+	</md-input-container>
+</div>
+<div layout-gt-sm="row">
+	<md-input-container class="md-block" flex-gt-sm>
+		<label><span translate="PRODUCTS_FORM.DESCRIPTION"></span></label>
+		<textarea ng-model="vm.form.description" ng-maxlength="1000" name="description" ></textarea>
+		<div ng-messages="formProduct.description.$error">
+			<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+			<div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_1000"></span></div>
+		</div>
+	</md-input-container>
+	<md-input-container class="md-block" flex-gt-sm >
+		<md-checkbox ng-model="vm.form.print_on_invoice" name="print_on_invoice">
+			<span translate="PRODUCTS_FORM.PRINT"></span>
+		</md-checkbox>
+	</md-input-container>
+</div>
+<div layout-gt-sm="row">
+	<md-input-container class="md-block" flex-gt-sm>
+		<span class="require">*</span> <span translate="INFO.REQUIRE_INFO"></span>
+	</md-input-container>
+</div>
+
+<div layout="row"  layout-align="end none">
+	<md-button type="submit" class="md-raised md-accent" aria-label="SEND"
+			   ng-disabled="formProduct.$invalid || formProduct.$pristine || vm.request_sending"
+			   translate="OTHER.SAVE"
+			   translate-attr-aria-label="OTHER.SAVE">
+	</md-button>
+</div>

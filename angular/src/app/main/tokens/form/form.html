@@ -1,0 +1,101 @@
+<div id="contractors-form" class="page-layout simple fullwidth doc-page" layout="column">
+
+	<!-- HEADER -->
+	<div class="header md-accent-bg" layout="row" layout-align="space-between">
+		<div layout="column" layout-align="space-between" flex="100">
+			<div layout="row">
+				<div class="title" translate="TOKENS_FORM.TITLE_ADD" flex="70"></div>
+				<div flex="30" layout="row" layout-align="end center">
+					<md-button href="/users/tokens/{{vm.form.user_id}}" class="md-raised" aria-label="Go Back" translate="OTHER.GO_BACK" translate-attr-aria-label="OTHER.GO_BACK">
+						Go Back
+					</md-button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- / HEADER -->
+
+	<!-- CONTENT -->
+	<div class="content" layout="column">
+		<a name="up"></a>
+		<div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+		<div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+		<div layout="row">
+
+			<div class="form-wrapper  rounded-container min-1000">
+
+				<form id="formToken" name="formToken" novalidate ng-submit="vm.send()">
+
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex-gt-sm >
+							<label><span translate="TOKENS_FORM.ROLE"></span></label>
+							<md-select ng-model="vm.form.role_id" required name="role_id" ng-if="!translate_loading">
+								<md-option ng-value="null" ></md-option>
+								<md-option ng-value="role.id" ng-repeat="role in vm.roles" ><span translate="TOKENS_FORM.ROLES.{{role.name.replace('api.', '')}}"></span></md-option>
+							</md-select>
+							<div ng-messages="formToken.vat_rate_id.$error" role="alert">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block" flex-gt-sm>
+							<label><span translate="TOKENS_FORM.DOMAIN"></span></label>
+							<input ng-model="vm.form.domain" name="domain">
+							<div ng-messages="formToken.domain.$error">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+							</div>
+						</md-input-container>
+					</div>
+
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex-gt-sm>
+							<label><span translate="TOKENS_FORM.IP_FROM"></span></label>
+							<input ng-model="vm.form.ip_from" name="ip_from" ng-pattern="/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/" >
+							<div ng-messages="formToken.ip_from.$error">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+								<div ng-message="pattern" ><span translate="ERRORS.FORM.IP"></span></div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block" flex-gt-sm>
+							<label><span translate="TOKENS_FORM.IP_TO"></span></label>
+							<input ng-model="vm.form.ip_to" name="ip_to" ng-pattern="/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/" >
+							<div ng-messages="formToken.ip_from.$error">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+								<div ng-message="pattern" ><span translate="ERRORS.FORM.IP"></span></div>
+							</div>
+						</md-input-container>
+					</div>
+
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex-gt-sm>
+							<label><span translate="TOKENS_FORM.TTL"></span></label>
+							<input ng-model="vm.form.ttl" required name="ttl" min="1" max="1440" type="number" >
+							<div ng-messages="formToken.ttl.$error">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+								<div ng-message="min" ><span translate="ERRORS.FORM.NUM_MIN_1"></span></div>
+								<div ng-message="max" ><span translate="ERRORS.FORM.NUM_MIN_1440"></span></div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block" flex-gt-sm>
+						</md-input-container>
+					</div>
+
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex-gt-sm>
+							<span class="require">*</span> <span translate="INFO.REQUIRE_INFO"></span>
+						</md-input-container>
+					</div>
+
+					<div layout-gt-sm="row"  layout-align="end none">
+						<md-button type="submit" class="md-raised md-accent" aria-label="SEND"
+								   ng-disabled="formToken.$invalid || formToken.$pristine || vm.request_sending"
+								   translate="OTHER.SAVE"
+								   translate-attr-aria-label="OTHER.SAVE">
+						</md-button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

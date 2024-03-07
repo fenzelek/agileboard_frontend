@@ -1,0 +1,53 @@
+<div class="form-wrapper">
+
+    <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+            <label><span translate="PROJECTS_FORM.NOTIFICATIONS_LANGUAGE"></span></label>
+            <md-select ng-model="vm.form.language" name="language" language-if="!translate_loading">
+                <md-option ng-value="'en'"><span translate="PROJECTS_FORM.ENGLISH"></span></md-option>
+                <md-option ng-value="'pl'"><span translate="PROJECTS_FORM.POLISH"></span></md-option>
+            </md-select>
+            <div ng-messages="formProject.language.$error">
+                <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+        </md-input-container>
+    </div>
+
+    <!-- Slack -->
+    <md-input-container class="md-block" flex-gt-sm>
+        <md-checkbox ng-model="vm.form.slack_notification_enabled">
+            <span translate="PROJECTS_FORM.SLACK_NOTIFICATION_ENABLED"></span>
+        </md-checkbox>
+        <div ng-if="vm.form.slack_notification_enabled">
+            <div translate="PROJECTS_FORM.SLACK_INFO_1"></div>
+            <code translate="PROJECTS_FORM.SLACK_INFO_2" class="font-size-14"></code>
+            <div translate="PROJECTS_FORM.SLACK_INFO_3"></div>
+        </div>
+    </md-input-container>
+    <div ng-if="vm.form.slack_notification_enabled" layout="column" layout-gt-sm="row">
+        <md-input-container flex="100" flex-gt-sm="50" class="mt-0">
+            <label><span translate="PROJECTS_FORM.SLACK_WEBHOOK_URL"></span></label>
+            <input ng-model="vm.form.slack_webhook_url" ng-required="vm.form.slack_notification_enabled" ng-maxlength="255" name="slack_webhook_url" >
+            <div ng-messages="formProject.slack_webhook_url.$error">
+                <div ng-message="required" class="my-message"><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_255"></span></div>
+            </div>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="30" class="mt-0">
+            <label><span translate="PROJECTS_FORM.SLACK_CHANNEL"></span></label>
+            <input ng-model="vm.form.slack_channel" ng-maxlength="255" name="slack_channel">
+            <div ng-messages="formProject.slack_channel.$error">
+                <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_255"></span></div>
+            </div>
+        </md-input-container>
+    </div>
+
+    <!-- Email -->
+    <md-input-container class="md-block" flex-gt-sm="50" flex="100">
+        <md-checkbox ng-model="vm.form.email_notification_enabled">
+            <span translate="PROJECTS_FORM.EMAIL_NOTIFICATION_ENABLED"></span>
+        </md-checkbox>
+    </md-input-container>
+</div>

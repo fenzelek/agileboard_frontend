@@ -1,0 +1,45 @@
+<md-dialog class="invoices-zip-download-dialog">
+    <md-dialog-content>
+        <div class="content text-center">
+            <div class="table-wrapper mt-20">
+                <md-table-container>
+                    <table md-table md-progress="vm.promise">
+                        <thead md-head>
+                        <tr md-row>
+                            <th md-column md-order-by="id"><span translate="OTHER.No">Lp.</span></th>
+                            <th md-column width="90%"><span translate="INVOICES_ZIP_DOWNLOAD_DIALOG.NAME"></span></th>
+                            <th md-column></th>
+                        </tr>
+                        </thead>
+                        <tbody md-body>
+                        <tr md-row ng-repeat="package in vm.packages" ng-if="vm.packages.length">
+                            <td md-cell>{{ vm.pagination | no:$index }}</td>
+                            <td md-cell>{{ package.file_name }}</td>
+                            <td md-cell>
+                                <md-button class="md-icon-button" ng-click="vm.downloadPackage(package.id)">
+                                    <md-icon md-font-icon="icon-download">
+                                        <md-tooltip><span translate="INVOICES_ZIP_DOWNLOAD_DIALOG.DOWNLOAD"></span></md-tooltip>
+                                    </md-icon>
+                                </md-button>
+                            </td>
+                        </tr>
+                        <tr md-row ng-if="!vm.packages.length && !vm.loading" class="grey-200-bg">
+                            <td md-cell colspan="3">
+                                <div class="text-center pt-20">
+                                    <span class="grey-600-fg" translate="INVOICES_ZIP_DOWNLOAD_DIALOG.NO_PACKAGES"></span> <br />
+                                    <md-button ng-click="vm.getPackages()" translate="INVOICES_ZIP_DOWNLOAD_DIALOG.REFRESH"></md-button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+                <md-table-pagination md-label="{{vm.table_translate}}" md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.pagination.total}}" md-on-paginate="vm.getPackages" md-page-select></md-table-pagination>                
+            </div>
+            <p class="info" translate="INVOICES_ZIP_DOWNLOAD_DIALOG.DOWNLOAD_AVAILABLE_BY_DAYS"></p>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button ng-click="vm.hide()" class="md-raised md-accent"><span translate="OTHER.CLOSE"></span></md-button>
+    </md-dialog-actions>
+</md-dialog>

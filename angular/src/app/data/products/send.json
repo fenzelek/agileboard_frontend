@@ -1,0 +1,15 @@
+{
+  "id": 2,
+  "type": 1,
+  "symbol": "XYZ",
+  "name": "asd as",
+  "buy_cost_net": 25,
+  "buy_cost_gross": 30,
+  "buy_tax": "23",
+  "sale_cost_net": 40,
+  "sale_cost_gross": 45,
+  "pkwiu": "fff",
+  "sale_tax": "23",
+  "unit": "szt"
+}
+

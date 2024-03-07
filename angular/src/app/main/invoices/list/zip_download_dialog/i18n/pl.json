@@ -1,0 +1,9 @@
+{
+    "INVOICES_ZIP_DOWNLOAD_DIALOG": {
+        "NAME": "Nazwa pliku",
+        "NO_PACKAGES": "Brak dostępnych do pobrania paczek...",
+        "DOWNLOAD_AVAILABLE_BY_DAYS": "Paczki faktur dostępne są do pobrania przez 7 dni o daty ich utworzenia.",
+        "DOWNLOAD": "Pobierz",        
+        "REFRESH": "Odśwież"
+    }
+}

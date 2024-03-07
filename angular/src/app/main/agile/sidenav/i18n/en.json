@@ -1,0 +1,45 @@
+{
+    "SIDANAV_PREVIEW": {
+        "OPEN": "Open",
+        "ASSIGNED": "Assigned:",
+        "REPORTER": "Reporter:",
+        "ESTIMATE": "Estimate time:",
+        "SPRINT": "Sprint:",
+        "STORIES": "Stories:",
+        "BACKLOG": "Backlog",
+        "EDITED": "Edited:",
+        "MY_LOGGED_TIME": "My logged time:",
+        "ALL_LOGGED_TIME": "All logged time:",
+        "ESTIMATE_EXAMPLE": "Example: 8h 30m",
+        "ESTIMATE_ERROR": "Error estimate format",
+        "SCHEDULED_DATE_START": "Scheduled start date:",
+        "SCHEDULED_DATE_END": "Scheduled end date:",
+        "DESCRIPTION": "Description",
+        "ATTACHMENTS": "Attachments",
+        "DELETE_QUESTION": "Are you sure you want to delete this ticket?",
+        "COMMENTS": "Comments",
+        "ADD_COMMENT": "Add comment",
+        "NONE": "None",
+        "CLICK_TO_ASSIGN": "Click to assign",
+        "CLICK_TO_ADD": "Click to add",
+        "CLICK_TO_ADD_DESC": "Click to add description",
+        "CLICK_TO_EDIT": "click to edit",
+        "ENTER_TEXT": "Enter the text",
+        "USER_SEARCH": "Search user...",
+        "STORIES_SEARCH": "Search stories...",
+        "STORIES_ADD_MORE": "Add more...",
+        "STATUS_SEARCH": "Search status...",
+        "FILE_UPLOAD_INFO": "You can drag&drop files on this ticket sidebar or Ctrl+V to paste them.",
+        "CREATE_NEW": "Create new: ",
+        "DOWNLOAD": "Download",
+        "COPY_LINK": "Copy link",
+        "COPY_TITLE_AND_NAME": "Copy title",
+        "RELATED_WITH": "Related with",
+        "SUBTASKS": "Sub-tasks"
+    },
+    "ERRORS": {
+        "package": {
+            "limit_reached": "You have reached the limit of the amount of disk space used. Delete other files to be able to add more or contact your business owner to increase the limit."
+        }
+    }
+}

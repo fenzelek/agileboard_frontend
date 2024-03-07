@@ -1,0 +1,9 @@
+{
+    "INVOICES_ZIP_DOWNLOAD_DIALOG": { 
+        "NAME": "Zip name",
+        "NO_PACKAGES": "No zip files available to download yet...",
+        "DOWNLOAD_AVAILABLE_BY_DAYS": "Invoices zip files are available to download by 7 days from created time.",
+        "DOWNLOAD": "Download",
+        "REFRESH": "Refresh"
+    }
+}

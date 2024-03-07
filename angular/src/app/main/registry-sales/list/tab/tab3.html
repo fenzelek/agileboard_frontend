@@ -1,0 +1,117 @@
+
+<div class="alert-error" ng-if="vm.tab3.msg_error">{{ vm.tab3.msg_error }}</div>
+
+<div layout="row">
+
+    <div class="form-wrapper  rounded-container min-1000">
+        <div layout="row" >
+            <md-input-container class="md-block" flex-gt-xs="33">
+                <label><span translate="REGISTRY_SALES.RECEIPTS_LIST.MONTH"></span></label>
+                <md-select ng-model="vm.tab3.query.month">
+                    <md-option ng-value="n" ng-repeat="n in range(1, 12)"><span translate="MONTHS.{{n}}" ></span></md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-xs="33">
+                <label><span translate="REGISTRY_SALES.RECEIPTS_LIST.YEAR"></span></label>
+                <md-select ng-model="vm.tab3.query.year">
+                    <md-option ng-value="n" ng-repeat="n in range_r(2016, vm.current_year)">{{n}}</md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-xs="33">
+                <label><span translate="REGISTRY_SALES.RECEIPTS_LIST.PAYMENTS_METHOD"></span></label>
+                <md-select ng-model="vm.tab3.query.payment_method_id" required name="payment_method_id" ng-if="!translate_loading">
+                    <md-option ng-value="null" ></md-option>
+                    <md-option ng-value="payments_method.id" ng-repeat="payments_method in vm.tab3.payments_method2" >{{payments_method.name}}</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+        <div layout="row" >
+            <md-input-container class="md-block" flex-gt-xs="33">
+                <label><span translate="REGISTRY_SALES.RECEIPTS_LIST.TRANSACTION_NUMBER"></span></label>
+                <input ng-model="vm.tab3.query.transaction_number" name="transaction_number">
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-xs="33">
+                <label><span translate="REGISTRY_SALES.RECEIPTS_LIST.NUMBER"></span></label>
+                <input ng-model="vm.tab3.query.number" name="number">
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-xs="33">
+                <label><span translate="REGISTRY_SALES.RECEIPTS_LIST.USERS"></span></label>
+                <md-select ng-model="vm.tab3.query.user_id" required name="user_id" ng-if="!translate_loading">
+                    <md-option ng-value="null" ></md-option>
+                    <md-option ng-value="user.id" ng-repeat="user in vm.tab3.users" >{{user.first_name}} {{user.last_name}}</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+        <div layout="row">
+            <div layout="row" layout-align="end center" flex="100">
+                <md-button class="md-raised md-button md-default-theme md-accent" ng-click="vm.tab3.pdfReceipts()" >
+                    <span translate="REGISTRY_SALES.RECEIPTS_LIST.GENERATE_PDF" ></span>
+                </md-button>
+                <md-button class="md-raised md-button md-default-theme md-accent" ng-click="vm.tab3.getReceipts()" >
+                    <span translate="REGISTRY_SALES.RECEIPTS_LIST.SEARCH" ></span>
+                </md-button>
+            </div>
+        </div>
+
+        <div ng-if="vm.tab3.pagination.total" class="table-wrapper">
+            <md-table-container>
+                <table md-table md-progress="vm.tab3.promise">
+                    <thead md-head >
+                    <tr md-row>
+                        <th md-column><span translate="OTHER.No">Lp.</span></th>
+                        <th md-column><span translate="REGISTRY_SALES.RECEIPTS_LIST.NUMBER"></span></th>
+                        <th md-column><span translate="REGISTRY_SALES.RECEIPTS_LIST.TRANSACTION_NUMBER"></span></th>
+                        <th md-column><span translate="REGISTRY_SALES.RECEIPTS_LIST.CREATED"></span></th>
+                        <th md-column md-numeric ng-if="vat_payer"><span translate="REGISTRY_SALES.RECEIPTS_LIST.PRICE_NET"></span></th>
+                        <th md-column md-numeric ng-if="vat_payer"><span translate="REGISTRY_SALES.RECEIPTS_LIST.PRICE_GROSS"></span></th>
+                        <th md-column md-numeric ng-if="vat_payer"><span translate="REGISTRY_SALES.RECEIPTS_LIST.VAT_SUM"></span></th>
+                        <th md-column md-numeric ng-if="!vat_payer"><span translate="REGISTRY_SALES.RECEIPTS_LIST.PRICE_GROSS"></span></th>
+                        <th md-column><span translate="REGISTRY_SALES.RECEIPTS_LIST.METHOD"></span></th>
+                        <th md-column ><span translate="OTHER.ACTION">Akcje</span></th>
+                    </tr>
+                    </thead>
+                    <tbody md-body>
+                    <tr md-row ng-repeat="receipt in vm.tab3.receipts">
+                        <td md-cell>{{ vm.tab3.pagination | no:$index }}</td>
+                        <td md-cell>{{ receipt.number }}</td>
+                        <td md-cell>{{ receipt.transaction_number }}</td>
+                        <td md-cell>{{ receipt.sale_date }}</td>
+                        <td md-cell ng-if="vat_payer">{{ receipt.price_net.toFixed(2) | numFormat}}zł</td>
+                        <td md-cell>{{ receipt.price_gross.toFixed(2) | numFormat}}zł</td>
+                        <td md-cell ng-if="vat_payer">{{ receipt.vat_sum.toFixed(2) | numFormat}}zł</td>
+                        <td md-cell>{{ vm.tab3.payments_method[receipt.payment_method_id].name }}</td>
+                        <td md-cell>
+                            <md-menu>
+                                <md-button class="md-icon-button" ng-click="$mdMenu.open()"
+                                           aria-label="more">
+                                    <md-icon md-font-icon="icon-dots-vertical"></md-icon>
+                                </md-button>
+
+                                <md-menu-content width="3">
+                                    <md-menu-item>
+                                        <md-button ng-click="vm.tab3.detailsReceipts(receipt.id)">
+                                            <span translate="OTHER.DETAILS"></span>
+                                        </md-button>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+
+            <md-table-pagination md-label="{{vm.tab3.table_translate}}" md-limit="vm.tab3.query.limit" md-page="vm.tab3.query.page" md-total="{{vm.tab3.pagination.total}}" md-on-paginate="vm.tab3.getReceipts" md-page-select></md-table-pagination>
+        </div>
+
+        <div layout="row"  ng-if="vm.tab3.pagination.total == 0" translate="OTHER.NO_RECORDS" class="text-center" ></div>
+
+        <div class="font-size-16">
+            <div class="bold" translate="REGISTRY_SALES.RECEIPTS_LIST.SUMMARY"></div>
+            <div ng-if="!vat_payer"><span translate="REGISTRY_SALES.RECEIPTS_LIST.SUM"></span>: {{vm.tab3.reports.price_gross_report.toFixed(2) | numFormat}}zł</div>
+            <div ng-if="vat_payer"><span translate="REGISTRY_SALES.RECEIPTS_LIST.SUM_GROSS"></span>: {{vm.tab3.reports.price_gross_report.toFixed(2) | numFormat}}zł</div>
+            <div ng-if="vat_payer"><span translate="REGISTRY_SALES.RECEIPTS_LIST.SUM_NET"></span>: {{vm.tab3.reports.price_net_report.toFixed(2) | numFormat}}zł</div>
+            <div ng-if="vat_payer"><span translate="REGISTRY_SALES.RECEIPTS_LIST.VAT_SUM"></span>: {{vm.tab3.reports.vat_sum_report.toFixed(2) | numFormat}}zł</div>
+        </div>
+    </div>
+</div>

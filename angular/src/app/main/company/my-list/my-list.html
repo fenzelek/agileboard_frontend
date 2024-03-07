@@ -1,0 +1,71 @@
+<div id="company-my-list" class="page-layout simple fullwidth doc-page" layout="column">
+
+	<!-- HEADER -->
+	<div class="header md-accent-bg" layout="row" layout-align="space-between">
+		<div layout="column" layout-align="space-between">
+			<div class="title" translate="COMPANY_MY_LIST.TITLE"></div>
+		</div>
+	</div>
+	<!-- / HEADER -->
+
+	<!-- CONTENT -->
+	<div layout="column" flex>
+
+		<div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+		<div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+		<!-- BOARD SELECTION -->
+		<div class="board-selector" layout="column" layout-align="start center" flex>
+
+			<h1 translate="COMPANY_MY_LIST.TITLE_1"></h1>
+
+			<div class="board-list">
+				<div layout="row" layout-align="stretch center" layout-wrap>
+
+					<div class="board-list-item rounded-element" layout="column" layout-align="center center" ng-repeat="company in vm.companies"
+					   ng-click="vm.selectCompany(company.id, company.enabled)" ng-class="{'disabled': company.enabled == 0}">
+                        <img ng-src="{{ company.logo }}" alt="{{ company.name }}" class="logo" />
+						<div class="board-name" >
+							<b>{{company.name}}</b><br>
+							<span ng-if="company.vatin">NIP: {{company.vatin}}<br></span>
+							<span translate="COMPANY_MY_LIST.OWNER"></span>: {{company.owner.data.first_name}} {{company.owner.data.last_name}}
+						</div>
+					</div>
+
+					<div class="board-list-item rounded-element" layout="column" layout-align="center center"
+					   ng-click="vm.createCompanyDialog($event)" ng-if="vm.num_owners < 1">
+						<md-icon md-font-icon="icon-plus-circle" class="icon s64"></md-icon>
+						<div class="board-name" translate="COMPANY_MY_LIST.ADD"></div>
+				</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="board-selector invitations" layout="column" layout-align="start center" flex ng-if="vm.invitations.length">
+
+			<h1 translate="COMPANY_MY_LIST.TITLE_2"></h1>
+
+			<div class="board-list" >
+				<div layout="row" layout-align="center center" layout-wrap>
+
+					<div class="board-list-item rounded-element" layout="column" layout-align="center center" ng-repeat="invitation in vm.invitations"
+						ng-if="invitation.status == 0" >
+						<md-icon md-font-icon="icon-trello" class="icon s64"></md-icon>
+						<div class="board-name" >
+							<b>{{invitation.company.data.name}}</b><br>
+							<span ng-if="invitation.company.data.vatin">NIP: {{invitation.company.data.vatin}}<br></span>
+							<span translate="COMPANY_MY_LIST.OWNER"></span>: {{invitation.company.data.owner.data.first_name}} {{invitation.company.data.owner.data.last_name}}
+							<span translate="COMPANY_MY_LIST.EXPIRATION"></span>: {{invitation.expiration_time}}
+						</div>
+						<div class="invitation-accept" ng-click="vm.accept(invitation.token)">
+							<md-icon md-font-icon="icon-checkbox-marked-circle" class="icon s32"></md-icon>
+						</div>
+						<div class="invitation-reject" ng-click="vm.reject(invitation.token)">
+							<md-icon md-font-icon="icon-close-circle" class="icon s32"></md-icon>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

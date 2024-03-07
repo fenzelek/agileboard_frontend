@@ -1,0 +1,23 @@
+{
+    "LOGIN": {
+        "TITLE": "Zaloguj się na swoje konto",
+        "EMAIL": "E-mail",
+        "PASSWORD": "Hasło",
+        "REMEMBER_ME": "Zapamiętaj mnie",
+        "FORGOT_PASSWORD": "Zapomniałeś hasła?",
+        "LOG_IN": "ZALOGUJ",
+        "OR": "OR",
+        "WITH_GOOGLE": "Log in with Google",
+        "WITH_FACEBOOK": "Log in with Facebook",
+        "DONT_HAVE_ACCOUNT": "Nie masz konta?",
+        "CREATE_ACCOUNT": "Załóż konto"
+    },
+    "ERRORS": {
+        "auth": {
+            "invalid_login_data" : "Podałeś błędne dane"
+        },
+        "ACTIVE_1" : "Konto nie zostało jeszcze aktywowane. Aktywuj je klikając w link w mailu aktywacyjnym.",
+        "ACTIVE_2" : "Wyślij ponownie e-mail aktywacyjny.",
+        "CONTACT" : "kontakt"
+    }
+}

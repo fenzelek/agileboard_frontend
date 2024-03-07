@@ -1,0 +1,43 @@
+{
+    "CASH_OPERATIONS_LIST": {
+        "TITLE": "Operacje kasowe",
+        "TAB1": "Gotówkowe",
+        "TAB2": "Bezgotówkowe",
+        "GENERATE_PDF": "Utwórz pdf",
+        "CHANGE_1": "Zmień na gotówkową",
+        "CHANGE_2": "Zmień na bezgotówkową",
+        "USER": "Użytkownik",
+        "SEARCH": "Szukaj",
+        "BALANCE": "Zbilansowana lista",
+        "DATE": "Data",
+        "NUMBER": "Numer",
+        "METHOD": "Metoda płatności",
+        "SUM": "Podsumowanie",
+        "CASH_START": "Stan początkowy",
+        "CASH_STOP": "Stan końcowy",
+        "CASH_RELEASED": "Kasa wydała",
+        "CALC": "Wyliczone",
+        "RECEIPT_NUMBER": "Numer dokumentu",
+        "RECEIPT_NUMBER_TRANSACTION": "Numer transakcji",
+        "CASH_TOOK": "Kasa przyjęła",
+        "AMOUNT": "Wartość",
+        "DIRECTION": "Typ",
+        "DIRECTION_LIST": {
+            "initial": "Stan początkowy",
+            "in": "Kasa przyjęła",
+            "out": "Kasa wydała",
+            "final": "Stan końcowy"
+        },
+        "DESCRIPTION": "Opis",
+        "CREATED": "Utworzono",
+        "ADD": "Dodaj",
+        "DELETE_QUESTION": "Czy na pewno chcesz usunąć tę operację?",
+        "DELETE_SUCCESS": "Usunięto operację.",
+        "CHANGE_QUESTION_0": "Czy na pewno chcesz ustawić tę operację jako gotówkową?",
+        "CHANGE_QUESTION_1": "Czy na pewno chcesz ustawić tę operację jako bezgotówkową?",
+        "CHANGE_SUCCESS": "Zmieniono operację."
+    },
+    "ERRORS": {
+
+    }
+}

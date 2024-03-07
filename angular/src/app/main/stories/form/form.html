@@ -1,0 +1,71 @@
+<div id="stories-form" class="page-layout simple fullwidth doc-page" layout="column">
+
+	<!-- HEADER -->
+	<div class="header md-accent-bg" layout="row" layout-align="space-between">
+		<div layout="column" layout-align="space-between" flex="100">
+			<div layout="row">
+				<div ng-if="!vm.edit" class="title" translate="STORIES_FORM.TITLE_ADD" flex="70"></div>
+				<div ng-if="vm.edit" class="title" translate="STORIES_FORM.TITLE_EDIT" flex="70"></div>
+				<div flex="30" layout="row" layout-align="end center">
+					<md-button href="/projects/{{current_project_id}}/stories" class="md-raised" aria-label="Go Back" translate="OTHER.GO_BACK" translate-attr-aria-label="OTHER.GO_BACK">
+						Go Back
+					</md-button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- / HEADER -->
+
+	<!-- CONTENT -->
+	<div class="content" layout="column">
+		<a name="up"></a>
+		<div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+		<div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+		<div layout="row">
+
+			<div class="form-wrapper  rounded-container min-1000">
+
+				<form id="formStory" name="formStory" novalidate ng-submit="vm.send()">
+
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex-gt-sm>
+							<label><span translate="OTHER.NAME"></span></label>
+							<input ng-model="vm.form.name" required ng-maxlength="255" name="name" >
+							<div ng-messages="formStory.name.$error">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+								<div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_255"></span></div>
+							</div>
+						</md-input-container>
+					</div>
+					<div flex layout="row">
+						<div class="color-title"><span translate="STORIES_FORM.COLOR"></span></div>
+					</div>
+					<div layout="row" layout-align="start center" layout-wrap>
+						<div class="color-container" ng-repeat="color in vm.colors" layout="row" layout-align="center center">
+							<div class="color-circle" ng-style="{ 'background-color': color }" ng-click="vm.selectColor(color)" ng-class="{ 'selected': vm.form.color == color }"></div>
+						</div>
+					</div>
+					<!-- <div flex layout="row" layout-align="start center">
+						<md-input-container flex="100" class="md-block md-icon-right" flex-gt-sm ng-class="{ 'md-input-invalid': vm.hexError }">
+							<label><span translate="STORIES_FORM.COLOR"></span></label>
+							<input ng-model="vm.form.color" name="color"
+								placeholder="{{ 'STORIES_FORM.COLOR_HEX' | translate }}" ng-change="vm.checkHex()" ng-model-options="{ debounce: 200 }">
+							<md-icon ng-if="!vm.hexError && vm.form.color" md-font-icon="icon-checkbox-blank-circle" class="s18" ng-style="{ 'color': vm.form.color }"></md-icon>
+							<div class="api-error" ng-if="vm.hexError"><span translate="ERRORS.COLOR_HEX"></span></div>
+						</md-input-container>
+					</div> -->
+
+					<div layout="row" layout-align="end none" class="submit-container">
+						<md-button type="submit" class="md-raised md-accent" aria-label="SEND"
+								   ng-disabled="formStory.$invalid || vm.request_sending"
+								   translate="OTHER.SAVE"
+								   translate-attr-aria-label="OTHER.SAVE">
+						</md-button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

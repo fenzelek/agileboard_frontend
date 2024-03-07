@@ -1,0 +1,126 @@
+(function ()
+{
+    'use strict';
+
+    /**
+     * Main module of the CEP
+     */
+    angular
+        .module('CEP', [
+
+            // Core
+            'app.core',
+
+            // Home
+            'app.home',
+
+            // Dashboard
+            'app.dashboard',
+
+            // Navigation
+            'app.navigation',
+
+            // Toolbar
+            'app.toolbar',
+
+            // Quick panel
+            'app.quick-panel',
+
+            // Sample
+            'app.sample',
+
+            //pages
+            'app.pages.error-500',
+            'app.pages.error-404',
+            'app.pages.error-403',
+            'app.page.unauthorized',
+            'app.page.switch-company',
+
+            //regulations
+            'app.page.regulations',
+            'app.page.cookie',
+            'app.page.privacy-policy',
+
+            // Apps
+            'app.calendar',
+            'app.scrumboard',
+
+            // Auth
+            'app.login',
+            'app.login-quick',
+            'app.forgot-password',
+            'app.reset-password',
+            'app.register',
+            'app.activation',
+            'app.invitation',
+            'app.user-edit',
+
+            //company
+            'app.my-list',
+            'app.company-new',
+            'app.company-edit',
+            'app.company-buy-wizard',
+            'app.company-payment-back',
+            'app.tokens-list',
+            'app.tokens-form',
+
+            //contractors
+            'app.contractors-list',
+            'app.contractors-form',
+
+            //products
+            'app.products-list',
+            'app.products-form',
+
+            //cash-operations
+            'app.cash-operations-list',
+            'app.cash-operations-form',
+
+            //receipts
+            'app.receipts-list',
+
+            //registry-sales
+            'app.registry-sales',
+
+            //online-sales
+            'app.online-sales-list',
+
+            //invoice
+            'app.invoices-list',
+            'app.invoices-form',
+            'app.invoices-form-edit',
+            'app.invoices-form-correction',
+
+            //projects
+            'app.projects-list',
+            'app.projects-form',
+            'app.projects-show',
+            'app.projects-wizard',
+
+            //agile
+            'app.agile-statuses',
+            'app.history',
+            'app.backlog',
+            'app.stories-list',
+            'app.stories-form',
+            'app.scrumboard-ticket',
+
+            //ticket
+            'app.ticket-show',
+
+            //files
+            'app.files',
+
+            //tasks-calendar
+            'app.tasks-calendar',
+
+             //knowledge
+            'app.knowledge',
+
+            //time tracking
+            'app.time-tracking',
+
+            //time tracker
+            'app.time-tracker'
+        ]);
+})();

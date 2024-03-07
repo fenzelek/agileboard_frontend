@@ -1,0 +1,54 @@
+{
+    "FILES": {
+        "FILES": "Files",
+        "NEW_FILE": "New file",
+        "EDIT_FILE": "Edit file",
+        "ADD_FILE": "Add File",
+        "FILE_LOADED": "Loaded file:",
+        "DETAILS": "Details",
+        "EDIT": "Edit",
+        "FILE": "File",
+        "NAME": "Name",
+        "TYPE": "Type",
+        "OWNER": "Owner",
+        "SIZE": "Size",
+        "OFFLINE": "Offline",
+        "DELETE": "Delete",
+        "DOWNLOAD": "Download",
+        "MORE": "More",
+        "EDITED": "Edited",
+        "CREATED": "Created",
+        "INFO": "Info",
+        "USERS": "Users with access",
+        "USERS_SEARCH": "Search user...",
+        "USERS_SEARCH_MORE": "Add next...",
+        "GROUPS": "Groups with access",
+        "PAGES": "Knowledge",
+        "STORIES": "Stories",
+        "STORIES_SEARCH": "Search stories...",
+        "STORIES_ADD_MORE": "Add more...",
+        "TICKETS": "Tickets",
+        "DESCRIPTION": "Description",
+        "ADDED_FILE": "Added file successfully",
+        "DELETE_QUESTION": "Are you sure you want to delete this file?",
+        "DELETE_SUCCESS": "Deleted  file successfully.",
+        "UPDATED_FILE": "Updated file successfully",
+        "CLICK_TO_ASSIGN": "Click to assign",
+        "CLICK_TO_ADD": "Click to add",
+        "ENTER_TEXT": "Enter the text",
+        "TYPES": "File types",
+        "ALL_TYPES": "All file types",
+        "FILTERS": "Filters",
+
+        "IMAGES": "Images",
+        "PDF": "PDF",
+        "DOCUMENTS": "Documents",
+        "SPREADSHEETS": "Spreadsheets",
+        "OTHER": "Other"
+    },
+    "ERRORS": {
+        "package": {
+            "limit_reached": "You have reached the limit of the amount of disk space used. Delete other files to be able to add more or contact your business owner to increase the limit."
+        }
+    }
+}

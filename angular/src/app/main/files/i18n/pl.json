@@ -1,0 +1,54 @@
+{
+    "FILES": {
+        "FILES": "Pliki",
+        "NEW_FILE": "Nowy plik",
+        "EDIT_FILE": "Edytuj plik",
+        "ADD_FILE": "Dodaj plik",
+        "FILE_LOADED": "Załadowany plik:",
+        "DETAILS": "Szczegóły",
+        "EDIT": "Edytuj",
+        "FILE": "Plik",
+        "NAME": "Nazwa",
+        "TYPE": "Typ",
+        "OWNER": "Właściciel",
+        "SIZE": "Rozmiar",
+        "OFFLINE": "Offline",
+        "DELETE": "Usuń",
+        "DOWNLOAD": "Pobierz",
+        "MORE": "Więcej",
+        "EDITED": "Edytowany",
+        "CREATED": "Utworzony",
+        "INFO": "Info",
+        "USERS": "Użytkownicy z dostępem",
+        "USERS_SEARCH": "Szukaj użytkownika...",
+        "USERS_SEARCH_MORE": "Dodaj następnego...",
+        "GROUPS": "Grupy z dostępem",
+        "PAGES": "Baza wiedzy",
+        "STORIES": "Oznaczenia",
+        "STORIES_SEARCH": "Szukaj oznaczenia...",
+        "STORIES_ADD_MORE": "Dodaj następne...",
+        "TICKETS": "Zadania",
+        "DESCRIPTION": "Opis",
+        "ADDED_FILE": "Dodano nowy plik",
+        "DELETE_QUESTION": "Czy na pewno chcesz usunąć ten plik?",
+        "DELETE_SUCCESS": "Usunięto plik.",
+        "UPDATED_FILE": "Zaktualizowano plik",
+        "CLICK_TO_ASSIGN": "Kliknij aby przypisać",
+        "CLICK_TO_ADD": "Kliknij aby dodać",
+        "ENTER_TEXT": "Wpisz tekst",
+        "TYPES": "Typy plików",
+        "ALL_TYPES": "Wszystkie typy plików",
+        "FILTERS": "Filtry",
+
+        "IMAGES": "Grafiki",
+        "PDF": "PDF",
+        "DOCUMENTS": "Dokumenty",
+        "SPREADSHEETS": "Arkusze kalkulacyjne",
+        "OTHER": "Inne"
+    },
+    "ERRORS": {
+        "package": {
+            "limit_reached": "Osiągnięto limit ilości zajętego miejsca na dysku. Usuń inne pliki aby móc dodać kolejne lub skontaktuj sie z właścicielem Twojej firmy, aby zwiększył limit."
+        }
+    }
+}

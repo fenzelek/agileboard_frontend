@@ -1,0 +1,8 @@
+{
+    "PAYMENT_BACK": {
+        "TITLE": "Payments",
+        "CONTENT": "Thank you for making the payment. The operation is being processed. In company management, in the 'payments' tab you will find information about the status of the order."
+    },
+    "ERRORS": {
+    }
+}

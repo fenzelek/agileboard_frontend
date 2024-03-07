@@ -1,0 +1,107 @@
+<div id="time-tracker-screens" class="page-layout simple fullwidth doc-page" layout="column">
+
+    <!-- HEADER -->
+    <div class="header md-accent-bg" layout="row" layout-align="space-between">
+        <div layout="column" layout-align="space-between">
+            <div class="title" translate="TIME_TRACKER.TITLE"></div>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content" layout="column">
+
+        <!-- filters -->
+        <div layout="row" layout-wrap>
+            <!-- date -->
+            <md-input-container class="md-block" flex-gt-xs="" flex="">
+                <label><span translate="OTHER.DATE"></span></label>
+                <input change="vm.onDateChange()" ng-model="vm.date" name="date" moment-picker="vm.date" format="YYYY-MM-DD"
+                    start-view="year" locale="{{ vm.lang }}" input-clear>
+            </md-input-container>
+
+            <!-- project -->
+            <md-input-container class="md-block" flex-gt-xs="" flex="">
+                <label><span translate="OTHER.PROJECT"></span></label>
+                <md-select ng-model="vm.query.project_id" ng-change="vm.onProjectChange()" md-on-close="vm.projectSearch = ''"
+                    name="project_id" data-md-container-class="searchable-select">
+                    <!-- search field -->
+                    <md-select-header class="select-header">
+                        <input ng-keydown="vm.stopPropagation($event)" class="select-search md-text" type="search" ng-model="vm.projectSearch"
+                            placeholder="{{ 'OTHER.SEARCH' | translate }}...">
+                    </md-select-header>
+                    <!-- list -->
+                    <md-optgroup>
+                        <!-- all -->
+                        <md-option ng-value="null" ng-show="!vm.projectSearch">
+                            <span style="font-style: italic" translate="OTHER.ALL"></span>
+                        </md-option>
+                        <!-- projects -->
+                        <md-option ng-value="project.id" ng-repeat="project in vm.projects" ng-show="vm.filterProjects(project.name)">
+                            {{ project.name }}
+                        </md-option>
+                    </md-optgroup>
+                </md-select>
+            </md-input-container>
+
+            <!-- user -->
+            <md-input-container ng-if="vm.users" class="md-block" flex-gt-sm="" flex="">
+                <label><span translate="OTHER.USER"></span></label>
+                <md-select ng-if="!translate_loading" ng-model="vm.query.user_id" ng-change="vm.onUserChange()" name="user_id">
+                    <md-option ng-value="null"><span class="italic" translate="OTHER.CHOOSE"></span></md-option>
+                    <md-option ng-value="user.id" ng-repeat="user in vm.users" >{{ user.first_name }} {{ user.last_name }}</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+
+        <!-- stats -->
+        <div ng-if="vm.activities" layout="row" class="mb-15">
+            <div class="bold">
+                <span translate="TIME_TRACKER.SUM_TIME"></span>: {{ vm.formatEstimate(vm.summary.sum_time, true) }}
+            </div>
+        </div>
+
+        <!-- loader -->
+        <div class="loader-wrap" ng-if="vm.loading">
+            <div class="loader">
+                <md-progress-circular class="md-accent"></md-progress-circular>
+            </div>
+        </div>
+
+        <!-- screens -->
+        <div ng-if="vm.activities.length" layout="row" layout-wrap class="row">
+            <div ng-repeat="activity in vm.activities" class="activity inline-block pl-10 pr-10 pb-30">
+                <!-- preview -->
+                <div class="preview">
+                    <img ng-if="activity.screens.length" ng-click="vm.previewImage(activity.screens)" ng-src="{{ ::activity.screens[0].thumb }}"
+                        class="screenshot-preview" title="{{ 'TIME_TRACKER.PREVIEW_HINT' | translate }}" />
+                    <div ng-if="!activity.screens.length" class="screenshot-preview no-screenshots grey-800-fg">{{ 'TIME_TRACKER.NO_SCREENS' | translate }}</div>
+                </div>
+
+                <!-- details -->
+                <div class="details p-8">
+                    <div class="spread">
+                        <!-- project -->
+                        <div class="mr-5">{{ ::activity.project.data.name }}</div>
+                        <!-- task -->
+                        <div ng-if="activity.ticket" title="{{ ::activity.ticket.name }}">{{ ::activity.ticket.title }}</div>
+                        <div ng-if="!activity.ticket" class="italic">{{ 'TIME_TRACKER.NO_TICKET' | translate }}</div>
+                    </div>
+
+                    <div class="spread">
+                        <!-- from - to -->
+                        <div class="mr-5">{{ ::activity.from }} - {{ ::activity.to }}</div>
+                        <!-- activity percent -->
+                        <div title="{{ 'TIME_TRACKER.ACTIVITY' | translate }}">{{ ::activity.activity_level }}%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- no actiities info -->
+        <div ng-if="vm.activities && !vm.activities.length">
+            {{ 'TIME_TRACKER.NO_ACTIVITIES' | translate }}
+        </div>
+
+    </div>
+
+</div>

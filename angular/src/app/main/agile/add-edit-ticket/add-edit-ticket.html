@@ -1,0 +1,235 @@
+<md-dialog id="add-edit-ticket-dialog" aria-label="METHOD" style="overflow: hidden;">
+    <form id="addEditTicket" name="addEditTicket" novalidate ng-submit="vm.send(true)">
+        <md-toolbar class="md-accent md-hue-2">
+            <div ng-if="!vm.edit" class="title" translate="ADD_EDIT_TICKET.TITLE_ADD" flex="70"></div>
+            <div ng-if="vm.edit" class="title" translate="ADD_EDIT_TICKET.TITLE_EDIT" flex="70"></div>
+        </md-toolbar>
+
+        <!-- CONTENT -->
+        <md-dialog-content ms-scroll>
+            <a name="up"></a>
+            <div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+            <div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+            <div layout="row">
+                <div flex="100" class="form-wrapper min-900 p-0">
+
+                    <div layout-gt-sm="row">
+                        <md-input-container class="md-block mb-0" flex-gt-sm="70" flex="100">
+                            <label><span translate="OTHER.NAME" class="ticket-name"></span></label>
+                            <input ng-model="vm.form.name" class="ticket-name" required focus-me ng-maxlength="255" name="name" >
+                            <div ng-messages="addEditTicket.name.$error">
+                                <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                                <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_255"></span></div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block input-spacing mb-0" flex-gt-sm="30" flex="100">
+                            <label><span translate="ADD_EDIT_TICKET.TYPE"></span></label>
+                            <md-select ng-model="vm.form.type_id" required name="type_id">
+                                <md-option ng-value="type.id" ng-repeat="type in vm.types" >{{ 'ADD_EDIT_TICKET.TYPES.' + type.name | translate }}</md-option>
+                            </md-select>
+                            <div ng-messages="addEditTicket.type_id.$error">
+                                <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                            </div>
+                        </md-input-container>
+                    </div>
+
+                    <div layout-gt-sm="row">
+                        <md-input-container class="md-block no-errors-spacer" flex-gt-sm="50" flex="100">
+                            <label><span translate="ADD_EDIT_TICKET.ESTIMATE"></span></label>
+                            <input ng-model="vm.estimate_time_text" name="estimate_time_text">
+                        </md-input-container>
+                        <md-input-container class="md-block input-spacing no-errors-spacer" flex-gt-sm="50" flex="100">
+                            <label><span translate="ADD_EDIT_TICKET.SPRINT"></span></label>
+                            <md-select ng-model="vm.form.sprint_id" name="sprint_id"
+                                ng-disabled="vm.form.sprint_id && vm.locked_sprint_ids.indexOf(vm.form.sprint_id) !== -1">
+                                <md-option ng-value="0">
+                                    <md-icon md-font-icon="icon-checkbox-blank-circle-outline grey-400-fg" aria-label="inactive" class="option-status s14"></md-icon>
+                                    {{ 'ADD_EDIT_TICKET.BACKLOG' | translate }}
+                                </md-option>
+                                <md-option ng-value="sprint.id" ng-repeat="sprint in vm.sprints" ng-if="sprint.id != vm.form.id">
+                                    <md-icon ng-if="sprint.status == 'active'" md-font-icon="icon-checkbox-blank-circle green-600-fg" aria-label="active" class="option-status s14"></md-icon>
+                                    <md-icon ng-if="sprint.status != 'active'" md-font-icon="icon-checkbox-blank-circle grey-400-fg" aria-label="inactive" class="option-status s14"></md-icon>
+                                    {{sprint.name}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+
+                    <div layout-gt-sm="row">
+                        <div class="md-block" flex-gt-sm="50" flex="100">
+                            <md-autocomplete class="no-errors-spacer"
+                                             md-input-name="assigned_id"
+                                             ng-model-options="{debounce:200}"
+                                             md-selected-item="vm.assigned"
+                                             md-search-text="search_text_assigned"
+                                             md-items="item in vm.searchUser(search_text_assigned)"
+                                             md-item-text="item.first_name + ' ' + item.last_name"
+                                             md-floating-label="{{'ADD_EDIT_TICKET.ASSIGNED' | translate}}"
+                                             md-clear-button="true">
+                                <md-item-template>
+                                    <span md-highlight-text="search_text_assigned">{{item.first_name + ' ' + item.last_name}}</span>
+                                </md-item-template>
+                                <md-not-found><span translate="OTHER.NOT_FOUND"></span></md-not-found>
+                            </md-autocomplete>
+                        </div>
+                        <div class="md-block input-spacing" flex-gt-sm="50" flex="100">
+                            <md-autocomplete class="no-errors-spacer"
+                                             autocomplete-required
+                                             md-input-name="reporter_id"
+                                             ng-model-options="{debounce:200}"
+                                             md-selected-item="vm.reporter"
+                                             md-search-text="search_text_reporter"
+                                             md-items="item in vm.searchUser(search_text_reporter)"
+                                             md-item-text="item.first_name + ' ' + item.last_name"
+                                             md-floating-label="{{'ADD_EDIT_TICKET.REPORTER' | translate}} *"
+                                             md-clear-button="true">
+                                <md-item-template>
+                                    <span md-highlight-text="search_text_reporter">{{item.first_name + ' ' + item.last_name}}</span>
+                                </md-item-template>
+                                <md-not-found><span translate="OTHER.NOT_FOUND"></span></md-not-found>
+                            </md-autocomplete>
+                        </div>
+                    </div>
+
+                    <div layout-gt-sm="row" class="mt-5">
+                        <div class="md-block" flex-gt-sm="50" flex="100">
+                            <md-input-container class="md-block">
+                                <label><span translate="OTHER.RELATED_WITH"></span></label>
+                                <md-contact-chips
+                                    ng-model="vm.parent_tickets"
+                                    md-contacts="vm.searchTickets($query)"
+                                    md-min-length="1"
+                                    md-contact-name="title"
+                                    placeholder="{{ 'OTHER.TICKET_SEARCH' | translate }}"
+                                    secondary-placeholder="{{ 'INFO.ADD_NEXT' | translate }}"
+                                    md-chip-append-delay="200"
+                                >
+                                </md-contact-chips>
+                            </md-input-container>
+                        </div>
+                        <div class="md-block input-spacing" flex-gt-sm="50" flex="100">
+                            <md-input-container class="md-block">
+                                <label><span translate="OTHER.SUBTASKS"></span></label>
+                                <md-contact-chips
+                                    ng-model="vm.sub_tickets"
+                                    md-contacts="vm.searchTickets($query)"
+                                    md-min-length="1"
+                                    md-contact-name="title"
+                                    placeholder="{{ 'OTHER.TICKET_SEARCH' | translate }}"
+                                    secondary-placeholder="{{ 'INFO.ADD_NEXT' | translate }}"
+                                    md-chip-append-delay="200"
+                                >
+                                </md-contact-chips>
+                            </md-input-container>
+                        </div>
+                    </div>
+
+                    <div layout-gt-sm="row" class="mt-5">
+                        <md-input-container class="md-block stories-input" flex="100">
+                            <label><span translate="ADD_EDIT_TICKET.STORIES"></span></label>
+                            <md-contact-chips
+                                ng-model="vm.stories"
+                                md-contacts="vm.searchStories($query)"
+                                md-min-length="vm.stories.length ? 1 : 0"
+                                md-contact-name="name"
+                                placeholder="{{ 'ADD_EDIT_TICKET.STORIES_SEARCH' | translate }}"
+                                secondary-placeholder="{{ 'ADD_EDIT_TICKET.ADD_MORE' | translate }}"
+                                md-chip-append-delay="100"
+                            >
+                            </md-contact-chips>
+                        </md-input-container>
+                    </div>
+
+                    <div layout-gt-sm="row">
+                        <md-input-container class="md-block no-errors-spacer" flex-gt-sm="50" flex="100">
+                            <label><span translate="ADD_EDIT_TICKET.SCHEDULED_DATE_START"></span></label>
+                            <input ng-model="vm.form.scheduled_time_start" autocomplete="off" input-clear
+                                name="scheduled_time_start"
+                                moment-picker="vm.form.scheduled_time_start"
+                                format="{{ vm.tickets_datepicker_format }}"
+                                start-view="month"
+                                locale="{{ vm.lang }}"
+                                max-date="vm.form.scheduled_time_end">
+                        </md-input-container>
+                        <md-input-container class="md-block input-spacing no-errors-spacer" flex-gt-sm="50" flex="100">
+                            <label><span translate="ADD_EDIT_TICKET.SCHEDULED_DATE_END"></span></label>
+                            <input ng-model="vm.form.scheduled_time_end" autocomplete="off" input-clear
+                                name="scheduled_time_end"
+                                moment-picker="vm.form.scheduled_time_end"
+                                format="{{ vm.tickets_datepicker_format }}"
+                                start-view="month"
+                                locale="{{ vm.lang }}"
+                                min-date="vm.form.scheduled_time_start">
+                        </md-input-container>
+                    </div>
+
+                    <!--<div class="attachment-list" layout-wrap layout="row" ng-if="vm.edit && vm.files.length">-->
+                        <!--<div class="attachment" layout="column"-->
+                             <!--ng-repeat="file in vm.files">-->
+                            <!--<div class="preview file-icon" layout="row" layout-align="center center">-->
+                                <!--<i ng-if="vm.getIcon(file.extension) != 'icon-file-image'" class="{{vm.getIcon(file.extension)}} s48"></i>-->
+                                <!--<div ng-if="vm.getIcon(file.extension) == 'icon-file-image'" style="background-image: url('{{vm.getUrlFile(file.id)}}')"></div>-->
+                            <!--</div>-->
+
+                            <!--<div layout="column">-->
+                                <!--<a ng-click="vm.download(file.id)" class="md-accent-color link" >{{file.name}}.{{file.extension}}</a>-->
+
+                                <!--<div class="size">({{vm.getSize(file.size)}})</div>-->
+                                <!--<md-button class="md-icon-button" ng-click="vm.deleteFile(file.id)">-->
+                                    <!--<md-icon md-font-icon="icon-close" aria-label="delete attachment" class="s16"></md-icon>-->
+                                <!--</md-button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                    <div class="attachment-list" ng-if="vm.files.length">
+                        <div class="attachment" layout="row" layout-align="space-between center" ng-repeat="file in vm.files">
+                            <div layout="row" layout-align="start center">
+                                <md-icon md-font-icon="icon-attachment" class="s18 grey-600-fg"></md-icon>
+                                <span class="filename">{{file.name}}.{{file.extension}}</span>
+                                <span class="size">({{vm.getSize(file.size)}})</span>
+                            </div>
+
+                            <md-button class="md-icon-button" ng-click="vm.deleteFile(file.id)">
+                                <md-icon md-font-icon="icon-close" aria-label="delete attachment" class="s20 grey-600-fg"></md-icon>
+                            </md-button>
+                        </div>
+                    </div>
+
+                    <md-progress-linear ng-if="vm.request_file_sending" md-mode="determinate" value="{{vm.progress}}" class="mt-10"></md-progress-linear>
+                    <div layout="row">
+                        <md-input-container class="md-block rounded-element" flex id="drop-files">
+                            <md-button id="file-upload-button" type="button" class="md-raised md-accent" ng-click="vm.addFile()" translate="ADD_EDIT_TICKET.ADD_FILE"
+                                       translate-attr-aria-label="ADD_EDIT_TICKET.ADD_FILE" ng-disabled="vm.request_file_sending" ></md-button>
+                            <input id="file-to-upload" type="file" file-model="vm.upload_files" style="display:none;" multiple>
+                            <div class="file-paste-info" translate="INFO.FILE_PASTE_INFO"></div>
+                        </md-input-container>
+                    </div>
+
+                    <div layout="column" class="mt-20">
+                        <textarea-editor
+                            name="content"
+                            ng-model="vm.form.description" 
+                            config="vm.descriptionConfig">
+                        </textarea-editor>
+                        <div class="md-char-counter" layout-gt-sm="row" layout-align="end none" ng-class="{'error': vm.form.description.length > vm.maxLength}">{{vm.form.description.length ? vm.form.description.length : 0}}/{{vm.maxLength}}</div>
+                    </div>
+
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row" layout-align="end center">
+            <md-button type="button" class="md-raised md-accent" aria-label="CANCEL"
+                       translate="OTHER.CANCEL" ng-click="vm.hide()"
+                       translate-attr-aria-label="OTHER.CANCEL">
+            </md-button>
+            <md-button type="submit" class="md-raised md-accent" aria-label="SEND"
+                       ng-disabled="addEditTicket.$invalid || (addEditTicket.$pristine && !vm.edit) || vm.request_sending || vm.request_file_sending || (vm.form.description.length > vm.maxLength)"
+                       translate="OTHER.SAVE" ng-click="vm.send()"
+                       translate-attr-aria-label="OTHER.SAVE">
+            </md-button>
+        </md-dialog-actions>
+
+    </form>
+</md-dialog>

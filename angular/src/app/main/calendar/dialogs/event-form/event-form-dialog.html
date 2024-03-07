@@ -1,0 +1,170 @@
+<md-dialog class="event-form-dialog" aria-label="Set Availability">
+    <form name="eventForm" class="md-inline-form" novalidate>
+        <md-toolbar class="md-accent md-hue-2">
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+                <div layout="column" layout-align="center start" layout-wrap>
+                    <div class="title" translate="CALENDAR.SET_AVAILABILITY">Set Availability</div>
+                    <div class="date">{{ vm.moment(vm.dialogData.day).format('D MMMM YYYY (dddd)') }}</div>
+                </div>
+                <md-button class="md-icon-button" ng-click="vm.closeDialog()" aria-label="Close dialog" translate
+                           translate-attr-aria-label="CALENDAR.CLOSE_DIALOG">
+                    <md-icon md-font-icon="icon-close"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <div class="errors-wrapper">
+             <div class="error text-center" ng-repeat="error in vm.errors track by $index">{{ error }}</div>
+        </div>
+
+        <md-dialog-content ms-scroll>
+
+            <!-- Online/Offline switch -->
+            <md-list class="availability">
+                <md-list-item>
+                    <md-switch class="md-checked ng-touched ng-valid" ng-model="vm.switch"
+                            role="checkbox" tabindex="0" aria-checked="true" aria-invalid="false"
+                               aria-label="Offline/Online" translate
+                               translate-attr-aria-label="CALENDAR.AVAILABILITY" ng-change="vm.switchAction()"></md-switch>
+                    <p translate="CALENDAR.AVAILABILITY">Offline/Online</p>
+                </md-list-item>
+            </md-list>
+            <!-- / Online/Offline switch -->
+
+            <!-- Online hours section -->
+            <section flex="100" layout="column"
+                class="date-row zmd-hierarchical-display"
+                ng-show="vm.switch">
+
+                <!-- title -->
+                <div class="md-block mb-10">
+                    <label translate="CALENDAR.AVAILABILITY_HOURS">Availability hours</label>
+                </div>
+                <!-- / title -->
+
+                <!-- working hours row -->
+                <div layout="row" layout-wrap layout-align="start center">
+
+                    <div layout="row" layout-align="start center" class="date-row"
+                         ng-repeat="event in vm.events track by $index">
+                         <!-- date row inputs -->
+                         <div flex layout="row" layout-wrap>
+                            <input type="hidden" ng-model="event.day">
+                            <md-input-container flex="100" flex-gt-xs="50" flex-gt-sm="20">
+                                <label><span translate="CALENDAR.START_TIME"></span></label>
+                                <input ng-model="event.time_start" required>
+                            </md-input-container>
+                            <md-input-container flex="100" flex-gt-xs="50" flex-gt-sm="20">
+                                <label><span translate="CALENDAR.END_TIME"></span></label>
+                                <input ng-model="event.time_stop" required>
+                            </md-input-container>
+                            <md-input-container flex="100" flex-gt-sm="40">
+                                <label> <span translate="CALENDAR.DESCRIPTION"></span></label>
+                                <input ng-model="event.description" ng-maxlength="100" name="description" >
+                            </md-input-container>
+                            <div class="overtime" flex="100" flex-gt-xs="50" flex-gt-sm="20">
+                                <md-checkbox name="overtime" ng-model="event.overtime">
+                                    {{ 'CALENDAR.OVERTIME' | translate }}
+                                </md-checkbox>
+                            </div>
+                            <input type="hidden" ng-model="event.available">
+                        </div>
+                        <!-- delete date row button -->
+                        <md-button  ng-if="vm.templateCounter.length + vm.events.length > 1"
+                                    class="md-fab md-mini md-warn mb-30"
+                                    ng-click="vm.removeEvent($index)">
+                            X
+                        </md-button>
+                    </div>
+
+                    <!-- / template -->
+                    <div layout="row" layout-align="start center" layout-wrap class="date-row"
+                         ng-repeat="n in vm.templateCounter track by $index">
+                         <!-- date row inputs -->
+                         <div flex layout="row" layout-wrap>
+                            <md-input-container flex="100" flex-gt-xs="50" flex-gt-sm="20">
+                                <label><span translate="CALENDAR.START_TIME"></span></label>
+                                <input ng-model="vm.newEvents[n].time_start" required ng-change="vm.setOnlineEvent(n)">
+                            </md-input-container>
+                            <md-input-container flex="100" flex-gt-xs="50" flex-gt-sm="20">
+                                <label><span translate="CALENDAR.END_TIME"></span></label>
+                                <input ng-model="vm.newEvents[n].time_stop" required ng-change="vm.setOnlineEvent(n)">
+                            </md-input-container>
+                            <md-input-container flex="100" flex-gt-sm="40">
+                                <label> <span translate="CALENDAR.DESCRIPTION"></span></label>
+                                <input ng-model="vm.newEvents[n].description" ng-maxlength="100" name="description" >
+                            </md-input-container>
+                            <div class="overtime" flex="100" flex-gt-xs="50" flex-gt-sm="20">
+                                <md-checkbox name="overtime" ng-model="vm.newEvents[n].overtime">
+                                    {{ 'CALENDAR.OVERTIME' | translate }}
+                                </md-checkbox>
+                            </div>
+                        </div>
+                        <md-button ng-if="vm.templateCounter.length + vm.events.length > 1"
+                                class="md-fab md-mini md-warn mb-30"
+                                ng-click="vm.removeNewEvent($index)">
+                            <md-icon md-font-icon="icon-close" class=""></md-icon>
+                        </md-button>
+
+                    </div>
+                </div>
+                <!-- / working hours row -->
+
+                <div flex layout="row" layout-align="end center">
+                    <!-- add another time period button -->
+                    <md-button aria-label="+ Add Another Time Period"
+                                translate="CALENDAR.ADD_TIME_PERIOD"
+                                translate-attr-aria-label="CALENDAR.ADD_TIME_PERIOD"
+                                class="md-raised"
+                                ng-if="vm.dialogData.type != 'edit'"
+                                ng-click="vm.incTemplate()">
+                        + Add Another Time Period
+                    </md-button>
+                    <!-- / add another time period button -->
+                </div>
+
+            </section>
+            <!-- / Online hours section -->
+
+            <!-- Offline hours section -->
+            <div layout-gt-sm="row" ng-if="! vm.switch">
+                <md-input-container class="md-block" flex-gt-sm="50" flex="100">
+                    <label><span translate="CALENDAR.OFFLINE_REASON"></span></label>
+                    <md-select ng-model="vm.def_desc" ng-change="vm.setOfflineEvent()" ng-if="!translate_loading" flex required>
+                        <md-option ng-value="null"><span translate="CALENDAR.REASON.other"></span></md-option>
+                        <md-option ng-repeat="opt in vm.reasons" value="{{opt}}"><span translate="CALENDAR.REASON.{{opt}}"></span></md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container ng-if="vm.def_desc === null" class="md-block" flex-gt-sm>
+                    <label> <span translate="CALENDAR.CUSTOM_REASON"></span></label>
+                    <input ng-model="vm.custom_desc" ng-maxlength="100"  name="def_desc" required>
+                </md-input-container>
+            </div>
+            <!-- / Offline hours section -->
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row" layout-align="space-between center">
+            <!-- this delete button should clear all fields in modal window -->
+            <md-button class="md-icon-button"
+                       aria-label="Delete"
+                       translate
+                       translate-attr-aria-label="CALENDAR.DELETE"
+                        ng-click="vm.deleteEvent()">
+                <md-icon md-font-icon="icon-delete"></md-icon>
+                <md-tooltip><span translate="CALENDAR.DELETE">Delete</span></md-tooltip>
+            </md-button>
+
+            <md-button ng-click="vm.saveEvent()" class="save-button md-accent md-raised" aria-label="SAVE"
+                translate="CALENDAR.SAVE"
+                ng-disabled="vm.isSaveDisabled(eventForm)"
+                translate-attr-aria-label="CALENDAR.SAVE"
+            >
+                SAVE
+            </md-button>
+
+        </md-dialog-actions>
+    </form>
+
+    <!--<pre>{{ vm.newEvents | json }}</pre>-->
+</md-dialog>
+

@@ -1,0 +1,36 @@
+
+// Rounded corners
+$container-radius: 1rem;
+$element-radius: 0.8rem;
+$actions-radius: 0.4rem;
+// Box borders rather than shadows
+$box-border-color: rgba(0,0,0,.12);
+$box-border: 1px solid rgba(0,0,0,.12);
+
+.rounded-container {
+    border-radius: $container-radius !important;
+    border: $box-border;
+}
+.rounded-element {
+    border-radius: $element-radius !important;
+    border: $box-border;
+}
+
+// Background
+$body-bg: #f5f5f5;
+.md-background {
+    background-color: $body-bg !important;
+}
+
+// Buttons && menu
+.md-button.md-raised {
+    border-radius: $actions-radius;
+}
+.md-open-menu-container, .md-select-menu-container md-select-menu {
+    border-radius: $actions-radius;
+}
+
+// Tabs with bottom border
+md-tabs-wrapper {
+    border-bottom: $box-border;
+}

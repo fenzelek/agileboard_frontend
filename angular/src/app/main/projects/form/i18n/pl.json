@@ -1,0 +1,75 @@
+{
+    "PROJECTS_FORM": {
+        "TITLE_ADD": "Nowy projekt",
+        "TITLE_EDIT": "Edytuj projekt",
+        "GENERAL_DATA": "Dane ogólne",
+        "SHORT_NAME": "Krótka nazwa",
+        "USERS_DATA": "Użytkownicy w projekcie",
+        "ADD_MORE": "Dodaj więcej...",
+        "CREATE_USER": "Zaproś nowych użytkowników",
+        "FIRST_TASK_NUMBER": "Numer pierwszego zadania",
+        "CALENDAR_REALIZATION_STATUS": "Status realizowanych zadań w kalendarzu",
+        "OPTION_DISABLED": "Opcja wyłączona",
+        "CLIENT_ACCESS_TIME": "Klient widzi zalogowany czas",
+        "TICKETS_WITH_TIME": "Określaj również czas w planowanych datach zadań",
+        "EMAIL_NOTIFICATION_ENABLED": "Włączone powiadomienia email",
+        "SLACK_NOTIFICATION_ENABLED": "Włączone powiadomienia Slack",
+        "SLACK_WEBHOOK_URL": "Slack webhook url",
+        "SLACK_CHANNEL": "Slack channel (np. kanal-ogolny)",
+        "SLACK_INFO_1": "Wygenerować webhook url możesz na stronie",
+        "SLACK_INFO_2": "https://{team}.slack.com/apps/A0F7XDUAZ-incoming-webhooks",
+        "SLACK_INFO_3": "wstawiając w miejsce {team} nazwę twojego zespołu na slacku.",
+        "NOTIFICATIONS_LANGUAGE": "Język powiadomień",
+        "POLISH": "Polski",
+        "ENGLISH": "Angielski",
+        "COLOR": "Oznaczenie",
+        "CLONE_DESC": "Możesz sklonować aktualnie istniejący projekt",
+        "PRIVILEGES": {
+            "ticket_show": "Widoczność zadań",
+            "ticket_show_DESC": "",
+            "ticket": "Operacje na zadaniach",
+            "ticket_DESC": "",
+            "ticket_comment": "Operacje na komentarzach zadań",
+            "ticket_comment_DESC": "",
+            "GROUPS": {
+                "owner": "Właściciel",
+                "admin": "Administrator",
+                "user": "Użytkownik",
+                "developer": "Użytkownik",
+                "client": "Klient",
+                "create": "Dodaj",
+                "update": "Zmień",
+                "destroy": "Usuń"
+            },
+            "ROLES": {
+                "owner": "Właściciel",
+                "admin": "Administrator",
+                "user": "Użytkownik",
+                "developer": "Użytkownik",
+                "client": "Klient"
+            },
+            "RELATIONS": {
+                "reporter": "Zgłaszający",
+                "assigned": "Przypisany",
+                "not_assigned": "Nieprzypisany",
+                "all": "Wszystkie",
+                "user": "Autor"
+            }
+        },
+
+        "UPDATE_SUCCESS": "Zaktualizowano projekt",
+        "ADD_SUCCESS": "Dodano projekt",
+        "TABS": {
+            "BASIC": "Podstawowe",
+            "NOTIFICATIONS": "Powiadomienia",
+            "PRIVILEGES": "Uprawnienia"
+        }
+    },
+    "ERRORS": {
+        "NOT_UNIQUE": "Taka nazwa już istnieje. Proszę podaj inną.",
+        "package": {
+            "limit_reached" : "Obecny pakiet na to nie pozwala. Zmień pakiet na wyższy.",
+            "too_many_users" : "Próbujesz dodać zbyt wielu użytkowników do projektu."
+        }
+    }
+}

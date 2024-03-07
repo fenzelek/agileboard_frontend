@@ -1,0 +1,21 @@
+{
+    "PRODUCTS_FORM": {
+        "TITLE_ADD": "New product/service",
+        "TITLE_EDIT": "Edit product/service",
+        "PKWIU": "PKWiU",
+        "TAX": "VAT",
+        "DESCRIPTION": "Description",
+        "PRICE_NET": "Price net (zł)",
+        "PRICE": "Price (zł)",
+        "PRINT": "Print description on invoice",
+        "UPDATE_SUCCESS": "Updated product/service successfully",
+        "ADD_SUCCESS": "Added product/service successfully",
+        "UNIT": "Unit",
+        "TYPE": "Type",
+        "TYPE_1": "Product",
+        "TYPE_2": "Service"
+    },
+    "ERRORS": {
+
+    }
+}

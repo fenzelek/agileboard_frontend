@@ -1,0 +1,18 @@
+{
+  "nip": "1234567890",
+  "name": "Test",
+  "bank_account": "646445444546",
+  "bank_name": "Kasa",
+  "main_address": {
+    "zip_code": "10-100",
+    "city": "CityName",
+    "street": "Address",
+    "number": "1/10"
+  },
+  "contact_address": {
+    "zip_code": "10-100",
+    "city": "CityName",
+    "street": "Address",
+    "number": "1/10"
+  }
+}

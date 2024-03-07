@@ -1,0 +1,385 @@
+<div class="form-title" translate="CONTRACTORS_FORM.GENERAL_DATA"></div>
+<md-radio-group ng-model="vm.form.company">
+    <div layout="row" >
+        <md-input-container class="md-block" flex="50" flex-gt-xs="25">
+            <md-radio-button ng-value="true" class="md-primary">
+                <span translate="CONTRACTORS_FORM.COMPANY"></span>
+            </md-radio-button>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-xs="25">
+            <md-radio-button ng-value="false" class="md-primary">
+                <span translate="CONTRACTORS_FORM.NATURAL_PERSON"></span>
+            </md-radio-button>
+        </md-input-container>
+        <div layout="row" flex-gt-xs="50">
+        </div>
+    </div>
+</md-radio-group>
+
+<div layout-gt-sm="row" ng-if="!vm.show_full">
+    <md-input-container class="md-block" flex-gt-sm="50" flex="100">
+        <label><span translate="CONTRACTORS_FORM.NIP"></span></label>
+        <input ng-model="vm.form.vatin" ng-pattern="/^((\d{3}-\d{3}-\d{2}-\d{2})|(\d{3}-\d{2}-\d{2}-\d{3})|([0-9]{10}))$/" name="vatin" ng-required="vm.form.company" >
+        <div ng-messages="formContractor.vatin.$error">
+            <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+            <div ng-message="pattern" ><span translate="ERRORS.FORM.NIP"></span></div>
+        </div>
+    </md-input-container>
+    <md-input-container class="md-block" layout-align="end center" flex-gt-sm>
+        <md-button type="button" class="md-raised md-accent" aria-label="CONTRACTORS_FORM.GET_GUS"
+                   ng-click="vm.getGus()" ng-disabled="formContractor.$invalid || (formContractor.$pristine && !vm.copy_nip) || vm.request_sending"
+                   translate="CONTRACTORS_FORM.GET_GUS"
+                   translate-attr-aria-label="CONTRACTORS_FORM.GET_GUS">
+        </md-button>
+        <md-button type="button" class="md-raised md-accent" aria-label="CONTRACTORS_FORM.SKIP"
+                   ng-click="vm.skip()"
+                   translate="CONTRACTORS_FORM.SKIP"
+                   translate-attr-aria-label="CONTRACTORS_FORM.SKIP">
+        </md-button>
+    </md-input-container>
+</div>
+<div flex="100" layout-gt-sm="row" ng-if="!vm.show_full && vm.request_sending">
+    <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+</div>
+
+<div ng-if="vm.show_full">
+
+    <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex>
+            <label>
+                <span ng-if="vm.form.company" translate="CONTRACTORS_FORM.COMPANY_NAME"></span>
+                <span ng-if="!vm.form.company" translate="CONTRACTORS_FORM.COMPANY_NAME_2"></span>
+            </label>
+            <input ng-model="vm.form.name" required ng-maxlength="255"  name="name" >
+            <div ng-messages="formContractor.name.$error">
+                <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_255"></span></div>
+            </div>
+        </md-input-container>
+    </div>
+    <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm="50" flex="100">
+            <label><span translate="CONTRACTORS_FORM.NIP_PREFIX"></span></label>
+            <md-select ng-model="vm.form.country_vatin_prefix_id" name="country_vatin_prefix_id" ng-if="!translate_loading" ng-change="vm.checkErrors('vatin')">
+                <md-option ng-value="null" ><span translate="CONTRACTORS_FORM.NIP_EMPTY"></span></md-option>
+                <md-option ng-value="country.id" ng-repeat="country in vm.countries" >{{country.key}} ({{country.name}})</md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm="50" flex="100" ng-if="!vm.form.country_vatin_prefix_id || vm.pl_id == vm.form.country_vatin_prefix_id">
+            <label><span translate="CONTRACTORS_FORM.NIP"></span></label>
+            <input ng-model="vm.form.vatin" ng-pattern="/^((\d{3}-\d{3}-\d{2}-\d{2})|(\d{3}-\d{2}-\d{2}-\d{3})|([0-9]{10}))$/" name="vatin" ng-required="vm.form.company" id="nip-contractor" >
+            <div ng-messages="formContractor.vatin.$error">
+                <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                <div ng-message="pattern" ><span translate="ERRORS.FORM.NIP"></span></div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm="50" flex="100" ng-if="vm.form.country_vatin_prefix_id && vm.pl_id != vm.form.country_vatin_prefix_id">
+            <label><span translate="CONTRACTORS_FORM.NIP"></span></label>
+            <input ng-model="vm.form.vatin" name="vatin" ng-required="vm.form.company"  >
+            <div ng-messages="formContractor.vatin.$error">
+                <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+            </div>
+        </md-input-container>
+    </div>
+
+    <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm="50" flex="100">
+            <label><span translate="CONTRACTORS_FORM.EMAIL"></span></label>
+            <input ng-model="vm.form.email" ng-maxlength="255" name="email" type="email">
+            <div ng-messages="formContractor.email.$error">
+                <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                <div ng-message="email" ><span translate="ERRORS.FORM.EMAIL"></span></div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+            <label><span translate="CONTRACTORS_FORM.PHONE"></span></label>
+            <input ng-model="vm.form.phone" minlength="9" ng-maxlength="15" name="phone" >
+            <div ng-messages="formContractor.phone.$error">
+                <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                <div ng-message="minlength" ><span translate="ERRORS.FORM.PHONE"></span></div>
+                <div ng-message="maxlength" ><span translate="ERRORS.FORM.PHONE"></span></div>
+            </div>
+        </md-input-container>
+    </div>
+
+
+    <div class="form-title" translate="CONTRACTORS_FORM.MAIN_ADDRESS"></div>
+
+    <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+            <label><span translate="CONTRACTORS_FORM.COUNTRY"></span></label>
+            <md-select ng-model="vm.form.main_address_country" name="main_address_country" ng-if="!translate_loading" ng-change="vm.checkErrors('main_address_zip_code')">
+                <md-option ng-value="country.name | uppercase" ng-repeat="country in vm.countries" >{{country.name}}</md-option>
+            </md-select>
+            <div ng-messages="formContractor.main_address_country.$error">
+                <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+        </md-input-container>
+    </div>
+    <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+            <label><span translate="CONTRACTORS_FORM.STREET"></span></label>
+            <input ng-model="vm.form.main_address_street" ng-minlength="4" name="main_address_street" required ng-maxlength="255">
+            <div ng-messages="formContractor.main_address_street.$error">
+                <div ng-message="minlength" ><span translate="ERRORS.FORM.MIN_4"></span></div>
+                <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_255"></span></div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+            <label><span translate="CONTRACTORS_FORM.NUMBER"></span></label>
+            <input ng-model="vm.form.main_address_number" name="main_address_number" required ng-maxlength="31">
+            <div ng-messages="formContractor.main_address_number.$error">
+                <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_31"></span></div>
+            </div>
+        </md-input-container>
+    </div>
+
+    <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm ng-if="vm.form.main_address_country == 'POLSKA'">
+            <label><span translate="CONTRACTORS_FORM.ZIP_CODE"></span></label>
+            <input ng-model="vm.form.main_address_zip_code" name="main_address_zip_code" required ng-pattern="/^[0-9]{2}-[0-9]{3}$/" maxlength="6" zip-code>
+            <div ng-messages="formContractor.main_address_zip_code.$error" role="alert">
+                <div ng-message="required" class="my-message"><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                <div ng-message="pattern" class="my-message"><span translate="ERRORS.FORM.POST_CODE"></span></div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm ng-if="vm.form.main_address_country != 'POLSKA'">
+            <label><span translate="CONTRACTORS_FORM.ZIP_CODE"></span></label>
+            <input ng-model="vm.form.main_address_zip_code" name="main_address_zip_code" required maxlength="255">
+            <div ng-messages="formContractor.main_address_zip_code.$error" role="alert">
+                <div ng-message="required" class="my-message"><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_255"></span></div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+            <label><span translate="CONTRACTORS_FORM.CITY"></span></label>
+            <input ng-model="vm.form.main_address_city" name="main_address_city" required ng-minlength="2" ng-maxlength="63">
+            <div ng-messages="formContractor.main_address_city.$error">
+                <div ng-message="minlength" ><span translate="ERRORS.FORM.MIN_2"></span></div>
+                <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_63"></span></div>
+            </div>
+        </md-input-container>
+    </div>
+
+    <div layout-gt-sm="row" ng-if="!vm.edit">
+        <md-input-container class="md-block" flex-gt-sm flex="50">
+            <md-checkbox ng-model="vm.other_contact_address" name="other_contact_address" >
+                <span translate="CONTRACTORS_FORM.OTHER_CONTACT_ADDRESS"></span>
+            </md-checkbox>
+        </md-input-container>
+    </div>
+
+    <div class="form-title" translate="CONTRACTORS_FORM.CONTACT_ADDRESS" ng-if="vm.other_contact_address"></div>
+
+    <div layout-gt-sm="row" ng-if="vm.other_contact_address">
+        <md-input-container class="md-block" flex-gt-sm>
+            <label><span translate="CONTRACTORS_FORM.COUNTRY"></span></label>
+            <md-select ng-model="vm.form.contact_address_country" name="contact_address_country" ng-if="!translate_loading" ng-change="vm.checkErrors('contact_address_zip_code')">
+                <md-option ng-value="country.name | uppercase" ng-repeat="country in vm.countries" >{{country.name}}</md-option>
+            </md-select>
+            <div ng-messages="formContractor.contact_address_country.$error">
+                <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+        </md-input-container>
+    </div>
+
+    <div layout-gt-sm="row"  ng-if="vm.other_contact_address">
+        <md-input-container class="md-block" flex-gt-sm>
+            <label><span translate="CONTRACTORS_FORM.STREET"></span></label>
+            <input ng-model="vm.form.contact_address_street" ng-minlength="4" name="contact_address_street" required ng-maxlength="255">
+            <div ng-messages="formContractor.contact_address_street.$error">
+                <div ng-message="minlength" ><span translate="ERRORS.FORM.MIN_4"></span></div>
+                <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_255"></span></div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+            <label><span translate="CONTRACTORS_FORM.NUMBER"></span></label>
+            <input ng-model="vm.form.contact_address_number" name="contact_address_number" required ng-maxlength="31">
+            <div ng-messages="formContractor.contact_address_number.$error">
+                <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_31"></span></div>
+            </div>
+        </md-input-container>
+    </div>
+
+    <div layout-gt-sm="row" ng-if="vm.other_contact_address">
+        <md-input-container class="md-block" flex-gt-sm ng-if="vm.form.contact_address_country == 'POLSKA'">
+            <label><span translate="CONTRACTORS_FORM.ZIP_CODE"></span></label>
+            <input ng-model="vm.form.contact_address_zip_code" name="contact_address_zip_code" required ng-pattern="/^[0-9]{2}-[0-9]{3}$/" maxlength="6" zip-code>
+            <div ng-messages="formContractor.contact_address_zip_code.$error" role="alert">
+                <div ng-message="required" class="my-message"><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                <div ng-message="pattern" class="my-message"><span translate="ERRORS.FORM.POST_CODE"></span></div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm ng-if="vm.form.contact_address_country != 'POLSKA'">
+            <label><span translate="CONTRACTORS_FORM.ZIP_CODE"></span></label>
+            <input ng-model="vm.form.contact_address_zip_code" name="contact_address_zip_code" required maxlength="255">
+            <div ng-messages="formContractor.contact_address_zip_code.$error" role="alert">
+                <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_255"></span></div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+            <label><span translate="CONTRACTORS_FORM.CITY"></span></label>
+            <input ng-model="vm.form.contact_address_city" name="contact_address_city" required ng-minlength="2" ng-maxlength="63">
+            <div ng-messages="formContractor.contact_address_city.$error">
+                <div ng-message="minlength" ><span translate="ERRORS.FORM.MIN_2"></span></div>
+                <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_63"></span></div>
+            </div>
+        </md-input-container>
+    </div>
+    <div layout-gt-sm="row" layout-align="end none" ng-if="vm.other_contact_address">
+        <md-button type="button" class="md-raised md-accent" ng-click="vm.copyToContact()" translate="CONTRACTORS_FORM.ADDRESS_COPY" >
+            COPY
+        </md-button>
+    </div>
+
+    <div layout-gt-sm="row" ng-if="!vm.edit && vm.addresses_delivery_enabled">
+        <md-input-container class="md-block" flex-gt-sm flex="50">
+            <md-checkbox ng-model="vm.other_delivery_address" name="other_delivery_address" >
+                <span translate="CONTRACTORS_FORM.OTHER_DELIVERY_ADDRESS"></span>
+            </md-checkbox>
+        </md-input-container>
+    </div>
+
+    <div ng-if="vm.addresses_delivery_enabled && vm.other_delivery_address" class="form-title mb-10" translate="CONTRACTORS_FORM.DELIVERY_ADDRESS"></div>
+
+    <div ng-if="vm.addresses_delivery_enabled && vm.other_delivery_address" ng-repeat="(key, value) in vm.form.addresses">
+        <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+                <label><span translate="CONTRACTORS_FORM.COUNTRY"></span></label>
+                <md-select ng-model="vm.form.addresses[$index].country" name="addresses_{{$index}}_country" ng-if="!translate_loading" ng-change="vm.checkErrors('addresses_'+$index+'_zip_code')">
+                    <md-option ng-value="country.name | uppercase" ng-repeat="country in vm.countries" >{{country.name}}</md-option>
+                </md-select>
+                <div ng-messages="formContractor['addresses_'+$index+'_country'].$error">
+                    <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+            </md-input-container>
+        </div>
+
+        <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+                <label><span translate="CONTRACTORS_FORM.STREET"></span></label>
+                <input ng-model="vm.form.addresses[$index].street" ng-minlength="4" name="addresses_{{$index}}_street" required ng-maxlength="255">
+                <div ng-messages="formContractor['addresses_'+$index+'_street'].$error">
+                    <div ng-message="minlength" ><span translate="ERRORS.FORM.MIN_4"></span></div>
+                    <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                    <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_255"></span></div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label><span translate="CONTRACTORS_FORM.NUMBER"></span></label>
+                <input ng-model="vm.form.addresses[$index].number" name="addresses_{{$index}}_number" required ng-maxlength="31">
+                <div ng-messages="formContractor['addresses_'+$index+'_number'].$error">
+                    <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                    <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_31"></span></div>
+                </div>
+            </md-input-container>
+        </div>
+
+        <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm ng-if="vm.form.addresses[$index].country == 'POLSKA'">
+                <label><span translate="CONTRACTORS_FORM.ZIP_CODE"></span></label>
+                <input ng-model="vm.form.addresses[$index].zip_code" name="addresses_{{$index}}_zip_code" required ng-pattern="/^[0-9]{2}-[0-9]{3}$/" maxlength="6" zip-code>
+                <div ng-messages="formContractor['addresses_'+$index+'_zip_code'].$error" role="alert" multiple>
+                    <div ng-message="required" class="my-message"><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                    <div ng-message="pattern" class="my-message"><span translate="ERRORS.FORM.POST_CODE"></span></div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm ng-if="vm.form.addresses[$index].country != 'POLSKA'">
+                <label><span translate="CONTRACTORS_FORM.ZIP_CODE"></span></label>
+                <input ng-model="vm.form.addresses[$index].zip_code" name="addresses_{{$index}}_zip_code" required maxlength="255">
+                <div ng-messages="formContractor['addresses_'+$index+'_zip_code'].$error" role="alert">
+                    <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                    <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_255"></span></div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label><span translate="CONTRACTORS_FORM.CITY"></span></label>
+                <input ng-model="vm.form.addresses[$index].city" name="addresses_{{$index}}_city" required ng-minlength="2" ng-maxlength="63">
+                <div ng-messages="formContractor['addresses_'+$index+'_city'].$error">
+                    <div ng-message="minlength" ><span translate="ERRORS.FORM.MIN_2"></span></div>
+                    <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                    <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_63"></span></div>
+                </div>
+            </md-input-container>
+        </div>
+        <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm flex="50">
+                <md-checkbox ng-model="vm.form.addresses[$index].default" name="addresses_{{$index}}_default" ng-change="vm.changeDefaultDeliver($index)">
+                    <span translate="CONTRACTORS_FORM.DELIVERY_ADDRESS_DEFAULT"></span>
+                </md-checkbox>
+            </md-input-container>
+        </div>
+        <div layout-gt-sm="row" layout-align="end none" ng-if="key == 0">
+            <md-button type="button" class="md-raised md-accent" ng-click="vm.copyContactToDeliver()" translate="CONTRACTORS_FORM.CONTACT_COPY" >
+                COPY
+            </md-button>
+            <md-button type="button" class="md-raised md-accent" ng-click="vm.copyMainToDeliver()" translate="CONTRACTORS_FORM.ADDRESS_COPY" >
+                COPY
+            </md-button>
+        </div>
+    </div>
+    <div  ng-if="vm.addresses_delivery_enabled && vm.other_delivery_address" layout-gt-sm="row" layout-align="end none">
+        <md-button type="button" class="md-raised md-accent" ng-click="vm.delDeliveryAddress()"  aria-label=""
+                   translate="INFO.DELETE_LAST" ng-disabled="vm.form.addresses.length == 1">
+            DELETE
+        </md-button>
+
+        <md-button type="button" class="md-raised md-accent" ng-click="vm.addDeliveryAddress()"  aria-label=""
+                   translate="INFO.ADD_NEXT" ng-disabled="vm.form.addresses.length == 4">
+            ADD
+        </md-button>
+    </div>
+
+    <div class="form-title" translate="CONTRACTORS_FORM.DEFAULT_SETTINGS"></div>
+
+    <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm >
+            <label><span translate="CONTRACTORS_FORM.TERM"></span></label>
+            <md-select ng-model="vm.term" name="term" ng-if="!translate_loading">
+                <md-option ng-value="null"> <span translate="CONTRACTORS_FORM.DEFAULT"></span></md-option>
+                <md-option value="7">7 <span translate="CONTRACTORS_FORM.DAYS"></span></md-option>
+                <md-option value="14">14 <span translate="CONTRACTORS_FORM.DAYS"></span></md-option>
+                <md-option value="30">30 <span translate="CONTRACTORS_FORM.DAYS"></span></md-option>
+                <md-option value="90">90 <span translate="CONTRACTORS_FORM.DAYS"></span></md-option>
+                <md-option value="d"> <span translate="CONTRACTORS_FORM.DAYS"></span></md-option>
+            </md-select>
+            <div ng-messages="formContractor.term.$error" role="alert">
+                <div ng-message="required" class="my-message"><span translate="ERRORS.FORM.REQUIRE"></span></div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+            <label><span translate="CONTRACTORS_FORM.DAYS"></span></label>
+            <input pattern="\d+" ng-model="vm.days" name="days" ng-required="vm.term=='d'" ng-disabled="vm.term!='d'" >
+            <div ng-messages="formContractor.days.$error">
+                <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                <div ng-message="pattern" ><span translate="ERRORS.FORM.NUMBER"></span></div>
+            </div>
+        </md-input-container>
+    </div>
+
+    <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm >
+            <label><span translate="CONTRACTORS_FORM.METHOD"></span></label>
+            <md-select ng-model="vm.form.default_payment_method_id" name="default_payment_method_id" ng-if="!translate_loading">
+                <md-option ng-value="null"><span translate="CONTRACTORS_FORM.DEFAULT"></span></md-option>
+                <md-option ng-value="method.id" ng-repeat="method in vm.methods">{{method.name}}</md-option>
+            </md-select>
+            <div ng-messages="formContractor.default_payment_method_id.$error" role="alert">
+                <div ng-message="required" class="my-message"><span translate="ERRORS.FORM.REQUIRE"></span></div>
+            </div>
+        </md-input-container>
+    </div>
+</div>

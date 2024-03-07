@@ -1,0 +1,110 @@
+<div id="company-new" class="page-layout simple fullwidth doc-page" layout="column">
+
+	<!-- HEADER -->
+	<div class="header md-accent-bg" layout="row" layout-align="space-between">
+		<div layout="column" layout-align="space-between">
+			<div class="title" translate="COMPANY_NEW.TITLE"></div>
+		</div>
+	</div>
+	<!-- / HEADER -->
+
+	<!-- CONTENT -->
+	<div class="content" layout="column">
+
+		<div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+		<div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+		<div layout="row">
+
+			<!-- BASIC FORM -->
+			<div class="form-wrapper  rounded-container max-1000" flex>
+
+				<form name="newCompany" novalidate ng-submit="vm.create(false)">
+
+					<div layout-gt-sm="row" ng-if="!vm.show_full">
+						<md-input-container class="md-block" flex="100">
+							<label><span translate="COMPANY_NEW.NIP"></span></label>
+							<input ng-model="vm.form_full.vatin" ng-pattern="/^((\d{3}-\d{3}-\d{2}-\d{2})|(\d{3}-\d{2}-\d{2}-\d{3})|([0-9]{10}))$/" name="vatin" required  >
+							<div ng-messages="newCompany.vatin.$error">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+								<div ng-message="pattern" ><span translate="ERRORS.FORM.NIP"></span></div>
+							</div>
+						</md-input-container>
+					</div>
+					<div flex="100" layout-gt-sm="row" ng-if="!vm.show_full && vm.request_sending">
+						<md-progress-linear md-mode="indeterminate"></md-progress-linear>
+					</div>
+
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" md-no-float ng-if="vm.show_full" flex="100">
+							<label><span translate="COMPANY_NEW.NAME"></span></label>
+							<input ng-model="vm.form.name" required ng-maxlength="255" name="name" type="text">
+							<div ng-messages="newCompany.name.$error">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+								<div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_255"></span></div>
+							</div>
+						</md-input-container>
+					</div>
+
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" md-no-float flex="100">
+							<md-radio-group ng-model="vm.form.vat_payer">
+								<md-radio-button ng-value="true">
+									<span translate="COMPANY_NEW.VAT_PAYER_YES"></span>
+								</md-radio-button>
+								<md-radio-button ng-value="false">
+									<span translate="COMPANY_NEW.VAT_PAYER_NO"></span>
+								</md-radio-button>
+							</md-radio-group>
+						</md-input-container>
+					</div>
+
+					<div layout-gt-sm="row" ng-if="!vm.form.vat_payer">
+						<md-input-container class="md-block" md-no-float flex-gt-sm="50" flex="100">
+							<label><span translate="COMPANY_NEW.VAT_REASON"></span></label>
+							<md-select ng-model="vm.form.vat_release_reason_id" name="vat_release_reason_id" required ng-if="!translate_loading">
+								<md-option ng-value="reason.id" ng-repeat="reason in vm.vat_release_reasons" >{{reason.description}}</md-option>
+							</md-select>
+							<div ng-messages="newCompany.vat_release_reason_id.$error">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block" md-no-float flex-gt-sm="50" flex="100" ng-if="vm.vat_release_reasons[vm.form.vat_release_reason_id].slug == 'legal_basis'">
+							<label><span translate="COMPANY_NEW.VAT_REASON_OTHER"></span></label>
+							<textarea ng-model="vm.form.vat_release_reason_note" ng-maxlength="1000" name="vat_release_reason_note" required></textarea>
+							<div ng-messages="newCompany.vat_release_reason_note.$error">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+								<div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_1000"></span></div>
+							</div>
+						</md-input-container>
+					</div>
+
+					<div ng-if="!vm.show_full" layout="row" layout-align="end center">
+						<md-button type="button" class="md-raised md-accent" aria-label="COMPANY_NEW.GET_GUS"
+								   ng-click="vm.getGus()" ng-disabled="newCompany.$invalid || newCompany.$pristine || vm.request_sending"
+								   translate="COMPANY_NEW.GET_GUS"
+								   translate-attr-aria-label="COMPANY_NEW.GET_GUS">
+						</md-button>
+						<md-button type="button" class="md-raised md-accent" aria-label="COMPANY_NEW.SKIP"
+								   ng-click="vm.skip()"
+								   translate="COMPANY_NEW.SKIP"
+								   translate-attr-aria-label="COMPANY_NEW.SKIP">
+						</md-button>
+					</div>
+
+					<div ng-if="vm.show_full" layout="row" layout-align="end center">
+						<md-button type="submit" class="md-raised md-accent" aria-label="CREATE" ng-if="vm.show_full"
+								   ng-disabled="newCompany.$invalid || newCompany.$pristine || vm.request_sending"
+								   translate="OTHER.CREATE"
+								   translate-attr-aria-label="OTHER.CREATE">
+						</md-button>
+					</div>
+				</form>
+
+			</div>
+			<!-- / BASIC FORM -->
+
+		</div>
+
+	</div>
+</div>

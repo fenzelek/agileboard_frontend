@@ -1,0 +1,16 @@
+{
+    "TASKS-CALENDAR": {
+        "CREATE_TICKET": "Add ticket",
+        "TICKET": "Ticket",
+        "TITLE": "Calendar",
+        "SEARCH": "Search",
+        "TODAY": "Today",
+        "DAY": "Day view",
+        "WEEK": "Week view",
+        "MONTH": "Month view",
+        "CLOSE_CALENDAR": "Close calendar",
+        "RESET_FILTERS": "Reset filters",
+        "CURRENT_MONTH": "Current month",
+        "CURRENT_WEEK": "Current week"
+    }
+}

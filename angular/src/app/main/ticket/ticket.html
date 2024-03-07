@@ -1,0 +1,559 @@
+<div id="ticket-show" class="page-layout simple fullwidth doc-page" layout="column">
+
+	<!-- HEADER -->
+	<div class="header md-accent-bg" layout="row" layout-align="space-between">
+		<div layout="column" flex layout-align="space-between">
+			<div class="font-size-24" flex layout="row" layout-align="space-between center">
+				<div>{{vm.ticket.title}}</div>
+				<md-button type="button" class="md-raised add-ticket-btn" ng-click="vm.deleteTicket()" translate="TICKET_SHOW.DELETE_TICKET" ></md-button>
+			</div>
+			<div class="title">
+				<inline-text flex layout="row" layout-align="start center"
+						name="name"
+						ng-model="vm.ticket.name"
+						on-save="vm.update"
+						approve-color="#fff"
+						cancel-color="rgba(255,255,255,0.6)"
+						simple="true"
+				>
+					<div layout="row" layout-align="start center">
+						<div class="text-edit" ng-if="vm.ticket.name">
+							{{ vm.ticket.name }}
+						</div>
+						<div class="set-edit-text" ng-if="!vm.ticket.name" translate="TICKET_SHOW.CLICK_TO_ADD"></div>
+					</div>
+				</inline-text>
+				<!-- <div class="editable-title" editable-text="vm.ticket.name" onaftersave="vm.update()" e-formclass="editable-title">
+					{{vm.ticket.name}}
+				</div> -->
+			</div>
+		</div>
+	</div>
+	<!-- / HEADER -->
+
+	<!-- CONTENT -->
+	<div class="content" layout="column">
+
+		<div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+		<div id="error" class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+		<div layout="row">
+			<div class="ticket-container form-wrapper  rounded-container min-1000">
+				<div layout-gt-sm="row" class="font-size-18">
+					<div flex-gt-sm="50" flex="100">
+						<div layout="row" class="ticket-row">
+							<div layout="column" flex="40" layout-align="center start" translate="TICKET_SHOW.TYPE"></div>
+							<div layout="column" flex class="bold">
+								<inline-select flex layout="row" layout-align="start center"
+										name="type"
+										ng-model="vm.ticket.type.data"
+										items="vm.types"
+										items-translation="TICKET_SHOW.TYPES."
+										on-save="vm.update"
+										label="{{ 'OTHER.SELECT_FROM_LIST' | translate }}"
+								>
+									<div layout="row" layout-align="start center">
+										<div class="text-edit" flex layout="row" layout-align="start center" ng-if="vm.ticket.type.data">
+											{{ 'TICKET_SHOW.TYPES.' + vm.ticket.type.data.name | translate }}
+										</div>
+										<div class="set-edit-text" ng-if="!vm.ticket.type.data" translate="TICKET_SHOW.CLICK_TO_ASSIGN"></div>
+									</div>
+								</inline-select>
+							</div>
+						</div>
+						<div layout="row" class="ticket-row">
+							<div layout="column" flex="40" layout-align="center start" translate="TICKET_SHOW.SPRINT"></div>
+							<div layout="column" flex class="bold">
+                                <inline-select ng-if="!vm.ticket.sprint.data || (vm.ticket.sprint.data && !vm.ticket.sprint.data.locked)"
+                                        flex layout="row" layout-align="start center"
+										name="sprint"
+										ng-model="vm.ticket.sprint.data"
+										items="vm.sprints"
+										on-save="vm.update"
+										label="{{ 'OTHER.SELECT_FROM_LIST' | translate }}"
+								>
+									<div layout="row" layout-align="start center">
+										<div class="text-edit" flex layout="row" layout-align="start center" ng-if="vm.ticket.sprint.data">
+											{{vm.ticket.sprint.data.name}}
+										</div>
+										<div class="set-edit-text" ng-if="!vm.ticket.sprint.data" translate="TICKET_SHOW.BACKLOG"></div>
+									</div>
+                                </inline-select>
+                                <div ng-if="vm.ticket.sprint.data && vm.ticket.sprint.data.locked" flex layout="row" layout-align="start center">
+                                    {{ vm.ticket.sprint.data.name }}
+                                </div>
+							</div>
+						</div>
+						<div layout="row" class="ticket-row">
+							<div layout="column" flex="40" layout-align="center start" translate="TICKET_SHOW.STATUS"></div>
+							<div layout="column" flex class="bold">
+								<inline-select flex layout="row" layout-align="start center"
+										name="status"
+										ng-model="vm.ticket.status.data"
+										items="vm.statuses"
+										on-save="vm.update"
+										label="{{ 'OTHER.SELECT_FROM_LIST' | translate }}"
+								>
+									<div layout="row" layout-align="start center">
+										<div class="text-edit" flex layout="row" layout-align="start center" ng-if="vm.ticket.status.data">
+											{{vm.ticket.status.data.name}}
+										</div>
+										<div class="set-edit-text" ng-if="!vm.ticket.status.data" translate="TICKET_SHOW.CLICK_TO_ASSIGN"></div>
+									</div>
+								</inline-select>
+							</div>
+						</div>
+						<div layout="row" class="ticket-row">
+							<div layout="column" flex="40" layout-align="center start" translate="TICKET_SHOW.STORIES"></div>
+							<div layout="row" layout-wrap flex class="bold">
+								<inline-chips flex layout="row" layout-align="start center"
+										name="stories"
+										selected-items="vm.ticket.stories.data"
+										on-search="vm.searchStories"
+										on-save="vm.update"
+										show-name="name"
+										placeholder="{{ 'TICKET_SHOW.STORIES_SEARCH' | translate }}"
+										secondary-placeholder="{{ 'TICKET_SHOW.STORIES_ADD_MORE' | translate }}"
+								>
+									<div layout="row" layout-align="start center">
+										<div class="text-edit" ng-if="vm.ticket.stories.data.length">
+											<span ng-repeat="(index, story) in vm.ticket.stories.data">
+												{{story.name}}<span ng-if="!$last">,&nbsp; </span>
+											</span>
+										</div>
+										<!-- show assign button if user exists -->
+										<div class="set-edit-text" ng-if="!vm.ticket.stories.data.length" translate="TICKET_SHOW.CLICK_TO_ASSIGN"></div>
+									</div>
+								</inline-chips>
+							</div>
+						</div>
+						<div layout="row" class="ticket-row">
+							<div layout="column" layout-align="center start" flex="40" translate="TICKET_SHOW.CREATED"></div>
+							<div layout="column" layout-align="center start" flex class="bold">{{vm.ticket.created_at}}</div>
+						</div>
+						<div layout="row" class="ticket-row" ng-if="vm.ticket.updated_at && vm.ticket.updated_at != vm.ticket.created_at">
+							<div layout="column" layout-align="center start" flex="40" translate="TICKET_SHOW.UPDATED"></div>
+							<div layout="column" layout-align="center start" flex class="bold">{{vm.ticket.updated_at}}</div>
+                        </div>
+					</div>
+					<div flex-gt-sm="50" flex="100">
+						<div layout="row" class="ticket-row">
+							<div layout="column" flex="40" translate="TICKET_SHOW.REPORTER"></div>
+							<div layout="column" flex class="bold">
+								<inline-autocomplete class="inline-edit" layout="row" layout-align="start center"
+										name="reporting_user"
+										default="vm.ticket.reporting_user.data"
+										item-text="item.first_name + ' ' + item.last_name"
+										on-search="vm.searchUser"
+										on-save="vm.update"
+										require="true"
+										label="{{ 'TICKET_SHOW.USER_SEARCH' | translate }}"
+									>
+									<div layout="row" layout-align="center center">
+										<div class="assigned-user-edit" flex layout="row" layout-align="start center" ng-if="vm.ticket.reporting_user.data">
+											<img class="list-card-member-avatar" ng-src="{{vm.getAvatar(vm.ticket.reporting_user.data.avatar)}}">
+											{{vm.ticket.reporting_user.data.first_name}} {{vm.ticket.reporting_user.data.last_name}}
+										</div>
+										<div class="set-edit-text" ng-if="!vm.ticket.reporting_user.data" translate="TICKET_SHOW.CLICK_TO_ASSIGN"></div>
+									</div>
+								</inline-autocomplete>
+							</div>
+						</div>
+						<div layout="row" class="ticket-row">
+							<div layout="column" flex="40" layout-align="center start" translate="TICKET_SHOW.ASSIGNED"></div>
+							<div layout="column" flex class="bold">
+								<inline-autocomplete class="inline-edit" flex layout="row" layout-align="start center"
+										name="assigned_user"
+										default="vm.ticket.assigned_user.data"
+										item-text="item.first_name + ' ' + item.last_name"
+										on-search="vm.searchUser"
+										on-save="vm.update"
+										label="{{ 'TICKET_SHOW.USER_SEARCH' | translate }}"
+								>
+									<div layout="row" layout-align="center center">
+										<div class="assigned-user-edit" flex layout="row" layout-align="start center" ng-if="vm.ticket.assigned_user.data">
+											<img class="list-card-member-avatar" ng-src="{{vm.getAvatar(vm.ticket.assigned_user.data.avatar)}}">
+											{{vm.ticket.assigned_user.data.first_name}} {{vm.ticket.assigned_user.data.last_name}}
+										</div>
+										<div class="set-edit-text" ng-if="!vm.ticket.assigned_user.data" translate="TICKET_SHOW.CLICK_TO_ASSIGN"></div>
+									</div>
+								</inline-autocomplete>
+							</div>
+						</div>
+						<div layout="row" class="ticket-row">
+                            <div layout="column" flex="40" layout-align="center start" translate="TICKET_SHOW.SCHEDULED_DATE_START"></div>
+							<div layout="column" flex class="bold" >
+								<inline-datepicker ng-if="vm.tickets_datepicker_format" flex layout="row" layout-align="start center"
+										name="scheduled_time_start"
+										ng-model="vm.ticket.scheduled_time_start"
+										max-date="{{vm.ticket.scheduled_time_end}}"
+										format="{{ vm.tickets_datepicker_format }}"
+										on-save="vm.update"
+										placeholder="{{ 'TICKET_SHOW.SCHEDULED_DATE_START' | translate }}"
+								>
+									<div layout="row" layout-align="start center">
+										<div class="text-edit" ng-if="vm.ticket.scheduled_time_start">
+											{{ vm.ticket.scheduled_time_start | datetime:tickets_date_format }}
+										</div>
+										<div class="set-edit-text" ng-if="!vm.ticket.scheduled_time_start" translate="TICKET_SHOW.CLICK_TO_ADD"></div>
+									</div>
+								</inline-datepicker>
+							</div>
+						</div>
+						<div layout="row" class="ticket-row">
+							<div layout="column" flex="40" layout-align="center start" translate="TICKET_SHOW.SCHEDULED_DATE_END"></div>
+							<div layout="column" flex class="bold" >
+								<inline-datepicker ng-if="vm.tickets_datepicker_format" flex layout="row" layout-align="start center"
+												   name="scheduled_time_end"
+												   ng-model="vm.ticket.scheduled_time_end"
+												   min-date="{{vm.ticket.scheduled_time_start}}"
+												   format="{{ vm.tickets_datepicker_format }}"
+												   on-save="vm.update"
+												   placeholder="{{ 'TICKET_SHOW.SCHEDULED_DATE_END' | translate }}"
+								>
+									<div layout="row" layout-align="start center">
+										<div class="text-edit" ng-if="vm.ticket.scheduled_time_end">
+											{{ vm.ticket.scheduled_time_end | datetime:tickets_date_format }}
+										</div>
+										<div class="set-edit-text" ng-if="!vm.ticket.scheduled_time_end" translate="TICKET_SHOW.CLICK_TO_ADD"></div>
+									</div>
+								</inline-datepicker>
+							</div>
+						</div>
+						<div layout="row" class="ticket-row">
+							<div layout="column" flex="40" layout-align="center start" translate="TICKET_SHOW.ESTIMATE"></div>
+							<div layout="column" flex class="bold" >
+								<inline-text flex layout="row" layout-align="start center"
+										name="estimate_time"
+										ng-model="vm.ticket.estimate_time"
+										on-enter="vm.formatEstimate"
+										on-save="vm.update"
+										placeholder="{{ 'TICKET_SHOW.ESTIMATE_EXAMPLE' | translate }}"
+								>
+									<div layout="row" layout-align="start center">
+										<div class="text-edit" ng-if="vm.ticket.estimate_time">
+											{{ vm.formatEstimate(vm.ticket.estimate_time) }}
+										</div>
+										<div class="set-edit-text" ng-if="!vm.ticket.estimate_time" translate="TICKET_SHOW.CLICK_TO_ADD"></div>
+									</div>
+								</inline-text>
+							</div>
+						</div>
+						<div layout="row" class="ticket-row" ng-if="vm.hasAccess(['owner', 'admin', 'developer']) && current_company_settings.enable_activity">
+							<div layout="column" layout-align="center start" flex="40" layout-align="center start" translate="TICKET_SHOW.MY_LOGGED_TIME"></div>
+							<div layout="column" layout-align="center start" flex class="bold" ng-if="vm.my_logged_time">{{vm.formatEstimate(vm.my_logged_time)}}</div>
+							<div layout="column" layout-align="center start" flex class="bold" ng-if="!vm.my_logged_time" translate="TICKET_SHOW.NONE"></div>
+						</div>
+						<div layout="row" class="ticket-row" ng-if="vm.hasAccess(['owner', 'admin', 'developer']) && current_company_settings.enable_activity">
+							<div layout="column" layout-align="center start" flex="40" layout-align="center start" translate="TICKET_SHOW.ALL_LOGGED_TIME"></div>
+							<div layout="column" layout-align="center start" flex class="bold" ng-if="vm.all_logged_time">{{vm.formatEstimate(vm.all_logged_time)}}</div>
+							<div layout="column" layout-align="center start" flex class="bold" ng-if="!vm.all_logged_time" translate="TICKET_SHOW.NONE"></div>
+						</div>
+					</div>
+                </div>
+
+                <md-divider></md-divider>
+
+                <!-- Realted tickets -->
+                <div layout-gt-sm="row">
+					<div flex-gt-sm="50" flex="100">
+                        <!-- Parent -->
+                        <div layout="row" class="ticket-row">
+                            <inline-chips-edit-button flex layout="row" layout-align="start center"
+                                    name="parent_tickets"
+                                    selected-items="vm.ticket.parent_tickets.data"
+                                    on-search="vm.searchTickets"
+                                    on-save="vm.update"
+                                    show-name="title"
+                                    show-title="{{ 'OTHER.RELATED_WITH' | translate | uppercase }}"
+                                    placeholder="{{ 'OTHER.TICKET_SEARCH' | translate }}"
+                                    secondary-placeholder="{{ 'INFO.ADD_NEXT' | translate }}"
+                            >
+                                <div>
+                                    <div ng-repeat="ticket in vm.ticket.parent_tickets.data">
+                                        <related-ticket
+                                            ticket="ticket"
+                                            statuses="vm.statuses"
+                                            click="vm.openTicket(ticket)"
+                                        ></related-ticket>
+                                    </div>
+                                    <div ng-if="!vm.ticket.parent_tickets.data.length" class="font-size-16 grey-600-fg">
+                                        {{ 'TICKET_SHOW.NONE' | translate }}
+                                    </div>
+                                </div>
+                            </inline-chips-edit-button>
+                        </div>
+                    </div>
+                    <div flex-gt-sm="50" flex="100">
+                        <!-- Child -->
+                        <div layout="row" class="ticket-row">
+                            <inline-chips-edit-button flex layout="row" layout-align="start center"
+                                    name="sub_tickets"
+                                    selected-items="vm.ticket.sub_tickets.data"
+                                    on-search="vm.searchTickets"
+                                    on-save="vm.update"
+                                    show-name="title"
+                                    show-title="{{ 'OTHER.SUBTASKS' | translate | uppercase }}"
+                                    placeholder="{{ 'OTHER.TICKET_SEARCH' | translate }}"
+                                    secondary-placeholder="{{ 'INFO.ADD_NEXT' | translate }}"
+                            >
+                                <div>
+                                    <div ng-repeat="ticket in vm.ticket.sub_tickets.data">
+                                        <related-ticket
+                                            ticket="ticket"
+                                            statuses="vm.statuses"
+                                            click="vm.openTicket(ticket)"
+                                        ></related-ticket>
+                                    </div>
+                                    <div ng-if="!vm.ticket.sub_tickets.data.length" class="font-size-16 grey-600-fg">
+                                        {{ 'TICKET_SHOW.NONE' | translate }}
+                                    </div>
+                                </div>
+                            </inline-chips-edit-button>
+                        </div>
+                    </div>
+                </div>
+
+				<!-- description -->
+				<div class="form-title mt-10" translate="TICKET_SHOW.DESCRIPTION"></div>
+				<div class="description">
+					<inline-texteditor flex layout="row" layout-align="start center"
+							name="description"
+							ng-model="vm.ticket.description"
+							on-save="vm.updateDescription"
+							max-length="30000"
+							compact="false"
+							height="240"
+							ticket-id="vm.ticket.id"
+					>
+						<div layout="row" layout-align="start center">
+							<div class="text-edit" flex layout="row" layout-align="start center" ng-if="vm.ticket.description">
+								<div ng-bind-html="vm.ticket.trustedDescription" class="i-normal html-content"></div>
+							</div>
+							<div class="set-edit-text" ng-if="!vm.ticket.description" translate="TICKET_SHOW.CLICK_TO_ADD_DESC"></div>
+						</div>
+					</inline-texteditor>
+				</div>
+
+
+				<!-- attachments -->
+				<div class="form-title mt-20" translate="TICKET_SHOW.ATTACHMENTS"></div>
+				<div class="attachment-list" layout-wrap layout="row" ng-if="vm.ticket.files.data.length">
+					<div class="attachment" layout="column"
+						 ng-repeat="file in vm.ticket.files.data">
+						<div class="preview file-icon" layout="row" layout-align="center center">
+							<i ng-if="vm.getIcon(file.extension) != 'icon-file-image'" class="{{vm.getIcon(file.extension)}} s200"></i>
+							<div class="zoom-image" ng-if="vm.getIcon(file.extension) == 'icon-file-image'" style="background-image: url('{{vm.getImageThumbnail(file.id, 280)}}')" ng-click="vm.imagePreview(file.id)"></div>
+						</div>
+						<div layout="column">
+							<div flex layout="row" layout-align="space-between center">
+								<!-- name -->
+								<a ng-click="vm.download(file.id)" class="md-accent-color link" >{{file.name}}.{{file.extension}}</a>
+								<!-- edit/delete file -->
+								<div class="attachment-actions">
+									<md-button class="md-icon-button action-button" ng-click="vm.editFile(file.id)">
+										<md-icon md-font-icon="icon-pencil" class="s18"></md-icon>
+									</md-button>
+									<md-button class="md-icon-button action-button" ng-click="vm.deleteFile(file.id)">
+										<md-icon md-font-icon="icon-close" class="s18"></md-icon>
+									</md-button>
+								</div>
+
+							</div>
+                            <div ng-if="file.owner && file.owner.data" class="desc">
+                                {{ file.owner.data.first_name + ' ' + file.owner.data.last_name }}
+                            </div>
+                            <div class="desc">
+                                {{ file.created_at | datetime }}
+                            </div>
+						</div>
+					</div>
+				</div>
+				<div layout-gt-sm="row" class="font-size-16" >
+					<md-input-container class="md-block" flex layout="column" layout-align="center center" id="drop-files">
+						<div class="info-empty" ng-if="!vm.ticket.files.data.length" translate="TICKET_SHOW.NONE"></div>
+						<md-button id="file-upload-button" type="button" class="md-raised md-accent" ng-click="vm.addFile()" translate="TICKET_SHOW.ADD_FILE"
+									translate-attr-aria-label="TICKET_SHOW.ADD_FILE" ng-disabled="vm.request_file_sending" ></md-button>
+						<input id="file-to-upload" type="file" file-model="vm.files" style="display:none;" multiple>
+						<div class="file-paste-info" translate="INFO.FILE_PASTE_INFO"></div>
+					</md-input-container>
+				</div>
+				<div layout-gt-sm="row" class="mb-20">
+					<md-progress-linear ng-if="vm.request_file_sending" md-mode="determinate" value="{{vm.progress}}"></md-progress-linear>
+				</div>
+
+
+				<!-- comments -->
+				<div class="form-title mt-20" translate="TICKET_SHOW.COMMENT"></div>
+				<!-- comments -->
+				<div ng-if="vm.ticket.comments.data.length" class="comments">
+					<div layout="row" class="comment text-edit-comment" layout-align="start start" ng-repeat="comment in vm.ticket.comments.data">
+						<img class="comment-member-avatar" ng-src="{{vm.getAvatar(comment.user.data.avatar)}}">
+						<div layout="column" flex>
+							<div class="comment-member-name" layout="row" layout-align="start center">
+								{{comment.user.data.first_name}} {{comment.user.data.last_name}}
+								<md-button class="md-icon-button comment-delete" ng-click="vm.deleteComment(comment.id)">
+									<i class="icon icon-close"></i>
+								</md-button>
+							</div>
+							<div class="comment-bubble i-normal" flex layout="row" layout-align="start center">
+								<inline-texteditor
+										id="{{ comment.id }}"
+										ng-model="comment.text"
+										on-save="vm.sendComment"
+										max-length="10000"
+										compact="false"
+										height="200"
+										ticket-id="vm.ticket.id"
+								>
+								<div class="text-edit text-edit-block" flex layout="row" layout-align="start center">
+									<div ng-bind-html="comment.trustedText" class="html-content"></div>
+								</div>
+								</inline-texteditor>
+							</div>
+							<div class="comment-time" layout="row" layout-align="start center">
+								<i class="s14 icon icon-calendar-plus"></i> {{comment.created_at | datetime}}
+								<!-- edited -->
+								<div ng-if="comment.updated_at != comment.created_at" layout="row" layout-align="start center" class="comment-time-edit">
+									<i class="s14 icon icon-pencil"></i> {{comment.updated_at | datetime}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- comments-none -->
+				<div ng-if="!vm.ticket.comments.data.length" layout-gt-sm="row" class="font-size-16">
+					<div class="ticket-block-empty" flex layout="column" layout-align="center center">
+						<span class="info-empty" translate="TICKET_SHOW.NONE"></span>
+					</div>
+				</div>
+
+				<!-- add comment -->
+				<div class="font-size-14">
+					<inline-texteditor flex layout="row" layout-align="start center"
+							on-save="vm.sendComment"
+							max-length="10000"
+							compact="false"
+							height="200"
+							ticket-id="vm.ticket.id"
+					>
+						<div layout="row" layout-align="start center">
+							<md-button class="md-raised md-accent mt-10" translate="TICKET_SHOW.ADD_COMMENT"></md-button>
+						</div>
+					</inline-texteditor>
+				</div>
+
+
+				<!-- logged time -->
+        <div class="form-title mt-20" translate="TICKET_SHOW.TIME_LOGGED"
+          ng-if="vm.hasAccess(['owner', 'admin', 'developer']) && current_company_settings.enable_activity"></div>
+
+        <div layout-gt-sm="row" class="font-size-16" ng-if="vm.hasAccess(['owner', 'admin', 'developer']) &&
+          vm.ticket.time_tracking_summary.data.length == 0 && current_company_settings.enable_activity">
+					<div class="ticket-block-empty" flex layout="column" layout-align="center center">
+						<span class="info-empty" translate="TICKET_SHOW.NONE"></span>
+					</div>
+				</div>
+
+        <div class="table-wrapper" ng-if="vm.ticket.time_tracking_summary.data.length &&
+          vm.hasAccess(['owner', 'admin', 'developer']) && current_company_settings.enable_activity">
+					<md-table-container>
+						<table md-table >
+							<thead md-head >
+							<tr md-row>
+								<th md-column><span translate="TICKET_SHOW.TIME_TABLE.USER"></span></th>
+								<th md-column><span translate="TICKET_SHOW.TIME_TABLE.TIME"></span></th>
+								<th md-column><span translate="TICKET_SHOW.TIME_TABLE.ACTIVITY"></span></th>
+								<th md-column></th>
+							</tr>
+							</thead>
+							<tbody md-body>
+							<tr md-row ng-repeat="tracking in vm.ticket.time_tracking_summary.data">
+								<td md-cell>{{ tracking.user.data.first_name }} {{ tracking.user.data.last_name }}</td>
+								<td md-cell>{{vm.formatEstimate(tracking.tracked_sum)}}</td>
+								<td md-cell>{{ tracking.activity_level }}%</td>
+								<td md-cell>
+									<a class="md-raised md-accent" ng-href="/time-tracking/{{vm.ticket.project_id}}/{{vm.ticket.id}}/{{tracking.user.data.id}}">
+										<span translate="OTHER.ALL"></span>
+									</a>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</md-table-container>
+				</div>
+
+
+				<!-- history -->
+				<div class="form-title mt-20" translate="TICKET_SHOW.HISTORY"></div>
+				<md-button class="md-raised md-accent mt-10 mb-20" ng-click="vm.loadHistory()" ng-if="!vm.history.pagination">
+					<span translate="TICKET_SHOW.HISTORY_SHOW"></span>
+				</md-button>
+
+				<div ng-if="vm.history.pagination.total" class="table-wrapper">
+					<md-table-container>
+						<table md-table md-progress="vm.history.promise">
+							<thead md-head >
+							<tr md-row>
+								<th md-column><span translate="TICKET_SHOW.HISTORY_TABLE.USER"></span></th>
+								<th md-column><span translate="TICKET_SHOW.HISTORY_TABLE.FIELD"></span></th>
+								<th md-column><span translate="TICKET_SHOW.HISTORY_TABLE.OLD_VALUE"></span></th>
+								<th md-column><span translate="TICKET_SHOW.HISTORY_TABLE.NEW_VALUE"></span></th>
+								<th md-column><span translate="TICKET_SHOW.HISTORY_TABLE.DATE"></span></th>
+							</tr>
+							</thead>
+							<tbody md-body>
+							<tr md-row ng-repeat="history in vm.history.rows">
+								<td md-cell>{{ history.user.data.first_name }} {{ history.user.data.last_name }}</td>
+								<td md-cell>
+									<span translate="TICKET_SHOW.HISTORY_TABLE.TYPE.{{history.field.data.object_type}}"></span>
+									-
+									<span translate="TICKET_SHOW.HISTORY_TABLE.FIELDS.{{history.field.data.field_name}}"></span>
+								</td>
+								<td md-cell>
+									<div ng-if="['priority', 'description', 'text', 'estimate_time'].indexOf(history.field.data.field_name) == -1">
+										<div ng-if="!history.label_before ">{{history.value_before}}</div>
+										<div ng-if="history.label_before">{{history.label_before}}</div>
+									</div>
+									<div ng-if="history.field.data.field_name == 'estimate_time'">
+										<div>{{vm.formatEstimate(history.value_before)}}</div>
+									</div>
+									<div ng-if="['description', 'text'].indexOf(history.field.data.field_name) != -1">
+										<div ng-if="!history.label_before" ng-bind-html="history.value_before" class="i-normal"></div>
+										<div ng-if="history.label_before" ng-bind-html="history.label_before" class="i-normal"></div>
+									</div>
+								</td>
+								<td md-cell>
+									<div ng-if="['priority', 'description', 'text', 'estimate_time'].indexOf(history.field.data.field_name) == -1">
+										<div ng-if="!history.label_after">{{history.value_after}}</div>
+										<div ng-if="history.label_after">{{history.label_after}}</div>
+									</div>
+									<div ng-if="history.field.data.field_name == 'priority'">
+										<div ng-if="history.value_before > history.value_after" translate="TICKET_SHOW.HISTORY_TABLE.DECREASED"></div>
+										<div ng-if="history.value_before < history.value_after" translate="TICKET_SHOW.HISTORY_TABLE.INCREASED"></div>
+									</div>
+									<div ng-if="history.field.data.field_name == 'estimate_time'">
+										<div>{{vm.formatEstimate(history.value_after)}}</div>
+									</div>
+									<div ng-if="['description', 'text'].indexOf(history.field.data.field_name) != -1">
+										<div ng-if="!history.label_after" ng-bind-html="history.value_after" class="i-normal"></div>
+										<div ng-if="history.label_after" ng-bind-html="history.label_after" class="i-normal"></div>
+									</div>
+								</td>
+								<td md-cell>{{ history.created_at }}</td>
+							</tr>
+							</tbody>
+						</table>
+					</md-table-container>
+
+					<md-table-pagination md-label="{{vm.history.table_translate}}" md-limit="vm.history.query.limit" md-page="vm.history.query.page" md-total="{{vm.history.pagination.total}}" md-on-paginate="vm.loadHistory" md-page-select></md-table-pagination>
+				</div>
+
+				<div layout="row" ng-if="vm.history.pagination.total == 0" translate="TICKET_SHOW.NONE" class="text-center" ></div>
+
+			</div>
+		</div>
+
+	</div>
+</div>

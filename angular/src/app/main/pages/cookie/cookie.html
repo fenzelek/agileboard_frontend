@@ -1,0 +1,79 @@
+<div id="cookie" class="flex-scrollable guest-layout" layout="column" ms-scroll>
+	<div id="cookie-wrapper" class="guest-wrapper" layout="column" layout-align="center center">
+		<div id="cookie-form" class="rounded-container guest-form">
+			<logo-sqr></logo-sqr>
+
+			<div class="title" translate="COOKIE.TITLE"></div>
+
+			<div class="text-left">
+				<p>Niniejszy dokument stanowi integralną część regulaminu i dotyczy wyłącznie przeglądania zawartości Strony {{ vm.app_name }}.</p>
+				<br>
+				<b>Czym są Pliki Cookies?</b>
+				<p class="text-justify" >
+					Pliki Cookies - są to krótkie pliki tekstowe stanowiące dane informatyczne, służące do przeglądania zawartości Portalu, które przechowywane są na urządzeniu ostatecznym (np. komputerze) Użytkownika. Pliki Cookies, którymi posługuje się {{ vm.app_name }} nie służą do zbierania danych osobowych Użytkowników. Użytkownik ma możliwość podjęcia decyzji o stosowaniu Plików Cookies na swoim Urządzeniu. Dodatkowo Portal informuje, że ruch na stronie jest monitorowany przez statystyki Google Analytics co ma na celu gromadzenie danych o sposobie korzystania i popularności Portalu. Korzystając ze stron Portalu, Użytkownik zgadza się na analizowanie jego danych przez Google Analytics w opisanych w tym punkcie celu.
+				</p>
+				<br>
+				<b>Rodzaje i cel korzystania przez {{ vm.app_name }} z Plików Cookies</b>
+
+				<ol>
+					<li>
+						Ze względu na czas przez jaki cookie będzie umieszczone w urządzeniu końcowym użytkownika:
+						<ol type="a">
+							<li>
+								<b>Cookies tymczasowe (session cookies)</b> - cookie umieszczone na czas korzystania z przeglądarki (sesji), usuwane w momencie zamykania przeglądarki
+							</li>
+							<li>
+								<b>Cookies stałe (persistent cookie)</b> - pozostaje w urządzeniu użytkownika na określony czas lub bez okresu ważności w zależności od ustawień witryny
+							</li>
+						</ol>
+					</li>
+					<li>
+						Ze względu na pochodzenie – administratora serwisu, który zarządza cookies:
+						<ol type="a">
+							<li>
+								<b>Cookie własne (first party cookie)</b> - cookie umieszczone przez {{ vm.app_name }}
+							</li>
+							<li>
+								<b>Cookie zewnętrzne (third-party cookie)</b> - cookie umieszczone przez zewnętrzne podmioty
+							</li>
+						</ol>
+					</li>
+					<li>
+						Ze względu na cel jakiemu służą:
+						<ol type="a">
+							<li>
+								<b>Konfiguracji serwisu</b> - umożliwiają ustawienia funkcji i usług w serwisie
+							</li>
+							<li>
+								<b>Bezpieczeństwo i niezawodność serwisu</b> - weryfikacja autentyczności oraz optymalizację wydajności serwisu
+							</li>
+							<li>
+								<b>Uwierzytelnianie </b> - informują o zalogowaniu użytkownika do Serwisu
+							</li>
+							<li>
+								<b>Procesy </b> - umożliwiają zapisywanie informacji w czasie trwania sesji
+							</li>
+							<li>
+								<b>Procesy </b> - umożliwiają sprawne działanie samej witryny oraz dostępnych na niej funkcji
+							</li>
+							<li>
+								<b>Reklamy </b> - dostosowanie reklam do profilu użytkownika
+							</li>
+							<li>
+								<b>Lokalizacja </b> - dostosowanie wyświetlanych informacji do lokalizacji użytkownika
+							</li>
+						</ol>
+					</li>
+				</ol>
+				<br>
+				<b>Usuwanie plików „cookies”</b>
+				<p class="text-justify" >
+					Standardowo oprogramowanie służące do przeglądania stron internetowych domyślnie dopuszcza umieszczanie plików „cookies” na urządzeniu końcowym. Ustawienia te mogą zostać zmienione w taki sposób, aby blokować automatyczną obsługę plików „cookies” w ustawieniach przeglądarki internetowej bądź informować o ich każdorazowym przesłaniu na urządzenie użytkownika. Szczegółowe informacje o możliwości i sposobach obsługi plików „cookies” dostępne są w ustawieniach oprogramowania (przeglądarki internetowej).
+					Ograniczenie stosowania plików „cookies”, może wpłynąć na niektóre funkcjonalności dostępne na stronie internetowej.
+				</p>
+			</div>
+
+		</div>
+	</div>
+	<footer ng-include="'app/layouts/footer.html'"></footer>
+</div>

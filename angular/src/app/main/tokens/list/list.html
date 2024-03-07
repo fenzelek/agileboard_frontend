@@ -1,0 +1,77 @@
+<div id="tokens-list" class="page-layout simple fullwidth doc-page" layout="column">
+
+	<!-- HEADER -->
+	<div class="header md-accent-bg" layout="row" layout-align="space-between">
+		<div layout="column" layout-align="space-between" flex="100">
+			<div layout="row">
+				<div class="title" translate="TOKENS_LIST.TITLE" flex="70"></div>
+				<div flex="30" layout="row" layout-align="end center">
+					<md-button href="/company/edit" class="md-raised" aria-label="Go Back" translate="OTHER.GO_BACK" translate-attr-aria-label="OTHER.GO_BACK">
+						Go Back
+					</md-button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- / HEADER -->
+
+	<!-- CONTENT -->
+	<div class="content" layout="column">
+
+		<div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+		<div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+		<div layout="row">
+
+			<div class="form-wrapper  rounded-container min-1000">
+				<div layout="row" >
+					<div layout="row" layout-align="start center" flex-gt-xs="50">
+						<a class="md-raised md-button md-default-theme md-accent" ng-href="/users/tokens/form/{{vm.id}}" >
+							<span translate="TOKENS_LIST.ADD" ></span>
+						</a>
+					</div>
+				</div>
+
+				<div ng-if="vm.tokens.length != 0" class="table-wrapper">
+					<md-table-container>
+						<table md-table md-progress="vm.promise">
+							<thead md-head >
+							<tr md-row>
+								<th md-column><span translate="OTHER.No">Lp.</span></th>
+								<th md-column><span translate="TOKENS_LIST.TOKEN"></span></th>
+								<th md-column><span translate="TOKENS_LIST.DOMAIN"></span></th>
+								<th md-column><span translate="TOKENS_LIST.IP_FROM"></span></th>
+								<th md-column><span translate="TOKENS_LIST.IP_TO"></span></th>
+								<th md-column><span translate="TOKENS_LIST.TTL"></span></th>
+								<th md-column><span translate="TOKENS_LIST.ROLE"></span></th>
+								<th md-column><span translate="OTHER.ACTION">Akcje</span></th>
+							</tr>
+							</thead>
+							<tbody md-body>
+							<tr md-row ng-repeat="token in vm.tokens">
+								<td md-cell>{{ ($index + 1) }}</td>
+								<td md-cell style="max-width:200px; word-wrap: break-word">{{ token.api_token }}</td>
+								<td md-cell>{{ token.domain}}</td>
+								<td md-cell>{{ token.ip_from}}</td>
+								<td md-cell>{{ token.ip_to}}</td>
+								<td md-cell>{{ token.ttl}}</td>
+								<td md-cell><span translate="TOKENS_LIST.ROLES.{{token.role.data.name.replace('api.', '')}}"></span></td>
+								<td md-cell>
+									<md-button class="md-raised md-button md-default-theme md-warn" ng-click="vm.deleteTokens(token.id)" >
+										<span translate="OTHER.DELETE" ></span>
+									</md-button>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</md-table-container>
+					<md-table-pagination md-label="{{vm.table_translate}}" md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.pagination.total}}" md-on-paginate="vm.getTokens" md-page-select></md-table-pagination>
+
+				</div>
+
+				<div layout="row" ng-if="vm.tokens.length == 0" translate="OTHER.NO_RECORDS" class="text-center" ></div>
+			</div>
+		</div>
+
+	</div>
+</div>

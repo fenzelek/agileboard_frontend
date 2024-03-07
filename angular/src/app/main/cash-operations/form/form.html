@@ -1,0 +1,139 @@
+<div id="cash-operations-form" class="page-layout simple fullwidth doc-page" layout="column">
+
+	<!-- HEADER -->
+	<div class="header md-accent-bg" layout="row" layout-align="space-between">
+		<div layout="column" layout-align="space-between" flex="100">
+			<div layout="row">
+				<div ng-if="!vm.edit && vm.form.cashless == 0" class="title" translate="CASH_OPERATIONS_FORM.TITLE_ADD_1" flex="70"></div>
+				<div ng-if="!vm.edit && vm.form.cashless == 1" class="title" translate="CASH_OPERATIONS_FORM.TITLE_ADD_2" flex="70"></div>
+				<div ng-if="vm.edit && vm.form.cashless == 0" class="title" translate="CASH_OPERATIONS_FORM.TITLE_EDIT_1" flex="70"></div>
+				<div ng-if="vm.edit && vm.form.cashless == 1" class="title" translate="CASH_OPERATIONS_FORM.TITLE_EDIT_2" flex="70"></div>
+				<div flex="30" layout="row" layout-align="end center">
+					<md-button href="/cash-operations/list" class="md-raised" aria-label="Go Back" translate="OTHER.GO_BACK" translate-attr-aria-label="OTHER.GO_BACK">
+						Go Back
+					</md-button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- / HEADER -->
+
+	<!-- CONTENT -->
+	<div class="content" layout="column">
+		<a name="up"></a>
+		<div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+		<div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+		<div layout="row">
+
+			<div class="form-wrapper  rounded-container min-1000">
+
+				<form id="cashOperations" name="cashOperations" novalidate ng-submit="vm.send()">
+
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex-gt-sm ng-if="vm.form.document_type == 'receipt'">
+							<label><span translate="CASH_OPERATIONS_FORM.RECEIPT" ></span></label>
+
+							<md-autocomplete  md-input-name="receipt_id"
+											 ng-model-options="{debounce:200}"
+											 md-selected-item="vm.receipt.selected_item"
+											 md-search-text="vm.search_text_receipt"
+											 md-items="item in vm.searchReceipt(vm.search_text_receipt)"
+											 md-item-text="item.number">
+								<md-item-template>
+									<span md-highlight-text="vm.search_text_receipt">{{item.number}}</span>
+								</md-item-template>
+								<md-not-found><span translate="OTHER.NOT_FOUND"></span></md-not-found>
+							</md-autocomplete>
+						</md-input-container>
+						<md-input-container class="md-block" flex-gt-sm ng-if="vm.form.document_type == 'invoice'">
+							<label><span translate="CASH_OPERATIONS_FORM.INVOICE" ></span></label>
+
+							<md-autocomplete  md-input-name="invoice_id"
+											  ng-model-options="{debounce:200}"
+											  md-selected-item="vm.invoice.selected_item"
+											  md-search-text="vm.search_text_invoice"
+											  md-items="item in vm.searchInvoice(vm.search_text_invoice)"
+											  md-item-text="item.number">
+								<md-item-template>
+									<span md-highlight-text="vm.search_text_invoice">{{item.number}}</span>
+								</md-item-template>
+								<md-not-found><span translate="OTHER.NOT_FOUND"></span></md-not-found>
+							</md-autocomplete>
+						</md-input-container>
+						<md-input-container class="md-block" flex-gt-sm >
+							<md-radio-group ng-model="vm.form.document_type">
+
+								<md-radio-button value="receipt"><span translate="CASH_OPERATIONS_FORM.RECEIPT_2"></span></md-radio-button>
+								<md-radio-button value="invoice"><span translate="CASH_OPERATIONS_FORM.INVOICE_2"></span></md-radio-button>
+
+							</md-radio-group>
+						</md-input-container>
+					</div>
+
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex-gt-sm >
+							<label><span translate="CASH_OPERATIONS_FORM.DIRECTION"></span></label>
+							<md-select ng-model="vm.form.direction" required name="direction" ng-if="!translate_loading">
+								<md-option ng-value="null" ></md-option>
+								<md-option ng-value="'initial'"><span translate="CASH_OPERATIONS_FORM.DIRECTION_LIST.initial"></span></md-option>
+								<md-option ng-value="'in'"><span translate="CASH_OPERATIONS_FORM.DIRECTION_LIST.in"></span></md-option>
+								<md-option ng-value="'out'"><span translate="CASH_OPERATIONS_FORM.DIRECTION_LIST.out"></span></md-option>
+								<md-option ng-value="'final'"><span translate="CASH_OPERATIONS_FORM.DIRECTION_LIST.final"></span></md-option>
+							</md-select>
+							<div ng-messages="cashOperations.payment_method_id.$error" role="alert">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block" flex-gt-sm>
+							<label><span translate="CASH_OPERATIONS_FORM.AMOUNT"></span></label>
+							<input ng-model="vm.form.amount" name="amount" required type="number" step="0.01" min="0" max="9999999">
+							<div ng-messages="cashOperations.amount.$error">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+								<div ng-message="number" ><span translate="ERRORS.FORM.NUMBER_2_DP"></span></div>
+								<div ng-message="min" ><span translate="ERRORS.FORM.NUMBER_2_DP"></span></div>
+								<div ng-message="max" ><span translate="ERRORS.FORM.MAX_9999999"></span></div>
+								<div ng-message="step" ><span translate="ERRORS.FORM.NUMBER_2_DP"></span></div>
+							</div>
+						</md-input-container>
+					</div>
+					<div  layout-gt-sm="row">
+						<md-input-container class="md-block" flex-gt-sm>
+							<label><span translate="CASH_OPERATIONS_FORM.DATE"></span></label>
+							<input ng-model="vm.form.flow_date" name="flow_date" moment-picker="vm.form.flow_date" required format="YYYY-MM-DD" start-view="decade" locale="pl" >
+							<div ng-messages="cashOperations.flow_date.$error">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block" flex-gt-sm >
+							<label><span translate="CASH_OPERATIONS_FORM.DESCRIPTION"></span></label>
+							<textarea name="description" ng-model="vm.form.description" md-maxlength="500"></textarea>
+							<div ng-messages="cashOperations.description.$error" role="alert">
+								<div ng-message="md-maxlength" ><span translate="ERRORS.FORM.MAX_500"></span></div>
+							</div>
+						</md-input-container>
+					</div>
+
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex-gt-sm>
+							<span class="require">*</span> <span translate="INFO.REQUIRE_INFO"></span>
+						</md-input-container>
+					</div>
+
+					<div layout="row"  layout-align="end none">
+						<md-button type="button" class="md-raised md-accent" aria-label="PDF"
+								   ng-if="vm.last_added" ng-click="vm.pdf()"
+								   translate="CASH_OPERATIONS_FORM.PDF"  translate-attr-aria-label="CASH_OPERATIONS_FORM.PDF">
+						</md-button>
+						<md-button type="submit" class="md-raised md-accent" aria-label="SEND" ng-if="!vm.last_added"
+								   ng-disabled="cashOperations.$invalid || cashOperations.$pristine || vm.request_sending"
+								   translate="OTHER.SAVE"
+								   translate-attr-aria-label="OTHER.SAVE">
+						</md-button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,325 @@
+
+<div class="alert-success" ng-if="vm.tab1.msg_success">{{ vm.tab1.msg_success }}</div>
+<div class="alert-error" ng-if="vm.tab1.msg_error">{{ vm.tab1.msg_error }}</div>
+
+
+<div layout="row">
+
+    <div id="company-edit-tab-1" class="form-wrapper  rounded-container max-1000" flex>
+
+        <form id="editCompanyTab1" name="vm.tab1.scope_form" novalidate ng-submit="vm.sendTab1()">
+
+            <div class="form-title" translate="COMPANY_EDIT.GENERAL_DATA"></div>
+
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label><span translate="COMPANY_EDIT.NAME"></span></label>
+                    <input ng-model="vm.tab1.form.name" required ng-maxlength="255"  name="name" >
+                    <div ng-messages="vm.tab1.scope_form.name.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_255"></span></div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm="50" flex="100">
+                    <label><span translate="COMPANY_EDIT.NIP_PREFIX"></span></label>
+                    <md-select ng-model="vm.tab1.form.country_vatin_prefix_id" name="country_vatin_prefix_id" ng-if="!translate_loading"
+                        ng-change="vm.checkErrors('vatin')" md-on-open="vm.tab1.countriesVisible = null">
+                        <md-option ng-value="null"><span translate="COMPANY_EDIT.NIP_EMPTY"></span></md-option>
+                        <md-option ng-value="::country.id" ng-repeat="country in vm.tab1.countries | limitTo:vm.tab1.countriesVisible track by $index">
+                            {{::country.key}} ({{::country.name}})
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="50" flex="100" ng-if="!vm.tab1.form.country_vatin_prefix_id || vm.tab1.pl_id == vm.tab1.form.country_vatin_prefix_id">
+                    <label><span translate="COMPANY_EDIT.NIP"></span></label>
+                    <input ng-model="vm.tab1.form.vatin" ng-pattern="/^((\d{3}-\d{3}-\d{2}-\d{2})|(\d{3}-\d{2}-\d{2}-\d{3})|([0-9]{10}))$/" name="vatin" >
+                    <div ng-messages="vm.tab1.scope_form.vatin.$error">
+                        <div ng-message="required" class="my-message"><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="pattern" ><span translate="ERRORS.FORM.NIP"></span></div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm="50" flex="100" ng-if="vm.tab1.form.country_vatin_prefix_id && vm.tab1.pl_id != vm.tab1.form.country_vatin_prefix_id">
+                    <label><span translate="COMPANY_EDIT.NIP"></span></label>
+                    <input ng-model="vm.tab1.form.vatin" required name="vatin">
+                    <div ng-messages="vm.tab1.scope_form.vatin.$error">
+                        <div ng-message="required" class="my-message"><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="pattern" ><span translate="ERRORS.FORM.NIP"></span></div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm="50" flex="100">
+                    <label><span translate="COMPANY_EDIT.EMAIL"></span></label>
+                    <input ng-model="vm.tab1.form.email" required  ng-maxlength="255" name="email" type="email">
+                    <div ng-messages="vm.tab1.scope_form.email.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="email" ><span translate="ERRORS.FORM.EMAIL"></span></div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label><span translate="COMPANY_EDIT.PHONE"></span></label>
+                    <input ng-model="vm.tab1.form.phone" required minlength="9" ng-maxlength="15" name="phone" >
+                    <div ng-messages="vm.tab1.scope_form.phone.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="minlength" ><span translate="ERRORS.FORM.PHONE"></span></div>
+                        <div ng-message="maxlength" ><span translate="ERRORS.FORM.PHONE"></span></div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm >
+                    <md-button id="file-upload-button" type="button" class="md-raised md-accent" ng-click="vm.addLogo()" translate="COMPANY_EDIT.PHOTO"
+                               translate-attr-aria-label="COMPANY_EDIT.PHOTO" aria-label="photo"></md-button>
+                    <!-- show logotype -->
+                    <img ng-if="vm.tab1.logotype != ''" id="input-file-img" ng-src="{{vm.tab1.logotype}}">
+                    <input id="file-to-upload" type="file" fileread="vm.tab1.logotype" file-model="vm.tab1.form.logotype" style="display:none;" accept="image/*" aria-label="photo" name="logo">
+                    <!-- remove logotypecheckbox -->
+                    <div class="inline-block pl-10" ng-if="vm.tab1.logotype != '' && vm.tab1.logotype_loaded">
+                        <md-checkbox ng-model="vm.tab1.form.remove_logotype">
+                            <span translate="COMPANY_EDIT.REMOVE_LOGO"></span>
+                        </md-checkbox>
+                    </div>
+                    <div class="file-upload-hint">Max 10MB  <br />Min 50x50px, Max 1920x1080px</div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label><span translate="COMPANY_EDIT.WWW"></span></label>
+                    <input ng-model="vm.tab1.form.website" name="website" type="text" >
+                </md-input-container>
+            </div>
+
+            <div layout-gt-sm="row" ng-if="invoices_active">
+                <md-input-container class="md-block" md-no-float flex="100">
+                    <md-radio-group ng-model="vm.tab1.form.vat_payer" >
+                        <md-radio-button ng-value="true" ng-disabled="!vm.tab1.vat_settings_is_editable">
+                            <span translate="COMPANY_EDIT.VAT_PAYER_YES"></span>
+                        </md-radio-button>
+                        <md-radio-button ng-value="false" ng-disabled="!vm.tab1.vat_settings_is_editable">
+                            <span translate="COMPANY_EDIT.VAT_PAYER_NO"></span>
+                        </md-radio-button>
+                    </md-radio-group>
+                </md-input-container>
+            </div>
+
+            <div layout-gt-sm="row" ng-if="!vm.tab1.form.vat_payer">
+                <md-input-container class="md-block" md-no-float flex-gt-sm="50" flex="100">
+                    <label><span translate="COMPANY_EDIT.VAT_REASON"></span></label>
+                    <md-select ng-model="vm.tab1.form.vat_release_reason_id" name="vat_release_reason_id" required ng-if="!translate_loading">
+                        <md-option ng-value="reason.id" ng-repeat="reason in vm.tab1.vat_release_reasons" >{{reason.description}}</md-option>
+                    </md-select>
+                    <div ng-messages="newCompany.vat_release_reason_id.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" md-no-float flex-gt-sm="50" flex="100" ng-if="vm.tab1.vat_release_reasons[vm.tab1.form.vat_release_reason_id].slug == 'legal_basis'">
+                    <label><span translate="COMPANY_EDIT.VAT_REASON_OTHER"></span></label>
+                    <textarea ng-model="vm.tab1.form.vat_release_reason_note" ng-maxlength="1000" name="vat_release_reason_note" required></textarea>
+                    <div ng-messages="newCompany.vat_release_reason_note.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_1000"></span></div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <div class="form-title" translate="COMPANY_EDIT.MAIN_ADDRESS"></div>
+
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label><span translate="COMPANY_EDIT.COUNTRY"></span></label>
+                    <md-select ng-model="vm.tab1.form.main_address_country" name="main_address_country" ng-if="!translate_loading" ng-change="vm.checkErrors('main_address_zip_code')">
+                        <md-option ng-value="country.name | uppercase" ng-repeat="country in vm.tab1.countries" >{{ 'COUNTRIES.'+country.key | translate }}</md-option>
+                    </md-select>
+                    <div ng-messages="vm.tab1.scope_form.main_address_country.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                </md-input-container>
+            </div>
+
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label><span translate="COMPANY_EDIT.STREET"></span></label>
+                    <input ng-model="vm.tab1.form.main_address_street" ng-minlength="4" name="main_address_street" required ng-maxlength="255">
+                    <div ng-messages="vm.tab1.scope_form.main_address_street.$error">
+                        <div ng-message="minlength" ><span translate="ERRORS.FORM.MIN_4"></span></div>
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_255"></span></div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label><span translate="COMPANY_EDIT.NUMBER"></span></label>
+                    <input ng-model="vm.tab1.form.main_address_number" name="main_address_number" required ng-maxlength="255">
+                    <div ng-messages="vm.tab1.scope_form.main_address_number.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_255"></span></div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm ng-if="vm.tab1.form.main_address_country == 'POLSKA'">
+                    <label><span translate="COMPANY_EDIT.ZIP_CODE"></span></label>
+                    <input ng-model="vm.tab1.form.main_address_zip_code" name="main_address_zip_code" required ng-pattern="/^[0-9]{2}-[0-9]{3}$/" maxlength="6" zip-code>
+                    <div ng-messages="vm.tab1.scope_form.main_address_zip_code.$error" role="alert" multiple>
+                        <div ng-message="required" class="my-message"><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="pattern" class="my-message"><span translate="ERRORS.FORM.POST_CODE"></span></div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm ng-if="vm.tab1.form.main_address_country != 'POLSKA'">
+                    <label><span translate="COMPANY_EDIT.ZIP_CODE"></span></label>
+                    <input ng-model="vm.tab1.form.main_address_zip_code" name="main_address_zip_code" required maxlength="255">
+                    <div ng-messages="vm.tab1.scope_form.main_address_zip_code.$error" role="alert">
+                        <div ng-message="required" class="my-message"><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_255"></span></div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label><span translate="COMPANY_EDIT.CITY"></span></label>
+                    <input ng-model="vm.tab1.form.main_address_city" name="main_address_city" required ng-minlength="2" ng-maxlength="255">
+                    <div ng-messages="vm.tab1.scope_form.main_address_city.$error">
+                        <div ng-message="minlength" ><span translate="ERRORS.FORM.MIN_2"></span></div>
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_255"></span></div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <div layout-gt-sm="row" ng-if="!vm.tab1.edit && invoices_active">
+                <md-input-container class="md-block" flex-gt-sm flex="50">
+                    <md-checkbox ng-model="vm.tab1.other_contact_address" name="other_contact_address" >
+                        <span translate="COMPANY_EDIT.OTHER_CONTACT_ADDRESS"></span>
+                    </md-checkbox>
+                </md-input-container>
+            </div>
+
+            <div class="form-title" translate="COMPANY_EDIT.CONTACT_ADDRESS" ng-if="vm.tab1.other_contact_address"></div>
+
+            <div layout-gt-sm="row" ng-if="vm.tab1.other_contact_address">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label><span translate="COMPANY_EDIT.COUNTRY"></span></label>
+                    <md-select ng-model="vm.tab1.form.contact_address_country" name="contact_address_country" ng-if="!translate_loading" ng-change="vm.checkErrors('contact_address_zip_code')">
+                        <md-option ng-value="country.name | uppercase" ng-repeat="country in vm.tab1.countries" >{{ 'COUNTRIES.'+country.key | translate }}</md-option>
+                    </md-select>
+                    <div ng-messages="vm.tab1.scope_form.contact_address_country.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                </md-input-container>
+            </div>
+
+            <div layout-gt-sm="row" ng-if="vm.tab1.other_contact_address">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label><span translate="COMPANY_EDIT.STREET"></span></label>
+                    <input ng-model="vm.tab1.form.contact_address_street" ng-minlength="4" name="contact_address_street" required ng-maxlength="255">
+                    <div ng-messages="vm.tab1.scope_form.contact_address_street.$error">
+                        <div ng-message="minlength" ><span translate="ERRORS.FORM.MIN_4"></span></div>
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_255"></span></div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label><span translate="COMPANY_EDIT.NUMBER"></span></label>
+                    <input ng-model="vm.tab1.form.contact_address_number" name="contact_address_number" required ng-maxlength="255">
+                    <div ng-messages="vm.tab1.scope_form.contact_address_number.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_255"></span></div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <div layout-gt-sm="row" ng-if="vm.tab1.other_contact_address">
+                <md-input-container class="md-block" flex-gt-sm ng-if="vm.tab1.form.contact_address_country == 'POLSKA'">
+                    <label><span translate="COMPANY_EDIT.ZIP_CODE"></span></label>
+                    <input ng-model="vm.tab1.form.contact_address_zip_code" name="contact_address_zip_code" required ng-pattern="/^[0-9]{2}-[0-9]{3}$/" maxlength="6" zip-code>
+                    <div ng-messages="vm.tab1.scope_form.contact_address_zip_code.$error" role="alert" multiple>
+                        <div ng-message="required" class="my-message"><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="pattern" class="my-message"><span translate="ERRORS.FORM.POST_CODE"></span></div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm ng-if="vm.tab1.form.contact_address_country != 'POLSKA'">
+                    <label><span translate="COMPANY_EDIT.ZIP_CODE"></span></label>
+                    <input ng-model="vm.tab1.form.contact_address_zip_code" name="contact_address_zip_code" required maxlength="255">
+                    <div ng-messages="vm.tab1.scope_form.contact_address_zip_code.$error" role="alert">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_255"></span></div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label><span translate="COMPANY_EDIT.CITY"></span></label>
+                    <input ng-model="vm.tab1.form.contact_address_city" name="contact_address_city" required ng-minlength="2" ng-maxlength="255">
+                    <div ng-messages="vm.tab1.scope_form.contact_address_city.$error">
+                        <div ng-message="minlength" ><span translate="ERRORS.FORM.MIN_2"></span></div>
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_255"></span></div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div layout-gt-sm="row" layout-align="end none" ng-if="vm.tab1.other_contact_address && !vm.tab1.first">
+                <md-button type="button" class="md-raised md-accent" ng-click="vm.copyToContact()" translate="COMPANY_EDIT.ADDRESS_COPY" >
+                    COPY
+                </md-button>
+            </div>
+
+            <div class="form-title" translate="COMPANY_EDIT.BANK" ng-if="invoices_active"></div>
+
+            <div flex="100" layout-gt-sm="row" layout-align="start start" class="bank-account-row" ng-repeat="(key, value) in vm.tab1.form.bank_accounts" ng-if="invoices_active">
+                <md-input-container class="md-block" flex-gt-sm="50" flex="100">
+                    <label><span translate="COMPANY_EDIT.BANK_ACCOUNT"></span></label>
+                    <input ng-model="vm.tab1.form.bank_accounts[$index].number" name="bank_accounts_{{$index}}_number" required>
+                    <div ng-messages="vm.tab1.scope_form.bank_accounts[$index].number.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label><span translate="COMPANY_EDIT.BANK_NAME"></span></label>
+                    <input ng-model="vm.tab1.form.bank_accounts[$index].bank_name" ng-maxlength="100" name="bank_accounts_{{$index}}_bank_name" required>
+                    <div ng-messages="vm.tab1.scope_form.bank_accounts[$index].bank_name.$error">
+                        <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_100"></span></div>
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                    </div>
+                </md-input-container>
+                <md-button ng-if="vm.tab1.form.bank_accounts[$index].default" disabled type="button" class="md-raised md-accent" translate="COMPANY_EDIT.CURRENT_DEFAULT" >
+                    DEFAULT
+                </md-button>
+                <md-button ng-if="!vm.tab1.form.bank_accounts[$index].default" ng-click="vm.changeDefaultBankAccount($index)" type="button" class="md-raised md-default"
+                    ng-disabled="!vm.tab1.form.bank_accounts[$index].number.length || !vm.tab1.form.bank_accounts[$index].bank_name.length" translate="COMPANY_EDIT.DEFAULT" >
+                    SET AS DEFAULT
+                </md-button>
+            </div>
+            <div layout-gt-sm="row" layout-align="end none" ng-if="invoices_active">
+                <md-button type="button" class="md-raised md-accent" ng-click="vm.addBankAccount()"  aria-label=""
+                            translate="INFO.ADD_NEXT">
+                    ADD
+                </md-button>
+                <md-button type="button" class="md-raised md-accent" ng-click="vm.deleteBankAccount()"  aria-label=""
+                            translate="INFO.DELETE_LAST" ng-disabled="vm.tab1.form.bank_accounts.length == 1">
+                    DELETE
+                </md-button>
+            </div>
+
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <span class="require">*</span> <span translate="INFO.REQUIRE_INFO"></span>
+                </md-input-container>
+            </div>
+
+            <md-progress-linear md-mode="determinate" ng-if="vm.tab1.progress > 0 && vm.tab1.progress < 100" value="{{vm.tab1.progress}}"></md-progress-linear>
+
+            <div layout="row"  layout-align="end none">
+                <md-button type="submit" class="md-raised md-accent" aria-label="SEND"
+                           ng-disabled="vm.tab1.scope_form.$invalid || vm.request_sending"
+                           translate="OTHER.SAVE"
+                           translate-attr-aria-label="OTHER.SAVE">
+                </md-button>
+            </div>
+        </form>
+
+    </div>
+
+</div>

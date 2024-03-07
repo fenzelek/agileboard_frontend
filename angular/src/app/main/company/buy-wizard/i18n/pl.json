@@ -1,0 +1,38 @@
+{
+    "BUY_WIZARD": {
+        "TITLE": "Płatność",
+        "TYPE_PAYMENT": "Sposób płatności",
+        "PAYMENT_METHOD": "Metoda płatności",
+        "DATA": "Dane",
+        "SUMMARY": "Podsumowanie",
+        "SUBSCRIPTION": "Płatność odnawialna (subskrypcja)",
+        "ONE_TIME": "Płatność jednorazowa",
+        "CARD": "Karta",
+        "OTHER_TYPE": "Inna płatność",
+        "BUY": "Ok, płacę",
+        "SELECT_CARD": "Wybierz kartę",
+        "OTHER_CARD": "Inna",
+        "CARD_NUMBER": "Numer karty",
+        "CARD_CVV2": "CVV2",
+        "CARD_MONTH": "Misiąc wygaśnięcia",
+        "CARD_YEAR": "Rok wygaśnięcia",
+        "REGULATIONS_1": "Zapisując dane karty akceptuję",
+        "REGULATIONS_2": "regulamin konta PayU",
+        "REGULATIONS_3": "i chcę jej używać do kolejnych płatności.",
+        "PRICE": "Cena brutto",
+        "MONTH": "Miesiąc",
+        "PACKAGE": "Pakiet",
+        "MODULE": "Moduł"
+    },
+    "ERRORS": {
+        "payu": {
+            "warning_continue_cvv": "Problem z kodem CVV."
+        },
+        "FORM": {
+            "CARD_NUMBER": "Niepoprawny numer karty. Podaj liczbę bez żadnych przerw, składającą się z 12-19 znaków.",
+            "CARD_CVV2": "Niepoprawny kod. Podaj liczbę z zakresu 000-999.",
+            "CARD_MONTH": "Niepoprawny numer miesiąca. Podaj liczbę z zakresu 01-12.",
+            "CARD_YEAR": "Niepoprawny rok. Podaj pełny rok np 2021."
+        }
+    }
+}

@@ -1,0 +1,74 @@
+<div id="dashboard" class="page-layout simple tabbed right-sidenav" layout="row">
+
+        <!-- CENTER -->
+        <div class="center" layout="column" flex>
+
+            <!-- BLUE HEADER -->
+            <div class="header md-accent-bg" layout="row" layout-align="space-between">
+                <div layout="column" layout-align="space-between" flex="100">
+                    <div layout="row">
+                        <h1 flex class="title">
+                            {{ 'DASHBOARD.TITLE' | translate }}
+                        </h1>
+                        <div flex="30" layout="row" layout-align="end center">
+                            <md-menu md-offset="0 48">
+                                <md-button ng-click="$mdMenu.open()" type="button" class="md-raised"
+                                    ng-disabled="vm.projects.length == 0">
+                                    <md-icon md-font-icon="icon-library-plus" class="s20 grey-600-fg"></md-icon>
+                                    <span hide-gt-xs>{{ 'DASHBOARD.TICKET' | translate }}</span>
+                                    <span hide show-gt-xs>{{ 'DASHBOARD.ADD_TICKET' | translate }}</span>
+                                </md-button>
+                                <md-menu-content width="3" class="md-background-bg">
+                                    <span class="grey-600-fg s12 pv-8 ph-16">{{ 'DASHBOARD.PROJECT' | translate }}:</span>
+                                    <md-menu-item ng-repeat="project in vm.projects">
+                                        <md-button ng-click="vm.addTicket(project)">{{ project.name }}</md-button>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                            <!-- <md-button ng-click="vm.toggleLatestActivities()" class="md-icon-button white-fg" aria-label="Toggle latest avtivities">
+                                <md-icon ng-show="vm.sidenavOpen" md-font-icon="icon-chevron-double-right" class="s24"></md-icon>
+                                <md-icon ng-show="!vm.sidenavOpen" md-font-icon="icon-chevron-double-left" class="s24"></md-icon>
+                                <md-tooltip>
+                                    {{ 'DASHBOARD.TOGGLE_LATES_ACTIVITIES' | translate }}
+                                </md-tooltip>
+                            </md-button> -->
+                        </div>
+                    </div>
+                    <div class="options-row" layout="row">
+                        <!-- company filter -->
+                        <div ng-if="vm.companies.length > 1" layout="row" layout-align="start end">
+                            <div class="selected-option">
+                                <md-icon md-font-icon="icon-city" class="icon s20" style="min-width: 0;"></md-icon>
+                                {{ vm.selectedCompany ? vm.selectedCompany.name : ('DASHBOARD.ALL_COMPANIES' | translate) }}
+                            </div>
+                            <md-menu md-offset="0 48">
+                                <md-button class="md-icon-button option-selector" ng-click="$mdMenu.open()"
+                                        md-menu-origin md-menu-align-target>
+                                    <md-icon md-font-icon="icon-dots-horizontal"></md-icon>
+                                </md-button>
+                                <md-menu-content width="3" class="md-background-bg">
+                                    <md-menu-item ng-repeat="company in vm.companies" ng-class="{'secondary-text': vm.selectedCompany.id == company.id}">
+                                        <md-button ng-click="vm.selectCompany(company)">{{ company.name }}</md-button>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTENT -->
+            <dashboard-main company-id="vm.selectedCompany ? vm.selectedCompany.id : null" projects="vm.projects"></dashboard-main>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CENTER -->
+
+        <!-- SIDENAV -->
+        <md-sidenav class="sidenav activities-sidenav md-sidenav-right" md-is-locked-open="vm.sidenavOpen"
+                    ng-include="'app/main/dashboard/views/sidenav-container.html'" ms-scroll
+                    ms-sidenav-helper>
+        </md-sidenav>
+        <!-- / SIDENAV -->
+
+    </div>

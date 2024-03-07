@@ -1,0 +1,101 @@
+<div id="register" class="flex-scrollable guest-layout" layout="column" ms-scroll>
+    <div id="register-form-wrapper" class="guest-wrapper" layout="column" layout-align="center center">
+        <div id="register-form" class="rounded-container guest-form">
+            <logo-sqr></logo-sqr>
+
+            <div class="title" translate="REGISTER.TITLE">Create an account</div>
+
+            <div class="success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+            <div class="error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+            <form id="registerForm" name="registerForm" novalidate ng-submit="vm.create()">
+                <md-input-container class="md-block" md-no-float>
+                    <label><span translate="REGISTER.FIRST_NAME"></span></label>
+                    <input ng-model="vm.form.first_name" required ng-maxlength="100" name="first_name" type="text">
+                    <div ng-messages="registerForm.first_name.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_100"></span></div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" md-no-float>
+                    <label><span translate="REGISTER.LAST_NAME"></span></label>
+                    <input ng-model="vm.form.last_name" required ng-maxlength="100" name="last_name" type="text">
+                    <div ng-messages="registerForm.last_name.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_100"></span></div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" md-no-float>
+                    <label><span translate="REGISTER.EMAIL"></span></label>
+                    <input ng-model="vm.form.email" required  ng-maxlength="255" name="email" type="email">
+                    <div ng-messages="registerForm.email.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="email" ><span translate="ERRORS.FORM.EMAIL"></span></div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" md-no-float>
+                    <label><span translate="REGISTER.KEY"></span></label>
+                    <input ng-model="vm.form.discount_code" ng-maxlength="255" name="discount_code" type="text">
+                    <div ng-messages="registerForm.discount_code.$error">
+                        <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_255"></span></div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" md-no-float>
+                    <label><span translate="REGISTER.PASSWORD"></span></label>
+                    <input type="password" ng-model="vm.form.password" required pattern=".{6,}" name="password" id="password" >
+                    <div ng-messages="registerForm.password.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="pattern" ><span translate="ERRORS.FORM.PASSWORD"></span></div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" md-no-float>
+                    <label><span translate="REGISTER.PASSWORD_CONFIRM"></span></label>
+                    <input type="password" ng-model="vm.form.password_confirmation" required name="password_confirmation" ms-confirm="password" >
+                    <div ng-messages="registerForm.password_confirmation.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="confirm" ><span translate="ERRORS.FORM.CONFIRM"></span></div>
+                    </div>
+                </md-input-container>
+
+                <div class="terms" layout="row" layout-align="center center">
+                    <md-checkbox name="terms" ng-model="vm.form.regulations" aria-label="I read and accept" required></md-checkbox>
+                    <div layout="row" layout-sm="column" layout-align="start center">
+                        <span translate="REGISTER.READ_ACCEPT">I read and accept</span>
+                        <a ng-href="/page/regulations" target="_blank" class="md-accent-color" translate="REGISTER.TERMS_COND" target="_blank">terms and conditions</a>
+                    </div>
+                </div>
+
+                <md-button type="submit" class="md-raised md-accent" aria-label="CREATE MY ACCOUNT"
+                           ng-disabled="registerForm.$invalid || registerForm.$pristine"
+                           translate="REGISTER.CREATE_ACCOUNT"
+                           translate-attr-aria-label="REGISTER.CREATE_ACCOUNT">
+                    CREATE MY ACCOUNT
+                </md-button>
+            </form>
+
+            <div class="login" layout="row" layout-xs="column" layout-align="center center">
+                <span class="text" translate="REGISTER.ALREADY_HAVE">Already have an account?</span>
+                <a class="link" ui-sref="app.login" translate="REGISTER.LOGIN">Log in</a>
+            </div>
+
+            <div class="languages-no-login" layout="row" layout="column" layout-align="end center">
+                <div ng-click="vm.changeLanguage('pl')" class="mr-5" >
+                    <span>
+                        <img class="flag" ng-src="assets/images/flags/pl.png">
+                    </span>
+                </div>
+                <div ng-click="vm.changeLanguage('en')" >
+                    <span >
+                        <img class="flag" ng-src="assets/images/flags/us.png">
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer ng-include="'app/layouts/footer.html'"></footer>
+</div>

@@ -1,0 +1,67 @@
+#scrumboard.scrumboard-ticket {
+    height: auto;
+    max-height: none;
+    overflow-y: auto;
+
+    .header {
+        position: relative;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+
+        .title {
+            font-size: 30px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .description {
+            max-height: 50px;
+        }
+
+        .dark-bg {
+            margin: 0 6px;
+            height: 40px;
+            min-width: 0;
+            line-height: 24px;
+            padding: 8px;
+            background: rgba(0,0,0,.12);
+            border-radius: 0.8rem 0.8rem 0 0;
+            font-size: 14px;
+        }
+    }
+
+    md-content {
+        background-color: transparent;
+    }
+
+    // Center
+    .center {
+        height: 100%;
+        max-height: none;
+        background-color: #E5E7E8;
+        margin: 0 0 10px 1px;
+    }
+
+    #board {
+        position: relative;
+
+        .list-divider {
+            .list-wrapper .list-header {
+                border-radius: 0;
+                border-left-width: 0;
+            }
+            .list-wrapper:first-child .list-header {
+                border-left-width: 1px;
+            }
+        }
+    }
+
+    // sidebar temp fix...
+    .preview-sidenav md-content {
+        position: relative;
+        top: 0;
+    }
+
+  }

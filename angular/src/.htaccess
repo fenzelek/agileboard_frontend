@@ -1,0 +1,19 @@
+<IfModule mod_headers.c>
+    Header set Cache-Control "no-cache"
+    Header set Pragma "no-cache"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Redirect Trailing Slashes...
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+    RewriteCond %{QUERY_STRING} filter=+(.+) [NC]
+    RewriteRule ^(.*).(png|jpg|gif)$ ?path=$1.$2&filter=%1  [NC,L]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.html [L]
+</IfModule>

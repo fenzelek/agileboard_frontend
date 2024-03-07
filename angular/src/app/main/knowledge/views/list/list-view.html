@@ -1,0 +1,224 @@
+<div>
+    <!-- pages from search result -->    
+    <div ng-if="vm.search">
+        <!-- search results info -->
+        <div class="list-item" md-ink-ripple>
+            <div class="item-content info" flex layout="row" layout-align="space-between stretch" md-ink-ripple>
+                <div class="content-info" flex layout="row" layout-align="center center">
+                    <!-- if filtered pages present -->
+                    <md-icon ng-if="vm.filtered_pages.length" md-font-icon="icon-magnify"></md-icon>
+                    <div ng-if="vm.filtered_pages.length" class="name" flex layout="column" translate="KNOWLEDGE.SEARCH_RESULTS"></div>
+                    <!-- no-pages info -->
+                    <md-icon ng-if="!vm.filtered_pages.length" md-font-icon="icon-emoticon-sad"></md-icon>                    
+                    <div ng-if="!vm.filtered_pages.length" class="name" flex layout="column" translate="KNOWLEDGE.NO_SEARCH_RESULTS"></div>
+                    
+                    <!-- clear results btn -->
+                    <md-button class="md-icon-button" ng-click="vm.search='';$event.preventDefault()" aria-label="close">
+                        <md-icon md-font-icon="icon-close"></md-icon>                         
+                    </md-button>               
+                </div>
+            </div>
+        </div>
+        <!-- search result pages -->
+        <div class="list-item" md-ink-ripple 
+        ng-repeat="page in vm.filtered_pages" ng-show="vm.storyPageFilter(page)">
+
+            <div class="item-content" flex layout="row" layout-align="space-between stretch"
+                ng-class="{'selected': vm.selected_page_id == page.id}" >
+
+                <div class="content-page single-page" flex layout="row" layout-align="start center" ng-click="vm.selectPage(page)">
+                        <md-icon md-font-icon="icon-book-open"></md-icon>
+                    <div class="name" flex layout="column">
+                        {{page.name}}
+                    </div>
+                </div>
+
+                <div class="content-actions">
+                    <div layout="column" layout-align="space-between end">
+                        <md-menu ng-if="current_project_user_role != 'client'">
+                            <md-button class="md-icon-button" ng-click="$mdMenu.open()"
+                                    aria-label="more">
+                                <md-icon md-font-icon="icon-dots-vertical"></md-icon>
+                            </md-button>
+                            <md-menu-content width="3">
+                                <md-menu-item>
+                                    <md-button ng-click="vm.addEditPageModal(0,page.id)" aria-label="Edit">
+                                        <span translate="OTHER.EDIT"></span>
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button ng-click="vm.deletePage(page.id)" aria-label="Delete">
+                                        <span translate="OTHER.DELETE"></span>
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- no-search directories and pages -->
+    <div ng-if="!vm.search">
+        <!-- single pages -->
+        <div class="list-item" md-ink-ripple 
+        ng-repeat="page in vm.single_pages" ng-show="vm.storyPageFilter(page)">
+
+            <div class="item-content" flex layout="row" layout-align="space-between stretch"
+                ng-class="{'selected': vm.selected_page_id == page.id}" >
+
+                <div class="content-page single-page" flex layout="row" layout-align="start center" ng-click="vm.selectPage(page)">
+                        <md-icon md-font-icon="icon-book-open"></md-icon>
+                    <div class="name" flex layout="column">
+                        {{page.name}}
+                    </div>
+                </div>
+
+                <div class="content-actions">
+                    <div layout="column" layout-align="space-between end">
+                        <md-menu ng-if="current_project_user_role != 'client'">
+                            <md-button class="md-icon-button" ng-click="$mdMenu.open()"
+                                    aria-label="more">
+                                <md-icon md-font-icon="icon-dots-vertical"></md-icon>
+                            </md-button>
+                            <md-menu-content width="3">
+                                <md-menu-item>
+                                    <md-button ng-click="vm.addEditPageModal(0,page.id)" aria-label="Edit">
+                                        <span translate="OTHER.EDIT"></span>
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button ng-click="vm.deletePage(page.id)" aria-label="Delete">
+                                        <span translate="OTHER.DELETE"></span>
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- directories with pages -->
+        <div ng-repeat="directory in vm.directories" ng-show="vm.storyDirectoryFilter(directory)">
+            <!-- directory -->
+            <div class="list-item" md-ink-ripple>
+                <div class="item-content" flex layout="row" layout-align="space-between stretch" md-ink-ripple>
+
+                    <!-- directory empty -->
+                    <div ng-if="!directory.pages.data.length" class="content-directory empty" flex layout="row" layout-align="start center" ng-click="vm.toggleDirectory(directory)">
+                        <md-icon md-font-icon="icon-folder"></md-icon>
+                        <div class="name" flex layout="column">
+                            {{directory.name}}
+                        </div>
+                    </div>
+                    <!-- directory has items -->
+                    <div ng-if="directory.pages.data.length" class="content-directory" flex layout="row" layout-align="start center" ng-click="vm.toggleDirectory(directory)">
+                        <!-- directory opened / closed -->
+                        <md-icon ng-if="directory.opened" md-font-icon="icon-folder-outline"></md-icon>
+                        <md-icon ng-if="!directory.opened" md-font-icon="icon-folder-download"></md-icon>
+                        <div class="name" flex layout="column">
+                            {{directory.name}}
+                        </div>
+                    </div>
+                
+                    <div class="content-actions">
+                        <div layout="column" layout-align="space-between end">
+                            <md-menu ng-if="current_project_user_role != 'client'">
+                                <md-button class="md-icon-button" ng-click="$mdMenu.open()"
+                                        aria-label="more">
+                                    <md-icon md-font-icon="icon-dots-vertical"></md-icon>
+                                </md-button>
+                                <md-menu-content width="3">
+                                    <md-menu-item>
+                                        <md-button ng-click="vm.addEditPageModal(directory.id, 0)" aria-label="Add page">
+                                            <span translate="KNOWLEDGE.ADD_PAGE"></span>
+                                        </md-button>
+                                    </md-menu-item>
+                                    <md-menu-item>
+                                        <md-button ng-click="vm.addEditDirectoryModal(directory)" aria-label="Edit">
+                                            <span translate="OTHER.EDIT"></span>
+                                        </md-button>
+                                    </md-menu-item>
+                                    <md-menu-item>
+                                        <md-button ng-click="vm.deleteDir(directory.id)" aria-label="Delete">
+                                            <span translate="OTHER.DELETE"></span>
+                                        </md-button>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+            <!-- no-pages  -->
+            <div ng-if="!directory.pages.data.length && directory.opened" class="list-item" md-ink-ripple>
+                <div class="item-content info" flex layout="row" layout-align="space-between stretch" md-ink-ripple>
+                    <!-- directory empty -->
+                    <div class="content-empty" flex layout="row" layout-align="start center">
+                            <md-icon md-font-icon="icon-emoticon-sad"></md-icon>
+                            <div class="name" translate="KNOWLEDGE.DIR_EMPTY"></div>
+                    </div>
+                    <div class="content-actions">
+                        <div layout="column" layout-align="center end">
+                            <md-button class="md-icon-button" ng-click="vm.addEditPageModal(directory.id, 0)" aria-label="more">
+                                <md-icon md-font-icon="icon-plus"></md-icon>
+                            </md-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- directory pages -->
+            <div ng-repeat="page in directory.pages.data" ng-if="directory.pages.data.length" ng-show="directory.opened && vm.storyPageFilter(page)" class="list-item">
+                <div class="item-content" flex layout="row" layout-align="space-between stretch"
+                    ng-class="{'selected': vm.selected_page_id == page.id}" >
+                        
+                    <div class="content-page" flex layout="row" layout-align="start center" ng-click="vm.selectPage(page)">
+                        <md-icon md-font-icon="icon-book-open"></md-icon>
+                        <div class="name" flex layout="column">
+                            {{page.name}}
+                        </div>
+                    </div>
+
+                    <div class="content-actions">
+                        <div layout="column" layout-align="space-between end">
+                            <md-menu ng-if="current_project_user_role != 'client'">
+                                <md-button class="md-icon-button" ng-click="$mdMenu.open()"
+                                        aria-label="more">
+                                    <md-icon md-font-icon="icon-dots-vertical"></md-icon>
+                                </md-button>
+                                <md-menu-content width="3">
+                                    <md-menu-item>
+                                        <md-button ng-click="vm.addEditPageModal(0,page.id)" aria-label="Edit">
+                                            <span translate="OTHER.EDIT"></span>
+                                        </md-button>
+                                    </md-menu-item>
+                                    <md-menu-item>
+                                        <md-button ng-click="vm.deletePage(page.id)" aria-label="Delete">
+                                            <span translate="OTHER.DELETE"></span>
+                                        </md-button>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- knowledge empty -->
+        <div ng-if="vm.directories.length < 1 && vm.single_pages.length < 1">
+            <div class="no-records-info" flex layout="column" layout-align="center center" >
+                <md-icon md-font-icon="icon-book-open" class="s52"></md-icon>
+                <span translate="KNOWLEDGE.NO_RECORDS"></span>
+            </div>
+        </div>
+        
+    </div>
+
+</div>

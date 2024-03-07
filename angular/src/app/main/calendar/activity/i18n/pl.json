@@ -1,0 +1,14 @@
+{
+    "ACTIVITY_CALENDAR": {
+        "NO_ACTIVITIES": "Brak aktywności w tym dniu...",
+        "AUTO_SKIP_INFO": "Automatycznie pomijaj dni bez aktywności",
+        "FEATCH_EMPTY": "Pokaż tylko aktywności, które nie mają przypisanego zadania",
+        "ESTIMATED": "Estymowano",
+        "LOGGED": "Zalogowano",
+        "TICKET_DATA_ERROR": "Błąd w pobieraniu danych zadania...",
+        "SELECT_DATE": "Wybierz datę",
+        "PREVIOUS_DAY": "Poprzedni dzień",
+        "NEXT_DAY": "Następny dzień",
+        "GO_TO_TODAY": "Idź do dnia dzisiejszego"
+    }
+}

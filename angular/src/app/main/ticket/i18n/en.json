@@ -1,0 +1,107 @@
+{
+    "TICKET_SHOW": {
+        "TYPE": "Type:",
+        "ESTIMATE": "Estimate time:",
+        "MY_LOGGED_TIME": "My logged time:",
+        "ALL_LOGGED_TIME": "All logged time:",
+        "TIME_LOGGED": "Logged time:",
+        "SCHEDULED_DATE_START": "Scheduled start date:",
+        "SCHEDULED_DATE_END": "Scheduled end date:",
+        "STORIES": "Stories:",
+        "SPRINT": "Sprint:",
+        "STATUS": "Status:",
+        "ASSIGNED": "Assigned:",
+        "REPORTER": "Reporter:",
+        "CREATED": "Created:",
+        "UPDATED": "Updated:",
+        "DESCRIPTION": "Description",
+        "NONE": "none",
+        "BACKLOG": "Backlog",
+        "ATTACHMENTS": "Files",
+        "ADD_FILE": "Add file",
+        "HIDE": "Hide",
+        "SHOW": "Show",
+        "ADD": "Add",
+        "MOVE": "Move to status",
+        "DELETE_TICKET": "Delete ticket",
+        "EDITED": "edited:",
+        "DELETE_QUESTION": "Are you sure you want to delete this ticket?",
+        "HIDDEN_QUESTION": "Are you sure you want to hide this ticket?",
+        "SHOWN_QUESTION": "Are you sure you want to show this ticket?",
+        "DELETE_COMMENT_QUESTION": "Are you sure you want to delete this comment?",
+        "DELETE_FILE_QUESTION": "Are you sure you want to delete this file?",
+
+        "TYPES": {
+            "Task": "Task",
+            "Bug": "Bug",
+            "TestCase": "Test case",
+            "Internal": "Internal",
+            "Estimate": "Estimation",
+            "Meetings": "Meeting"
+        },
+
+        "UPDATED_TICKET": "Updated ticket successfully",
+        "HIDDEN_TICKET": "Hidden ticket successfully",
+        "SHOWN_TICKET": "Shown ticket successfully",
+        "DELETE_COMMENT": "Deleted comment successfully",
+
+        "COMMENT": "Comments",
+        "ADD_COMMENT": "Add comment",
+        "CLICK_TO_ASSIGN": "Click to assign",
+        "CLICK_TO_ADD": "Click to add",
+        "CLICK_TO_ADD_DESC": "Click to add description",
+        "ENTER_TEXT": "Enter the text",
+        "USER_SEARCH": "Search user...",
+        "STORIES_SEARCH": "Search stories...",
+        "STORIES_ADD_MORE": "Add more...",
+        "ESTIMATE_EXAMPLE": "Example: 8h 30m",
+        "ESTIMATE_ERROR": "Error estimate format",
+
+        "TIME_TABLE": {
+            "USER": "User",
+            "TIME": "Time",
+            "ACTIVITY": "Activity"
+        },
+
+        "HISTORY": "History",
+        "HISTORY_SHOW": "Show history",
+        "HISTORY_TABLE": {
+            "USER": "User",
+            "DATE": "Date",
+            "FIELD": "Field",
+            "OLD_VALUE": "Old value",
+            "NEW_VALUE": "New value",
+            "INCREASED": "increased",
+            "DECREASED": "decreased",
+
+            "TYPE": {
+                "ticket": "ticket",
+                "ticket_comment": "comment"
+            },
+            "FIELDS": {
+                "sprint_id": "sprint",
+                "status_id": "status",
+                "ticket_id": "ticket",
+                "name": "name",
+                "title": "title",
+                "type_id": "type",
+                "assigned_id": "assigned",
+                "reporter_id": "reporter",
+                "description": "description",
+                "estimate_time": "estimate_time",
+                "priority": "priority",
+                "hidden": "hidden",
+                "created_at": "created",
+                "deleted_at": "deleted",
+                "story_id": "story",
+                "user_id": "user",
+                "text": "text"
+            }
+        }
+    },
+    "ERRORS": {
+        "package": {
+            "limit_reached": "You have reached the limit of the amount of disk space used. Delete other files to be able to add more or contact your business owner to increase the limit."
+        }
+    }
+}

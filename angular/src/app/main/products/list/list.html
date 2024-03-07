@@ -1,0 +1,80 @@
+<div id="contractors-list" class="page-layout simple fullwidth doc-page" layout="column">
+
+	<!-- HEADER -->
+	<div class="header md-accent-bg" layout="row" layout-align="space-between">
+		<div layout="column" layout-align="space-between">
+			<div class="title" translate="PRODUCTS_LIST.TITLE"></div>
+		</div>
+	</div>
+	<!-- / HEADER -->
+
+	<!-- CONTENT -->
+	<div class="content" layout="column">
+
+		<div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+		<div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+		<div layout="row">
+
+			<div class="form-wrapper  rounded-container min-1000">
+				<form novalidate ng-submit="vm.getProducts()">
+					<div layout="row" >
+						<md-input-container class="md-block" flex-gt-xs="50">
+							<label><span translate="PRODUCTS_LIST.SEARCH"></span></label>
+							<input ng-model="vm.query.name" type="search" name="search" >
+						</md-input-container>
+						<div layout="row" layout-align="start center" flex-gt-xs="25">
+							<md-button class="md-raised md-button md-default-theme md-accent" ng-click="vm.getProducts()" >
+								<span translate="PRODUCTS_LIST.SEARCH" ></span>
+							</md-button>
+						</div>
+						<div layout="row" layout-align="end center" flex-gt-xs="25" ng-if="!vm.is_tax_office">
+							<a class="md-raised md-button md-default-theme md-accent" ng-href="/products/form/new" >
+								<span translate="PRODUCTS_LIST.ADD" ></span>
+							</a>
+						</div>
+					</div>
+				</form>
+
+				<div ng-if="vm.pagination.total" class="table-wrapper">
+					<md-table-container>
+						<table md-table md-progress="vm.promise">
+							<thead md-head >
+							<tr md-row>
+								<th md-column><span translate="OTHER.No">Lp.</span></th>
+								<th md-column><span translate="OTHER.NAME"></span></th>
+								<th md-column><span translate="PRODUCTS_LIST.UNIT"></span></th>
+								<th md-column md-numeric ng-if="vat_payer"><span translate="PRODUCTS_LIST.TAX"></span></th>
+								<th md-column><span translate="PRODUCTS_LIST.PKWIU"></span></th>
+								<th md-column><span translate="OTHER.ACTION">Akcje</span></th>
+							</tr>
+							</thead>
+							<tbody md-body>
+							<tr md-row ng-repeat="product in vm.products">
+								<td md-cell>{{ vm.pagination | no:$index }}</td>
+								<td md-cell>{{ product.name }}</td>
+								<td md-cell>{{ product.service_unit.data.slug }}</td>
+								<td md-cell ng-if="vat_payer">{{ vm.taxs[product.vat_rate_id].name }}</td>
+								<td md-cell>{{ product.pkwiu }}</td>
+								<td md-cell>
+									<!--<md-button class="md-raised md-button md-default-theme md-warn" ng-click="vm.deleteProducts(product.id)" >-->
+										<!--<span translate="OTHER.DELETE" ></span>-->
+									<!--</md-button>-->
+									<a class="md-raised md-accent md-button md-default-theme" ng-href="/products/form/edit/{{product.id}}" ng-if="!product.is_used && !vm.is_tax_office">
+										<span translate="OTHER.EDIT" ></span>
+									</a>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</md-table-container>
+
+					<md-table-pagination md-label="{{vm.table_translate}}" md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.pagination.total}}" md-on-paginate="vm.getProducts" md-page-select></md-table-pagination>
+				</div>
+
+				<div layout="row"  ng-if="vm.pagination.total == 0" translate="OTHER.NO_RECORDS" class="text-center" ></div>
+			</div>
+		</div>
+
+	</div>
+</div>

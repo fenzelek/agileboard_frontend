@@ -1,0 +1,102 @@
+<div id="files-page" class="page-layout simple right-sidenav" layout="row">
+
+    <!-- CENTER -->
+    <div class="center" layout="column" flex>
+
+
+        <div class="header md-accent-bg" layout="row" layout-align="space-between">
+            <div layout="column" layout-align="space-between" flex="100">
+                <div layout="row">
+                    <div class="title" flex>
+                       <span translate="FILES.FILES"></span> - {{current_project_name}}
+                    </div>
+                </div>
+
+                <div class="options-row" flex layout-wrap layout="row" layout-align="space-between end">
+                    
+                    <div class="filters-row" layout="row">
+
+                        <!--  mobile filters menu -->
+                        <div class="header-filters-btn">
+                            <md-menu md-offset="0 48">
+                                <div class="selected-option button" ng-click="$mdMenu.open()" md-menu-origin md-menu-align-target role="button">
+                                    <span translate="FILES.FILTERS">Filters</span><md-icon md-font-icon="icon-menu-down" class="s20 white-fg"></md-icon>
+                                </div>
+                                <md-menu-content width="2" class="md-menu-bar-menu">
+                                    <md-menu-item class="md-indent">
+                                        <md-menu md-position-mode="cascade" md-nest-level="1">
+                                            <md-button ng-click="$mdMenu.open()" class="childs-option" role="menuitem" >
+                                                <md-icon md-font-icon="icon-file-find"></md-icon> <span translate="FILES.TYPES"></span>
+                                            </md-button>
+                                            <md-menu-content width="3" class="md-background-bg">
+                                                <md-menu-item ng-repeat="type in vm.types">
+                                                    <md-button ng-click="vm.selectType(type.id)" >
+                                                        <span ng-class="{'secondary-text': vm.selected_type.id == type.id}" translate="{{ 'FILES.' + type.name | uppercase }}"></span>
+                                                    </md-button>
+                                                </md-menu-item>
+                                            </md-menu-content>
+                                        </md-menu>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                        </div>
+                        
+                        <!-- tablet / mobile filters menu -->
+                        <div class="header-filters-block" layout="row">
+
+                            <!-- File types filter -->
+                            <div class="selected-option active" ng-if="vm.selected_type.id"><md-icon md-font-icon="icon-file-find" class="icon s20" style="min-width: 0;"></md-icon> {{ 'FILES.' + vm.selected_type.name | uppercase | translate }}</div>
+                            <div class="selected-option" ng-if="!vm.selected_type.id" translate="{{ 'FILES.' + vm.selected_type.name | uppercase }}"></div>
+                            <md-menu md-offset="0 48">
+                                <md-button class="md-icon-button option-selector" ng-click="$mdMenu.open()"
+                                        md-menu-origin md-menu-align-target>
+                                    <md-icon md-font-icon="icon-dots-horizontal"></md-icon>
+                                </md-button>
+                                <md-menu-content width="3" class="md-background-bg">
+                                    <md-menu-item ng-repeat="type in vm.types">
+                                        <md-button ng-click="vm.selectType(type.id)" >
+                                            <span ng-class="{'secondary-text': vm.selected_type.id == type.id}" translate="{{ 'FILES.' + type.name | uppercase }}"></span>
+                                        </md-button>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="search-bar">
+                        <ms-search-bar ng-model="vm.search" ng-model-options="{ debounce: 200 }"></ms-search-bar>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ADD FILE BUTTON -->
+            <md-button class="add-file-button md-fab md-warn"
+                        ng-click="vm.addModal()" aria-label="Add file" translate
+                        translate-attr-aria-label="FILES.ADD_FILE">
+                <md-icon md-font-icon="icon-plus"></md-icon>
+            </md-button>
+            <!-- / ADD FILE BUTTON -->
+        </div>
+
+        <!-- CONTENT -->
+        <md-content class="content" flex ms-scroll>
+            <div ng-include="'app/main/files/views/list/list-view.html'"></div>
+        </md-content>
+        <!-- / CONTENT -->
+
+    </div>
+    <!-- / CENTER -->
+
+    <!-- SIDENAV -->
+    <md-sidenav class="sidenav details-sidenav md-sidenav-right" md-is-locked-open="$mdMedia('gt-md')"
+                md-component-id="details-sidenav"
+                ng-include="'app/main/files/sidenavs/details/details-sidenav.html'" ms-scroll
+                ms-sidenav-helper>
+    </md-sidenav>
+    <!-- / SIDENAV -->
+
+</div>

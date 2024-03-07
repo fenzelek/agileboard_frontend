@@ -1,0 +1,18 @@
+{
+    "REGISTER": {
+        "TITLE": "Utwórz konto",
+        "FIRST_NAME": "Imię",
+        "LAST_NAME": "Nazwisko",
+        "EMAIL": "Email",
+        "KEY": "Kod rabatowy",
+        "PASSWORD": "Hasło",
+        "PASSWORD_CONFIRM": "Powtórz hasło",
+        "READ_ACCEPT": "Przeczytałem i akceptuję",
+        "TERMS_COND": "regulamin",
+        "CREATE_ACCOUNT": "Utwórz",
+        "ALREADY_HAVE": "Masz już konto",
+        "LOGIN": "Zaloguj",
+        "SUCCESS": "Konto zostało utworzone. Na Twój adres email został wysłany link aktywacyjny.",
+        "ACCOUNT_EXISTS": "Konto z tym adresem e-mail już istnieje."
+    }
+}

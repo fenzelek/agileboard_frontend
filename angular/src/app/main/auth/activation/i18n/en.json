@@ -1,0 +1,20 @@
+{
+    "ACTIVATION": {
+        "TITLE" : "Activation account",
+        "ACCOUNT" : {
+            "ACTIVE": "Your account has been activated. You were automatically logged in. You will be redirected to your panel shortly.",
+            "ACTIVE_2": "Your account has been activated. ",
+            "ACTIVE_BEFORE": "Your account is already active. You can login.",
+            "BROKEN_LINK_1": "Invalid link. Make sure the link is correct or",
+            "BROKEN_LINK_2": "resend activation e-mail.",
+            "BROKEN_ACTIVATION_1": "Activation of your account is not possible. Please",
+            "BROKEN_ACTIVATION_2": "contact",
+            "BROKEN_ACTIVATION_3": "the service."
+        },
+        "RECREATE" : {
+            "OK": "An email with an activation link has been sent.",
+            "ERROR": "An account with an email address not exist or is already active.",
+            "EMAIL": "E-mail"
+        }
+    }
+}

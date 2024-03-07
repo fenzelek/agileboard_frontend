@@ -1,0 +1,132 @@
+<div>
+    <!-- CARD SORT HANDLE -->
+    <div class="list-card-sort-handle">
+    <md-icon md-font-icon="icon-cursor-move" class="icon s16"></md-icon>
+    </div>
+    <!-- /CARD SORT HANDLE -->
+
+    <div class="list-card-header" layout="row" layout-align="start center">
+
+    <div flex layout="row" layout-align="start center">
+        <!-- CARD CODE -->
+        <div class="list-card-code" layout="row" layout-align="start center">
+            <a ng-click="$event.preventDefault();vm.openSidenav(ticket.id)"
+                ng-href="/projects/{{ticket.project_id}}/ticket/{{ticket.title}}">
+                {{ticket.title}}
+            </a>
+            <div class="copy-code-block">
+                <md-icon ng-click="vm.copyToClipboard(ticket.title)"
+                    md-font-icon="icon-clipboard-outline" class="icon s16"></md-icon>
+                <md-tooltip>{{ 'BOARD.COPY_TO_CLIPBOARD' | translate }}</md-tooltip>
+            </div>
+        </div>
+        <!-- / CARD CODE -->
+    </div>
+
+    <!-- CARD MEMBERS -->
+    <div ng-if="ticket.assigned_user.data" class="list-card-members">
+        <div class="list-card-member">
+            <img class="list-card-member-avatar" ng-src="{{vm.getAvatar(ticket.assigned_user.data.avatar)}}">
+            <md-tooltip>
+                <div class="name">{{ ticket.assigned_user.data.first_name}} {{ ticket.assigned_user.data.last_name}}</div>
+            </md-tooltip>
+        </div>
+    </div>
+    </div>
+
+    <!-- click-preview -->
+    <div class="click-preview">
+    <!-- CARD NAME -->
+    <div class="list-card-name">{{ticket.name}}</div>
+    <!-- / CARD NAME -->
+
+    <!-- CARD DETAILS -->
+    <div class="list-card-details">
+
+        <div ng-if="ticket.estimate_time"
+            class="list-card-badges" layout="column" layout-align="start center">
+
+            <!-- TIME estimated/charged -->
+            <span class="badge estimation" layout="row" layout-align="start center" flex="100">
+                <i class="icon-clock s12"></i>
+                <span>{{vm.formatEstimate(ticket.estimate_time)}}</span>
+            </span>
+            <!-- / TIME estimated/charged -->
+
+        </div>
+    </div>
+
+    <!-- Scheduled date -->
+    <div class="list-card-badges" layout="row" layout-align="center center" layout-wrap ng-if="ticket.scheduled_time_end">
+        <span class="badge date" layout="row" layout-align="start center">
+            <span>{{ ticket.scheduled_time_end | datetime:'yyyy-MM-dd' }}</span>
+        </span>
+    </div>
+
+    <!-- STORIES -->
+    <div class="list-card-stories" layout="row" layout-align="center center" layout-wrap ng-if="ticket.stories.data.length">
+        <span ng-repeat="story in ticket.stories.data" class="badge story" layout="row" layout-align="start center"
+            ng-style="{ 'color': story.color, 'border-color': story.color }" >
+            <span>{{ story.name }}</span>
+        </span>
+    </div>
+    <!-- /STORIES -->
+
+    <!-- SPRINT -->
+    <div class="list-card-sprint grey-600-fg" ng-if="ticket.sprint_name">
+        {{ ticket.sprint_name }}
+    </div>
+    <!-- /SPRINT -->
+
+    <!-- /RELATED TASKS PROGRESS BAR -->
+    <md-progress-linear ng-if="ticket.sub_tickets.data.length" class="progress-bar--small"
+        md-mode="determinate" value="{{ vm.getSubtasksProgress(ticket.sub_tickets.data) }}"
+    ></md-progress-linear>
+    <!-- /RELATED TASKS PROGRESS BAR -->
+
+
+    <!-- / CARD DETAILS -->
+
+    <!-- CARD FOOTER -->
+    <div class="list-card-footer" layout="row" layout-align="space-between center">
+
+        <div layout="row" layout-align="start center">
+
+            <!-- CARD BUG -->
+            <span ng-if="ticket.type_id == vm.bug_id" class="list-card-footer-item"
+                layout="row" layout-align="start center">
+                <i class="icon-alert-circle s16 red-900-fg"></i>
+            </span>
+            <!-- / CARD BUG -->
+
+            <!-- CARD ATTACHMENT -->
+            <span class="list-card-footer-item"
+                layout="row" layout-align="start center">
+                <i class="icon-attachment s12"></i>
+                <span class="value">{{ticket.files_count}}</span>
+            </span>
+            <!-- / CARD ATTACHMENT -->
+
+            <!-- CARD COMMENTS -->
+            <span class="list-card-footer-item"
+                layout="row" layout-align="start center">
+                <i class="icon-comment s12"></i>
+                <span class="value">{{ticket.comments_count}}</span>
+            </span>
+            <!-- / CARD COMMENTS -->
+        </div>
+
+        <!-- CARD RELATED TASKS ICON -->
+            <span ng-if="ticket.parent_tickets.data.length || ticket.sub_tickets.data.length"
+            class="list-card-footer-item ml-auto" layout="row" layout-align="start center">
+            <i class="icon-swap-horizontal s16 text-bold green-600-fg"></i>
+        </span>
+        <!-- / CARD RELATED TASKS ICON -->
+
+    </div>
+    <!-- CARD FOOTER -->
+    </div>
+    <!-- /click-preview -->
+
+</div>
+<!-- / CARD -->

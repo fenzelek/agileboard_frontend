@@ -1,0 +1,10 @@
+{
+    "BLOCKADE_COMPANY": {
+        "TITLE": "Firma jest zablokowana",
+        "INFO": {
+            "general_multiple_users" : "W twojej firmie jest zbyt wielu użytkowników. Kup większy pakiet/moduł lub zmniejsz ich ilość.",
+            "projects_multiple_projects" : "W twojej firmie jest zbyt wiel projektów. Kup większy pakiet/moduł lub zmniejsz ich ilość.",
+            "projects_users_in_project" : "W twojej firmie jeden lub kilka projektów ma zbyt wielu użytkowników. Kup większy pakiet/moduł lub zmniejsz ich ilość."
+        }
+    }
+}

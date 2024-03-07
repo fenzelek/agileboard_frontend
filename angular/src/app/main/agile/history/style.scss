@@ -1,0 +1,48 @@
+#history {
+
+    .header {
+        position: relative;
+        min-height: 140px !important;
+        height: 140px !important;
+        padding-top: 14px !important;
+        padding-bottom: 0 !important;
+        overflow: hidden;
+
+        .title {
+            font-size: 30px;
+        }
+    }
+
+    md-progress-circular {
+        margin: 1rem auto;
+    }
+
+    md-content {
+        background-color: transparent;
+    }
+
+
+    .selected-list {
+        background: #dedede !important;
+    }
+
+    md-content {
+        background-color: transparent;
+    }
+
+    // Center
+    .center {
+
+        margin: 10px;
+
+        .content {
+            padding: 0;
+            overflow: hidden;
+
+            .backlog-list-pane {
+                background-color: transparent;
+            }
+
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{
+  "TIME_TRACKER": {
+    "TITLE": "Zrzuty ekranu",
+    "SUM_TIME": "Czas łącznie",
+    "NO_TICKET": "Brak zadania",
+    "NO_ACTIVITIES": "Brak aktywności",
+    "NO_SCREENS": "Brak zrzutów ekranu",
+    "ACTIVITY": "Aktywność",
+    "PREVIEW_HINT": "Kliknij, aby wyświetlić podgląd"
+  }
+}

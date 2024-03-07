@@ -1,0 +1,10 @@
+{
+    "ERROR404": {
+        "CODE": "Taka strona nie istnieje",
+        "MESSAGE": "Sprawdź wprowadzony adres url",
+        "SUBMESSAGE": "Jeśli problem pojawi się ponownie skontaktuj się z administratorem",
+        "SUBMESSAGE_1": "tel",
+        "SUBMESSAGE_2": "e-mail",
+        "BACK": "Wróć do strony"
+    }
+}

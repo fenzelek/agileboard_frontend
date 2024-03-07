@@ -1,0 +1,7 @@
+{
+    "CALENDAR_EMPTY": {
+        "TITLE": "Your working hours in callendar are not filled for today",
+        "CONTENT": "Please do that.",
+        "GO_TO_CALENDAR": "Go to the calendar"
+    }
+}

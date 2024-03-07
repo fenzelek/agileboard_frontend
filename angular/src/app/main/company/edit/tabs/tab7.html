@@ -1,0 +1,150 @@
+<div layout="row">
+
+    <div class="form-wrapper  rounded-container max-1000" flex>
+
+        <!-- Integrations switcher -->
+        <div class="buttons-switcher" layout="row" layout-align="start center">
+            <md-button ng-click="vm.tab7.active_option = 1" ng-class="{ 'active': vm.tab7.active_option == 1 }">
+                <span translate="COMPANY_EDIT.INTEGRATION_1"></span>
+            </md-button>
+            <md-button ng-click="vm.tab7.active_option = 2" ng-class="{ 'active': vm.tab7.active_option == 2 }">
+                <span translate="COMPANY_EDIT.INTEGRATION_2"></span>
+            </md-button>
+            <md-button ng-click="vm.tab7.active_option = 3" ng-class="{ 'active': vm.tab7.active_option == 3 }">
+                <span translate="COMPANY_EDIT.INTEGRATION_3"></span>
+            </md-button>
+        </div>
+
+
+        <div ng-switch="vm.tab7.active_option" class="animate-if-opacity">
+
+            <!-- BASIC INTEGRATION -->
+            <div ng-switch-when="1" class="animate-if-opacity">
+                <!-- tab errors -->
+                <div class="alert-success" ng-if="vm.tab7.msg_success">{{ vm.tab7_projects.msg_success }}</div>
+                <div class="alert-error" ng-if="vm.tab7.msg_error">{{ vm.tab7_projects.msg_error }}</div>
+                <!-- add integration btn -->
+                <div layout="row" layout-align="end center">
+                    <md-button class="md-raised md-button md-default-theme md-accent" ng-click="vm.addIntegration()">
+                        <span translate="COMPANY_EDIT.INTEGRATIONS.ADD" ></span>
+                    </md-button>
+                </div>
+                <!-- table -->
+                <div ng-if="vm.tab7.integrations.length" class="table-wrapper">
+                    <md-table-container>
+                        <table md-table md-progress="vm.tab7.promise">
+                            <thead md-head >
+                            <tr md-row>
+                                <th md-column ><span translate="OTHER.No">Lp.</span></th>
+                                <th md-column ><span translate="COMPANY_EDIT.INTEGRATIONS.PROVIDER"></span></th>
+                            </tr>
+                            </thead>
+                            <tbody md-body>
+                            <tr md-row ng-repeat="integration in vm.tab7.integrations">
+                                <td md-cell>{{ vm.tab7.pagination | no:$index }}</td>
+                                <td md-cell>{{ integration.provider.data.name }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+                    <md-table-pagination md-label="{{vm.tab7.table_translate}}" md-limit="vm.tab7.query.limit" md-page="vm.tab7.query.page" md-total="{{vm.tab7.pagination.total}}" md-on-paginate="vm.getIntegrations" md-page-select></md-table-pagination>
+                </div>
+                <!-- no-records info -->
+                <div ng-if="vm.tab7.integrations.length == 0" translate="OTHER.NO_RECORDS" class="text-center" ></div>
+            </div>
+
+
+            <!-- PROJECTS INTEGRATION -->
+            <div ng-switch-when="2" class="animate-if-opacity">
+                <!-- errors -->
+                <div class="alert-success" ng-if="vm.tab7_projects.msg_success">{{ vm.tab7_projects.msg_success }}</div>
+                <div class="alert-error" ng-if="vm.tab7_projects.msg_error">{{ vm.tab7_projects.msg_error }}</div>
+                <!-- Filters -->
+                <div layout="row">
+                    <md-input-container class="md-block" flex="50">
+                        <label><span translate="COMPANY_EDIT.INTEGRATIONS_PROJECTS.TYPE"></span></label>
+                        <md-select ng-model="vm.tab7_projects.query.integration_id" required  ng-if="!translate_loading" ng-change="vm.getIntegrationsProjects()">
+                            <md-option ng-value="null" ><span translate="OTHER.ALL"></span></md-option>
+                            <md-option ng-value="type.id" ng-repeat="type in vm.tab7_projects.types" >{{type.provider.data.name}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <div layout="row" layout-align="start center" flex-gt-xs="25">
+
+                    </div>
+                    <div layout="row" layout-align="end center" flex-gt-xs="25">
+                        <md-button class="md-raised md-button md-default-theme md-accent" ng-click="vm.refreshProjectsList()" ng-if="vm.tab7_projects.query.integration_id" ng-disabled="vm.request_sending" >
+                            <span translate="COMPANY_EDIT.INTEGRATIONS_PROJECTS.REFRESH" ></span>
+                        </md-button>
+                    </div>
+                </div>
+                <!-- table -->
+                <div ng-if="vm.tab7_projects.integrations.length" class="table-wrapper">
+                    <md-table-container>
+                        <table md-table md-progress="vm.tab7_projects.promise">
+                            <thead md-head md-order="vm.tab7_projects.query.sort" md-on-reorder="vm.getIntegrationsProjects" >
+                            <tr md-row>
+                                <th md-column md-order-by="id" ><span translate="OTHER.No">Lp.</span></th>
+                                <th md-column md-order-by="external_project_name" ><span translate="COMPANY_EDIT.INTEGRATIONS_PROJECTS.EXTERNAL_PROJECT_NAME"></span></th>
+                                <th md-column ><span translate="COMPANY_EDIT.INTEGRATIONS_PROJECTS.PROJECT_NAME"></span></th>
+                                <th md-column md-order-by="integration_id" ><span translate="COMPANY_EDIT.INTEGRATIONS_PROJECTS.INTEGRATION_ID"></span></th>
+                                <th md-column ><span translate="OTHER.ACTION">Akcje</span></th>
+                            </tr>
+                            </thead>
+                            <tbody md-body>
+                            <tr md-row ng-repeat="integration in vm.tab7_projects.integrations">
+                                <td md-cell>{{ vm.tab7_projects.pagination | no:$index }}</td>
+                                <td md-cell>{{ integration.external_project_name }}</td>
+                                <td md-cell>{{ integration.project.data.name }}</td>
+                                <td md-cell>{{ integration.integration_id }}</td>
+                                <td md-cell>
+                                    <md-button class="md-raised md-accent md-button md-default-theme" ng-click="vm.addIntegrationProject(integration)" >
+                                        <span translate="OTHER.EDIT" ></span>
+                                    </md-button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+                    <md-table-pagination md-label="{{vm.tab7_projects.table_translate}}" md-limit="vm.tab7_projects.query.limit" md-page="vm.tab7_projects.query.page" md-total="{{vm.tab7_projects.pagination.total}}" md-on-paginate="vm.getIntegrationsProjects" md-page-select></md-table-pagination>
+                </div>
+                <!-- no records info -->
+                <div ng-if="vm.tab7_projects.integrations.length == 0" translate="OTHER.NO_RECORDS" class="text-center" ></div>
+            </div>
+
+
+            <!-- USERS INTEGRATION -->
+            <div ng-switch-when="3" class="animate-if-opacity">
+                <!-- errors -->
+                <div class="alert-success" ng-if="vm.tab7_users.msg_success">{{ vm.tab7_users.msg_success }}</div>
+                <div class="alert-error" ng-if="vm.tab7_users.msg_error">{{ vm.tab7_users.msg_error }}</div>
+                <!-- table -->
+                <div ng-if="vm.tab7_users.users.length" class="table-wrapper">
+                    <md-table-container>
+                        <table md-table md-progress="vm.tab7_users.promise">
+                            <thead md-head >
+                            <tr md-row>
+                                <th md-column ><span translate="OTHER.No">Lp.</span></th>
+                                <th md-column ><span translate="COMPANY_EDIT.INTEGRATIONS_USERS.EXTERNAL_USER"></span></th>
+                                <th md-column ><span translate="COMPANY_EDIT.INTEGRATIONS_USERS.USER"></span></th>
+                            </tr>
+                            </thead>
+                            <tbody md-body>
+                            <tr md-row ng-repeat="user in vm.tab7_users.users">
+                                <td md-cell>{{ vm.tab7_users.pagination | no:$index }}</td>
+                                <td md-cell>{{ user.external_user_name }}</td>
+                                <td md-cell>{{ user.user.data.first_name }} {{ user.user.data.last_name }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+                    <md-table-pagination md-label="{{vm.tab7_users.table_translate}}" md-limit="vm.tab7_users.query.limit" md-page="vm.tab7_users.query.page" md-total="{{vm.tab7_users.pagination.total}}" md-on-paginate="vm.getIntegrationsUsers" md-page-select></md-table-pagination>
+                </div>
+                <!-- no records info -->
+                <div ng-if="vm.tab7_users.users.length == 0" translate="OTHER.NO_RECORDS" class="text-center" ></div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>

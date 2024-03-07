@@ -1,0 +1,30 @@
+<div class="form-wrapper">
+    <!-- TASKS APPEARANCE -->
+    <div ng-repeat="privilege in vm.groupedPrivileges">
+        <div class="form-title mt-10 mb-0">{{ 'PROJECTS_FORM.PRIVILEGES.' + privilege.name | translate }}</div>
+        <p>{{ 'PROJECTS_FORM.PRIVILEGES.' + privilege.name + '_DESC' | translate }}</p>
+        <div ng-repeat="group in privilege.groups" class="border-bottom pv-15"
+            layout="column" layout-gt-sm="row" layout-align="start start" layout-align-gt-sm="start center">
+            <div class="role-title">
+                {{ 'PROJECTS_FORM.PRIVILEGES.GROUPS.' + group.translation | translate }}:
+            </div>
+            <div class="role-options" layout="row" layout-wrap>
+                <!-- direct options (ticket_show) -->
+                <md-checkbox ng-model="option.value" ng-change="vm.updatePrivileges(group.name, group.options)"
+                    ng-repeat="option in group.options" ng-if="group.options[0]" ng-disabled="vm.request_sending">
+                    {{ 'PROJECTS_FORM.PRIVILEGES.RELATIONS.' + option.name | translate }}
+                </md-checkbox>
+                <!-- roles options (ticket & ticket_comment) -->
+                <md-checkbox ng-model="option.value" ng-change="vm.updatePrivileges(group.name, group.options)"
+                    ng-repeat="option in group.options.roles" ng-if="group.options.roles" ng-disabled="vm.request_sending">
+                    {{ 'PROJECTS_FORM.PRIVILEGES.ROLES.' + option.name | translate }}
+                </md-checkbox>
+                <!-- relations options (ticket & ticket_comment) -->
+                <md-checkbox ng-model="option.value" ng-change="vm.updatePrivileges(group.name, group.options)"
+                    ng-repeat="option in group.options.relations" ng-if="group.options.relations" ng-disabled="vm.request_sending">
+                    {{ 'PROJECTS_FORM.PRIVILEGES.RELATIONS.' + option.name | translate }}
+                </md-checkbox>
+            </div>
+        </div>
+    </div>
+</div>

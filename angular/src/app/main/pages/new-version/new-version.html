@@ -1,0 +1,16 @@
+<md-dialog aria-label="METHOD">
+    <div id="new-version-dialog">
+        <p ng-if="vm.name != ''">
+            <span translate="NEW_VERSION.TITLE"></span>, {{vm.name}}
+        </p>
+        <p ng-if="vm.name == ''">
+            <span translate="NEW_VERSION.TITLE"></span>
+        </p>
+        <p>
+            <span translate="NEW_VERSION.CONTENT"></span>
+        </p>
+        <p>
+            <a translate="NEW_VERSION.REFRESH" ng-click="vm.refresh()"></a>
+        </p>
+    </div>
+</md-dialog>

@@ -1,0 +1,224 @@
+#ticket-show {
+
+  .header {
+    padding-bottom: 18px !important;
+  }
+
+  .inline-edit {
+    width: 100%;
+    display: inline-block;
+
+    > div:not(.md-block) {
+      display: inline-block;
+    }
+  }
+
+  .ticket-container {
+    padding-bottom: 30px;
+  }
+
+  .ticket-row {
+    margin: 10px 0;
+    min-height: 32px;
+
+    &.ticket-row-dimmed {
+      color: rgba(0,0,0,0.38);
+    }
+
+    .list-card-member-avatar {
+      margin-right: 8px;
+    }
+  }
+
+  .description {
+    font-size: 15px;
+    margin: 10px 0;
+  }
+
+  .attachment-list {
+    margin: 10px 0;
+
+    .attachment {
+      padding: 10px;
+      margin-right: 16px;
+      margin-bottom: 16px;
+      box-sizing: content-box;
+      border: 1px solid #e0e0e0;
+      border-radius: 5px;
+
+      .preview {
+        background: #FFFFFF;
+        width: 280px;
+        height: 280px;
+        margin-bottom: 3px;
+
+        div {
+          font-size: 22px;
+          width: 280px;
+          height: 280px;
+          background-color: #f2f2f2;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: contain;
+        }
+      }
+
+      .action-button {
+        margin: 0;
+        padding: 0;
+        width: 18px;
+        height: 18px;
+      }
+
+      .link {
+        margin-bottom: 2px;
+      }
+
+      .desc {
+        font-size: 0.8em;
+        color: rgba(0,0,0,0.62);
+        cursor: default;
+      }
+    }
+  }
+
+  .ticket-block-empty {
+    min-height: 60px;
+    background-color: #f2f2f2;
+    margin: 10px 0;
+    padding: 15px;
+  }
+
+  .info-empty {
+    font-size: 1.6rem;
+    color: rgba(0,0,0,0.26);
+    text-transform: uppercase;
+  }
+
+  // edit / delete buttons and dates
+  .comment-block, .attachment {
+
+    .datetime {
+      opacity: 0.6;
+    }
+    .md-button {
+      opacity: 0.3;
+    }
+
+    &:hover {
+
+      .datetime, .md-button {
+        opacity: 1;
+      }
+    }
+  }
+
+  .comment-header {
+
+    span {
+      margin-right: 10px;
+    }
+    .md-button {
+      margin-left: 6px;
+    }
+  }
+
+  .comments {
+    margin-top: 16px;
+
+    .comment {
+        margin-bottom: 20px;
+
+        .comment-member-avatar {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          margin-right: 16px;
+        }
+
+        .comment-member-name {
+          font-size: 14px;
+          font-weight: 700;
+        }
+
+        .comment-delete {
+          box-sizing: content-box;
+          width: 18px;
+          height: 18px;
+          margin: 0 0 0 10px;
+          padding: 0;
+          min-width: auto;
+          min-height: auto;
+          opacity: 0.3;
+
+          i {
+            font-size: 18px !important;
+            line-height: 18px !important;
+            width: 18px !important;
+            height: 18px !important;
+            min-width: auto !important;
+            min-height: auto !important;
+          }
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+
+        .comment-time {
+          font-size: 12px;
+          opacity: 0.5;
+
+          i {
+            margin-right: 3px;
+            color: rgba(0,0,0,0.62);
+          }
+
+          .comment-time-edit {
+            margin-left: 8px;
+          }
+        }
+
+        .comment-bubble {
+            display: inline-block;
+            position: relative;
+            max-width: 70vw;
+            width: fit-content;
+            box-sizing: border-box;
+            word-wrap: break-word;
+            padding: 5px 8px;
+            background-color: white;
+            border: 1px solid rgb(220, 223, 225);
+            font-size: 14px;
+            margin: 4px 0;
+
+            &:after,
+                &:before {
+                content: ' ';
+                position: absolute;
+                width: 0;
+                height: 0;
+            }
+
+            &:after {
+                left: -7px;
+                right: auto;
+                top: 0px;
+                bottom: auto;
+                border: 11px solid;
+                border-color: white transparent transparent transparent;
+            }
+
+            &:before {
+                left: -9px;
+                right: auto;
+                top: -1px;
+                bottom: auto;
+                border: 8px solid;
+                border-color: rgb(220, 223, 225) transparent transparent transparent;
+            }
+        }
+    }
+  }
+
+}

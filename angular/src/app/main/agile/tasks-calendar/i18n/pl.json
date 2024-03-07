@@ -1,0 +1,16 @@
+{
+    "TASKS-CALENDAR": {
+        "CREATE_TICKET": "Dodaj zadanie",
+        "TICKET": "Zadanie",
+        "TITLE": "Kalendarz",
+        "SEARCH": "Wyszukaj",
+        "TODAY": "Dziś",
+        "DAY": "Widok dnia",
+        "WEEK": "Widok tygodnia",
+        "MONTH": "Widok miesiąca",
+        "CLOSE_CALENDAR": "Zamknij kalendarz",
+        "RESET_FILTERS": "Usuń filtry",
+        "CURRENT_MONTH": "Bieżący miesiąc",
+        "CURRENT_WEEK": "Bieżący tydzień"
+    }
+}

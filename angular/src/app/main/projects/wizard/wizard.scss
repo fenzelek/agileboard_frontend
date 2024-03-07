@@ -1,0 +1,86 @@
+#project-wizard-dialog {
+    max-width: 550px;
+
+    .steps {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 16px;
+
+        span {
+            width: 5px;
+            height: 5px;
+            margin: 0 4px;
+            border-radius: 50%;
+
+            &:not(.md-accent-bg) {
+                background: rgba(0, 0, 0, 0.12);
+            }
+
+            &.selected {
+                width: 8px;
+                height: 8px;
+            }
+        }
+    }
+
+    .add-status-btn {
+        width: 190px;
+        margin-right: 60px;
+    }
+    .delete-status-btn {
+        margin-top: 28px;
+    }
+
+    .summary-box {
+        padding: 2rem;
+        border: $box-border;
+        border-radius: $element-radius;
+    }
+
+    .sprint-name {
+        display: inline-block;
+        padding: 8px 13px 5px;
+        border: 2px solid $box-border-color;
+        border-bottom: 0;
+        border-radius: $element-radius $element-radius 0 0;
+    }
+
+    .statuses-table {
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: $element-radius;
+        overflow: hidden;
+        table-layout: fixed;
+
+        th, td {
+            border: $box-border;
+        }
+
+        th {
+            padding: 8px 10px 7px;
+            background-color: #dcdcdc;
+        }
+        td {
+            padding: 8px 10px 30px;
+            background-color: #EEF0F2;
+
+        }
+    }
+
+    .task {
+        border: $box-border;
+        border-radius: $element-radius;
+        padding: 5px;
+        text-align: center;
+        background-color: #fff;
+        overflow: hidden;
+    }
+
+
+}
+
+md-backdrop.md-opaque.wizard-backdrop {
+    background-color: #000 !important;
+    opacity: .62 !important;
+}

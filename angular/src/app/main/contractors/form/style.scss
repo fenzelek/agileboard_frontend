@@ -1,0 +1,22 @@
+#contractors-form-dialog {
+  background: #fff;
+
+  md-toolbar {
+    background: #fff;
+    font-size: 17px;
+    border-bottom: 1px solid #AAAAAA;
+    color: #000;
+    height: auto;
+    min-height:40px;
+  }
+
+  md-dialog-actions {
+    border-top: 1px solid #AAAAAA;
+  }
+
+  .title {
+    font-size: 16px;
+    padding:10px;
+  }
+
+}

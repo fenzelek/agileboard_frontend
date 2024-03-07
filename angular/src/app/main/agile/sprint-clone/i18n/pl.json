@@ -1,0 +1,9 @@
+{
+    "SPRINT_CLONE": {
+        "TITLE": "Sklonuj etap",
+        "DESC": "Sklonuj etap wraz z jego zadaniami:",
+        "NEW_NAME": "Nowa nazwa",
+        "ACTIVATED": "Rozpocznij sklonowany etap",
+        "CLONE": "Sklonuj"
+    }
+}

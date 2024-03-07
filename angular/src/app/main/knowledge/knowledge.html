@@ -1,0 +1,128 @@
+<div id="knowledge" class="page-layout carded left-sidenav" layout="row">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg md-accent-bg"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center" layout="column" flex>
+
+        <!-- CONTENT HEADER -->
+        <div class="header" layout="column" layout-align="space-between">
+            <div class="title" layout="row" layout-align="start center">
+                <span translate="KNOWLEDGE.TITLE" ></span>
+                &nbsp;- {{current_project_name}}
+            </div>
+            <div class="options-row" flex layout-wrap layout="row" layout-align="space-between end">
+                <!-- stories filter -->
+                <div layout="row">
+                    <md-select class="md-no-underline" ng-model="vm.selected_story" data-md-container-class="searchable-select"
+                        ng-change="vm.selectStory(vm.selected_story.id)" md-on-close="vm.storySearch = ''">
+                        <!-- Search field -->
+                        <md-select-header class="select-header">
+                            <input class="select-search md-text" type="search" ng-model="vm.storySearch"
+                            placeholder="{{ 'OTHER.SEARCH' | translate }}...">
+                        </md-select-header>
+                        <!-- List -->
+                        <md-optgroup>
+                            <md-option ng-value="story" ng-repeat="story in vm.stories | filter:vm.storySearch">
+                                <span ng-if="story.name != ''">
+                                    <md-icon md-font-icon="icon-star" class="icon s20"></md-icon>
+                                    {{ story.name }}
+                                </span>
+                                <span ng-if="story.name == ''" translate="{{story.translate}}"></span>
+                            </md-option>
+                        </md-optgroup>
+                    </md-select>
+                </div>
+                <!-- Search -->
+                <div class="search-bar">
+                    <ms-search-bar ng-model="vm.search" ng-model-options="{ debounce: 300 }"></ms-search-bar>
+                </div>
+
+            </div>
+        </div>
+        <!-- / CONTENT HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card" layout="column" flex>
+
+            <div layout="row">
+                <div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+                <div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+            </div>
+
+            <!-- KNOWLEDGE READ PANE TOOLBAR -->
+            <div class="toolbar" layout="row" layout-align="space-between center" ng-if="vm.activePaneIndex === 1">
+                <md-button class="md-icon-button"
+                           ng-click="vm.closeReadPane()"
+                           aria-label="Back"
+                           translate translate-attr-aria-label="KNOWLEDGE.BACK">
+                    <md-icon md-font-icon="icon-keyboard-backspace"></md-icon>
+                </md-button>
+
+            </div>
+            <!-- / KNOWLEDGE READ PANE TOOLBAR -->
+
+            <!-- CONTENT TOOLBAR -->
+            <div class="toolbar" layout="row" layout-align="space-between center" ng-if="vm.activePaneIndex === 0">
+                <!--hide show-gt-sm-->
+                <div ng-if="vm.hasAccess(vm.create_edit_permission)" layout="row" layout-align="start center">
+
+                    <md-button class="md-icon-button" aria-label="Add dir" translate ng-click="vm.addEditDirectoryModal(null)"
+                               translate-attr-aria-label="KNOWLEDGE.ADD_DIR" >
+                        <md-icon md-font-icon="icon-folder-plus"></md-icon>
+                        <md-tooltip><span translate="KNOWLEDGE.ADD_DIR"></span></md-tooltip>
+                    </md-button>
+
+                    <md-button class="md-icon-button" aria-label="Add page" translate ng-click="vm.addEditPageModal(null, 0)"
+                               translate-attr-aria-label="KNOWLEDGE.ADD_PAGE" >
+                        <md-icon md-font-icon="icon-library-plus"></md-icon>
+                        <md-tooltip><span translate="KNOWLEDGE.ADD_PAGE"></span></md-tooltip>
+                    </md-button>
+                </div>
+
+                <div layout="row" layout-align="start center" translate-attr-aria-label="KNOWLEDGE.REFRESH">
+
+                </div>
+            </div>
+            <!-- / CONTENT TOOLBAR -->
+
+            <!-- CONTENT WRAPPER -->
+            <div class="content-wrapper" layout="row" flex>
+
+                <md-tabs md-selected="vm.activePaneIndex" class="knowledge-tabs" md-dynamic-height="{{vm.dynamicHeight}}"
+                         flex>
+                    <md-tab>
+                        <md-tab-label>List</md-tab-label>
+                        <md-tab-body>
+                            <!-- KNOWLEDGE LIST PANE -->
+                            <div class="content dir-list-pane"
+                                 ng-include="'app/main/knowledge/views/list/list-view.html'" ms-scroll>
+                            </div>
+                            <!-- / KNOWLEDGE LIST PANE -->
+                        </md-tab-body>
+                    </md-tab>
+
+                    <md-tab>
+                        <md-tab-label>View</md-tab-label>
+                        <md-tab-body>
+                            <!-- KNOWLEDGE READ PANE -->
+                            <div class="content knowledge-read-pane"
+                                 ng-include="'app/main/knowledge/views/read/read-view.html'" ms-scroll>
+                            </div>
+                            <!-- / KNOWLEDGE READ PANE -->
+                        </md-tab-body>
+                    </md-tab>
+                </md-tabs>
+
+            </div>
+            <!-- / CONTENT WRAPPER -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

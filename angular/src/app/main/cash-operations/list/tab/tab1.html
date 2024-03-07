@@ -1,0 +1,108 @@
+
+<div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+<div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+<div layout="row">
+
+    <div class="form-wrapper  rounded-container min-1000">
+        <div layout="row" layout-wrap="">
+            <md-input-container class="md-block" flex-gt-sm="20" flex="25">
+                <label><span translate="CASH_OPERATIONS_LIST.DATE"></span></label>
+                <input ng-model="vm.tab1.query.date" name="date" moment-picker="vm.tab1.query.date" format="YYYY-MM-DD" start-view="decade" locale="pl" >
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm="30" flex="35">
+                <label><span translate="CASH_OPERATIONS_LIST.USER"></span></label>
+                <md-select ng-model="vm.tab1.query.user_id" required name="user_id" ng-if="!translate_loading">
+                    <md-option ng-value="user.id" ng-repeat="user in vm.users" >{{user.first_name}} {{user.last_name}}</md-option>
+                </md-select>
+            </md-input-container>
+            <div layout="row" layout-align="start center" flex-gt-sm="15" flex="25">
+                <md-button class="md-raised md-button md-default-theme md-accent" ng-click="vm.getCashOperations()" >
+                    <span translate="CASH_OPERATIONS_LIST.SEARCH" ></span>
+                </md-button>
+            </div>
+            <div layout="row" layout-align="start center" layout-align-gt-sm="end center" flex-gt-sm="35" flex="100">
+                <md-button class="md-raised md-button md-default-theme md-accent" ng-click="vm.pdf()" >
+                    <span translate="CASH_OPERATIONS_LIST.GENERATE_PDF" ></span>
+                </md-button>
+                <a class="md-raised md-button md-default-theme md-accent" ng-href="/cash-operations/form/new/cashless/0" ng-if="!vm.is_tax_office" >
+                    <span translate="CASH_OPERATIONS_LIST.ADD" ></span>
+                </a>
+            </div>
+        </div>
+        <div layout="row" >
+            <md-input-container class="md-block" flex>
+                <md-checkbox ng-model="vm.tab1.query.balanced_tmp" ng-change="vm.getCashOperations()">
+                    <span translate="CASH_OPERATIONS_LIST.BALANCE"></span>
+                </md-checkbox>
+            </md-input-container>
+        </div>
+
+        <div ng-if="vm.tab1.pagination.total" class="table-wrapper">
+            <md-table-container>
+                <table md-table md-progress="vm.tab1.promise">
+                    <thead md-head>
+                    <tr md-row>
+                        <th md-column><span translate="OTHER.No">Lp.</span></th>
+                        <th md-column><span translate="CASH_OPERATIONS_LIST.RECEIPT_NUMBER"></span></th>
+                        <th md-column><span translate="CASH_OPERATIONS_LIST.RECEIPT_NUMBER_TRANSACTION"></span></th>
+                        <th md-column md-numeric><span translate="CASH_OPERATIONS_LIST.AMOUNT"></span></th>
+                        <th md-column><span translate="CASH_OPERATIONS_LIST.DIRECTION"></span></th>
+                        <th md-column ><span translate="CASH_OPERATIONS_LIST.DESCRIPTION"></span></th>
+                        <th md-column><span translate="CASH_OPERATIONS_LIST.CREATED"></span></th>
+                        <th md-column ><span translate="OTHER.ACTION">Akcje</span></th>
+                    </tr>
+                    </thead>
+                    <tbody md-body>
+                    <tr md-row ng-repeat="operation in vm.tab1.cash_operations">
+                        <td md-cell>{{ vm.tab1.pagination | no:$index }}</td>
+                        <td md-cell>
+                            {{ operation.receipt.data ? operation.receipt.data.number : '' }}
+                            {{ operation.invoice.data ? operation.invoice.data.number : '' }}
+                        </td>
+                        <td md-cell>{{ operation.receipt.data ? operation.receipt.data.transaction_number : '' }}</td>
+                        <td md-cell>{{ operation.amount.toFixed(2) | numFormat }}zł</td>
+                        <td md-cell><span translate="CASH_OPERATIONS_LIST.DIRECTION_LIST.{{operation.direction}}"></span></td>
+                        <td md-cell>{{operation.description}}</td>
+                        <td md-cell>{{ operation.flow_date }}</td>
+                        <td md-cell>
+                            <md-menu>
+                                <md-button class="md-icon-button" ng-click="$mdMenu.open()"
+                                           aria-label="more">
+                                    <md-icon md-font-icon="icon-dots-vertical"></md-icon>
+                                </md-button>
+
+                                <md-menu-content width="3">
+                                    <md-menu-item >
+                                        <md-button ng-click="vm.pdf(operation.id)" aria-label="Edit">
+                                            <span translate="CASH_OPERATIONS_LIST.GENERATE_PDF"></span>
+                                        </md-button>
+                                    </md-menu-item>
+                                    <md-menu-item ng-if="vm.tab1.edit_access && !vm.is_tax_office" >
+                                        <md-button ng-click="vm.changeTo(operation.id, 1)" aria-label="Change">
+                                            <span translate="CASH_OPERATIONS_LIST.CHANGE_2"></span>
+                                        </md-button>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+
+            <md-table-pagination md-label="{{vm.tab1.table_translate}}" md-limit="vm.tab1.query.limit" md-page="vm.tab1.query.page" md-total="{{vm.tab1.pagination.total}}" md-on-paginate="vm.getCashOperations" md-page-select></md-table-pagination>
+        </div>
+
+        <div layout="row"  ng-if="vm.tab1.pagination.total == 0" translate="OTHER.NO_RECORDS" class="text-center" ></div>
+
+        <div class="font-size-16">
+            <div class="bold" translate="CASH_OPERATIONS_LIST.SUM"></div>
+            <div ><span translate="CASH_OPERATIONS_LIST.CASH_START"></span>: {{vm.tab1.reports.cash_initial_sum.toFixed(2) | numFormat }}zł</div>
+            <div ><span translate="CASH_OPERATIONS_LIST.CASH_STOP"></span>: {{vm.tab1.reports.cash_final_sum.toFixed(2) | numFormat }}zł</div>
+            <div ><span translate="CASH_OPERATIONS_LIST.CASH_RELEASED"></span>: {{vm.tab1.reports.cash_out_sum.toFixed(2) | numFormat }}zł</div>
+            <div ><span translate="CASH_OPERATIONS_LIST.CASH_TOOK"></span>: {{vm.tab1.reports.cash_in_sum.toFixed(2) | numFormat }}zł</div>
+            <div ><span translate="CASH_OPERATIONS_LIST.CALC"></span>: {{vm.tab1.reports.calc_final_sum.toFixed(2) | numFormat }}zł</div>
+        </div>
+    </div>
+</div>

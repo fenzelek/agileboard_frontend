@@ -1,0 +1,87 @@
+{
+    "DASHBOARD": {
+        "TITLE": "Dashboard",
+        "ADD_TICKET": "Add ticket",
+        "TICKET": "Ticket",
+        "LATEST_ACTIVITIES": "Latest activities",
+        "TOGGLE_LATES_ACTIVITIES": "Toggle latest activities sidebar",
+        "ALL_COMPANIES": "All companies",
+        "ALL_PROJECTS": "All projects",
+        "ALL_STATUSES": "All statuses",
+        "ALL_SPRINTS": "All sprints",
+        "YOUR_TASKS": "Your Tasks",
+        "ASSIGNED_TO_ME": "Assigned to me",
+        "NO_RESULTS": "No results, try to refresh",
+        "OPEN_TICKET": "Open ticket",
+        "OPEN_TICKET_IN_NEW_WINDOW": "Open ticket in the new window",
+        "EDIT_TICKET": "Edit ticket",
+        "CREATE": "Create new",
+        "COMPANY": "Company",
+        "PROJECT": "Project",
+        "WIZARD": "Run wizard",
+        "YOUR_PROJECTS": "Your Projects",
+        "LAST_ADDED": "Last added",
+        "DAYS": "days",
+        "MONTH": "month",
+        "MONTHS": "months",
+        "TICKETS": "Tasks",
+        "TOO_MANY_PROJECTS" : "You have the maximum number of projects. Go to packages to increase their quantity.",
+        "QUICK_TASK" : "Quick Task",
+        "CREATED": "created",
+        "SPRINT": "Sprint",
+        "BACKLOG": "Backlog",
+        "DESCRIPTIONS": {
+            "QUICK_TASK": "The fastest way to create a ticket in the project",
+            "YOUR_PROJECTS": "The full list of your projects",
+            "LAST_ADDED": "Last added items from selected peroid, eg. assigned to you tasks",
+            "YOUR_TASKS": "Assigned to you, undone tasks from active sprints"
+        },
+
+        "NOTIFICATIONS": "Notifications",
+        "ATTACHMENTS": "Attachments",
+        "ASSOCIATED_TASKS": "Tasks associated with You",
+        "COMMING_SOON": "Comming soon!",
+        "READ": "Read",
+        "UNREAD": "Unread",
+        "COMMENTS": "Comments",
+        "ADD_COMMENT": "Add comment",
+        "EDITED": "Edited",
+        "ADD_TAG_TICKET": "Add",
+
+        "EVENT_TYPE.MALE": {
+            "ticket_new": "added task",
+            "ticket_edit": "edited task",
+            "ticket_comment_new": "added comment",
+            "ticket_comment_edit": "edited comment",
+            "knowledge_page_new": "added knowledge page",
+            "knowledge_page_edit": "edited knowledge page",
+            "knowledge_page_comment_new": "added comment",
+            "knowledge_page_comment_edit": "edited comment"
+        },
+        "EVENT_TYPE.FEMALE": {
+            "ticket_new": "added task",
+            "ticket_edit": "edited task",
+            "ticket_comment_new": "added comment",
+            "ticket_comment_edit": "edited comment",
+            "knowledge_page_new": "added knowledge page",
+            "knowledge_page_edit": "edited knowledge page",
+            "knowledge_page_comment_new": "added comment",
+            "knowledge_page_comment_edit": "edited comment"
+        },
+
+        "MARK_ALL_AS_READ": "Mark all as read",
+        "NOTIFICATIONS_EMPTY": "No notifications",
+        "NOTIFICATION_SOURCE_DELETED": "Source of this notification has been removed and is no longer available.",
+
+        "PREVIEW": {
+            "no_item_selected": "Select item to display preview"
+        },
+
+        "INVOICE_LIST": "Invoices list",
+        "DOWNLOAD_REGISTRY": "Download invoices registry (last month)",
+        "NEW_INVOICE": "Add invoice",
+        "EDIT_COMPANY": "Manage company",
+        "NEW_CONTRACTOR": "Add contractor",
+        "NEW_PRODUCT": "Add product/service"
+    }
+}

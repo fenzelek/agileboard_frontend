@@ -1,0 +1,109 @@
+#files-page {
+
+    .center {
+
+        .header {
+            position: relative;
+            height: 110px !important;
+            min-height: 110px !important;
+            padding-bottom: 0 !important;
+
+            .title {
+                font-size: 24px;
+                padding-left: 90px;
+            }
+
+            .options-row {
+                padding-top: 15px;
+
+                .filters-row {
+                    padding-left: 90px;
+                }
+
+                .selected-option {
+                    background: rgba(0, 0, 0, 0.12);
+                    color: #FFFFFF;
+                    padding: 8px 16px;
+                    height: 40px;
+                    line-height: 24px;
+                    font-size: 16px;
+                    border-radius: $element-radius 0 0 0;
+
+                    &.active {
+                        background: rgba(0, 0, 0, 0.2);
+                    }
+                }
+
+                .option-selector {
+                    margin-left: 1px;
+                    border-radius: 0;
+                    background: rgba(0, 0, 0, 0.12);
+                    border-radius: 0 $element-radius 0 0;
+
+                    md-icon {
+                    color: #FFFFFF;
+                    }
+                }
+
+                .ms-search-bar input {
+                    padding-left: 114px;
+                }
+            }
+
+            .add-file-button {
+                position: absolute;
+                bottom: -32px;
+                left: 16px;
+            }
+        }
+
+        .content {
+            padding: 0;
+            background: #FFFFFF;
+        }
+    }
+
+    .details-sidenav {
+        box-shadow: $whiteframe-shadow-8dp;
+        z-index: 4;
+    }
+}
+
+// RESPONSIVE
+@media screen and (max-width: $layout-breakpoint-md) {
+
+    #files-page {
+
+        .center {
+
+            .header {
+
+                .header-content {
+
+                    .breadcrumb {
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $layout-breakpoint-sm) {
+
+    #files-page {
+
+        .center {
+
+            .header {
+
+                .header-content {
+
+                    .breadcrumb {
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+    }
+}

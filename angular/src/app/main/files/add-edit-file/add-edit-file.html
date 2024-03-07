@@ -1,0 +1,99 @@
+<md-dialog aria-label="METHOD" id="add-edit-file-files-dialog">
+    <form id="addEditFile" name="addEditFile">
+        <md-toolbar class="title">
+            <span translate="FILES.NEW_FILE" class="font-size-16"></span>
+        </md-toolbar>
+
+        <md-dialog-content ms-scroll>
+            <div layout="row">
+                <div class="form-wrapper min-400">
+
+                    <div layout="row">
+                        <div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+                        <div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+                    </div>
+
+                    <!-- uplaod file d&d -->
+                    <div ng-if="!vm.file_loaded" layout="row">
+                        <md-input-container class="md-block" flex id="drop-files">
+                            <md-button id="file-upload-button" type="button" class="md-raised md-accent" ng-click="vm.addFile()" translate="FILES.ADD_FILE"
+                                        translate-attr-aria-label="FILES.ADD_FILE"></md-button>
+                            <input id="file-to-upload" type="file" file-model="vm.file" style="display:none;">
+                            <div class="file-paste-info" translate="INFO.FILE_PASTE_INFO"></div>
+                        </md-input-container>
+                    </div>
+                    <!-- upload file - file info -->
+                    <div ng-if="vm.file_loaded" class="file-row">
+                        <h3 translate="FILES.FILE_LOADED"></h3>
+                        <div ng-if="vm.form.file.name">{{ 'FILES.NAME' | translate }}: {{ vm.form.file.name }}</div>
+                        <div ng-if="vm.form.file.size">{{ 'FILES.SIZE' | translate }}: {{ vm.getSize(vm.form.file.size) }}</div>
+                    </div>
+
+                    <div layout="row" class="mt-20">
+                        <md-input-container class="md-block" flex="100">
+                            <label><span translate="FILES.STORIES"></span></label>
+                            <md-contact-chips
+                                ng-model="vm.stories"
+                                md-contacts="vm.searchStories($query)"
+                                md-contact-name="name"
+                                placeholder="{{ 'FILES.STORIES_SEARCH' | translate }}"
+                                secondary-placeholder="{{ 'FILES.STORIES_ADD_MORE' | translate }}"
+                            >
+                            </md-contact-chips>
+                        </md-input-container>
+                    </div>
+
+                    <div layout="row">
+                        <md-input-container class="md-block" flex>
+                            <label><span translate="FILES.USERS"></span></label>
+                            <md-contact-chips
+                                ng-model="vm.form_users"
+                                md-contacts="vm.searchUser($query)"
+                                md-contact-name="name"
+                                md-contact-image="avatar"
+                                md-contact-email="email"
+                                placeholder="{{ 'FILES.USERS_SEARCH' | translate }}"
+                                secondary-placeholder="{{ 'FILES.USERS_SEARCH_MORE' | translate }}"
+                            >
+                            </md-contact-chips>
+                        </md-input-container>
+                    </div>
+
+                    <div layout="row" >
+                        <md-input-container class="md-block" flex>
+                            <label><span translate="FILES.GROUPS"></span></label>
+                            <md-select ng-model="vm.form.roles" name="roles" multiple>
+                                <md-option ng-value="role.id" ng-repeat="role in vm.roles" ><span translate="ROLES.{{role.name}}"></span></md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+
+                    <div layout="row" >
+                        <md-input-container class="md-block" flex>
+                            <label><span translate="FILES.DESCRIPTION"></span></label>
+                            <textarea name="description" ng-model="vm.form.description" md-maxlength="255" rows="3"></textarea>
+                            <div ng-messages="vm.form.description.$error" role="alert">
+                                <div ng-message="md-maxlength" ><span translate="ERRORS.FORM.MAX_255"></span></div>
+                            </div>
+                        </md-input-container>
+                    </div>
+
+                    <md-progress-linear md-mode="determinate" ng-if="vm.progress > 0 && vm.progress < 100" value="{{vm.progress}}"></md-progress-linear>
+
+
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row" layout-align="end center">
+            <md-button type="button" class="md-raised md-accent" aria-label="CANCEL"
+                translate="OTHER.CANCEL" ng-click="vm.hide()"
+                translate-attr-aria-label="OTHER.CANCEL">
+            </md-button>
+            <md-button type="button" class="md-raised md-accent" aria-label="SEND"
+                ng-disabled="vm.request_sending || !vm.form.file"
+                translate="OTHER.SEND" ng-click="vm.send()"
+                translate-attr-aria-label="OTHER.SEND">
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

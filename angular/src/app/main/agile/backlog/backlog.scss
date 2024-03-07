@@ -1,0 +1,44 @@
+#backlog {
+
+    height: 100%;
+    max-height: 100%;
+
+    md-content {
+        background-color: transparent;
+    }
+
+    .header {
+        position: relative;
+        height: 130px !important;
+        min-height: 130px !important;
+        background: url('/assets/images/backgrounds/board.jpg') no-repeat center center;
+        background-size: cover;
+        padding-bottom: 0 !important;
+    }
+
+    .options-row {
+        padding-top: 15px;
+    }
+
+    // Center
+    .center {
+
+        margin: 10px;
+        max-height: calc(100% - 130px);
+        height: calc(100% - 130px);
+
+        .content {
+            padding: 0;
+            overflow: hidden;
+
+            .backlog-list-pane {
+                background-color: transparent;
+            }
+
+        }
+    }
+
+    md-sidenav.md-locked-open {
+        margin-top: -5px;
+    }
+}

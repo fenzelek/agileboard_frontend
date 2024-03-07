@@ -1,0 +1,40 @@
+<div id="registry-sales" class="page-layout simple tabbed doc-page" layout="column">
+
+	<!-- HEADER -->
+	<div class="header md-accent-bg" layout="row" layout-align="space-between">
+		<div layout="column" layout-align="space-between">
+			<div class="title" translate="REGISTRY_SALES.TITLE"></div>
+		</div>
+	</div>
+	<!-- / HEADER -->
+
+	<!-- CONTENT -->
+	<div class="content" layout="column">
+
+		<md-tabs md-dynamic-height>
+
+			<md-tab>
+				<md-tab-label><span translate="REGISTRY_SALES.TAB1"></span></md-tab-label>
+				<md-tab-body>
+					<div ng-include="'app/main/registry-sales/list/tab/tab1.html'"></div>
+				</md-tab-body>
+			</md-tab>
+
+			<md-tab>
+				<md-tab-label><span translate="REGISTRY_SALES.TAB2"></span></md-tab-label>
+				<md-tab-body>
+					<div ng-include="'app/main/registry-sales/list/tab/tab2.html'"></div>
+				</md-tab-body>
+			</md-tab>
+
+			<md-tab ng-if="vm.receipts_active == '1'">
+				<md-tab-label><span translate="REGISTRY_SALES.TAB3"></span></md-tab-label>
+				<md-tab-body>
+					<div ng-include="'app/main/registry-sales/list/tab/tab3.html'"></div>
+				</md-tab-body>
+			</md-tab>
+
+		</md-tabs>
+
+	</div>
+</div>

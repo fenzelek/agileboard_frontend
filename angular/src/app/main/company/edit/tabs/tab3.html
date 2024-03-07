@@ -1,0 +1,151 @@
+
+<div class="alert-success" ng-if="vm.tab3.msg_success">{{ vm.tab3.msg_success }}</div>
+<div class="alert-error" ng-if="vm.tab3.msg_error">{{ vm.tab3.msg_error }}</div>
+
+
+<div layout="row">
+
+    <div class="form-wrapper  rounded-container max-1000" flex>
+
+        <form id="editCompanyTab3" name="editCompanyTab3" novalidate ng-submit="vm.sendTab3()">
+
+            <div class="form-title" translate="COMPANY_EDIT.TERM"></div>
+
+                <md-radio-group ng-model="vm.tab3.term_days" layout-gt-sm="row">
+
+                    <md-input-container class="md-block" flex-gt-sm >
+                        <md-radio-button ng-value="7" >
+                            7 <span translate="COMPANY_EDIT.DAYS"></span>
+                        </md-radio-button>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm >
+                        <md-radio-button ng-value="14" >
+                            14 <span translate="COMPANY_EDIT.DAYS"></span>
+                        </md-radio-button>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm >
+                        <md-radio-button ng-value="30" >
+                            30 <span translate="COMPANY_EDIT.DAYS"></span>
+                        </md-radio-button>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm >
+                        <md-radio-button ng-value="90" >
+                            90 <span translate="COMPANY_EDIT.DAYS"></span>
+                        </md-radio-button>
+                    </md-input-container>
+
+                    <div class="md-block" flex-gt-sm  layout="row">
+                        <md-input-container class="md-block" flex="20" >
+                            <md-radio-button ng-value="'d'" >
+                            </md-radio-button>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex="80" >
+                            <label><span translate="COMPANY_EDIT.OTHER"></span></label>
+                            <input pattern="\d+" ng-model="vm.tab3.term_custom" name="term_custom" ng-required="vm.tab3.term_days=='d'" ng-disabled="vm.tab3.term_days!='d'" >
+                            <div ng-messages="editCompanyTab3.term_custom.$error">
+                                <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                                <div ng-message="pattern" ><span translate="ERRORS.FORM.NUMBER"></span></div>
+                            </div>
+                        </md-input-container>
+                    </div>
+
+                </md-radio-group>
+
+            <div class="form-title" translate="COMPANY_EDIT.NUMBERING_TITLE"></div>
+
+            <div ng-repeat="(registries_key, registries) in vm.tab3.invoice_registries">
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label><span translate="COMPANY_EDIT.PREFIX"></span></label>
+                        <input ng-model="vm.tab3.invoice_registries[registries_key].prefix" name="invoice_registries_{{registries_key}}_prefix" ng-pattern="/^[a-zA-Z0-9_\-ąęśćźżółńĄĘŚĆŹŻÓŁŃ]*$/" ng-disabled="vm.tab3.invoice_registries[registries_key].is_used" maxlength="10" >
+                        <div ng-messages="editCompanyTab3['invoice_registries_'+registries_key+'_prefix'].$error" role="alert">
+                            <div ng-message="pattern" class="my-message"><span translate="ERRORS.FORM.PREFIX"></span></div>
+                            <div ng-message="maxlength" class="my-message"><span translate="ERRORS.FORM.MAX_10"></span></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm >
+                        <label><span translate="COMPANY_EDIT.NUMBERING"></span></label>
+                        <md-select ng-model="vm.tab3.invoice_registries[registries_key].invoice_format_id" required name="invoice_registries_{{registries_key}}_invoice_format_id"
+                                   ng-if="!translate_loading" ng-disabled="vm.tab3.invoice_registries[registries_key].is_used" ng-change="vm.changeNumbering(registries_key)">
+                            <md-option ng-value="type.id" ng-repeat="type in vm.tab3.invoice_formats_2">{{type.name}}</md-option>
+                        </md-select>
+                        <div ng-messages="editCompanyTab3['invoice_registries_'+registries_key+'_invoice_format_id'].$error" role="alert">
+                            <div ng-message="required" class="my-message"><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        </div>
+                    </md-input-container>
+                    <div class="md-block line-70" flex-gt-sm >
+                        <span translate="COMPANY_EDIT.EXAMPLE"></span>:
+                        <span>
+                            {{vm.tab3.invoice_registries[registries_key].prefix}}<!--
+                            --><span ng-if="vm.tab3.invoice_registries[registries_key].prefix != ''">/</span><!--
+                            -->{{vm.tab3.invoice_formats[vm.tab3.invoice_registries[registries_key].invoice_format_id].example}}
+                        </span>
+                    </div>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label><span translate="COMPANY_EDIT.START_NUMBER"></span></label>
+                        <input ng-model="vm.tab3.invoice_registries[registries_key].start_number" name="invoice_registries_{{registries_key}}_start_number"
+                               ng-disabled="vm.tab3.invoice_registries[registries_key].is_used || vm.tab3.year_registry_id != vm.tab3.invoice_registries[registries_key].invoice_format_id"
+                               type="number" step="1" min="1">
+                        <div ng-messages="editCompanyTab3['invoice_registries_'+registries_key+'_start_number'].$error">
+                            <div ng-message="required" class="my-message"><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                            <div ng-message="number" ><span translate="ERRORS.FORM.INTEGER"></span></div>
+                            <div ng-message="min" ><span translate="ERRORS.FORM.INTEGER"></span></div>
+                            <div ng-message="step" ><span translate="ERRORS.FORM.INTEGER"></span></div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div class="border-bottom" layout-gt-sm="row" ng-if="vm.tab3.invoice_registries.length > 1">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <md-checkbox ng-model="vm.tab3.invoice_registries[registries_key].default" name="invoice_registries_{{registries_key}}_default"  ng-change="vm.changeDefaultRegister($index)">
+                            <span translate="COMPANY_EDIT.DEFAULT"></span>
+                        </md-checkbox>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm layout-gt-sm="row" layout-align="end none">
+                        <md-button type="button" class="md-raised md-accent" ng-click="vm.delRegister(registries_key)"  aria-label=""
+                                   translate="OTHER.DELETE"  ng-disabled="vm.tab3.invoice_registries[registries_key].is_used">
+                            DELETE
+                        </md-button>
+                    </md-input-container>
+                </div>
+            </div>
+            <div layout-gt-sm="row" layout-align="end none">
+                <md-button type="button" class="md-raised md-accent" ng-click="vm.addRegister()"  aria-label=""
+                           translate="COMPANY_EDIT.ADD_NEX_NUMBERING" ng-disabled="vm.tab3.invoice_registries.length == 9">
+                    ADD
+                </md-button>
+            </div>
+
+            <div class="form-title" translate="COMPANY_EDIT.COUNT_TAX" ng-if="vm.tab1.form.vat_payer"></div>
+
+            <div layout-gt-sm="row" ng-if="vm.tab1.form.vat_payer">
+                <md-input-container class="md-block" flex-gt-sm >
+                    <label><span translate="COMPANY_EDIT.COUNT_TAX2"></span></label>
+                    <md-select ng-model="vm.tab3.form.default_invoice_gross_counted" required name="default_invoice_gross_counted" ng-if="!translate_loading" ng-disabled="!vm.tab3.vat_settings_is_editable">
+                        <md-option ng-value="0" ><span translate="COMPANY_EDIT.FROM_NET"></span></md-option>
+                        <md-option ng-value="1" ><span translate="COMPANY_EDIT.FROM_GROSS"></span></md-option>
+                    </md-select>
+                </md-input-container>
+                <div class="md-block line-70" flex-gt-sm ></div>
+            </div>
+
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <span class="require">*</span> <span translate="INFO.REQUIRE_INFO"></span>
+                </md-input-container>
+            </div>
+
+            <div layout="row"  layout-align="end none">
+                <md-button type="submit" class="md-raised md-accent" aria-label="SEND"
+                           ng-disabled="editCompanyTab3.$invalid || vm.request_sending"
+                           translate="OTHER.SAVE"
+                           translate-attr-aria-label="OTHER.SAVE">
+                </md-button>
+            </div>
+        </form>
+
+    </div>
+
+</div>

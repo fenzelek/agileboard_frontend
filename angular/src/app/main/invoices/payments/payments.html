@@ -1,0 +1,33 @@
+<md-dialog aria-label="METHOD">
+    <div id="invoice-payments-dialog">
+        <div class="table-wrapper">
+            <md-table-container ng-if="vm.items.length">
+                <table md-table>
+                    <thead md-head >
+                    <tr md-row>
+                        <th md-column><span translate="OTHER.No">Lp.</span></th>
+                        <th md-column md-numeric><span translate="INVOICES_LIST.PAYMENTS.AMOUNT"></span></th>
+                        <th md-column><span translate="INVOICES_LIST.PAYMENTS.PAYMENT_METHOD"></span></th>
+                        <th md-column><span translate="INVOICES_LIST.PAYMENTS.DATE"></span></th>
+                        <th md-column  ng-if="!vm.is_tax_office"><span translate="OTHER.ACTION"></span></th>
+                    </tr>
+                    </thead>
+                    <tbody md-body>
+                    <tr md-row ng-repeat="item in vm.items">
+                        <td md-cell>{{ ($index + 1) }}</td>
+                        <td md-cell>{{ item.amount.toFixed(2) | numFormat}}zł</td>
+                        <td md-cell>{{ vm.payment_methods[item.payment_method_id].name }}</td>
+                        <td md-cell>{{ item.created_at }}</td>
+                        <td md-cell>
+                            <md-button type="button" class="md-raised md-accent" ng-click="vm.removePayment(item.id)" translate="INVOICES_LIST.PAYMENTS.DELETE" ng-if="!vm.is_tax_office && !item.special_partial_payment" >
+                                DELETE
+                            </md-button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+            <div  ng-if="!vm.items.length" translate="OTHER.NO_RECORDS"></div>
+        </div>
+    </div>
+</md-dialog>

@@ -1,0 +1,74 @@
+{
+    "TOOLBAR": {
+        "TOGGLE_NAVIGATION": "Toggle navigation",
+        "TOGGLE_NAVIGATION_MODE": "Toggle navigation mode",
+        "SEARCH": "Search",
+        "USER_SETTINGS": "User settings",
+        "TOGGLE_QUICK_PANEL": "Toggle quick panel",
+        "EDIT": "Edytuj profil",
+        "MORE": "Więcej",
+        "BOARD": "Tablica",
+        "BACKLOG": "Planowanie",
+        "HISTORY": "Historia",
+        "KNOWLEDGE": "Baza wiedzy",
+        "CALENDAR": "Kalendarz",
+        "COMPANY": "Aktualna firma",
+        "TAX_OFFICE_INVITATION_1": "Zaproś swojego księgowego",
+        "TAX_OFFICE_INVITATION_2": "do fvonline.pl",
+        "CHANGE_PACKAGE": "Zmień pakiet",
+        "INFO": "Info",
+        "STORIES": "Oznaczenia",
+        "FILES": "Pliki",
+        "CURRENT_PACKAGE": "Aktywny pakiet:",
+        "EXPIRES": "Wygasa:",
+        "POLISH": "Polski",
+        "ENGLISH": "Angielski",
+        "SPANISH": "Spanish",
+        "TURKISH": "Turkish",
+        "AGILE_CONFIG": "Konfiguracja tablicy",
+        "EDIT_PROJECT": "Edytuj projekt",
+        "LOGOUT": "Wyloguj"
+    },
+    "NAV": {
+        "COMPANY" : {
+            "TITLE" : "Zarządzaj firmą",
+            "MY_LIST" : "Lista firm/zaproszeń"
+        },
+        "CONTRACTORS" : {
+            "LIST": "Lista kontrahentów"
+        },
+        "PRODUCTS" : {
+            "LIST": "Lista usług/towarów"
+        },
+        "CACHE_OPERATIONS" : {
+            "LIST": "Kasa/Bank"
+        },
+        "RECEIPTS" : {
+            "LIST": "Lista paragonów"
+        },
+        "ONLINE_SALES" : {
+            "LIST": "Sprzedaż internetowa"
+        },
+        "INVOICES" : {
+            "LIST": "Faktury"
+        },
+        "REGISTRY_SALES" : {
+            "LIST": "Rejestr sprzedaży"
+        },
+        "PROJECTS" : {
+            "TITLE": "Projekty",
+            "ALL": "Wszystkie"
+        },
+        "DASHBOARD": "Dashboard",
+        "CALENDAR" : "Kalendarze",
+        "CALENDAR_WORKING" : "Czas pracy, nieobecności",
+        "SUMMARY": "Podsumowanie",
+        "CALENDAR_REALIZATION" : "Realizowane zadania",
+        "CALENDAR_GANTT" : "Gantt - etapy",
+        "ACTIVITY_CALENDAR": "Aktywności",
+        "TIME_TRACKING" : "Aktywności",
+        "TIME_TRACKER": {
+            "SCREENS": "Zrzuty ekranu"
+        }
+    }
+}

@@ -1,0 +1,52 @@
+{
+    "INVOICES_FORM_EDIT": {
+        "TITLE_EDIT": "Edycja faktury",
+        "SALE_DATE": "Data sprzedaży",
+        "ISSUE_DATE": "Data wystawienia",
+        "REGISTER": "Schematy numeracji",
+        "GENERAL": "Ogólne",
+        "MARGIN_PROCEDURES": "Procedury marży",
+        "REVERSE_CHANGES": "Rodzaj",
+        "CLIENT": "Kontrahent",
+        "EDIT_CONTRACTOR": "Edytuj",
+        "ADD_CONTRACTOR": "Dodaj",
+        "VATIN": "NIP",
+        "PRODUCTS": "Usługi/towary",
+        "PRODUCT": "Usługa/towar",
+        "ADD_PRODUCT": "Dodaj pozycję",
+        "TAX": "Stawka VAT",
+        "CUSTOM_NAME_ENABLE": "Własny opis",
+        "CUSTOM_NAME_DISABLE": "Domyślny opis",
+        "QUANTITY": "Ilość",
+        "PRICE_NET": "Cena netto (zł)",
+        "PRICE_NET_SUM": "Wartość netto (zł)",
+        "PRICE_GROSS": "Cena brutto (zł)",
+        "PRICE_GROSS_SUM": "Wartość brutto (zł)",
+        "PRICE": "Cena (zł)",
+        "PRICE_SUM": "Wartość (zł)",
+        "UNIT": "J. m.",
+        "DESCRIPTION": "Opis do faktury",
+        "BANK_ACCOUNT": "Konto bankowe",
+
+        "SUMMARY": "Podsumowanie",
+        "PRICE_NET_SUMMARY": "Kwota netto łącznie",
+        "PRICE_GROSS_SUMMARY": "Kwota brutto łącznie",
+        "PRICE_SUMMARY": "Kwota łącznie",
+        "TERM": "Termin płatności",
+        "PAYMENT_METHOD": "Sposób płatności",
+        "SAVE": "Zapisz fakturę",
+        "DELIVERY_ADDRESS": "Adresy dostawy",
+        "DELIVERY_ADDRESS_OTHER": "Inny adresy dostawy",
+
+        "COUNT_TAX": "Liczenie podatku VAT",
+        "FROM_NET": "z netto",
+        "FROM_GROSS": "z brutto",
+        "PARTIAL_PAYMENT": "Płatność częściowa",
+        "AMOUNT": "Kwota",
+
+        "UPDATE_QUESTION": "Jesteś pewny, że chcesz zaktualizować tę fakturę? Pamiętaj, że dane kontrahenta zostaną również zaktualizowane do najnowszych."
+    },
+    "ERRORS": {
+
+    }
+}

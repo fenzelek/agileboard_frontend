@@ -1,0 +1,57 @@
+{
+  "data":[
+    {
+      "id":9,
+      "user_id":20,
+      "project_id":6,
+      "role_id":4,
+      "created_at":"2017-01-02 08:15:12",
+      "updated_at":"2017-01-02 08:15:12",
+      "user":{
+        "data":{
+          "id":20,
+          "email":"jerde.glennie@example.org",
+          "first_name":"Velva",
+          "last_name":"Robel",
+          "avatar":"",
+          "activated":true,
+          "deleted":false
+        }
+      },
+      "role":{
+        "data":{
+          "id":4,
+          "name":"developer",
+          "default":0
+        }
+      }
+    },
+    {
+      "id":10,
+      "user_id":21,
+      "project_id":6,
+      "role_id":4,
+      "created_at":"2017-01-02 08:15:12",
+      "updated_at":"2017-01-02 08:15:12",
+      "user":{
+        "data":{
+          "id":21,
+          "email":"quigley.reuben@example.net",
+          "first_name":"Janie",
+          "last_name":"Lemke",
+          "avatar":"",
+          "activated":true,
+          "deleted":false
+        }
+      },
+      "role":{
+        "data":{
+          "id":4,
+          "name":"developer",
+          "default":0
+        }
+      }
+    }
+  ],
+  "exec_time":0
+}

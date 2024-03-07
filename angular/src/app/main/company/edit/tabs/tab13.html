@@ -1,0 +1,77 @@
+
+<div class="alert-success" ng-if="vm.tab13.msg_success">{{ vm.tab13.msg_success }}</div>
+<div class="alert-error" ng-if="vm.tab13.msg_error">{{ vm.tab13.msg_error }}</div>
+
+
+<div layout="row">
+    <div class="form-wrapper  rounded-container max-1000" flex>
+        <form novalidate ng-submit="">
+            <div layout="row" >
+                <md-input-container class="md-block" flex="50">
+                    <md-select class="md-block" ng-model="vm.tab13.status" ng-change="vm.tab13.getPayments()" ng-if="!translate_loading && !vm.is_loading">
+                        <md-option ng-value="null">
+                            <span translate="COMPANY_EDIT.PAYMENTS.STATUS_LIST.ALL"></span>
+                        </md-option>
+                        <md-option ng-value="'NEW'">
+                            <span translate="COMPANY_EDIT.PAYMENTS.STATUS_LIST.NEW"></span>
+                        </md-option>
+                        <md-option ng-value="'PENDING'">
+                            <span translate="COMPANY_EDIT.PAYMENTS.STATUS_LIST.PENDING"></span>
+                        </md-option>
+                        <md-option ng-value="'COMPLETED'">
+                            <span translate="COMPANY_EDIT.PAYMENTS.STATUS_LIST.COMPLETED"></span>
+                        </md-option>
+                        <md-option ng-value="'CANCELED'">
+                            <span translate="COMPANY_EDIT.PAYMENTS.STATUS_LIST.CANCELED"></span>
+                        </md-option>
+                        <md-option ng-value="'REJECTED'">
+                            <span translate="COMPANY_EDIT.PAYMENTS.STATUS_LIST.REJECTED"></span>
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+        </form>
+
+        <div ng-if="vm.tab13.payments.length" class="table-wrapper">
+            <md-table-container>
+                <table md-table md-progress="vm.tab13.promise">
+                    <thead md-head>
+                    <tr md-row>
+                        <th md-column ><span translate="OTHER.No">Lp.</span></th>
+                        <th md-column ><span translate="COMPANY_EDIT.PAYMENTS.NUMBER"></span></th>
+                        <th md-column ><span translate="COMPANY_EDIT.PAYMENTS.CREATED"></span></th>
+                        <th md-column ><span translate="COMPANY_EDIT.PAYMENTS.TOTAL_PRICE"></span></th>
+                        <th md-column ><span translate="COMPANY_EDIT.PAYMENTS.VAT"></span></th>
+                        <th md-column ><span translate="COMPANY_EDIT.PAYMENTS.STATUS"></span></th>
+                        <th md-column ><span translate="OTHER.ACTION">Akcje</span></th>
+                    </tr>
+                    </thead>
+                    <tbody md-body>
+                    <tr md-row ng-repeat="payment in vm.tab13.payments">
+                        <td md-cell>{{ ($index + 1) }}</td>
+                        <td md-cell>{{ payment.id }}</td>
+                        <td md-cell>{{ payment.created_at }}</td>
+                        <td md-cell>{{ (payment.price_total / 100).toFixed(2) }}{{ payment.currency }}</td>
+                        <td md-cell>{{ (payment.vat / 100).toFixed(2) }}{{ payment.currency }}</td>
+                        <td md-cell><span translate="COMPANY_EDIT.PAYMENTS.STATUS_LIST.{{ payment.status }}"></span></td>
+                        <td md-cell>
+                            <md-button class="md-raised md-warn md-button md-default-theme" ng-click="vm.tab13.cancel(payment.id)" ng-if="payment.status == 'PENDING'" >
+                                <span translate="OTHER.CANCEL" ></span>
+                            </md-button>
+                            <md-button class="md-raised md-accent md-button md-default-theme" ng-click="vm.tab13.again(payment.transaction_id)"
+                                       ng-if="payment.status == 'CANCELED' || payment.status == 'REJECTED'" >
+                                <span translate="COMPANY_EDIT.PAYMENTS.RETRY" ></span>
+                            </md-button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+
+            <md-table-pagination md-label="{{vm.tab13.table_translate}}" md-limit="vm.tab13.query.limit" md-page="vm.tab13.query.page" md-total="{{vm.tab13.pagination.total}}" md-on-paginate="vm.getPayments" md-page-select></md-table-pagination>
+        </div>
+
+        <div ng-if="vm.tab13.payments.length == 0" translate="OTHER.NO_RECORDS" class="text-center" ></div>
+
+    </div>
+</div>

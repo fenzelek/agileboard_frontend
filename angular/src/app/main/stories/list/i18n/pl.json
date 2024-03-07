@@ -1,0 +1,15 @@
+{
+    "STORIES_LIST": {
+        "TITLE": "Oznaczenia",
+        "SEARCH": "Szukaj",
+        "ADD": "Dodaj",
+        "DELETE_QUESTION": "Czy na pewno chcesz usunąć to oznaczenie?",
+        "DELETE_SUCCESS": "Usunięto oznaczenie.",
+        "SEARCH_QUERY_CLEAR": "Usuń filtr",
+        "COLOR": "Kolor",
+        "NO_RECORDS": "Brak stories"        
+    },
+    "ERRORS": {
+
+    }
+}

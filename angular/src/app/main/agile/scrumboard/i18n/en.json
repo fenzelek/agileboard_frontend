@@ -1,0 +1,23 @@
+{
+    "BOARD": {
+        "CREATE_TICKET": "Add ticket",
+        "TICKET": "Ticket",
+        "NO_ACTIVE_SPRINT": "No active sprints",
+        "ADDED_TICKET": "Added ticket successfully",
+        "SWITCH_TO_COMPACT_VIEW": "Switch to compact view",
+        "BACK_TO_STANDARD_VIEW": "Turn off compact view",
+        "NO_STATUSES": "Board is not configured yet",
+        "BACKLOG": "Backlog",
+        "MOVE_STATUS_TICKETS_TO": "Move all to...",
+        "COPY_TO_CLIPBOARD": "Copy ticket number to clipboard",
+        "RESET_FILTERS": "Reset filters",
+        "OPEN_CALENDAR": "Open calendar",
+        "CLOSE_CALENDAR": "Close calendar",
+        "SHOW_SUB_TICKETS_BOARD": "Show sub-tickets board"
+    },
+    "ERRORS": {
+        "package": {
+            "limit_reached": "You have reached the limit of the amount of disk space used. Delete other files to be able to add more or contact your business owner to increase the limit."
+        }
+    }
+}

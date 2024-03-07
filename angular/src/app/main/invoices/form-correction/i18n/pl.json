@@ -1,0 +1,47 @@
+{
+    "INVOICES_FORM_CORRECTION": {
+        "TITLE_ADD": "Nowa faktura korygująca",
+        "TYPE": "Korekta z tytułu",
+        "SALE_DATE": "Data korekty",
+        "ISSUE_DATE": "Data wystawienia",
+        "GENERAL": "Ogólne",
+        "MARGIN_PROCEDURES": "Procedury marży",
+        "ADD_CORRECTION": "Korekta",
+        "CLIENT": "Kontrahent",
+        "EDIT_CONTRACTOR": "Edytuj",
+        "ADD_CONTRACTOR": "Dodaj",
+        "VATIN": "NIP",
+        "PRODUCTS": "Usługi/towary",
+        "PRODUCT": "Usługa/Towar",
+        "TAX": "Stawka VAT",
+        "QUANTITY": "Ilość",
+        "PRICE_NET": "Cena netto (zł)",
+        "PRICE_NET_SUM": "Wartość netto (zł)",
+        "PRICE_GROSS": "Cena brutto (zł)",
+        "PRICE_GROSS_SUM": "Wartość brutto (zł)",
+        "PRICE": "Cena (zł)",
+        "PRICE_SUM": "Wartość (zł)",
+        "CUSTOM_NAME": "Własny opis:",
+        "UNIT": "J. m.",
+        "DESCRIPTION": "Opis do faktury",
+        "BANK_ACCOUNT": "Konto bankowe",        
+
+        "SUMMARY": "Podsumowanie",
+        "PRICE_NET_SUMMARY": "Kwota netto łącznie",
+        "PRICE_GROSS_SUMMARY": "Kwota brutto łącznie",
+        "PRICE_SUMMARY": "Kwota łącznie",
+        "TERM": "Termin płatności",
+        "PAYMENT_METHOD": "Sposób płatności",
+        "SAVE": "Zapisz fakturę",
+
+        "COUNT_TAX": "Liczenie podatku VAT",
+        "FROM_NET": "z netto",
+        "FROM_GROSS": "z brutto",
+
+        "ADD_QUESTION": "Jesteś pewny, że chcesz wystawić tę fakturę?",
+        "QUANTITY_ERROR": "Liczba usług/towarów musi być większa niż 0."
+    },
+    "ERRORS": {
+
+    }
+}

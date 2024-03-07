@@ -1,0 +1,14 @@
+{
+    "ACTIVITY_CALENDAR": {
+        "NO_ACTIVITIES": "No activities logged this day...",
+        "AUTO_SKIP_INFO": "Auto-skip days without activities",
+        "FEATCH_EMPTY": "Show only activities without ticket assigned",
+        "ESTIMATED": "Edtimated",
+        "LOGGED": "Logged",
+        "TICKET_DATA_ERROR": "Cannot fetch ticket data...",
+        "SELECT_DATE": "Select date",
+        "PREVIOUS_DAY": "Previous day",
+        "NEXT_DAY": "Next day",
+        "GO_TO_TODAY": "Go to today"
+    }
+}

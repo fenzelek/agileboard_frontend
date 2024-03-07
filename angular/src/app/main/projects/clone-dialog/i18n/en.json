@@ -1,0 +1,15 @@
+{
+    "CLONE_PROJECT": {
+        "TITLE": "Clone project",
+        "CLONING": "Clonning project",
+        "NEW_NAME": "New name",
+        "NEW_SHORT_NAME": "New short name",
+        "CLONED_SUCCESSFULLY": "Cloned successfully, redirecting...",
+        "TOO_MANY_PROJECTS" : "You have the maximum number of projects. Go to packages to increase their quantity."
+    },
+    "ERRORS": {
+        "package": {
+            "limit_reached" : "You have reached the limit of the active package. Please update your package."
+        }
+    }
+}

@@ -1,0 +1,15 @@
+angular/node_modules
+angular/public/css
+angular/public/js
+angular/public/images
+angular/public/fonts
+
+.idea
+/nbproject/private/private.properties
+/nbproject/project.properties
+/nbproject/project.xml
+/angular/src/app/modules-src/env-index.module.js.def
+/angular/src/app/data/version
+.DS_Store
+
+yarn-error.log

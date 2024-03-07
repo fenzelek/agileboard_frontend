@@ -1,0 +1,225 @@
+<div id="invoices-list" class="page-layout simple fullwidth doc-page" layout="column">
+
+	<!-- HEADER -->
+	<div class="header md-accent-bg" layout="row" layout-align="space-between">
+		<div layout="column" layout-align="space-between">
+			<div class="title" translate="INVOICES_LIST.TITLE"></div>
+		</div>
+	</div>
+	<!-- / HEADER -->
+
+	<!-- CONTENT -->
+	<div class="content" layout="column">
+
+		<div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+		<div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+		<div layout="row">
+			<div class="form-wrapper  rounded-container min-1000">
+				<!-- add invoices options -->
+				<div class="add-invoice-options" layout="row" layout-wrap ng-if="!vm.is_tax_office" >
+					<div class="mr-20" layout="row" layout-align="start center">
+						<md-button class="md-raised md-button md-default-theme md-accent" ng-click="vm.goTo('form/new/type/vat')" >
+							<span ng-if="vat_payer" translate="INVOICES_LIST.ADD_INVOICE_VAT" ></span>
+							<span ng-if="!vat_payer" translate="INVOICES_LIST.ADD_INVOICE_NOVAT" ></span>
+						</md-button>
+					</div>
+					<md-input-container class="md-block" flex-gt-xs="33" flex-gt-md="25" flex="100">
+						<md-select class="md-block" ng-model="vm.type" ng-change="vm.selectAdd()" ng-if="!translate_loading && !vm.is_loading">
+							<md-option ng-value="null"><span translate="INVOICES_LIST.ADD_OTHER"></span></md-option>
+							<md-option ng-value="'proforma'">
+								<span translate="INVOICES_LIST.ADD_INVOICE_PROFORMA"></span>
+							</md-option>
+							<md-option ng-value="'margin'" ng-if="vat_payer">
+								<span translate="INVOICES_LIST.ADD_INVOICE_VAT_MARGIN"></span>
+							</md-option>
+							<md-option ng-value="'reverse_charge'" ng-if="vat_payer">
+								<span translate="INVOICES_LIST.ADD_INVOICE_VAT_REVERSE"></span>
+							</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+				<div class="filtering-label" translate="INVOICES_LIST.SEARCH_INVOICES">Search invoices:</div>
+				<div layout="column" class="filter-options">
+					<div layout="row">
+						<md-input-container class="md-block" flex="33">
+							<label><span translate="INVOICES_LIST.STATUS_NAME"></span></label>
+							<md-select ng-model="vm.query.status" required name="status" ng-if="!translate_loading">
+								<md-option ng-value="filter.slug" ng-repeat="filter in vm.filters" ><span translate="INVOICES_LIST.STATUS.{{filter.slug}}"></span></md-option>
+							</md-select>
+						</md-input-container>
+						<md-input-container class="md-block" flex="33">
+							<label><span translate="OTHER.FROM"></span></label>
+							<input ng-model="vm.query.date_start" name="date_start" moment-picker="vm.query.date_start" format="YYYY-MM-DD" start-view="decade" locale="pl" input-clear>
+						</md-input-container>
+						<md-input-container class="md-block" flex="33">
+							<label><span translate="OTHER.TO"></span></label>
+							<input ng-model="vm.query.date_end" name="date_end" moment-picker="vm.query.date_end" format="YYYY-MM-DD" start-view="decade" locale="pl" input-clear>
+						</md-input-container>
+					</div>
+					<div layout="row" layout-wrap="" >
+						<md-autocomplete  class="md-block" flex-gt-md="33" flex-gt-xs="50" flex="100"
+								md-input-name="contractor"
+										ng-model-options="{debounce:200}"
+										md-selected-item="vm.contractor"
+										md-search-text="vm.search_text"
+										md-items="item in vm.searchContractor(vm.search_text)"
+										md-floating-label="{{'INVOICES_LIST.CONTRACTOR' | translate}}"
+										md-item-text="item.name"
+										md-clear-button="true">
+							<md-item-template>
+								<span md-highlight-text="vm.search_text">{{item.name}}</span>
+							</md-item-template>
+							<md-not-found><span translate="OTHER.NOT_FOUND"></span></md-not-found>
+						</md-autocomplete>
+						<md-input-container class="md-block" flex-gt-md="33" flex-gt-xs="50" flex="100">
+							<label><span translate="INVOICES_LIST.NUMBER"></span></label>
+							<input ng-model="vm.query.number" name="number">
+						</md-input-container>
+						<div layout="row" layout-align="end start" flex-gt-md="33" flex="100">
+							<md-input-container class="md-block" flex="100">
+								<label><span translate="INVOICES_LIST.REGISTER"></span></label>
+								<md-select class="md-block" ng-model="vm.query.invoice_registry_id" ng-if="!translate_loading && !vm.is_loading">
+									<md-option ng-value="null"><span translate="OTHER.ALL"></span></md-option>
+									<md-option ng-value="register.id" ng-repeat="register in vm.registries" >
+										{{register.prefix}}<span ng-if="register.prefix != ''"> / </span>{{vm.invoice_formats[register.invoice_format_id].name}}
+									</md-option>
+								</md-select>
+							</md-input-container>
+						</div>
+					</div>
+					<div layout="row" layout-wrap="" >
+						<div layout="row" layout-align="end start" flex="100">
+							<md-button class="md-raised md-button md-default-theme md-accent mb-20" ng-click="vm.filterInvoices()" >
+								<span translate="INVOICES_LIST.SEARCH" ></span>
+							</md-button>
+						</div>
+					</div>
+				</div>
+				<div layout="row" layout-align="end center" layout-wrap>
+					<div layout="row" flex-xs="100">
+						<md-button class="md-raised md-button" ng-click="vm.pdfAll()">
+							<md-icon md-font-icon="icon-format-list-numbers icon icon-flat s20"></md-icon> <span translate="INVOICES_LIST.PDF_LIST"></span>
+						</md-button>
+					</div>
+					<div layout="row" flex-xs="100">
+						<md-button class="md-raised md-button" ng-click="vm.archiveAll()" flex-xs="100">
+							<md-icon md-font-icon="icon-download icon icon-flat s20"></md-icon> <span translate="INVOICES_LIST.INVOICES_ARCHIVE"></span>
+						</md-button>
+					</div>
+					<div layout="row" flex-xs="100">
+						<md-button class="md-button" ng-click="vm.invoicesZips($event)" flex-xs="100">
+							<md-icon md-font-icon="icon-archive icon icon-flat s20"></md-icon> <span translate="INVOICES_LIST.INVOICES_ZIPS"></span>
+						</md-button>
+					</div>
+				</div>
+
+				<!-- invoices list -->
+				<div ng-if="vm.pagination.total" class="table-wrapper mt-20">
+					<md-table-container>
+						<table md-table md-progress="vm.promise">
+							<thead md-head md-order="vm.query.sort" md-on-reorder="vm.getInvoices">
+							<tr md-row>
+								<th md-column md-order-by="id"><span translate="OTHER.No">Lp.</span></th>
+								<th md-column><span translate="INVOICES_LIST.NUMBER"></span></th>
+								<th md-column md-order-by="issue_date"><span translate="INVOICES_LIST.ISSUE_DATE"></span></th>
+								<th md-column><span translate="INVOICES_LIST.CONTRACTOR"></span></th>
+								<th md-column><span translate="INVOICES_LIST.TYPE"></span></th>
+								<th md-column md-numeric md-order-by="price_net" ng-if="vat_payer"><span translate="INVOICES_LIST.PRICE_NET_SUM"></span></th>
+								<th md-column md-numeric md-order-by="price_gross" ng-if="vat_payer"><span translate="INVOICES_LIST.PRICE_GROSS_SUM"></span></th>
+								<th md-column md-numeric md-order-by="price_gross" ng-if="!vat_payer"><span translate="INVOICES_LIST.PRICE_SUM"></span></th>
+								<th md-column><span translate="INVOICES_LIST.TERM"></span></th>
+								<th md-column></th>
+							</tr>
+							</thead>
+							<tbody md-body>
+							<tr md-row ng-repeat="invoice in vm.invoices">
+								<td md-cell>{{ vm.pagination | no:$index }}</td>
+								<td md-cell ng-class="{'line-through': invoice.deleted_at != null}"><span>{{ invoice.number }}</span></td>
+								<td md-cell>{{ invoice.issue_date }}</td>
+								<td md-cell>{{ invoice.invoice_contractor.data.name }}</td>
+								<td md-cell ng-if="vat_payer">{{ vm.types[invoice.invoice_type_id].description }}</td>
+								<td md-cell ng-if="!vat_payer">{{ vm.types[invoice.invoice_type_id].no_vat_description }}</td>
+								<td md-cell ng-if="vat_payer">{{ invoice.price_net.toFixed(2) | numFormat }}zł</td>
+								<td md-cell>{{ invoice.price_gross.toFixed(2) | numFormat }}zł</td>
+								<td md-cell>{{ vm.moment(invoice.issue_date).add(invoice.payment_term_days, 'days').format('YYYY-MM-DD') }}</td>
+								<td md-cell>
+									<span ng-if="invoice.deleted_at != null" translate="INVOICES_LIST.CANCELED"></span>
+									<md-menu ng-if="invoice.deleted_at == null">
+										<md-button class="md-icon-button" ng-click="$mdMenu.open()"
+												   aria-label="more">
+											<md-icon md-font-icon="icon-dots-vertical"></md-icon>
+										</md-button>
+
+										<md-menu-content width="3">
+											<md-menu-item>
+												<md-button ng-click="vm.pdf(invoice.id, 0)" aria-label="pdf">
+													<span translate="INVOICES_LIST.PDF"></span>
+												</md-button>
+											</md-menu-item>
+											<md-menu-item ng-if="invoice.invoice_type_id != vm.id_type_proforma">
+												<md-button ng-click="vm.pdf(invoice.id, 1)" aria-label="duplicate">
+													<span translate="INVOICES_LIST.DUPLICATE"></span>
+												</md-button>
+											</md-menu-item>
+											<md-menu-item ng-if="!vm.isCorrection(invoice.invoice_type_id) && invoice.invoice_type_id != vm.id_type_proforma && !invoice.invoices.data.length && !vm.is_tax_office">
+												<md-button ng-click="vm.goTo('form-correction/' + invoice.id)" aria-label="correction">
+													<span translate="INVOICES_LIST.CORRECTION"></span>
+												</md-button>
+											</md-menu-item>
+											<md-menu-item ng-if="!invoice.paid_at && invoice.invoice_type_id != vm.id_type_proforma && !vm.is_tax_office">
+												<md-button ng-click="vm.paymentsAdd(invoice.id, invoice.payment_left)" aria-label="paymentsAdd">
+													<span translate="INVOICES_LIST.PAYMENTS_ADD"></span>
+												</md-button>
+											</md-menu-item>
+											<md-menu-item ng-if="invoice.payment_left != invoice.price_gross && invoice.invoice_type_id != vm.id_type_proforma">
+												<md-button ng-click="vm.payments(invoice.id)" aria-label="payments">
+													<span translate="INVOICES_LIST.PAYMENTS_LIST"></span>
+												</md-button>
+											</md-menu-item>
+											<md-menu-item >
+												<md-button ng-click="vm.mail(invoice)" aria-label="Email">
+													<span translate="INVOICES_LIST.MAIL"></span>
+												</md-button>
+											</md-menu-item>
+											<md-menu-item ng-if="!vm.isCorrection(invoice.invoice_type_id) && !vm.is_tax_office" >
+												<md-button ng-click="vm.goTo('form/new/invoice/' + invoice.id)" aria-label="New">
+													<span translate="INVOICES_LIST.NEW"></span>
+												</md-button>
+											</md-menu-item>
+											<md-menu-item ng-if="invoice.is_editable && !vm.is_tax_office">
+												<md-button ng-click="vm.goTo('form/edit/' + invoice.id)" aria-label="Edit">
+													<span translate="OTHER.EDIT"></span>
+												</md-button>
+											</md-menu-item>
+											<md-menu-item  ng-if="(vm.isCorrection(invoice.invoice_type_id) || !invoice.invoices.data.length) && !vm.is_tax_office">
+												<md-button ng-click="vm.cancel(invoice.id)" aria-label="Cancel">
+													<span translate="INVOICES_LIST.CANCEL_INVOICE"></span>
+												</md-button>
+											</md-menu-item>
+										</md-menu-content>
+									</md-menu>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</md-table-container>
+
+					<md-table-pagination md-label="{{vm.table_translate}}" md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.pagination.total}}" md-on-paginate="vm.getInvoices" md-page-select></md-table-pagination>
+				</div>
+
+				<div layout="row"  ng-if="vm.pagination.total == 0" translate="OTHER.NO_RECORDS" class="text-center" ></div>
+
+				<div class="font-size-16">
+					<div class="bold" translate="INVOICES_LIST.SUM"></div>
+					<div ><span translate="INVOICES_LIST.SUM_GROSS"></span>: {{vm.reports.price_gross_sum.toFixed(2) | numFormat}}zł</div>
+					<div ><span translate="INVOICES_LIST.SUM_NET"></span>: {{vm.reports.price_net_sum.toFixed(2) | numFormat}}zł</div>
+					<div ><span translate="INVOICES_LIST.VAT_SUM"></span>: {{vm.reports.vat_sum_sum.toFixed(2) | numFormat}}zł</div>
+					<div ><span translate="INVOICES_LIST.SUM_PAYMENT_LEFT"></span>: {{vm.reports.payment_left_sum.toFixed(2) | numFormat}}zł</div>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+</div>

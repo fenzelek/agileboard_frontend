@@ -1,0 +1,124 @@
+#add-edit-ticket-dialog {
+  background: #fff;
+
+  md-toolbar {
+    background: #fff;
+    font-size: 17px;
+    border-bottom: 1px solid #AAAAAA;
+    color: #000;
+    height: auto;
+    min-height:40px;
+  }
+
+  md-dialog-actions {
+    border-top: 1px solid #AAAAAA;
+  }
+
+  .title {
+    font-size: 16px;
+    padding:10px;
+  }
+
+  .ticket-name {
+    font-size: 18px;
+  }
+
+  //.attachment-list {
+  //
+  //  .attachment {
+  //
+  //    padding: 0 10px;
+  //
+  //    .preview {
+  //      background: #FFFFFF;
+  //      width: 100px;
+  //      height: 100px;
+  //      margin: 10px 16px 8px 0;
+  //
+  //      div {
+  //        width: 100px;
+  //        height: 100px;
+  //        background-position: center center;
+  //        background-repeat: no-repeat;
+  //        background-size: contain;
+  //      }
+  //    }
+  //
+  //    .link {
+  //      margin-bottom: 2px;
+  //    }
+  //
+  //    .size {
+  //      font-size: 11px;
+  //    }
+  //  }
+  //}
+
+  md-autocomplete.no-errors-spacer {
+    .md-errors-spacer {
+        display: none;
+    }
+  }
+
+  .input-spacing {
+    @media screen and (min-width: 960px) {
+      margin-left: 5px;
+    }
+  }
+
+  .attachment-list {
+    font-size: 14px;
+    color: rgba(0,0,0,0.8);
+    padding-top: 10px;
+
+    .attachment {
+      background-color: #f2f2f2;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      padding-left: 16px;
+      margin-top: 8px;
+      border-radius: 2px;
+
+      .filename {
+        font-weight: 500;
+        line-height: 1.1;
+      }
+
+      .size {
+        margin-left: 5px;
+        margin-top: 1px;
+        font-size: 0.8em;
+        color: rgba(0,0,0,0.45);
+      }
+
+      .md-button {
+        margin: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .ta-group {
+    margin-bottom: 0;
+
+    &:last-child {
+      margin-bottom: 6px;
+    }
+
+    .md-button {
+      margin: 2px;
+      line-height: 24px;
+    }
+
+  }
+
+
+}
+
+// for sprint select list - status icon
+.option-status {
+  min-width: 18px !important;
+  min-height: 18px !important;
+}

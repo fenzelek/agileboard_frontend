@@ -1,0 +1,21 @@
+{
+    "TOKENS_LIST": {
+        "TITLE": "User tokens",
+        "TOKEN": "Token",
+        "DOMAIN": "Domain",
+        "IP_FROM": "IP start",
+        "IP_TO": "IP stop",
+        "TTL": "TTL",
+        "ADD": "Add",
+        "ROLE": "Rol3",
+        "ROLES": {
+            "company": "Company",
+            "user": "User"
+        },
+        "DELETE_QUESTION": "Are you sure you want to delete this token?",
+        "DELETE_SUCCESS": "Deleting token successfully."
+    },
+    "ERRORS": {
+
+    }
+}

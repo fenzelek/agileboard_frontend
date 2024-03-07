@@ -1,0 +1,149 @@
+<div id="activity-calendar" class="page-layout simple fullwidth height-full" layout="column">
+    <div class="content height-full">
+
+        <!-- Date bar -->
+        <div class="mb-10">
+            <div layout="row" layout-align="center center">
+                <!-- Prev, next and date action -->
+                <md-icon md-font-icon="icon-chevron-left" class="s36 ml-20 mr-10" ng-click="vm.onDateChange(-1)"
+                    ng-class="{'clickable': !vm.loading, 'grey-300-fg': vm.loading }">
+                    <md-tooltip>{{ 'ACTIVITY_CALENDAR.PREVIOUS_DAY' | translate }}</md-tooltip>
+                </md-icon>
+                <h1 class="mv-0">{{ vm.readableDate }}</h1>
+                <md-icon md-font-icon="icon-calendar" class="s22 ml-10" moment-picker="vm.pickerDate" max-date="vm.today"
+                    format="YYYY-MM-DD" start-view="month" locale="{{ vm.lang }}" ng-model="vm.date" change="vm.setDate(newValue)"
+                    disable="vm.loading" ng-class="{'grey-500-fg': !vm.loading, 'grey-300-fg': vm.loading }">
+                    <md-tooltip>{{ 'ACTIVITY_CALENDAR.SELECT_DATE' | translate }}</md-tooltip>
+                </md-icon>
+                <md-icon md-font-icon="icon-chevron-right" class="s36 ml-10 mr-0" ng-click="vm.onDateChange(1)"
+                    ng-class="{'clickable': !vm.blockNext && !vm.loading, 'grey-300-fg': vm.blockNext || vm.loading }">
+                    <md-tooltip>{{ 'ACTIVITY_CALENDAR.NEXT_DAY' | translate }}</md-tooltip>
+                </md-icon>
+                <md-icon ng-if="!vm.blockNext" md-font-icon="icon-chevron-double-right" class="s36 ml-0 mr-10" ng-click="vm.setDate()"
+                    ng-class="{'clickable': !vm.blockNext && !vm.loading, 'grey-300-fg': vm.blockNext || vm.loading }">
+                    <md-tooltip>{{ 'ACTIVITY_CALENDAR.GO_TO_TODAY' | translate }}</md-tooltip>
+                </md-icon>
+                <!-- Options: -->
+                <md-icon md-font-icon="icon-rotate-left" class="clickable s24 ml-20 mr-10"
+                    ng-class="{ 'grey-500-fg': !vm.autoSkip, 'blue-800-fg': vm.autoSkip}" ng-click="vm.onAutoSkipChange()">
+                    <md-tooltip>{{ 'ACTIVITY_CALENDAR.AUTO_SKIP_INFO' | translate }}</md-tooltip>
+                </md-icon>
+                <md-icon md-font-icon="icon-checkbox-multiple-blank-outline" class="clickable s22 mh-10"
+                    ng-class="{ 'grey-500-fg': !vm.fetchEmpty, 'blue-800-fg': vm.fetchEmpty}" ng-click="vm.onFetchEmptyChange()">
+                    <md-tooltip>{{ 'ACTIVITY_CALENDAR.FEATCH_EMPTY' | translate }}</md-tooltip>
+                </md-icon>
+                <md-icon md-font-icon="icon-magnify-minus" class="clickable s22 mh-10 grey-500-fg" ng-click="vm.onZoomOut()"></md-icon>
+                <md-icon md-font-icon="icon-magnify-plus" class="clickable s22 mh-10 grey-500-fg" ng-click="vm.onZoomIn()"></md-icon>
+            </div>
+        </div>
+
+        <!-- Calendar -->
+        <div class="calendar-scroll" ng-class="{'loading-content': vm.loading}" layout="row">
+            <table class="activity-calendar-table">
+                <thead fix-head>
+                    <tr>
+                        <th class="time-col">&nbsp;</th>
+                        <!-- user names -->
+                        <th class="user-col" ng-repeat="user in vm.activities track by user.id"
+                            ng-style="{ width: vm.userWidth + 'px', minWidth: vm.userWidth + 'px', maxWidth: vm.userWidth + 'px' }">
+                            {{ user.first_name }} {{ user.last_name }}
+                            <span ng-if="user.tracked" class="tracked-header">({{ vm.formatTracked(user.tracked) }})</span>
+                        </th>
+                        <!-- no content info -->
+                        <th ng-if="vm.activities.length == 0"
+                            ng-style="{ width: vm.userWidth + 'px', minWidth: vm.userWidth + 'px', maxWidth: vm.userWidth + 'px' }">
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="time-col" ng-style="{ height: vm.hourHeight + 'px' }">
+                            00:00
+                        </td>
+                        <!-- user activities -->
+                        <td class="user-col" rowspan="{{ vm.hours.length + 1 }}" ng-style="{ maxWidth: vm.userWidth + 'px' }"
+                            ng-repeat="user in vm.activities track by user.id">
+                            <div class="activity {{ activity.project.color || '' }}" ng-class="{'empty': !activity.ticket_id }"
+                                ng-repeat="activity in user.activities track by activity.ids" ng-click="vm.onActivityClicked(activity)"
+                                ng-style="{ top: activity.top + 'px', height: activity.height + 'px', right: activity.right + 'px', width: activity.width + 'px' }">
+                                <div layout="row" layout-align="space-between start">
+                                    <div class="ticket-title" ng-if="activity.ticket_id" ng-click="$event.stopPropagation()">
+                                        <md-menu>
+                                            <div ng-click="$mdMenu.open(); vm.onTicketDetailsClicked(activity.ticket, activity.project_id)">
+                                                {{ activity.ticket.title }}
+                                            </div>
+                                            <md-menu-content ng-mouseleave="$mdMenu.close()" ng-class="{'loading-content': vm.ticketData.loaded === false }">
+                                                <md-menu-item layout="column">
+                                                    <div class="grey-900-fg bold text-center">{{ activity.ticket.title }}</div>
+                                                    <div class="grey-700-fg" ng-show="vm.ticketData.loaded && vm.ticketData.tracked != null">
+                                                        <div>{{ 'ACTIVITY_CALENDAR.ESTIMATED' | translate }}:&nbsp; {{ vm.formatTracked(vm.ticketData.estimated) || '-' }}</div>
+                                                        <div>{{ 'ACTIVITY_CALENDAR.LOGGED' | translate }}:&nbsp; {{ vm.formatTracked(vm.ticketData.tracked) || '-' }}</div>
+                                                    </div>
+                                                    <div class="red-400-fg" ng-show="vm.ticketData.loaded && vm.ticketData.tracked == null">
+                                                        {{ 'ACTIVITY_CALENDAR.TICKET_DATA_ERROR' | translate }}
+                                                    </div>
+                                                </md-menu-item>
+                                            </md-menu-content>
+                                        </md-menu>
+                                    </div>
+                                    <span class="ticket-title" ng-if="!activity.ticket_id">
+                                        {{  activity.project.short_name || '???' }}
+                                    </span>
+                                    <span ng-if="activity.width > 120" class="ticket-time">
+                                        {{ activity.utc_started_at | utcToLocal:'HH:mm' }}
+                                        - {{ activity.utc_finished_at | utcToLocal:'HH:mm' }}
+                                        <span ng-if="activity.width > 130">({{ vm.formatTracked(activity.tracked) }})</span>
+                                    </span>
+                                </div>
+                                <div ng-if="activity.ticket_id && activity.width > 80 && activity.ticket.height > 34" class="ticket-desc">
+                                    {{ activity.ticket.name }}
+                                </div>
+                                <div ng-if="activity.comments.length && activity.width > 80" class="ticket-desc">
+                                    (<span ng-repeat="comment in activity.comments">{{ comment }}<span ng-if="!$last">,&nbsp;</span></span>)
+                                </div>
+                                <div ng-if="!activity.ticket_id && activity.notes.length && activity.width > 80" class="ticket-desc">
+                                    (<span ng-repeat="note in activity.notes">{{ note }}<span ng-if="!$last">,&nbsp;</span></span>)
+                                </div>
+                                <!-- Hover info (eg. for small bars without full-info ) -->
+                                <md-tooltip>
+                                    <div>
+                                        {{ activity.utc_started_at | utcToLocal:'HH:mm' }}
+                                        - {{ activity.utc_finished_at | utcToLocal:'HH:mm' }}
+                                        ({{ vm.formatTracked(activity.tracked) }}) &nbsp;&nbsp;
+                                        {{ activity.ticket.title }} &nbsp; {{ activity.ticket.name }}
+                                        <span ng-if="activity.comments.length">
+                                            (<span ng-repeat="comment in activity.comments">{{ comment }}<span ng-if="!$last">,&nbsp;</span></span>)
+                                        </span>
+                                        <span ng-if="activity.notes.length">
+                                            (<span ng-repeat="note in activity.notes">{{ note }}<span ng-if="!$last">,&nbsp;</span></span>)
+                                        </span>
+                                    </div>
+                                </md-tooltip>
+                            </div>
+                            <div class="availability" ng-repeat="availability in user.availabilities"
+                                ng-style="{ top: availability.top + 'px', height: availability.height + 'px' }">
+                                <md-tooltip>
+                                    {{ availability.time_start }} - {{ availability.time_stop }}
+                                    <span ng-if="availability.description">({{ availability.description }})</span>
+                                </md-tooltip>
+                            </div>
+                        </td>
+                        <!-- no content info -->
+                        <td ng-if="vm.activities.length == 0 && !vm.loading" ng-style="{ width: vm.userWidth + 'px', minWidth: vm.userWidth + 'px', maxWidth: vm.userWidth + 'px' }"
+                            rowspan="{{ vm.hours.length + 1 }}">
+                            <md-icon md-font-icon="icon-timer-off" class="s40 grey-400-fg mv-10"></md-icon>
+                            <div class="grey-600-fg">{{ 'ACTIVITY_CALENDAR.NO_ACTIVITIES' | translate }}</div>
+                        </td>
+                    </tr>
+                    <tr ng-repeat="h in vm.hours track by $index">
+                        <td class="time-col" ng-style="{ height: vm.hourHeight + 'px' }">
+                            {{ $index + 1 }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

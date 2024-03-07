@@ -1,0 +1,43 @@
+{
+    "TIME_TRACKING": {
+        "TITLE": "Aktywności",
+        "SEARCH": "Szukaj",
+        "USER": "Użytkownik",
+        "EXTERNAL_USER": "Zewnętrzny użytkownik",
+        "TIME": "Czas",
+        "ACTIVITY": "Aktywność",
+        "PROJECT": "Projekt",
+        "EXTERNAL_PROJECT": "Zewnętrzny projekt",
+        "WITHOUT_PROJECT": "- Brak -",
+        "WITHOUT_TICKETS": "Bez zadań",
+        "TICKET": "Zadanie",
+        "DESCRIPTION": "Opis",
+        "ESTIMATION": "Estymacja",
+        "COMMENT": "Komentarz",
+        "NOTE": "Notatka",
+        "LOCKED": "Zablokuj",
+        "ACTIVITIES_PEROID": "Wybierz aktywności z",
+        "TODAY": "Dziś",
+        "YESTERDAY": "Wczoraj",
+        "CURRENT_WEEK": "Aktualny tydzień",
+        "PREVIOUS_WEEK": "Zeszły tydzień",
+        "CURRENT_MONTH": "Aktualny miesiąc",
+        "PREVIOUS_MONTH": "Zeszły miesiąc",
+        "MIN_TRACKED": "Długość od (s)",
+        "MAX_TRACKED": "Długość do (s)",
+        "MIN_ACTIVITY": "Aktywność od (%)",
+        "MAX_ACTIVITY": "Aktywność do (%)",
+        "SUM_TIME": "Czas łącznie",
+        "SUM_TIMES": "Sumuj czasy",
+        "SOURCE": "Źródło",
+        "TIME-TRACKER": "Time Tracker",
+        "HUBSTAFF": "Hubstaff",
+        "MANUAL": "Manualny",
+        "MANUAL-TIME": "Czas manualny"
+    },
+    "ERRORS": {
+        "FORM": {
+            "MAX_NUM_600": "Zbyt duża liczba. Możesz podać maksymalnie wartość 600."
+        }
+    }
+}

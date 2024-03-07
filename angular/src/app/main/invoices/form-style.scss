@@ -1,0 +1,66 @@
+#invoice-form {
+  .table-wrapper {
+    width:100%;
+  }
+  //.width-auto table {
+  //  width:auto !important;
+  //}
+  .font-size-22 {
+    font-size: 22px !important;
+  }
+
+  .select-style {
+    border-bottom: 1px solid #E0E0E0;
+    margin-top:0px
+  }
+
+  .input-style {
+    margin-top:20px
+  }
+
+  .custom-name-checkbox {
+    width: 100%;
+    text-align: right;
+    margin-top:-10px;
+  }
+
+  .short-services {
+    position:absolute;
+    font-size: 12px;
+
+    span {
+      margin-left: 5px;
+      padding: 1px 5px;
+      color: #fff;
+      background: rgb(0,145,234);
+      border-radius: 2px;
+      cursor: pointer;
+    }
+  }
+
+  @media all and (max-width: $layout-breakpoint-sm) {
+    .table-products {
+      table {
+        border-collapse: collapse;
+      }
+      table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2), table.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+2) {
+        display: block;
+      }
+      table.md-table td.md-cell {
+        border: none;
+      }
+
+      tr {
+        border-top: 1px rgba(0, 0, 0, 0.12) solid;
+      }
+
+      tr:first-child {
+        border-top: none;
+      }
+    }
+
+    .select-style {
+      margin-bottom: 40px;
+    }
+  }
+}

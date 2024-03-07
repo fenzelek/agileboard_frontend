@@ -1,0 +1,49 @@
+{
+  "data": [
+    {
+      "id": 2,
+      "role_id": 3,
+      "email": "kontakt@devpark.pl",
+      "name": "Test",
+      "surname": "Testowy",
+      "deleted": false,
+      "last_failed_login": null,
+      "role": {
+        "data": {
+          "id": 3,
+          "slug": "admin",
+          "name": "Administrator"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "role_id": 3,
+      "email": "kontakt2@devpark.pl",
+      "name": "Test2",
+      "surname": "Testowy2",
+      "deleted": false,
+      "last_failed_login": null,
+      "role": {
+        "data": {
+          "id": 3,
+          "slug": "admin",
+          "name": "Administrator"
+        }
+      }
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "total": 2,
+      "count": 15,
+      "per_page": 15,
+      "current_page": 1,
+      "total_pages": 1,
+      "links": {
+        "next": "\/users?created_at_from=&created_at_to=&id=&limit=15&search=&sort=&page=2"
+      }
+    }
+  },
+  "exec_time": 0.029
+}

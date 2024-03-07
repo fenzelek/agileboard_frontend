@@ -1,0 +1,42 @@
+<md-dialog aria-label="METHOD" ng-cloak>
+    <div id="crete-invoice-dialog">
+        <form id="createInvoice" name="createInvoice" >
+            <div layout-gt-sm="row">
+                <div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+                <div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+            </div>
+            <div class="mb-20">
+                <span translate="RECEIPTS_LIST.RECEIPT_TITLE" class="font-size-16"></span>
+            </div>
+            <div layout-gt-sm="row" ng-repeat="search_text_receipt in vm.search_text_receipt track by $index">
+                <md-input-container class="md-block" flex-gt-sm >
+                    <label><span translate="RECEIPTS_LIST.RECEIPT" ></span></label>
+
+                    <md-autocomplete  md-input-name="receipt_id_{{$index}}"
+                                      ng-model-options="{debounce:200}"
+                                      md-selected-item="vm.selected_item[$index]"
+                                      md-search-text="search_text_receipt"
+                                      md-items="item in vm.searchReceipt(search_text_receipt)"
+                                      md-item-text="item.number">
+                        <md-item-template>
+                            <span md-highlight-text="search_text_receipt">{{item.number}}</span>
+                        </md-item-template>
+                        <md-not-found><span translate="OTHER.NOT_FOUND"></span></md-not-found>
+                    </md-autocomplete>
+                </md-input-container>
+            </div>
+
+            <div layout-gt-sm="row"  layout-align="end none">
+                <md-button type="button" class="md-raised md-accent"
+                           translate="INFO.ADD_NEXT" ng-click="vm.add()"
+                           translate-attr-aria-label="INFO.ADD_NEXT">
+                </md-button>
+                <md-button type="button" class="md-raised md-accent" aria-label="SEND"
+                           ng-disabled="createInvoice.$invalid || vm.request_sending"
+                           translate="OTHER.SAVE" ng-click="vm.create()"
+                           translate-attr-aria-label="OTHER.SAVE">
+                </md-button>
+            </div>
+        </form>
+    </div>
+</md-dialog>

@@ -1,0 +1,163 @@
+<md-dialog id="project-wizard-dialog">
+
+        <md-toolbar class="md-accent md-hue-2 ph-20 pv-15">
+            {{ 'PROJECT_WIZARD.TITLE' | translate}}
+        </md-toolbar>
+        <md-dialog-content ms-scroll ng-class="{ 'loading-content': vm.loading }">
+            <!-- Project name -->
+            <form ng-show="vm.currentStep == 1" name="step1" novalidate>
+                <div layout="column" layout-align="center center">
+                    <h2 class="mt-0 text-center">{{ 'PROJECT_WIZARD.START' | translate }}</h2>
+                    <div class="mb-10 text-center">
+                        {{ 'PROJECT_WIZARD.PROJECT_NAME_DESC' | translate }}
+                    </div>
+                    <md-input-container class="md-block">
+                        <label>{{ 'PROJECT_WIZARD.PROJECT_NAME' | translate }}</label>
+                        <input ng-model="vm.form.name" name="name" required focus-me ng-maxlength="255"
+                            ng-change="vm.generateShort(); vm.checkShortName()" ng-model-options="{ debounce: 300 }"
+                            placeholder="{{ 'PROJECT_WIZARD.PROJECT_NAME_PLACEHOLDER' | translate }}">
+                    </md-input-container>
+                    <md-input-container ng-show="vm.shortNameError || vm.errors.length || vm.errorCode"
+                        class="md-block" ng-class="{ 'md-input-invalid': vm.shortNameError }">
+                        <label>{{ 'PROJECT_WIZARD.PROJECT_SHORT_NAME' | translate }}</label>
+                        <input ng-model="vm.shortName" name="shortName" required ng-maxlength="100"
+                            ng-change="vm.checkShortName()" ng-model-options="{ debounce: 300 }" capitalize>
+                    </md-input-container>
+
+                </div>
+            </form>
+
+            <!-- Statuses -->
+            <form ng-show="vm.currentStep == 2" name="step2" novalidate>
+                <div layout="column" layout-align="center center">
+                    <h2 class="mt-0 text-center">{{ 'PROJECT_WIZARD.STATUSES' | translate }}</h2>
+                    <div class="mb-10 text-center">
+                        {{ 'PROJECT_WIZARD.STATUSES_DESC' | translate }}
+                    </div>
+                    <div class="mb-10">
+                        <div ng-repeat="status in vm.form.statuses" layout="row">
+                            <md-input-container class="md-block no-errors-spacer">
+                                <label>{{ 'OTHER.NAME' | translate }}</label>
+                                <input ng-model="vm.form.statuses[$index].name" name="name_{{$index}}" ng-maxlength="255" required>
+                            </md-input-container>
+                            <md-button ng-click="vm.removeStatus($index)" class="md-icon-button md-warn delete-status-btn">
+                                <md-icon md-font-icon="icon-close" class="s24"></md-icon>
+                            </md-button>
+                        </div>
+                    </div>
+                    <md-button type="button" ng-click="vm.addStatus()" class="add-status-btn">
+                        <md-icon md-font-icon="icon-table-row-plus-before" class="s20"></md-icon>
+                        <span ng-if="!vm.form.statuses.length">{{ 'PROJECT_WIZARD.STATUSES_ADD' | translate }}</span>
+                        <span ng-if="vm.form.statuses.length">{{ 'PROJECT_WIZARD.STATUSES_ADD_NEXT' | translate }}</span>
+                    </md-button>
+                </div>
+            </form>
+
+            <!-- Sprint -->
+            <form ng-show="vm.currentStep == 3" name="step3" novalidate>
+                <div layout="column" layout-align="center center">
+                    <h2 class="mt-0 text-center">{{ 'PROJECT_WIZARD.SPRINT' | translate }}</h2>
+                    <div class="mb-10 text-center">
+                        {{ 'PROJECT_WIZARD.SPRINT_DESC' | translate }}
+                    </div>
+                    <md-input-container class="md-block">
+                        <label>{{ 'PROJECT_WIZARD.SPRINT_NAME' | translate }}</label>
+                        <input ng-model="vm.form.sprint" name="sprint" required ng-maxlength="255">
+                    </md-input-container>
+                </div>
+            </form>
+
+            <!-- Ticket -->
+            <form ng-show="vm.currentStep == 4" name="step4" novalidate>
+                <div layout="column" layout-align="center center">
+                    <h2 class="mt-0 text-center">{{ 'PROJECT_WIZARD.TICKET' | translate }}</h2>
+                    <div class="mb-10 text-center">
+                        {{ 'PROJECT_WIZARD.TICKET_DESC' | translate }}
+                    </div>
+                    <md-input-container class="md-block">
+                        <label>{{ 'PROJECT_WIZARD.TICKET_NAME' | translate }}</label>
+                        <input ng-model="vm.form.ticket" name="ticket" required ng-maxlength="255">
+                    </md-input-container>
+                </div>
+            </form>
+
+            <!-- Summary -->
+            <div ng-if="vm.currentStep == 5">
+                <h2 class="mt-0 text-center">{{ 'PROJECT_WIZARD.SUMMARY' | translate }}</h2>
+                <div class="font-size-16 mb-20">
+                    {{ 'PROJECT_WIZARD.SUMMARY_DESC' | translate }}
+                </div>
+                <div class="summary-box font-size-16 mb-15">
+                    <div class="mb-20">
+                        <span class="font-size-26 bold">{{ vm.form.name }}</span>
+                        <span class="font-size-14 grey-500-fg">
+                            &nbsp;<md-icon md-font-icon="icon-arrow-left" class="s20"></md-icon>{{ 'PROJECT_WIZARD.PROJECT_NAME' | translate }}
+                        </span>
+                    </div>
+                    <div class="ml-15">
+                        <span class="sprint-name bold">{{ vm.form.sprint }}</span>
+                        <span class="font-size-14 grey-500-fg">
+                            &nbsp;<md-icon md-font-icon="icon-arrow-left" class="s20"></md-icon>{{ 'PROJECT_WIZARD.SPRINT_NAME' | translate }}
+                        </span>
+                    </div>
+                    <div class="mb-15">
+                        <table class="statuses-table md-whiteframe-1dp">
+                            <thead>
+                                <tr>
+                                    <th ng-repeat="s in vm.form.statuses">{{ s.name }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td ng-repeat="s in vm.form.statuses">
+                                        <div ng-if="$first" class="task md-whiteframe-1dp">
+                                            {{ vm.form.ticket }}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div ng-if="!vm.errors.length" class="font-size-16 mb-20 text-center">
+                    {{ 'PROJECT_WIZARD.SUMMARY_END' | translate }}
+                </div>
+                <div ng-if="vm.errors.length" class="red-fg mb-20 text-center">
+                    <div ></div>
+                    <div class="font-size-16 mb-5">
+                        <span ng-if="vm.errorCode">{{ ('ERRORS.' + vm.errorCode) | translate }}</span>
+                        <span ng-if="!vm.errorCode">{{ 'PROJECT_WIZARD.ERROR' | translate }}</span>
+                    </div>
+                    <div ng-repeat="error in vm.errors">{{ error }}</div>
+                </div>
+            </div>
+
+        </md-dialog-content>
+        <md-dialog-actions layout="row" layout-align="center center">
+            <!-- Close -->
+            <md-button ng-if="vm.currentStep == 1" type="button" class="md-raised" ng-click="vm.hide()"
+                translate="PROJECT_WIZARD.CLOSE" translate-attr-aria-label="PROJECT_WIZARD.CLOSE">
+            </md-button>
+            <!-- Prev -->
+            <md-button ng-if="vm.currentStep > 1" type="button" class="md-raised" ng-click="vm.prev()"
+                        translate="OTHER.PREV" translate-attr-aria-label="OTHER.PREV">
+            </md-button>
+            <div class="steps">
+                <span ng-repeat="s in vm.steps track by $index" ng-class="{'selected md-accent-bg': vm.currentStep === $index + 1}"></span>
+            </div>
+            <!-- Next -->
+            <md-button ng-if="vm.currentStep != vm.steps.length" type="button" class="md-raised" ng-click="vm.next()"
+                        ng-disabled="
+                        (vm.currentStep == 1 && step1.$invalid) ||
+                        (vm.currentStep == 2 && (step2.$invalid || vm.form.statuses.length < 2)) ||
+                        (vm.currentStep == 3 && step3.$invalid) ||
+                        (vm.currentStep == 4 && step4.$invalid)"
+                        translate="OTHER.NEXT" translate-attr-aria-label="OTHER.NEXT">
+            </md-button>
+            <!-- Send -->
+            <md-button ng-if="vm.currentStep == vm.steps.length" type="button" class="md-raised md-accent" ng-click="vm.send()"
+                        ng-disabled="vm.loading" translate="OTHER.SAVE" translate-attr-aria-label="OTHER.SAVE">
+            </md-button>
+        </md-dialog-actions>
+
+</md-dialog>

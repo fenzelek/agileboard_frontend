@@ -1,0 +1,166 @@
+#dashboard {
+  $header-height: 110px;
+  $sidenav-width: 260px;
+
+  min-height: 100%;
+
+  .header {
+    position: relative;
+    height: $header-height !important;
+    min-height: $header-height !important;
+    padding-top: 14px !important;
+    padding-bottom: 0 !important;
+    padding-right: 0 !important;
+
+    .title {
+        margin: 0;
+        font-size: 24px;
+        padding-left: 24px;
+
+        .beta-sign {
+            display: inline-block;
+            font-size: 12px;
+            border: 1px solid #fff;
+            padding: 2px 5px;
+            border-radius: 5px;
+            margin-left: 10px;
+            cursor: default;
+        }
+    }
+
+    .options-row {
+
+        .selected-option {
+          background: rgba(0, 0, 0, 0.12);
+          color: #FFFFFF;
+          padding: 8px 16px;
+          height: 40px;
+          line-height: 24px;
+          font-size: 16px;
+          border-radius: $element-radius 0 0 0;
+
+          &.button {
+            cursor: pointer;
+          }
+
+          &.active {
+              background: rgba(0, 0, 0, 0.2);
+          }
+        }
+
+        .option-selector {
+          margin-left: 1px;
+          border-radius: 0;
+          background: rgba(0, 0, 0, 0.12);
+          border-radius: 0 $element-radius 0 0;
+
+          &.active {
+            background: rgba(0, 0, 0, 0.2);
+          }
+
+          md-icon {
+            color: #FFFFFF;
+          }
+        }
+      }
+  }
+
+  .center {
+    .content {
+      padding: 0;
+    }
+
+    .content > md-tabs > md-tabs-content-wrapper > md-tab-content {
+      padding: 1rem 1.6rem;
+      overflow: hidden;
+      background-color: rgb(245,245,245);
+    }
+  }
+
+  .activities-sidenav {
+    width: $sidenav-width;
+    min-width: $sidenav-width;
+    max-width: $sidenav-width;
+    background-color: rgb(240,240,240);
+
+    .title {
+      margin: 0;
+    }
+  }
+
+  md-list.md-dense {
+    md-list-item, md-list-item::before {
+      min-height: 32px !important;
+    }
+  }
+  md-list md-list-item {
+    // :nth-child(even)
+    // background: rgba(0,0,0,0.01);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+
+  ms-widget  {
+    .widget-content {
+      position: relative;
+      height: 235px;
+      min-height: 235px;
+      max-height: 235px;
+      overflow: auto;
+
+      &.loading-content {
+          opacity: 0.6;
+      }
+
+      md-list {
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+      }
+    }
+  }
+
+  .click-filter {
+      padding: 0 4px;
+      line-height: 24px;
+      cursor: pointer;
+  }
+
+  .list-row {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+    .list-desc {
+        display: inline-block;
+        min-width: 65px;
+        margin-right: 5px;
+    }
+
+    .list-title {
+        display: inline-block;
+        min-width: 45px;
+        margin-right: 10px;
+        font-weight: bold;
+    }
+
+    .list-date {
+        width: 70px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+  }
+
+  .clickable {
+      cursor: pointer;
+  }
+
+  .project-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+    background-color: #dadada;
+  }
+}

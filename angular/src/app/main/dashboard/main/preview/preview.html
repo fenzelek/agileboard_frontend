@@ -1,0 +1,17 @@
+<div id="dashboard-preview">
+
+  <!-- no item selected info -->
+  <h3 ng-if="!$ctrl.data && !$ctrl.loading" class="text-center m-0 p-20">{{ 'DASHBOARD.PREVIEW.no_item_selected' | translate }}</h3>
+
+  <!-- loading -->
+  <md-progress-circular ng-if="$ctrl.loading" class="md-accent"></md-progress-circular>
+
+  <!-- task -->
+  <task-preview ng-if="!$ctrl.loading && $ctrl.config.type === 'task'" task="$ctrl.data" ref="$ctrl.config.ref" projects="$ctrl.projects">
+  </task-preview>
+
+  <!-- knowledge page -->
+  <knowledge-page ng-if="!$ctrl.loading && $ctrl.config.type === 'knowledge-page'" page="$ctrl.data" ref="$ctrl.config.ref" projects="$ctrl.projects">
+  </knowledge-page>
+
+</div>

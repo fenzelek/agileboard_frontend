@@ -1,0 +1,60 @@
+{
+    "CALENDAR": {
+        "SET_AVAILABILITY": "Ustaw dostępność",
+        "AVAILABILITY_HOURS": "Godziny dostępności:",
+        "OFFLINE_TITLE": "Till Date:",
+        "CALENDAR": "Kalendarz",
+        "SEARCH": "Wyszukaj",
+        "TODAY": "Dziś",
+        "DAY": "Dzień",
+        "WEEK": "Tydzień",
+        "MONTH": "Miesiąc",
+        "PREVIOUS": "Poprzednie",
+        "NEXT": "Następne",
+        "PRESENT": "Aktualny",
+        "PERSON": "Osoba",
+        "ADD_EVENT": "Dodaj wydarzenie",
+        "EDIT_EVENT": "Edytuj wydarzenie",
+        "CLOSE_DIALOG": "Zamknij dialog",
+        "TITLE": "Tytuł",
+        "AVAILABILITY": "Wolne/Praca",
+        "START_DATE": "Data startu",
+        "START_TIME": "Czas startu",
+        "END_DATE": "Data końca",
+        "END_TIME": "Czas końca",
+        "SELECT_DATE": "Wybierz datę",
+        "REPEAT": "Powtórz",
+        "LOCATION": "Lokalizacja",
+        "OFFLINE_REASON": "Powód",
+        "ADD_TIME_PERIOD": "+ Dodaj inny okres",
+        "NOTES": "Notes",
+        "SAVE": "Zapisz",
+        "DELETE": "Usuń",
+        "CUSTOM_REASON": "Wpisz powód",
+        "DESCRIPTION": "Opis",
+        "PROJECT": "Projekt",
+        "DAYS_FREE": "Dni wolnych",
+        "NO_USERS_SELECTED": "Nie wybrano żadnych użytkowników",
+        "OVERTIME": "Nadgodziny",
+        "AVAILABILITY_CONFIRMED": "Zatwierdzone",
+        "GENERATE_REPORT": {
+            "MONTH": "Generuj raport za miesiąc",
+            "YEAR": "Generuj raport roczny"
+        },
+        "REASON": {
+            "holidays": "Święto",
+            "sick_note": "Choroba",
+            "day_off": "Dzień wolny",
+            "other": "Inny"
+        },
+        "VIEWS": {
+            "WORKING_HOURS": "Planowany czas pracy",
+            "TICKET_REALIZATION": "Realizowane zadania",
+            "PLANNED_WORKS": "Planowane prace",
+            "GANTT_DIAGRAM": "Gant - etapy"
+        },
+        "ERRORS": {
+            "TITLE_REQUIRED": "Tytuł jest wymagany"
+        }
+    }
+}

@@ -1,0 +1,43 @@
+{
+    "CASH_OPERATIONS_LIST": {
+        "TITLE": "Cash operation",
+        "TAB1": "Cash",
+        "TAB2": "Cashless",
+        "GENERATE_PDF": "Generate pdf",
+        "CHANGE_1": "Change to cash",
+        "CHANGE_2": "Change to cashless",
+        "USER": "User",
+        "SEARCH": "Search",
+        "BALANCE": "Balanced list",
+        "DATE": "Date",
+        "NUMBER": "Number",
+        "METHOD": "Payment method",
+        "SUM": "Summary",
+        "CASH_START": "Initial state",
+        "CASH_STOP": "Final state",
+        "CASH_RELEASED": "Cash released",
+        "CASH_TOOK": "Cash accepted",
+        "CALC": "Calc",
+        "RECEIPT_NUMBER": "Receipt number",
+        "RECEIPT_NUMBER_TRANSACTION": "Transaction number",
+        "AMOUNT": "Amount",
+        "DIRECTION": "Type",
+        "DIRECTION_LIST": {
+            "initial": "Initial state",
+            "in": "Cash accepted",
+            "out": "Cash released",
+            "final": "Final state"
+        },
+        "DESCRIPTION": "Description",
+        "CREATED": "Created",
+        "ADD": "Add",
+        "DELETE_QUESTION": "Are you sure you want to delete this operation?",
+        "DELETE_SUCCESS": "Deleted operation.",
+        "CHANGE_QUESTION_0": "Are you sure you want to set this operation as cash?",
+        "CHANGE_QUESTION_1": "Are you sure you want to set this operation as cashless?",
+        "CHANGE_SUCCESS": "Changed operation."
+    },
+    "ERRORS": {
+
+    }
+}

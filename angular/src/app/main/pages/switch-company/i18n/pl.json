@@ -1,0 +1,10 @@
+{
+    "SWITCH_COMPANY": {
+        "TITLE": "Projekt, do którego chcesz przejść jest przypisany do innej firmy.",
+        "DESCRIPTION": "Czy chcesz przełączyć się do tej firmy?",
+        "SWITCH": "Przełącz"
+    },
+    "ERRORS": {
+
+    }
+}

@@ -1,0 +1,29 @@
+<md-dialog aria-label="METHOD">
+    <div id="image-preview-dialog">
+
+        <!-- prev -->
+        <div ng-if="vm.multiple" ng-click="vm.previous()" ng-keydown="onKeydown($event)" class="change-image previous">
+            <i class="icon-arrow-left"></i>
+        </div>
+
+        <!-- next -->
+        <div ng-if="vm.multiple" ng-click="vm.next()" ng-keydown="onKeydown($event)" class="change-image next">
+            <i class="icon-arrow-right"></i>
+        </div>
+
+        <!-- loader -->
+        <div class="loader" ng-if="vm.loading">
+            <md-progress-circular class="md-accent"></md-progress-circular>
+        </div>
+
+        <!-- image -->
+        <img ng-src="{{vm.src}}" loading-image-indicator>
+
+        <!-- bottom strip -->
+        <div layout="row" layout-align="end none">
+            <div ng-if="vm.multiple" class="order-info">{{vm.index +1}} / {{vm.length}}</div>
+            <md-button class="md-raised md-button md-default-theme" ng-click="vm.hide()" translate="OTHER.CLOSE" ></md-button>
+        </div>
+
+    </div>
+</md-dialog>

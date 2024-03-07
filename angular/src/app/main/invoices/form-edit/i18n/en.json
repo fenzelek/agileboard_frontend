@@ -1,0 +1,52 @@
+{
+    "INVOICES_FORM_EDIT": {
+        "TITLE_EDIT": "Edit invoice",
+        "SALE_DATE": "Sale date",
+        "ISSUE_DATE": "Issue date",
+        "REGISTER": "Numbering method",
+        "GENERAL": "General",
+        "MARGIN_PROCEDURES": "Margin procedures",
+        "REVERSE_CHANGES": "Type",
+        "CLIENT": "Contractor",
+        "EDIT_CONTRACTOR": "Edit",
+        "ADD_CONTRACTOR": "Add",
+        "VATIN": "NIP",
+        "PRODUCTS": "Services",
+        "PRODUCT": "Service",
+        "ADD_PRODUCT": "Add product",
+        "TAX": "VAT rate",
+        "CUSTOM_NAME_ENABLE": "Custom description",
+        "CUSTOM_NAME_DISABLE": "Default description",
+        "QUANTITY": "Quantity",
+        "PRICE_NET": "Price net (zł)",
+        "PRICE_NET_SUM": "Value net (zł)",
+        "PRICE_GROSS": "Price gross (zł)",
+        "PRICE_GROSS_SUM": "Value gross (zł)",
+        "PRICE": "Price (zł)",
+        "PRICE_SUM": "Value (zł)",
+        "UNIT": "Unit",
+        "DESCRIPTION": "Invoice description",
+        "BANK_ACCOUNT": "Bank account", 
+
+        "SUMMARY": "Summary",
+        "PRICE_NET_SUMMARY": "Total net price",
+        "PRICE_GROSS_SUMMARY": "Total gross price",
+        "PRICE_SUMMARY": "Total price",
+        "TERM": "Date of payment",
+        "PAYMENT_METHOD": "Payments method",
+        "SAVE": "Save",
+        "DELIVERY_ADDRESS": "Delivery address",
+        "DELIVERY_ADDRESS_OTHER": "Other delivery address",
+
+        "COUNT_TAX": "VAT counting",
+        "FROM_NET": "from the net",
+        "FROM_GROSS": "from the gross",
+        "PARTIAL_PAYMENT": "Partial payments",
+        "AMOUNT": "Amount",
+
+        "ADD_QUESTION": "Are you sure you want to issue this invoice? Remember that the contractor`s data willalso be updated to the latest."
+    },
+    "ERRORS": {
+
+    }
+}

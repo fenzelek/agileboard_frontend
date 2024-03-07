@@ -1,0 +1,23 @@
+{
+    "BOARD": {
+        "CREATE_TICKET": "Dodaj zadanie",
+        "TICKET": "Zadanie",
+        "NO_ACTIVE_SPRINT": "Brak otwartych etapów",
+        "ADDED_TICKET": "Dodano zadanie",
+        "SWITCH_TO_COMPACT_VIEW": "Włącz widok kompaktowy",
+        "BACK_TO_STANDARD_VIEW": "Wyłącz widok kompaktowy",
+        "NO_STATUSES": "Tablica nie została jeszcze skonfigurowana",
+        "BACKLOG": "Planowanie",
+        "MOVE_STATUS_TICKETS_TO": "Przenieś wszystkie do...",
+        "COPY_TO_CLIPBOARD": "Kopiuj nr zadania do schowka",
+        "RESET_FILTERS": "Usuń filtry",
+        "OPEN_CALENDAR": "Otwórz kalendarz",
+        "CLOSE_CALENDAR": "Zamknij kalendarz",
+        "SHOW_SUB_TICKETS_BOARD": "Pokaż tablicę pod-zadań"
+    },
+    "ERRORS": {
+        "package": {
+            "limit_reached": "Osiągnięto limit ilości zajętego miejsca na dysku. Usuń inne pliki aby móc dodać kolejne lub skontaktuj sie z właścicielem Twojej firmy, aby zwiększył limit."
+        }
+    }
+}

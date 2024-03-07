@@ -1,0 +1,113 @@
+<div class="form-wrapper">
+    <!-- CLONE EXISTING PROJECT -->
+    <div layout-gt-sm="row" layout-align="end none" >
+        <md-menu>
+            <md-button ng-click="$mdMenu.open()" type="button" class="md-raised md-accent" target="_blank">
+                <md-icon md-font-icon="icon-content-copy"></md-icon>
+                {{ 'OTHER.CLONE_PROJECT' | translate }}
+                <md-tooltip>{{ 'PROJECTS_FORM.CLONE_DESC' | translate }}</md-tooltip>
+            </md-button>
+            <md-menu-content>
+                <div class="grey-600-fg s12 pv-8 ph-16">{{ 'OTHER.CLONE_PROJECT' | translate }}:</div>
+                <md-menu-item ng-repeat="project in vm.projects">
+                    <md-button ng-click="vm.cloneProject(project)">
+                        {{ project.name }}
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </div>
+    <!-- NAME & SHORTNAME -->
+    <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm="50" flex="100">
+            <label><span translate="OTHER.NAME"></span></label>
+            <input ng-model="vm.form.name" required name="name" ng-change="vm.generateShort()" >
+            <div ng-messages="formProject.name.$error">
+                <div ng-message="required" class="my-message"><span translate="ERRORS.FORM.REQUIRE"></span></div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm ng-class="{ 'md-input-invalid': vm.shortNameError }">
+            <label><span translate="PROJECTS_FORM.SHORT_NAME"></span></label>
+            <input ng-model="vm.form.short_name" required ng-maxlength="100" name="short_name" ng-disabled="vm.disable_short_name" capitalize ng-model-options="{ debounce: 300 }">
+            <span class="api-error" ng-if="vm.shortNameError" translate="ERRORS.NOT_UNIQUE"></span>
+            <div ng-messages="formProject.short_name.$error">
+                <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_100"></span></div>
+            </div>
+        </md-input-container>
+    </div>
+    <!-- OTHER DATA -->
+    <div layout-gt-sm="row">
+        <md-input-container ng-if="vm.edit" class="md-block" flex-gt-sm="50" flex="100">
+            <label><span translate="PROJECTS_FORM.CALENDAR_REALIZATION_STATUS"></span></label>
+            <md-select ng-model="vm.form.status_for_calendar_id" name="status_for_calendar_id">
+                <md-option ng-value="null" default><span translate="PROJECTS_FORM.OPTION_DISABLED"></span></md-option>
+                <md-option ng-repeat="status in vm.statuses" ng-value="status.id">{{ status.name }}</md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container ng-if="!vm.edit" class="md-block" flex-gt-sm="50" flex="100">
+            <label><span translate="PROJECTS_FORM.FIRST_TASK_NUMBER"></span></label>
+            <input ng-model="vm.form.first_number_of_tickets" required name="first_number_of_tickets">
+            <div ng-messages="formProject.first_number_of_tickets.$error">
+                <div ng-message="required" class="my-message"><span translate="ERRORS.FORM.REQUIRE"></span></div>
+            </div>
+        </md-input-container>
+    </div>
+
+    <div layout-gt-sm="row">
+        <md-input-container ng-if="current_company_settings.enable_activity" class="md-block" flex-gt-sm="50" flex="100">
+            <md-checkbox ng-model="vm.form.time_tracking_visible_for_clients">
+                <span translate="PROJECTS_FORM.CLIENT_ACCESS_TIME"></span>
+            </md-checkbox>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm="50" flex="100">
+            <md-checkbox ng-model="vm.form.ticket_scheduled_dates_with_time">
+                <span translate="PROJECTS_FORM.TICKETS_WITH_TIME"></span>
+            </md-checkbox>
+        </md-input-container>
+    </div>
+
+    <!-- COLORS (only for edit) -->
+    <div ng-if="vm.edit" class="mt-20" layout="row" layout-align="start center" layout-wrap>
+        <div translate="PROJECTS_FORM.COLOR"></div>
+    </div>
+    <div ng-if="vm.edit" layout="row" layout-align="start center" layout-wrap>
+        <div class="color-container" ng-repeat="color in vm.colors" layout="row" layout-align="center center">
+            <div class="color-circle {{color}}" ng-class="{'selected': vm.form.color == color }" ng-click="vm.selectColor(color)" ></div>
+        </div>
+    </div>
+    <div ng-if="vm.edit" layout="row" layout-align="start center" layout-wrap>
+        <div class="color-container" ng-repeat="color in vm.colors2" layout="row" layout-align="center center">
+            <div class="color-circle {{color}}" ng-class="{'selected': vm.form.color == color }" ng-click="vm.selectColor(color)" ></div>
+        </div>
+    </div>
+
+    <!-- USERS -->
+    <div class="form-title mt-30" translate="PROJECTS_FORM.USERS_DATA"></div>
+    <div layout-gt-sm="row" layout-align="end none" >
+        <md-button type="button" class="md-raised md-accent" ng-href="/company/edit?user=admin" target="_blank">
+            <md-icon md-font-icon="icon-account-multiple-plus"></md-icon>
+            {{ "PROJECTS_FORM.CREATE_USER" | translate }}
+        </md-button>
+    </div>
+    <div layout-gt-sm="row" ng-repeat="role in vm.roles" ng-if="role.name != 'dealer'">
+        <md-input-container class="md-block" flex-gt-sm>
+            <label><span translate="ROLES.{{ role.name }}"></span></label>
+            <md-contact-chips
+                ng-model="vm.form_users[role.id]"
+                md-contacts="vm.searchUser($query)"
+                md-contact-name="name"
+                md-contact-image="avatar"
+                md-contact-email="email"
+                secondary-placeholder="{{ 'PROJECTS_FORM.ADD_MORE' | translate }}"
+            >
+            </md-contact-chips>
+        </md-input-container>
+    </div>
+
+    <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+            <span class="require">*</span> <span translate="INFO.REQUIRE_INFO"></span>
+        </md-input-container>
+    </div>
+</div>

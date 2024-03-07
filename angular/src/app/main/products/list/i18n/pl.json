@@ -1,0 +1,15 @@
+{
+    "PRODUCTS_LIST": {
+        "TITLE": "Usługi/towary",
+        "SEARCH": "Szukaj",
+        "TAX": "VAT",
+        "PKWIU": "PKWiU",
+        "UNIT": "J. m.",
+        "ADD": "Dodaj",
+        "DELETE_QUESTION": "Czy na pewno chcesz usunąć tę usługę/towar?",
+        "DELETE_SUCCESS": "Usunięto usługę/towar."
+    },
+    "ERRORS": {
+
+    }
+}

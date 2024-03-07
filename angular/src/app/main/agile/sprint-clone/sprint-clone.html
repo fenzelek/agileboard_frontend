@@ -1,0 +1,39 @@
+<md-dialog>
+    <div id="sprint-clone-dialog">
+        <form id="sprintClone" name="sprintClone">
+
+            <h3 translate="SPRINT_CLONE.TITLE" class="font-size-16 mt-0 mb-20"></h3>
+            <p translate="SPRINT_CLONE.DESC" class="font-size-14 grey-600-fg"></p>
+
+            <md-input-container class="md-block" md-no-float>
+                <label><span translate="SPRINT_CLONE.NEW_NAME"></span></label>
+                <input ng-model="vm.form.name" required name="name">
+                <div ng-messages="sprintClone.name.$error">
+                    <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                </div>
+            </md-input-container>
+
+            <md-checkbox name="activated" ng-model="vm.form.activated">
+                {{ 'SPRINT_CLONE.ACTIVATED' | translate }}
+            </md-checkbox>
+
+            <div layout-gt-sm="row">
+                <div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+                <div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+            </div>
+
+            <div class="mt-30" layout-gt-sm="row" layout-align="end none">
+                <md-button type="button" class="md-raised md-accent" aria-label="CANCEL"
+                            translate="OTHER.CANCEL" ng-click="vm.hide()"
+                            translate-attr-aria-label="OTHER.CANCEL">
+                </md-button>
+                <md-button type="button" class="md-raised md-accent" aria-label="CLONE"
+                            ng-disabled="sprintClone.$invalid || vm.request_sending"
+                            translate="SPRINT_CLONE.CLONE" ng-click="vm.send()"
+                            translate-attr-aria-label="SPRINT_CLONE.CLONE">
+                </md-button>
+            </div>
+
+        </form>
+    </div>
+</md-dialog>

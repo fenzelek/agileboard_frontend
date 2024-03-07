@@ -1,0 +1,96 @@
+.doc-page > .header,
+doc-page > .center > .header{
+  height: 140px !important;
+  min-height: 140px !important;
+  max-height: 140px !important;
+  padding: 24px !important;
+
+  .add-ticket-btn {
+    min-width: 110px;
+  }
+}
+
+.max-1000 {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+
+.min-1000 {
+  min-width: 1000px;
+  margin: 0 auto;
+}
+
+.min-900 {
+    width: 100%;
+    min-width: 100%;
+    @media all and (min-width: 1024px){
+        min-width: 900px;
+        margin: 0 auto;
+    }
+}
+
+.min-700 {
+  min-width: 700px;
+  margin: 0 auto;
+}
+
+.min-400 {
+  min-width: 400px;
+  margin: 0 auto;
+}
+
+.height-full {
+  height: 100%;
+  min-height: 100%;
+  max-height: 100%;
+}
+
+@media all and (max-width: 1250px ){
+  .min-1000 {
+    min-width: initial;
+    width: 100%;
+  }
+}
+
+.line-70 {
+  line-height: 70px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+
+.line-through {
+  color: red !important;
+  text-decoration: line-through;
+  * {
+    color: rgba(0, 0, 0, 0.87);
+  }
+}
+
+.i-normal i:not([class]) {
+  font-size:inherit;
+  width: inherit;
+  height: inherit;
+  line-height: inherit;
+
+}
+
+// Ticket colored titles based on start/end date
+#board .future-ticket .list-card-header .list-card-code a,
+#backlog .future-ticket .info .code .title {
+  color: #4caf50;
+  font-weight: 700;
+}
+#board .today-ticket .list-card-header .list-card-code a,
+#backlog .today-ticket .info .code .title {
+  color: #ff9600;
+  font-weight: 700;
+}
+#board .past-ticket .list-card-header .list-card-code a,
+#backlog .past-ticket .info .code .title {
+  color: red;
+  font-weight: 700;
+}

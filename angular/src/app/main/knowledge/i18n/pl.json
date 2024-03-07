@@ -1,0 +1,43 @@
+{
+    "KNOWLEDGE": {
+        "TITLE": "Baza wiedzy",
+        "ADD_PAGE": "Nowa strona",
+        "EDIT_PAGE": "Edytuj stronę",
+        "ADDED_PAGE": "Dodano nową stronę",
+        "UPDATED_PAGE": "Zaktualizowano stronę",
+        "USERS": "Użytkownicy z dostępem",
+        "USERS_SEARCH": "Wyszukaj użytkownika...",
+        "ADD_MORE": "Dodaj więcej...",
+        "GROUPS": "Grupy z dostępem",
+        "ADD_FILE": "Dodaj plik",
+        "ADD_DIR": "Nowa kategoria",
+        "EDIT_DIR": "Edytuj kategorię",
+        "ADDED_DIR": "Dodano nową kategorię",
+        "UPDATED_DIR": "Zaktualizowano kategorię",
+        "NONE": "brak",
+        "DELETE_DIR_QUESTION": "Czy na pewno chcesz usunąć ten katalog?",
+        "DELETE_DIR": "Usunięto kategorię",
+        "DIR": "Kategoria",
+        "DIR_EMPTY": "Nic tutaj nie ma",
+        "DELETE_PAGE_QUESTION": "Czy na pewno chcesz usunąć tę stronę?",
+        "DELETE_PAGE": "Usunięto stronę",
+        "PAGE_NOT_FOUND": "Strony nie odnaleziono.",
+        "SEARCH_RESULTS": "Wyniki wyszukiwania",        
+        "NO_SEARCH_RESULTS": "Brak wyników wyszukiwania",        
+        "SHOW_DETAILS": "Pokaż szczegóły",
+        "HIDE_DETAILS": "Ukryj szczegóły",
+        "ATTACHMENTS": "Załączniki",
+        "COMMENTS": "Komentarze",
+        "ADD_COMMENT": "Dodaj komentarz",
+        "EDITED": "Edytowany",
+        "STORIES": "Oznaczenia",
+        "STORIES_SEARCH": "Szukaj oznaczenia...",
+        "ALL_STORIES": "Wszystkie oznaczenia",
+        "NO_RECORDS": "Baza wiedzy jest pusta"
+    },
+    "ERRORS": {
+        "package": {
+            "limit_reached": "Osiągnięto limit ilości zajętego miejsca na dysku. Usuń inne pliki aby móc dodać kolejne lub skontaktuj sie z właścicielem Twojej firmy, aby zwiększył limit."
+        }
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "PROJECTS_LIST": {
+        "TITLE": "Projects",
+        "OPENED": "Opened",
+        "CLOSED": "Closed",
+        "OPEN": "Open",
+        "CLOSE": "Close",
+        "STATUS": "Status",
+        "ADD": "Add project",
+        "DELETE": "Are you sure you want to remove this project?",
+        "DELETE_SUCCESS": "Deleted project successfully",
+        "OPEN_QUESTION": "Are you sure you want to open this project?",
+        "OPEN_SUCCESS": "Opened project successfully",
+        "CLOSE_QUESTION": "Are you sure you want to close this project?",
+        "CLOSE_SUCCESS": "Closed project successfully",
+        "SHORT_NAME": "Short name",
+        "PROJECTS_EMPTY": "No projects",
+        "NO_PROJECTS": "You have no projects. Contact with company owner or administrator.",
+        "TOO_MANY" : "You have the maximum number of projects. Go to packages to increase their quantity."
+    },
+    "ERRORS": {
+    }
+}

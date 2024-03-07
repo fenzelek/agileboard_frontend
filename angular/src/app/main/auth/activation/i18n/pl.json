@@ -1,0 +1,20 @@
+{
+    "ACTIVATION": {
+        "TITLE" : "Aktywacja konta",
+        "ACCOUNT" : {
+            "ACTIVE": "Twoje konto zostało aktywowane. Zostałeś automatycznie zalogowany. Za chwilę zostaniesz przekierowany do swojego panelu.",
+            "ACTIVE_2": "Twoje konto zostało aktywowane.",
+            "ACTIVE_BEFORE": "Twoje konto jest już aktywne. Możesz się zalogować.",
+            "BROKEN_LINK_1": "Nieprawidłowy link. Upewnij się, że link jest poprawny lub",
+            "BROKEN_LINK_2": "wyślij ponownie e-mail aktywacyjny.",
+            "BROKEN_ACTIVATION_1": "Aktywacja Twojego konta nie jest możliwa. Prosimy o",
+            "BROKEN_ACTIVATION_2": "kontakt",
+            "BROKEN_ACTIVATION_3": "z Serwisem."
+        },
+        "RECREATE" : {
+            "OK": "Wysłano e-mail z linkiem aktywacyjnym",
+            "ERROR": "Nie znaleziono konta z podanym adresem e-mail lub konto jest już aktywne",
+            "EMAIL": "E-mail"
+        }
+    }
+}

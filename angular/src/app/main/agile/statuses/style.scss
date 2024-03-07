@@ -1,0 +1,24 @@
+#agile-statuses {
+  .handle {
+    margin-right: 5px;
+    margin-top: 35px;
+    cursor: pointer;
+  }
+
+  .delete {
+      margin-top: 20px;
+  }
+
+  .scheme-row {
+    margin-bottom: 2rem;
+  }
+
+  .save-row {
+    margin-top: 4rem;
+  }
+
+  .no-records-info {
+    margin: 2rem auto 4rem;
+    max-width: 450px;
+  }
+}

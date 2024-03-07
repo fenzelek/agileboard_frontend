@@ -1,0 +1,15 @@
+{
+    "PRODUCTS_LIST": {
+        "TITLE": "Services",
+        "SEARCH": "Search",
+        "TAX": "Tax",
+        "PKWIU": "PKWiU",
+        "UNIT": "Unit",
+        "ADD": "Add",
+        "DELETE_QUESTION": "Are you sure you want to remove this service?",
+        "DELETE_SUCCESS": "Deleted service successfully"
+    },
+    "ERRORS": {
+
+    }
+}

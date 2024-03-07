@@ -1,0 +1,10 @@
+{
+    "BLOCKADE_COMPANY": {
+        "TITLE": "The company is blocked",
+        "INFO": {
+            "general_multiple_users": "There are too many users in your company. Buy a selected package/module or reduce their quantity.",
+            "projects_multiple_projects": "There are too many projects in your company. Buy a selected package/module or reduce their quantity",
+            "projects_users_in_project" : "One or several projects in your company have too many users. Buy a selected package/module or reduce their quantity."
+        }
+    }
+}

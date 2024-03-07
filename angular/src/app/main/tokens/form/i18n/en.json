@@ -1,0 +1,20 @@
+{
+    "TOKENS_FORM": {
+        "TITLE_ADD": "Now token",
+        "TOKEN": "Token",
+        "DOMAIN": "Domain",
+        "IP_FROM": "IP start",
+        "IP_TO": "IP stop",
+        "TTL": "TTL",
+        "ROLE": "Role",
+        "ROLES": {
+            "company": "Company",
+            "user": "User"
+        },
+
+        "ADD_SUCCESS": "Added token successfully"
+    },
+    "ERRORS": {
+
+    }
+}

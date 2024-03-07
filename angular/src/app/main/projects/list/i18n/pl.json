@@ -1,0 +1,23 @@
+{
+    "PROJECTS_LIST": {
+        "TITLE": "Projekty",
+        "OPENED": "Otwarte",
+        "CLOSED": "Zamknięte",
+        "OPEN": "Otwórz",
+        "CLOSE": "Zamknij",
+        "STATUS": "Status",
+        "ADD": "Utwórz projekt",
+        "DELETE": "Czy na pewno chcesz usunąć ten projekt?",
+        "DELETE_SUCCESS": "Usuwanie projektu zakończono sukcesem.",
+        "OPEN_QUESTION": "Czy na pewno chcesz otworzyć ten projekt?",
+        "OPEN_SUCCESS": "Otworzono projekt",
+        "CLOSE_QUESTION": "Czy na pewno chcesz zamknąć ten projekt?",
+        "CLOSE_SUCCESS": "Zamknięto projekt",
+        "SHORT_NAME": "Krótka nazwa",
+        "PROJECTS_EMPTY": "Brak projektów",
+        "NO_PROJECTS": "Aktualnie nie masz żadnych projektów. Skontaktuj się z właścicielem lub administratorem firmy.",
+        "TOO_MANY" : "Posiadasz maksymalna liczbę projektów. Przejdź do pakietów aby zwiększyć ich ilość."
+    },
+    "ERRORS": {
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "ONLINE_SALES_LIST": {
+        "TITLE": "Online sales",
+        "GENERATE_PDF": "Generate pdf",
+        "INFO": "If you would like to integrate your online store or another online sales system with this system, please contact as by email:",
+        "EMAIL": "Email",
+        "NUMBER": "Number",
+        "QUANTITY": "Quantity",
+        "TRANSACTION_NUMBER": "Transaction number",
+        "SUM": "Summary",
+        "SUM_GROSS": "Total gross",
+        "SUM_NET": "Total net",
+        "METHOD": "Payment method",
+        "PRICE_NET": "Value net",
+        "PRICE_GROSS": "Price gross",
+        "VAT_SUM": "VAT",
+        "GENERATE_INVOICE": "Generate invoice",
+        "SEARCH": "Search",
+        "CREATED": "Created",
+        "INVOICES": "Invoices list",
+        "PDF": "Download PDF",
+        "PDF_DUPLICATE": "Generate duplicate"
+    },
+    "ERRORS": {
+
+    }
+}

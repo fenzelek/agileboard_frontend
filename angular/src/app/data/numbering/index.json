@@ -1,0 +1,14 @@
+{
+  "data" : [
+    {
+      "name": "numer w miesiącu / miesiąc / rok",
+      "numbering": "nr/mm/yyyy",
+      "example": "1011/11/2016"
+    },
+    {
+      "name": "miesiąc / numer w miesiącu / rok",
+      "numbering": "mm/nr/yyyy",
+      "example": "11/1011/2016"
+    }
+  ]
+}

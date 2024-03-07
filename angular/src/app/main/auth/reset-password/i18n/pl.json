@@ -1,0 +1,23 @@
+{
+    "RESETPASSWORD": {
+        "TITLE": "Resetuj hasło",
+        "EMAIL_ADRESS": "E-mail",
+        "PASSWORD": "Hasło",
+        "PASSWORD_CONFIRM": "Hasło (potwierdź)",
+        "UPDATE_PASSWORD": "RESETUJ MOJE HASŁO",
+        "GO_BACK": "Wróć do logowania",
+        "SUCCESS": "Hasło zostało zmienione. Zostałeś automatycznie zalogowany. Za chwilę zostaniesz przekierowany do swojego panelu.",
+        "SUCCESS_2": "Hasło zostało zmienione.",
+        "RESET_1" : "Niepoprawny token lub token wygasł. Upewnij się, że link jest poprawny lub",
+        "RESET_2" : "wygeneruj nowy link do zmiany hasła"
+    },
+    "ERRORS": {
+        "password": {
+            "invalid_password" : "Błąd. Hasła powinny być takie same i mieć co najmniej 6 znaków."
+        },
+        "auth" : {
+            "user_already_logged" : "Jesteś już zalogowany do tej strony.",
+            "no_user_found" : "Nie znaleziono konta z podanym adresem e-mail."
+        }
+    }
+}

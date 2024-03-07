@@ -1,0 +1,58 @@
+<md-dialog aria-label="METHOD">
+    <div id="invoice-success-save-dialog" class="text-center">
+        <div class="title">
+            <span ng-if="vm.page=='new' || vm.page=='new-correction'" translate="INVOICES_SUCCESS_SAVE.CREATED"></span>
+            <span ng-if="vm.page=='edit'" translate="INVOICES_SUCCESS_SAVE.UPDATED"></span>
+            <span ng-if="!vm.page" translate="INVOICES_SUCCESS_SAVE.INVOICE"></span>
+            {{vm.invoice.number}}
+        </div>
+        <div ng-if="!vm.form_email_anabled">
+            <md-button type="button" class="md-raised md-accent" aria-label="PDF" ng-click="vm.pdf()"
+                       translate="INVOICES_SUCCESS_SAVE.PDF"  translate-attr-aria-label="INVOICES_SUCCESS_SAVE.PDF">
+            </md-button>
+            <md-button type="button" class="md-raised md-accent" aria-label="EMAIL" ng-click="vm.form_email_anabled = true"
+                       translate="INVOICES_SUCCESS_SAVE.MAIL"  translate-attr-aria-label="INVOICES_SUCCESS_SAVE.MAIL">
+            </md-button>
+        </div>
+        <div ng-if="!vm.form_email_anabled">
+            <md-button type="button" class="md-raised md-accent" aria-label="edit" ng-click="vm.edit()" ng-disabled="vm.page == 'new-correction'"
+                       translate="OTHER.EDIT"  translate-attr-aria-label="OTHER.EDIT">
+            </md-button>
+            <md-button type="button" class="md-raised md-accent" aria-label="list" ng-click="vm.list()"
+                       translate="INVOICES_SUCCESS_SAVE.LIST"  translate-attr-aria-label="INVOICES_SUCCESS_SAVE.LIST">
+            </md-button>
+            <md-button type="button" class="md-raised md-accent" aria-label="add new" ng-click="vm.add_new()"
+                       translate="INVOICES_SUCCESS_SAVE.NEW"  translate-attr-aria-label="INVOICES_SUCCESS_SAVE.NEW" ng-disabled="vm.page == 'new-correction'">
+            </md-button>
+        </div>
+
+        <form ng-if="vm.form_email_anabled" id="sendInvoiceEmail" name="sendInvoiceEmail" >
+            <div layout-gt-sm="row">
+                <div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+                <div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+            </div>
+            <div layout-gt-sm="row" class="text-left">
+                <md-input-container class="md-block" flex="100">
+                    <label><span translate="INVOICES_SUCCESS_SAVE.EMAIL"></span></label>
+                    <input ng-model="vm.form.email" required  ng-maxlength="255" name="email" type="email">
+                    <div ng-messages="sendInvoiceEmail.email.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="email" ><span translate="ERRORS.FORM.EMAIL"></span></div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <div layout-gt-sm="row"  layout-align="end none">
+                <md-button type="button" class="md-raised md-accent" aria-label="CANCEL"
+                           translate="OTHER.CANCEL" ng-click="vm.cancelForm()"
+                           translate-attr-aria-label="OTHER.CANCEL">
+                </md-button>
+                <md-button  type="button" class="md-raised md-accent" aria-label="SEND"
+                           ng-disabled="sendInvoiceEmail.$invalid || vm.request_sending"
+                           translate="INVOICES_SUCCESS_SAVE.MAIL" ng-click="vm.email()"
+                           translate-attr-aria-label="INVOICES_SUCCESS_SAVE.MAIL">
+                </md-button>
+            </div>
+        </form>
+    </div>
+</md-dialog>

@@ -1,0 +1,146 @@
+#activity-calendar {
+
+    h1 {
+        text-transform : capitalize
+    }
+
+    .clickable {
+        cursor: pointer;
+    }
+
+    .calendar-scroll {
+        height: calc(100% - 70px);
+        overflow: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table.activity-calendar-table {
+        border-spacing: 0;
+        border-collapse: collapse;
+
+        // guide-lines for every hour
+        tr {
+            -webkit-box-shadow: 0 1px 0 0 rgba(0,0,0,0.04);
+            -moz-box-shadow: 0 1px 0 0 rgba(0,0,0,0.04);
+            box-shadow: 0 1px 0 0 rgba(0,0,0,0.04);
+        }
+
+        td {
+            text-align: center;
+            vertical-align: top;
+
+            &:not(:last-child) {
+                border-right: 1px solid #dadada;
+            }
+        }
+
+        th {
+            padding: 8px 5px;
+            text-align: center;
+            font-size: 16px;
+            background-color: #ededed;
+        }
+
+        td {
+            padding: 5px;
+            border-top: 1px solid #dadada;
+        }
+
+        .time-col {
+            width: 60px;
+            font-size: 14px;
+            color: rgba(0,0,0,.6);
+            text-align: right;
+            padding-right: 10px;
+        }
+
+        .user-col {
+            position: relative;
+
+            .tracked-header {
+                font-size: 14px;
+                opacity: 0.6;
+            }
+
+            .activity {
+                position: absolute;
+                background: rgba(0,0,0,0.16);
+                border-radius: 5px;
+                padding: 5px;
+                box-sizing: border-box;
+                overflow: hidden;
+                text-align: left;
+                line-height: 1.2;
+                cursor: pointer;
+                z-index: 2;
+
+                &:hover {
+                    opacity: 0.9;
+                }
+
+                &.empty:after {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    z-index: 3;
+                    pointer-events: none;
+                    background: repeating-linear-gradient(
+                    45deg,
+                    rgba(255,255,255,0.2),
+                    rgba(255,255,255,0.2) 4px,
+                    transparent 4px,
+                    transparent 8px
+                    );
+                }
+            }
+
+            .availability {
+                position: absolute;
+                border-radius: $actions-radius;
+                padding: 5px;
+                box-sizing: border-box;
+                overflow: hidden;
+                text-align: left;
+                background-color: rgba(green, 0.08);
+                left: 3px;
+                right: 3px;
+                color: rgba(green, 0.2);
+                font-size: 10px;
+                z-index: 1;
+            }
+        }
+
+        .ticket-title {
+            font-size: 13px;
+            font-weight: bold;
+            opacity: 0.95;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .ticket-time {
+            margin-left: 5px;
+            font-size: 11.5px;
+            font-weight: normal;
+            white-space: nowrap;
+            opacity: 0.7;
+        }
+
+        .ticket-desc {
+            font-size: 11.5px;
+            font-weight: normal;
+            opacity: 0.7;
+            line-height: 1;
+        }
+    }
+
+
+
+}

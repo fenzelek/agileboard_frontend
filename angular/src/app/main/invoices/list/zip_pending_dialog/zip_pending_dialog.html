@@ -1,0 +1,15 @@
+<md-dialog class="invoices-zip-dialog">
+    <md-dialog-content>
+        <div class="content text-center">
+            <md-icon md-font-icon="icon-check-circle" class="icon icon-flat s64 green-600-fg"></md-icon>
+            <p>
+                <span translate="INVOICES_ZIP_PENDING_DIALOG.INFO"></span> <br />
+                <span translate="INVOICES_ZIP_PENDING_DIALOG.ACTION_INFO"></span>
+            </p>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button ng-click="vm.hide()"><span translate="OTHER.CLOSE"></span></md-button>
+        <md-button ng-click="vm.accept()" class="md-raised md-accent"><span translate="INVOICES_ZIP_PENDING_DIALOG.INVOICES_ZIPS"></span></md-button>
+    </md-dialog-actions>
+</md-dialog>

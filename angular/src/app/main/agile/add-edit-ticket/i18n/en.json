@@ -1,0 +1,36 @@
+{
+    "ADD_EDIT_TICKET": {
+        "TITLE_ADD": "New ticket",
+        "TITLE_EDIT": "Edit ticket:",
+        "SPRINT": "Sprint",
+        "TYPE": "Type",
+        "ASSIGNED": "Assigned",
+        "REPORTER": "Reporter",
+        "DESCRIPTION": "Description",
+        "ADD_FILE": "Add files",
+        "DELETE_FILE": "Delete file",
+        "ESTIMATE": "Estimate, example: 8h 30m",
+        "ESTIMATE_ERROR": "Error estimate format",
+        "STORIES": "Stories",
+        "STORIES_SEARCH": "Search stories...",
+        "ADD_MORE": "Add more...",
+        "CREATE_NEW": "Create new: ",
+        "SCHEDULED_DATE_START": "Scheduled start date",
+        "SCHEDULED_DATE_END": "Scheduled end date",
+        "BACKLOG": "Backlog",
+
+        "TYPES": {
+            "Task": "Task",
+            "Bug": "Bug",
+            "TestCase": "Test case",
+            "Internal": "Internal",
+            "Estimate": "Estimation",
+            "Meetings": "Meeting"
+        }
+    },
+    "ERRORS": {
+        "project": {
+            "no_statuses_created": "The board in this project has not been configured."
+        }
+    }
+}

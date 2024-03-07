@@ -1,0 +1,107 @@
+{
+    "TICKET_SHOW": {
+        "TYPE": "Typ:",
+        "ESTIMATE": "Estymacja:",
+        "MY_LOGGED_TIME": "Mój zalogowany czas:",
+        "ALL_LOGGED_TIME": "Cały zalogowany czas:",
+        "TIME_LOGGED": "Zalogowany czas:",
+        "SCHEDULED_DATE_START": "Planowana data startu:",
+        "SCHEDULED_DATE_END": "Planowana data końca:",
+        "STORIES": "Oznaczenia:",
+        "SPRINT": "Etap:",
+        "STATUS": "Status:",
+        "ASSIGNED": "Przypisany do:",
+        "REPORTER": "Zgłaszający:",
+        "CREATED": "Utworzony:",
+        "UPDATED": "Zaktualizowany:",
+        "DESCRIPTION": "Opis",
+        "NONE": "brak",
+        "BACKLOG": "Lista zadań",
+        "ATTACHMENTS": "Pliki",
+        "ADD_FILE": "Dodaj plik",
+        "HIDE": "Ukryj",
+        "SHOW": "Pokaż",
+        "ADD": "Dodaj",
+        "MOVE": "Przenieś do statusu",
+        "DELETE_TICKET": "Usuń zadanie",
+        "EDITED": "edytowany:",
+        "DELETE_QUESTION": "Czy na pewno chcesz usunąć to zadanie?",
+        "HIDDEN_QUESTION": "Czy na pewno chcesz ukryć to zadanie?",
+        "SHOWN_QUESTION": "Czy na pewno chcesz pokazać to zadanie?",
+        "DELETE_COMMENT_QUESTION": "Czy na pewno chcesz usunąć ten komentarz?",
+        "DELETE_FILE_QUESTION": "Czy na pewno chcesz usunąć ten plik?",
+
+        "TYPES": {
+            "Task": "Zadanie",
+            "Bug": "Błąd",
+            "TestCase": "Przypadek testowy",
+            "Internal": "Zadanie wewnętrzne",
+            "Estimate": "Estymacja",
+            "Meetings": "Spotkanie"
+        },
+
+        "UPDATED_TICKET": "Zaktualizowano zadanie",
+        "HIDDEN_TICKET": "Ukryto zadanie",
+        "SHOWN_TICKET": "Pokazano zadanie",
+        "DELETE_COMMENT": "Usunięto komentarz",
+
+        "COMMENT": "Komentarze",
+        "ADD_COMMENT": "Dodaj komentarz",
+        "CLICK_TO_ASSIGN": "Kliknij aby przypisać",
+        "CLICK_TO_ADD": "Kliknij aby dodać",
+        "CLICK_TO_ADD_DESC": "Kliknij aby dodać opis",
+        "ENTER_TEXT": "Wpisz tekst",
+        "USER_SEARCH": "Wyszukaj użytkownika...",
+        "STORIES_SEARCH": "Szukaj oznaczenia...",
+        "STORIES_ADD_MORE": "Dodaj następne...",
+        "ESTIMATE_EXAMPLE": "Przykład: 8h 30m",
+        "ESTIMATE_ERROR": "Błąd formatu estymacji",
+
+        "TIME_TABLE": {
+            "USER": "Użytkownik",
+            "TIME": "Czas pracy",
+            "ACTIVITY": "Aktywność"
+        },
+
+        "HISTORY": "Historia",
+        "HISTORY_SHOW": "Pokaż historię",
+        "HISTORY_TABLE": {
+            "USER": "Użytkownik",
+            "DATE": "Data",
+            "FIELD": "Pole",
+            "OLD_VALUE": "Poprzednia wartość",
+            "NEW_VALUE": "Nowa wartość",
+            "INCREASED": "zwiększony",
+            "DECREASED": "zmniejszony",
+
+            "TYPE": {
+                "ticket": "zadanie",
+                "ticket_comment": "komentarz"
+            },
+            "FIELDS": {
+                "sprint_id": "etap",
+                "status_id": "status",
+                "ticket_id": "zadanie",
+                "name": "nazwa",
+                "title": "tytuł",
+                "type_id": "typ",
+                "assigned_id": "przypisany",
+                "reporter_id": "zgłaszający",
+                "description": "opis",
+                "estimate_time": "estymacja",
+                "priority": "priorytet",
+                "hidden": "ukryto",
+                "created_at": "utworzono",
+                "deleted_at": "usunięto",
+                "story_id": "story",
+                "user_id": "użytkownik",
+                "text": "tekst"
+            }
+        }
+    },
+    "ERRORS": {
+        "package": {
+            "limit_reached": "Osiągnięto limit ilości zajętego miejsca na dysku. Usuń inne pliki aby móc dodać kolejne lub skontaktuj sie z właścicielem Twojej firmy, aby zwiększył limit."
+        }
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "AGILE_STATUSES": {
+        "TITLE": "Konfiguracja tablicy",
+        "NAME": "Nazwa",
+        "SCHEME": "Wybierz jeden z przykładowych schematów z listy",
+        "ERROR_COUNT": "Muszą być przynamniej 2 statusy.",
+        "SAVED_SUCCESS": "Zapisano statusy",
+        "ADD_STATUS": "Dodaj status",
+        "DELETE_STATUS": "Usuń status",
+        "EMPTY": "lub dodaj status za pomocą poniższego przycisku minimum 2 statusy",
+        "SELECT_PROJECT": "Wybierz projekt",
+        "FROM_PROJECT": "Kopiuj z projektu..."
+    },
+    "ERRORS": {
+    }
+}

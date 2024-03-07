@@ -1,0 +1,89 @@
+<div id="stories-list" class="page-layout simple fullwidth doc-page" layout="column">
+
+	<!-- HEADER -->
+	<div class="header md-accent-bg" layout="row" layout-align="space-between">
+		<div layout="column" layout-align="space-between">
+			<div class="title" translate="STORIES_LIST.TITLE"></div>
+		</div>
+	</div>
+	<!-- / HEADER -->
+
+	<!-- CONTENT -->
+	<div class="content" layout="column">
+
+		<div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+		<div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+		<div layout="row">
+
+			<div class="form-wrapper  rounded-container min-1000">
+				<form novalidate ng-submit="vm.filter()">
+					<div flex="100" layout="row" layout-wrap>
+						<md-input-container flex="50" flex-gt-sm="50" class="search-input">
+							<label><span translate="STORIES_LIST.SEARCH"></span></label>
+							<input ng-model="vm.query.name" type="search" name="search">
+						</md-input-container>
+						<div layout="row" layout-align="start center" flex="50" flex-gt-sm="25">
+							<md-button class="md-raised md-button md-icon-button md-default-theme md-fab md-mini" ng-click="vm.filterClear()" ng-if="vm.filtered">
+								<md-icon md-font-icon="icon-close"></md-icon>
+								<md-tooltip><span translate="STORIES_LIST.SEARCH_QUERY_CLEAR"></span></md-tooltip>
+							</md-button>
+							<md-button class="md-raised md-button md-default-theme" ng-click="vm.filter()" >
+								<span translate="STORIES_LIST.SEARCH" ></span>
+							</md-button>
+						</div>
+						<div layout="row" layout-align="end center" flex="100" flex-gt-sm="25">
+							<a class="md-raised md-button md-default-theme md-accent" ng-href="/projects/{{current_project_id}}/stories/form/new" >
+								<span translate="STORIES_LIST.ADD" ></span>
+							</a>
+						</div>
+					</div>
+				</form>
+
+				<div ng-if="vm.pagination.total" class="table-wrapper">
+					<md-table-container>
+						<table md-table md-progress="vm.promise">
+							<thead md-head>
+							<tr md-row>
+								<th md-column><span translate="OTHER.No">Lp.</span></th>
+								<th md-column class="name-col"><span translate="OTHER.NAME"></span></th>
+								<th md-column class="colors-col"><span translate="STORIES_LIST.COLOR"></span></th>
+								<th md-column class="actions-col"><span translate="OTHER.ACTION">Akcje</span></th>
+							</tr>
+							</thead>
+							<tbody md-body>
+							<tr md-row ng-repeat="story in vm.stories">
+								<td md-cell class="index-col">{{ vm.pagination | no:$index }}</td>
+								<td md-cell>{{ story.name }}</td>
+								<td md-cell>
+									<div class="color-circle" ng-style="{ 'background-color': story.color }"></div>
+								</td>
+								<td md-cell class="actions-col">
+									<md-button class="md-icon-button" ng-href="/projects/{{current_project_id}}/stories/form/edit/{{story.id}}" aria-label="Delete" translate translate-attr-aria-label="OTHER.EDIT">
+										<md-icon md-font-icon="icon-edit"></md-icon>
+										<md-tooltip><span translate="OTHER.EDIT"></span></md-tooltip>
+									</md-button>
+									<md-button class="md-icon-button" ng-click="vm.deleteStory(story.id)" aria-label="Delete" translate translate-attr-aria-label="OTHER.DELETE">
+										<md-icon md-font-icon="icon-delete"></md-icon>
+										<md-tooltip><span translate="OTHER.DELETE"></span></md-tooltip>
+									</md-button>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</md-table-container>
+
+					<md-table-pagination md-label="{{vm.table_translate}}" md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.pagination.total}}" md-on-paginate="vm.getStories" md-page-select></md-table-pagination>
+				</div>
+
+				<!-- stories empty -->
+				<div class="no-records-info" ng-if="vm.pagination.total == 0" flex layout="column" layout-align="center center" >
+					<md-icon md-font-icon="icon-star-outline" class="s58"></md-icon>
+					<span translate="STORIES_LIST.NO_RECORDS"></span>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+</div>

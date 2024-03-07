@@ -1,0 +1,32 @@
+{
+    "RECEIPTS_LIST": {
+        "TITLE": "Receipts",
+        "GENERATE_PDF": "Generate pdf",
+        "GENERATE_REPORT": "Generate a summary ",
+        "PAYMENTS_METHOD": "Payments method",
+        "NUMBER": "Number",
+        "QUANTITY": "Quantity",
+        "TRANSACTION_NUMBER": "Transaction number",
+        "USERS": "User issuing a receipt",
+        "SUM": "Summary",
+        "SUM_GROSS": "Total net price",
+        "SUM_NET": "Total gross price",
+        "METHOD": "Payment method",
+        "PRICE_NET": "Value net",
+        "PRICE_GROSS": "Value gross",
+        "VAT_SUM": "VAT",
+        "GENERATE_INVOICE": "Generate invoice",
+        "INVOICES": "Invoice list",
+        "PDF": "Generate PDF",
+        "PDF_DUPLICATE": "Download duplicate",
+        "SEARCH": "Search",
+        "CREATED": "Created",
+        "CREATE_INVOICE": "Create collective invoice",
+        "CREATE_INVOICE_ERROR": "You must specify at least 2 invoices to create a collective invoice.",
+        "RECEIPT": "No. invoice",
+        "RECEIPT_TITLE": "New collective invoice"
+    },
+    "ERRORS": {
+
+    }
+}

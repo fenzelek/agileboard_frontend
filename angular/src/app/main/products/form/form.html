@@ -1,0 +1,37 @@
+<div id="products-form" class="page-layout simple fullwidth doc-page" layout="column">
+
+	<!-- HEADER -->
+	<div class="header md-accent-bg" layout="row" layout-align="space-between">
+		<div layout="column" layout-align="space-between" flex="100">
+			<div layout="row">
+				<div ng-if="!vm.edit" class="title" translate="PRODUCTS_FORM.TITLE_ADD" flex="70"></div>
+				<div ng-if="vm.edit" class="title" translate="PRODUCTS_FORM.TITLE_EDIT" flex="70"></div>
+				<div flex="30" layout="row" layout-align="end center">
+					<md-button href="/products/list" class="md-raised" aria-label="Go Back" translate="OTHER.GO_BACK" translate-attr-aria-label="OTHER.GO_BACK">
+						Go Back
+					</md-button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- / HEADER -->
+
+	<!-- CONTENT -->
+	<div class="content" layout="column">
+		<a name="up"></a>
+		<div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+		<div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+		<div layout="row">
+
+			<div class="form-wrapper  rounded-container min-1000">
+
+				<form id="formProduct" name="formProduct" novalidate ng-submit="vm.send(false)">
+
+					<div ng-include="'app/main/products/form/content.html'"></div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

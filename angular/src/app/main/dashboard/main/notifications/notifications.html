@@ -1,0 +1,74 @@
+<div id="notifications" class="d-flex flex-column relative">
+  <!-- options -->
+  <div ng-if="!!$ctrl.readCount" class="options pointer" ng-click="$ctrl.markAllAsRead()">
+    <!-- unread count -->
+    <div class="unread-count">{{ $ctrl.readCount }}</div>
+    <!-- mark all as read -->
+    <md-icon md-font-icon="icon-marked-double">
+      <md-tooltip md-direction="top">{{ 'DASHBOARD.MARK_ALL_AS_READ' | translate }}</md-tooltip>
+    </md-icon>
+  </div>
+
+  <!-- loading -->
+  <div class="notifications-empty" ng-if="$ctrl.loading && $ctrl.notifications && !$ctrl.notifications.length">
+    <md-progress-circular class="md-accent"></md-progress-circular>
+  </div>
+  
+  <!-- no notifications info -->
+  <div class="notifications-empty" ng-if="!$ctrl.loading && $ctrl.notifications && !$ctrl.notifications.length">
+    <div>
+      <md-icon md-font-icon="icon-bell-off"></md-icon>
+    </div>
+    <span>
+      {{ 'DASHBOARD.NOTIFICATIONS_EMPTY' | translate }}
+    </span>
+  </div>
+
+  <!-- notifications list -->
+  <div ng-style="{ 'display': $ctrl.notifications && $ctrl.notifications.length ? 'block' : 'none' }" class="notifications-wrapper">
+    <div ng-repeat="item in $ctrl.notifications" class="notification" ng-class="{ 'opacity-7': item.read_at, 'notification--source-deleted': !item.data.source_properties }" ng-click="$ctrl.displayPreview(item)">
+      <!-- top -->
+      <div class="d-flex justify-between mb-10">
+  
+        <!-- hading -->
+        <div class="d-flex flex-column mr-10" ng-class="{ bold: !item.read_at }">
+          <!-- title -->
+          <div>
+            <span class="author">{{ item.data.author_name }}</span>
+            <span>{{ item.data.eventLabel | translate }}</span>
+          </div>
+          <!-- ticket / page name -->
+          <div class="name">
+            <md-icon ng-if="item.data.sourceType === 'ticket' && item.data.source_properties" md-font-icon="icon-clipboard-check"></md-icon>
+            <md-icon ng-if="item.data.sourceType === 'knowledge_page' && item.data.source_properties" md-font-icon="icon-file-document-box"></md-icon>
+            <md-icon ng-if="!item.data.source_properties" md-font-icon="icon-exclamation"></md-icon>
+            <span ng-if="item.data.source_properties">
+              {{ item.data.title }}
+            </span>
+            <span ng-if="!item.data.source_properties">
+              {{ 'DASHBOARD.NOTIFICATION_SOURCE_DELETED' | translate }}
+            </span>
+          </div>
+        </div>
+  
+        <!-- meta (time, read) -->
+        <div class="meta d-flex flex-column align-items-end" ng-class="{ read: !!item.read_at }">
+          <!-- time -->
+          <div class="time">{{ item.created_at | date: 'dd.MM.yyyy HH:mm' }}</div>
+  
+          <!-- read -->
+          <div ng-if="item.read_at" class="read-status">
+            {{ 'DASHBOARD.READ' | translate }}
+            <md-tooltip md-direction="top">{{ item.read_at | date: 'dd.MM.yyyy HH:mm' }}</md-tooltip>
+          </div>
+          <!-- unread -->
+          <div ng-if="!item.read_at" class="read-status">{{ 'DASHBOARD.UNREAD' | translate }}</div>
+        </div>
+      </div>
+  
+      <!-- bottom (content) -->
+      <div class="message italic" ng-bind-html="item.data.message"></div>
+    </div>
+  </div>
+
+</div>

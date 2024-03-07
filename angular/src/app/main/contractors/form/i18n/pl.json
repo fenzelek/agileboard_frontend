@@ -1,0 +1,47 @@
+{
+    "CONTRACTORS_FORM": {
+        "TITLE_ADD": "Nowy kontrahent",
+        "TITLE_EDIT": "Edytuj kontrahenta",
+        "SKIP": "Przejdź do formularza",
+        "NIP": "NIP",
+        "NIP_PREFIX": "Prefix nipu",
+        "NIP_EMPTY": "- brak -",
+        "EMAIL": "Email",
+        "PHONE": "Numer telefonu",
+        "OTHER_CONTACT_ADDRESS": "Inny adres korespondencyjny",
+        "OTHER_DELIVERY_ADDRESS": "Inne adresy dostawy",
+        "COMPANY": "Firma",
+        "NATURAL_PERSON": "Osoba fizyczna",
+        "COMPANY_NAME": "Nazwa firmy",
+        "COMPANY_NAME_2": "Imię i nazwisko",
+        "GENERAL_DATA": "Dane kontrahenta",
+        "MAIN_ADDRESS": "Dane adresowe",
+        "CONTACT_ADDRESS": "Adres korespondencji",
+        "DELIVERY_ADDRESS": "Adres dostawy",
+        "DELIVERY_ADDRESS_DEFAULT": "Domyślny adres dostawy",
+        "DEFAULT_SETTINGS": "Domyślne ustawienia",
+        "COUNTRY": "Kraj",
+        "ZIP_CODE": "Kod pocztowy",
+        "CITY": "Miasto",
+        "STREET": "Ulica/miejscowość",
+        "NUMBER": "Numer",
+        "TERM": "Termin płatności",
+        "OR_DAYS": "lub dni",
+        "DAYS": "dni",
+        "MONTH": "miesiące",
+        "METHOD": "Sposób płatności",
+        "DEFAULT": "Domyślny",
+        "GET_GUS": "Pobierz dane z GUS",
+        "ADDRESS_COPY": "Wstaw dane adresowe kontrahenta",
+        "CONTACT_COPY": "Wstaw dane kontaktowe kontrahenta",
+        "UPDATE_SUCCESS": "Zaktualizowano kontrahenta",
+        "ADD_SUCCESS": "Dodano kontrahenta",
+        "GUS_ERROR": "Brak danych w gusie dla podanego nipu",
+        "SAVE_AND_INVOICE": "Zapisz i wystaw fakturę"
+    },
+    "ERRORS": {
+        "gus": {
+            "technical_problems": "System GUS jest w tym momencie niedostępny. Spróbuj ponownie za chwilę lub pomiń ten krok."
+        }
+    }
+}

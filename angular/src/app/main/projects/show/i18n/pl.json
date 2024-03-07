@@ -1,0 +1,23 @@
+{
+    "PROJECTS_SHOW": {
+        "TITLE": "Projekt",
+        "USERS": "Użytkownicy",
+        "STATS": {
+            "TITLE": "Statystyki",
+            "TOTAL_ESTIMATE_TIME": "Cały estymowany czas:",
+            "MY_TOTAL_ESTIMATE_TIME": "Mój estymowany czas:",
+            "NON_TODO_ESTIMATE_TIME": "Cały estymowany czas (poza taskami w todo):",
+            "MY_NON_TODO_ESTIMATE_TIME": "Mój estymowany czas (poza taskami w todo):",
+            "NOT_ESTIMATED_TICKETS_COUNT": "Zadania bez estymacji:",
+            "NOT_ASSIGNED_TICKETS_COUNT": "Zadania bez przydziału:",
+            "TRACKED": "Cały zalogowany czas:",
+            "MY_TRACKED": "Mój zalogowany czas:",
+            "USER": "Użytkownik",
+            "TIME": "Czas pracy",
+            "ACTIVITY": "Aktywność"
+        }
+
+    },
+    "ERRORS": {
+    }
+}

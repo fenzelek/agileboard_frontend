@@ -1,0 +1,46 @@
+#fv-dashboard {
+    min-height: 100%;
+
+    #board-selector {
+      margin-top: 88px;
+
+      .board-list {
+        padding: 32px 0 0;
+
+        .board-list-item {
+          min-width: 210px;
+          width: 210px;
+          padding: 24px 0;
+          margin: 16px;
+          border-radius: 2px;
+          background: #228CC0;
+          cursor: pointer;
+          color:#fff;
+          text-align: center;
+
+          &:hover {
+            box-shadow: $whiteframe-shadow-4dp;
+            text-decoration: none;
+          }
+
+          .board-name {
+            padding-top: 16px;
+            font-weight: 500;
+          }
+
+          .icon {
+            color:#fff;
+          }
+        }
+
+        .board-list-item.disabled {
+          background: #7d7d7d;
+          cursor: default;
+          &:hover {
+            box-shadow: none;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }

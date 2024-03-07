@@ -1,0 +1,10 @@
+{
+    "ERROR500": {
+        "CODE": "Unexpected error",
+        "MESSAGE": "Check your internet connection",
+        "SUBMESSAGE": "If the problem reappears, contact administrator this page.",
+        "SUBMESSAGE_1": "phone",
+        "SUBMESSAGE_2": "e-mail",
+        "BACK": "Back to site"
+    }
+}

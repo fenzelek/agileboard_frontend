@@ -1,0 +1,29 @@
+<md-dialog id="contractors-form-dialog" aria-label="METHOD" style="overflow: hidden;">
+	<form id="formContractor" name="formContractor" novalidate ng-submit="vm.send(true, false)">
+		<md-toolbar class="md-accent md-hue-2">
+			<div ng-if="!vm.edit" class="title" translate="CONTRACTORS_FORM.TITLE_ADD" flex="70"></div>
+			<div ng-if="vm.edit" class="title" translate="CONTRACTORS_FORM.TITLE_EDIT" flex="70"></div>
+		</md-toolbar>
+
+		<!-- CONTENT -->
+		<md-dialog-content ms-scroll>
+			<a name="up"></a>
+			<div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+			<div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+			<div layout="row">
+				<div class="form-wrapper min-1000">
+						<div ng-include="'app/main/contractors/form/content.html'" ></div>
+				</div>
+			</div>
+		</md-dialog-content>
+		<md-dialog-actions layout="row" layout-align="end center" ng-if="vm.show_full">
+			<md-button type="submit" class="md-raised md-accent" aria-label="SEND"
+					   ng-disabled="formContractor.$invalid || (formContractor.$pristine && !vm.copy_nip) || vm.request_sending"
+					   translate="OTHER.SAVE"
+					   translate-attr-aria-label="OTHER.SAVE">
+			</md-button>
+		</md-dialog-actions>
+
+	</form>
+</md-dialog>

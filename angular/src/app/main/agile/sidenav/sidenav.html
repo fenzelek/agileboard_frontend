@@ -1,0 +1,543 @@
+<div id="file-upload-area">
+    <!-- SIDENAV HEADER -->
+    <md-toolbar class="md-accent">
+        <div ng-if="!vm.loading" class="md-toolbar-tools">
+            <div flex layout="row" layout-align="center center" class="menu-title">
+                <i class="icon-alert-circle s24" ng-if="vm.selected_ticket.type_id == vm.bug_id"></i>
+                <div class="ticket-title-name">
+                    <div ng-if="!vm.editName">
+                        <div ng-if="vm.selected_ticket.name" ng-mouseup="vm.openTicket($event)"
+                            class="text-edit title-overflow" data-ellipsis data-ng-bind="vm.selected_ticket.title + ' ' + vm.selected_ticket.name"></div>
+                        <md-tooltip style="font-size: 1.3rem">{{vm.selected_ticket.name}}</md-tooltip>
+                    </div>
+                    <inline-text flex layout="row" layout-align="start center"
+                        name="name"
+                        ng-model="vm.selected_ticket.name"
+                        on-save="vm.update"
+                        on-close="vm.setEditName(false)"
+                        approve-color="#fff"
+                        cancel-color="rgba(255,255,255,0.6)"
+                        simple="true"
+                    >
+                        <div class="ticket-title-edit" ng-click="vm.setEditName(true)">
+                            <md-icon md-font-icon="icon-edit" class="icon icon-flat s14"></md-icon>
+                        </div>
+                    </inline-text>
+                </div>
+            </div>
+            <md-menu>
+                <md-button class="md-icon-button more" ng-click="$mdMenu.open()" aria-label="more">
+                    <md-icon md-font-icon="icon-dots-vertical"></md-icon>
+                </md-button>
+
+                <md-menu-content width="3">
+                    <md-menu-item>
+                        <md-button ng-click="vm.openTicket($event)" aria-label="Open">
+                            <span translate="SIDANAV_PREVIEW.OPEN"></span>
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="vm.copyTitleAndName()" aria-label="Copy title and name">
+                            <span translate="SIDANAV_PREVIEW.COPY_TITLE_AND_NAME"></span>
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="vm.copyLink()" aria-label="Copy link">
+                            <span translate="SIDANAV_PREVIEW.COPY_LINK"></span>
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="vm.edit()" aria-label="Edit">
+                            <span translate="OTHER.EDIT"></span>
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="vm.remove()" aria-label="Delete">
+                            <span translate="OTHER.DELETE"></span>
+                        </md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+            <md-button class="md-icon-button close" ng-click="vm.closeSidenav()">
+                <md-icon md-font-icon="icon-close"  class="s16"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <!-- / SIDENAV HEADER -->
+
+    <!-- Loading bar for file upload -->
+    <div ng-if="vm.request_file_sending" layout="row" style="position: relative; z-index: 999;">
+        <md-progress-linear md-mode="determinate" value="{{vm.progress}}"></md-progress-linear>
+    </div>
+
+    <!-- CONTENT -->
+    <!-- DIALOG CONTENT -->
+    <md-content ms-scroll ng-if="!vm.loading">
+
+        <!-- Dates -->
+        <div layout="row" layout-align="space-between start">
+            <div  class="due-date" layout="row" layout-align="start center">
+                <div class="picker day-picker">
+                    <div layout="row" layout-align="start center">
+                        <i class="s18 icon icon-calendar-plus"></i>
+                        <span>{{vm.selected_ticket.created_at | datetime }}</span>
+                    </div>
+                </div>
+                <div class="picker hour-picker" ng-if="vm.selected_ticket.created_at !== vm.selected_ticket.updated_at">
+                    <div layout="row" layout-align="start center">
+                        <i class="s18 icon icon-calendar-clock"></i>
+                        <span>{{vm.selected_ticket.updated_at | datetime }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <md-divider></md-divider>
+
+        <!-- Parent tickets -->
+        <div>
+            <inline-chips-edit-button flex layout="row" layout-align="start center"
+                    name="parent_tickets"
+                    selected-items="vm.selected_ticket.parent_tickets.data"
+                    on-search="vm.searchTickets"
+                    on-save="vm.update"
+                    show-name="title"
+                    show-title="{{ 'OTHER.RELATED_WITH' | translate | uppercase }}"
+                    placeholder="{{ 'OTHER.TICKET_SEARCH' | translate }}"
+                    secondary-placeholder="{{ 'INFO.ADD_NEXT' | translate }}"
+            >
+                <related-ticket
+                    ng-if="vm.selected_ticket.parent_tickets.data.length"
+                    ng-repeat="ticket in vm.selected_ticket.parent_tickets.data"
+                    ticket="ticket"
+                    statuses="vm.allStatuses"
+                    click="vm.openSidenav(ticket.id)"
+                ></related-ticket>
+            </inline-chips-edit-button>
+        </div>
+
+        <!-- Sub-tickets -->
+        <div class="mt-5 mb-15">
+            <inline-chips-edit-button flex layout="row" layout-align="start center"
+                    name="sub_tickets"
+                    selected-items="vm.selected_ticket.sub_tickets.data"
+                    on-search="vm.searchTickets"
+                    on-save="vm.update"
+                    show-name="title"
+                    show-title="{{ 'OTHER.SUBTASKS' | translate | uppercase }}"
+                    placeholder="{{ 'OTHER.TICKET_SEARCH' | translate }}"
+                    secondary-placeholder="{{ 'INFO.ADD_NEXT' | translate }}"
+            >
+                <div ng-if="vm.selected_ticket.sub_tickets.data.length">
+                    <related-ticket
+                        ng-repeat="ticket in vm.selected_ticket.sub_tickets.data"
+                        ticket="ticket"
+                        statuses="vm.allStatuses"
+                        click="vm.openSidenav(ticket.id)"
+                    ></related-ticket>
+                    <md-progress-linear md-mode="determinate" class="related-ticket-bar"
+                        value="{{ vm.subtasksProgress }}" ng-disabled="vm.loading"></md-progress-linear>
+                </div>
+            </inline-chips-edit-button>
+        </div>
+
+        <md-divider></md-divider>
+
+        <div class="sections" layout="column" >
+
+            <div layout="column" >
+                <div layout="row" class="details" ng-if="vm.selected_ticket.reporting_user.data">
+                    <div layout="column" flex="35" class="preview_title" translate="SIDANAV_PREVIEW.REPORTER" layout-align="center"></div>
+                    <div flex layout="row" layout-align="start center">
+                        <img class="list-card-member-avatar" ng-src="{{vm.getAvatar(vm.selected_ticket.reporting_user.data.avatar)}}">
+                        {{vm.selected_ticket.reporting_user.data.first_name}} {{vm.selected_ticket.reporting_user.data.last_name}}
+                    </div>
+                </div>
+            </div>
+
+            <!-- assigned user -->
+            <div layout="row" class="details inline-edit">
+                <div layout="column" flex="35" class="preview_title" translate="SIDANAV_PREVIEW.ASSIGNED" layout-align="center"></div>
+                <inline-autocomplete flex layout="row" layout-align="start center"
+                        name="assigned_user"
+                        default="vm.selected_ticket.assigned_user.data"
+                        item-text="item.first_name + ' ' + item.last_name"
+                        on-search="vm.searchUser"
+                        on-save="vm.update"
+                        label="{{'SIDANAV_PREVIEW.USER_SEARCH' | translate}}"
+                >
+                    <div layout="row" layout-align="center center">
+                        <div class="assigned-user-edit" flex layout="row" layout-align="start center" ng-if="vm.selected_ticket.assigned_user.data">
+                            <img class="list-card-member-avatar" ng-src="{{vm.getAvatar(vm.selected_ticket.assigned_user.data.avatar)}}">
+                            {{vm.selected_ticket.assigned_user.data.first_name}} {{vm.selected_ticket.assigned_user.data.last_name}}
+                        </div>
+                        <div class="set-edit-text" ng-if="!vm.selected_ticket.assigned_user.data" translate="SIDANAV_PREVIEW.CLICK_TO_ASSIGN"></div>
+                    </div>
+                </inline-autocomplete>
+            </div>
+
+            <!-- sprint -->
+            <div layout="row" class="details inline-edit">
+                <div layout="column" flex="35" class="preview_title" layout-align="center" translate="SIDANAV_PREVIEW.SPRINT" ></div>
+                <inline-select ng-if="!vm.selected_ticket.sprint.data || (vm.selected_ticket.sprint.data && !vm.selected_ticket.sprint.data.locked)"
+                    flex layout="row" layout-align="start center"
+                    name="sprint"
+                    ng-model="vm.selected_ticket.sprint.data"
+                    items="vm.allSprints"
+                    on-open="vm.getAllSprints"
+                    on-save="vm.update"
+                    label="{{ 'OTHER.SELECT_FROM_LIST' | translate }}"
+                >
+                    <div layout="row" layout-align="start center">
+                        <div class="text-edit" flex layout="row" layout-align="start center" ng-if="vm.selected_ticket.sprint.data">
+                            {{vm.selected_ticket.sprint.data.name}}
+                        </div>
+                        <div class="set-edit-text" ng-if="!vm.selected_ticket.sprint.data" translate="SIDANAV_PREVIEW.BACKLOG"></div>
+                    </div>
+                </inline-select>
+                <div ng-if="vm.selected_ticket.sprint.data && vm.selected_ticket.sprint.data.locked" flex layout="row" layout-align="start center">
+                    {{ vm.selected_ticket.sprint.data.name }}
+                </div>
+            </div>
+
+            <!-- stories -->
+            <div layout="row" class="details inline-edit">
+                <div layout="column" flex="35" class="preview_title" layout-align="center" translate="SIDANAV_PREVIEW.STORIES"></div>
+                <inline-chips flex layout="row" layout-align="start center"
+                        name="stories"
+                        selected-items="vm.selected_ticket.stories.data"
+                        on-search="vm.searchStories"
+                        on-save="vm.update"
+                        show-name="name"
+                        placeholder="{{ 'SIDANAV_PREVIEW.STORIES_SEARCH' | translate }}"
+                        secondary-placeholder="{{ 'SIDANAV_PREVIEW.STORIES_ADD_MORE' | translate }}"
+                >
+                    <div layout="row" layout-align="start center">
+                        <div class="text-edit" ng-if="vm.selected_ticket.stories.data.length">
+                            <span ng-repeat="(index, story) in vm.selected_ticket.stories.data">
+                                {{story.name}}<span ng-if="!$last">,&nbsp; </span>
+                            </span>
+                        </div>
+                        <div class="set-edit-text" ng-if="!vm.selected_ticket.stories.data.length" translate="SIDANAV_PREVIEW.CLICK_TO_ASSIGN"></div>
+                    </div>
+                </inline-chips>
+            </div>
+
+            <!-- status -->
+            <div layout="row" class="details inline-edit" ng-if="vm.displayStatusOption">
+                <div layout="column" flex="35" class="preview_title" layout-align="center">Status:</div>
+                <inline-select ng-if="!vm.selected_ticket.status.data || (vm.selected_ticket.status.data && !vm.selected_ticket.status.data.locked)"
+                    flex layout="row" layout-align="start center"
+                    name="status"
+                    ng-model="vm.selected_ticket.status.data"
+                    items="vm.allStatuses"
+                    on-open="vm.getAllStatuses"
+                    on-save="vm.update"
+                    label="{{ 'OTHER.SELECT_FROM_LIST' | translate }}"
+                >
+                    <div layout="row" layout-align="start center">
+                        <div class="text-edit" flex layout="row" layout-align="start center" ng-if="vm.selected_ticket.status.data">
+                            {{vm.selected_ticket.status.data.name}}
+                        </div>
+                        <div class="set-edit-text" ng-if="!vm.selected_ticket.status.data" translate="SIDANAV_PREVIEW.BACKLOG"></div>
+                    </div>
+                    <div ng-if="vm.selected_ticket.status.data && vm.selected_ticket.status.data.locked" flex layout="row" layout-align="start center">
+                        {{ vm.selected_ticket.status.data.name }}
+                    </div>
+                </inline-select>
+
+            </div>
+
+            <!-- time estimation -->
+            <div layout="row" class="details inline-edit">
+                <div layout="column" flex="35" class="preview_title" translate="SIDANAV_PREVIEW.ESTIMATE" layout-align="center"></div>
+                <inline-text flex layout="row" layout-align="start center"
+                        name="estimate_time"
+                        ng-model="vm.selected_ticket.estimate_time"
+                        on-enter="vm.formatEstimate"
+                        on-save="vm.update"
+                        placeholder="{{ 'SIDANAV_PREVIEW.ESTIMATE_EXAMPLE' | translate }}"
+                >
+                    <div layout="row" layout-align="start center">
+                        <div class="text-edit" ng-if="vm.selected_ticket.estimate_time">
+                            {{ vm.formatEstimate(vm.selected_ticket.estimate_time) }}
+                        </div>
+                        <div class="set-edit-text" ng-if="!vm.selected_ticket.estimate_time" translate="SIDANAV_PREVIEW.CLICK_TO_ADD"></div>
+                    </div>
+                </inline-text>
+            </div>
+
+            <!-- my logged time -->
+            <div layout="row" class="details" ng-if="vm.my_logged_time && current_company_settings.enable_activity">
+                <div layout="column" flex="35" class="preview_title" translate="SIDANAV_PREVIEW.MY_LOGGED_TIME" ></div>
+                <div layout="column" flex >{{vm.formatEstimate(vm.my_logged_time)}}</div>
+            </div>
+
+            <!-- all logged time -->
+            <div layout="row" class="details" ng-if="vm.all_logged_time && current_company_settings.enable_activity">
+                <div layout="column" flex="35" class="preview_title" translate="SIDANAV_PREVIEW.ALL_LOGGED_TIME" ></div>
+                <div layout="column" flex >{{vm.formatEstimate(vm.all_logged_time)}}</div>
+            </div>
+
+            <!-- scheduled date start -->
+            <div layout="row" class="details inline-edit">
+                <div layout="column" flex="35" class="preview_title" translate="SIDANAV_PREVIEW.SCHEDULED_DATE_START" layout-align="center"></div>
+                <inline-datepicker flex layout="row" layout-align="start center"
+                        name="scheduled_time_start"
+                        ng-model="vm.selected_ticket.scheduled_time_start"
+                        max-date="{{vm.selected_ticket.scheduled_time_end}}"
+                        format="{{ tickets_datepicker_format }}"
+                        on-save="vm.update"
+                        placeholder="{{ 'SIDANAV_PREVIEW.SCHEDULED_DATE_START' | translate }}"
+                >
+                    <div layout="row" layout-align="start center">
+                        <div class="text-edit" ng-if="vm.selected_ticket.scheduled_time_start">
+                            {{ vm.selected_ticket.scheduled_time_start | datetime:tickets_date_format }}
+                        </div>
+                        <div class="set-edit-text" ng-if="!vm.selected_ticket.scheduled_time_start" translate="SIDANAV_PREVIEW.CLICK_TO_ADD"></div>
+                    </div>
+                </inline-datepicker>
+            </div>
+
+            <!-- scheduled date end -->
+            <div layout="row" class="details inline-edit">
+                <div layout="column" flex="35" class="preview_title" translate="SIDANAV_PREVIEW.SCHEDULED_DATE_END" layout-align="center"></div>
+                <inline-datepicker flex layout="row" layout-align="start center"
+                                   name="scheduled_time_end"
+                                   ng-model="vm.selected_ticket.scheduled_time_end"
+                                   min-date="{{vm.selected_ticket.scheduled_time_start}}"
+                                   format="{{ tickets_datepicker_format }}"
+                                   on-save="vm.update"
+                                   placeholder="{{ 'SIDANAV_PREVIEW.SCHEDULED_DATE_END' | translate }}"
+                >
+                    <div layout="row" layout-align="start center">
+                        <div class="text-edit" ng-if="vm.selected_ticket.scheduled_time_end">
+                            {{ vm.selected_ticket.scheduled_time_end | datetime:tickets_date_format }}
+                        </div>
+                        <div class="set-edit-text" ng-if="!vm.selected_ticket.scheduled_time_end" translate="SIDANAV_PREVIEW.CLICK_TO_ADD"></div>
+                    </div>
+                </inline-datepicker>
+            </div>
+
+
+            <md-divider></md-divider>
+
+            <!-- details -->
+                <div class="details description">
+                    <!--<div translate="SIDANAV_PREVIEW.DESCRIPTION" ></div>-->
+                    <inline-texteditor flex layout="row" layout-align="start center"
+                            name="description"
+                            ng-model="vm.selected_ticket.description"
+                            on-save="vm.updateDescription"
+                            max-length="30000"
+                            ticket-id="vm.selected_ticket.id"
+                    >
+                        <div layout="row" layout-align="start center">
+                            <div class="text-edit" layout="row" layout-align="start center" ng-if="vm.selected_ticket.description">
+                                <div ng-bind-html="vm.selected_ticket.trustedDescription" class="i-normal html-content"></div>
+                            </div>
+                            <div class="set-edit-text" ng-if="!vm.selected_ticket.description" translate="SIDANAV_PREVIEW.CLICK_TO_ADD_DESC"></div>
+                        </div>
+                    </inline-texteditor>
+                </div>
+
+                <!-- ATTACHMENTS SECTION -->
+                <div class="section">
+                    <div class="attachments">
+                        <div ng-if="vm.selected_ticket.files.data.length">
+                            <div class="section-header" layout="row" layout-align="start center">
+                                <i class="icon-attachment s18"></i>
+                                <span class="section-title" translate="SIDANAV_PREVIEW.ATTACHMENTS"></span>
+                            </div>
+                            <div class="section-content">
+                                <div class="attachment-list" layout-wrap layout="row">
+                                    <div class="attachment" layout="column"
+                                        ng-repeat="file in vm.selected_ticket.files.data">
+                                        <div class="preview file-icon" layout="row" layout-align="center center">
+                                            <i ng-if="vm.getIcon(file.extension) != 'icon-file-image'" class="{{vm.getIcon(file.extension)}} s48"></i>
+                                            <div class="zoom-image" ng-if="vm.getIcon(file.extension) == 'icon-file-image'" style="background-image: url('{{vm.getImageThumbnail(file.id, 100)}}')" ng-click="vm.imagePreview(file.id)"></div>
+                                        </div>
+                                        <div layout="column">
+                                            <a ng-click="vm.download(file.id)" class="md-accent-color link" >{{ 'SIDANAV_PREVIEW.DOWNLOAD' | translate }} {{file.name}}.{{file.extension}}</a>
+                                            <div ng-if="file.owner && file.owner.data" class="desc">
+                                                {{ file.owner.data.first_name + ' ' + file.owner.data.last_name }}
+                                            </div>
+                                            <div class="desc">
+                                                {{ file.created_at | datetime }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- upload file info -->
+                        <div class="upload-file-info" flex="100" layout="row" layout-align="start center">
+                            <md-icon md-font-icon="icon-information-outline" class="s18 ml-0 mr-0"></md-icon> <span translate="SIDANAV_PREVIEW.FILE_UPLOAD_INFO"></span>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- / ATTACHMENTS SECTION -->
+
+
+            <!-- / title and description -->
+
+            <!--<md-divider></md-divider>-->
+
+            <!-- LABELS, Members -->
+            <!--<div layout="column" id="additional-info">-->
+
+                <!--<div class="section">-->
+                    <!---->
+                    <!--&lt;!&ndash; CHECKLISTS SECTION - which is equals to a sub-tasks list&ndash;&gt;-->
+                    <!--<div ng-if="vm.previewCard.checklists" class="section" ng-repeat="checklist in vm.previewCard.checklists">-->
+                        <!--<div class="checklist">-->
+                            <!--<div class="section-header" layout="row" layout-align="start center">-->
+                                <!--<i class="icon-checkbox-marked s18"></i>-->
+                                <!--<span flex class="section-title" editable-text="checklist.name">{{checklist.name}}</span>-->
+
+                                <!--<md-menu md-position-mode="target-right target" class="options">-->
+                                    <!--<md-button class="md-icon-button" ng-click="$mdMenu.open($event)" aria-label="options"-->
+                                            <!--translate translate-attr-aria-label="SB.OPTIONS">-->
+                                        <!--<md-icon md-menu-origin md-font-icon="icon-dots-vertical"></md-icon>-->
+                                    <!--</md-button>-->
+
+                                    <!--<md-menu-content class="options-menu-content" width="4">-->
+                                        <!--<md-menu-item>-->
+                                            <!--<md-button ng-click="vm.removeChecklist(checklist)" aria-label="Remove Checklist"-->
+                                                    <!--translate translate-attr-aria-label="SB.REMOVE_CHECKLIST">-->
+                                                <!--<md-icon md-font-icon="icon-delete"></md-icon>-->
+                                                <!--<span translate="SB.REMOVE_CHECKLIST">Remove Checklist</span>-->
+                                            <!--</md-button>-->
+                                        <!--</md-menu-item>-->
+                                    <!--</md-menu-content>-->
+                                <!--</md-menu>-->
+                            <!--</div>-->
+
+                            <!--<div class="section-content">-->
+
+                                <!--<div class="checklist-progress" layout="row" layout-align="start center">-->
+                                    <!--<span class="checklist-progress-value">-->
+                                        <!--{{checklist.checkItemsChecked}} / {{checklist.checkItems.length}}-->
+                                    <!--</span>-->
+
+                                    <!--<md-progress-linear class="md-accent checklist-progressbar" md-mode="determinate"-->
+                                                        <!--value="{{100 * checklist.checkItemsChecked / checklist.checkItems.length}}">-->
+                                    <!--</md-progress-linear>-->
+                                <!--</div>-->
+
+                                <!--<div class="check-items">-->
+                                    <!--<div class="check-item" ng-repeat="checkItem in checklist.checkItems">-->
+                                        <!--<md-checkbox ng-model="checkItem.checked"-->
+                                                    <!--ng-change="vm.updateCheckedCount(checklist)"-->
+                                                    <!--aria-label="{{checkItem.name}}">-->
+                                            <!--{{checkItem.name}}-->
+                                        <!--</md-checkbox>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                                <!--<form name="newCheckItemForm" class="new-check-item-form"-->
+                                    <!--ng-submit="vm.addCheckItem(vm[checklist.id].newCheckItem, checklist); vm[checklist.id].newCheckItem = ''"-->
+                                    <!--layout="row" layout-align="start center">-->
+
+                                    <!--<md-input-container class="no-errors-spacer" flex>-->
+                                        <!--<label layout="row" layout-align="center">-->
+                                            <!--<i class="icon-plus s18"></i>-->
+                                            <!--<span translate="SB.ADD_AN_ITEM">Add an item</span>-->
+                                        <!--</label>-->
+                                        <!--<input type="text" autocomplete="off" ng-model="vm[checklist.id].newCheckItem">-->
+                                    <!--</md-input-container>-->
+
+                                    <!--<md-button type="submit" class="md-raised md-accent" aria-label="Add"-->
+                                            <!--translate translate-attr-aria-label="SB.ADD">-->
+                                        <!--<span translate="SB.ADD">Add</span>-->
+                                    <!--</md-button>-->
+                                <!--</form>-->
+
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; / CHECKLISTS SECTION &ndash;&gt;-->
+                <!--</div>-->
+
+            <!--</div>-->
+            <!-- / LABELS, Members -->
+        </div>
+
+
+
+        <!-- SECTIONS -->
+        <div class="sections">
+
+            <!-- COMMENTS SECTION -->
+            <div class="section">
+                <div class="comments">
+
+                    <div class="section-header" layout="row" layout-align="start center">
+                        <i class="icon-comment s18"></i>
+                        <span class="section-title" translate="SIDANAV_PREVIEW.COMMENTS"></span>
+                    </div>
+
+                    <div class="section-content">
+
+                        <!-- comments -->
+                        <div ng-if="vm.selected_ticket.comments.data.length">
+                            <div layout="row" class="comment text-edit-comment" layout-align="start start" ng-repeat="comment in vm.selected_ticket.comments.data">
+                                <img class="comment-member-avatar" ng-src="{{vm.getAvatar(comment.user.data.avatar)}}">
+                                <div layout="column">
+                                    <div class="comment-member-name">
+                                        {{comment.user.data.first_name}} {{comment.user.data.last_name}}
+                                    </div>
+                                    <div class="comment-bubble i-normal">
+                                        <inline-texteditor flex layout="row" layout-align="start center"
+                                                id="{{ comment.id }}"
+                                                ng-model="comment.text"
+                                                on-save="vm.sendComment"
+                                                max-length="10000"
+                                                ticket-id="vm.selected_ticket.id"
+                                        >
+                                        <div class="text-edit text-edit-block" flex layout="row" layout-align="start center">
+                                            <div ng-bind-html="comment.trustedText" class="html-content"></div>
+                                        </div>
+                                        </inline-texteditor>
+                                    </div>
+                                    <div class="comment-time" layout="row" layout-align="start center">
+                                        <i class="s14 icon icon-calendar-plus"></i> {{comment.created_at | datetime}}
+                                        <!-- edited -->
+                                        <div ng-if="comment.updated_at != comment.created_at" layout="row" layout-align="start center" class="comment-time-edit">
+                                            <i class="s14 icon icon-pencil"></i> {{comment.updated_at | datetime}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- no-comments info -->
+                        <div ng-if="!vm.selected_ticket.comments.data.length" class="comments-info" flex="100" layout="row" layout-align="start center">
+                            <md-icon md-font-icon="icon-comment-remove-outline" class="s18 ml-0 mr-0"></md-icon> <span translate="SIDANAV_PREVIEW.NONE"></span>
+                        </div>
+
+                        <!-- add comment -->
+                        <div>
+                            <inline-texteditor flex layout="row" layout-align="start center"
+                                    on-save="vm.sendComment"
+                                    max-length="10000"
+                                    ticket-id="vm.selected_ticket.id"
+                            >
+                                <div layout="row" layout-align="start center">
+                                    <md-button class="md-raised" translate="SIDANAV_PREVIEW.ADD_COMMENT"></md-button>
+                                </div>
+                            </inline-texteditor>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- / COMMENTS SECTION -->
+
+        </div>
+        <!-- / SECTIONS -->
+
+    </md-content>
+    <!-- / DIALOG CONTENT -->
+    <!-- / CONTENT -->
+</div>

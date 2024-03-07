@@ -1,0 +1,62 @@
+<div id="invitation" class="flex-scrollable guest-layout" layout="column" ms-scroll>
+    <div id="invitation-form-wrapper" class="guest-wrapper" layout="column" layout-align="center center">
+        <div id="invitation-form" class="rounded-container guest-form">
+            <logo-sqr></logo-sqr>
+
+            <div class="title"><span translate="INVITATION.TITLE"></span> {{vm.company_name}}</div>
+
+            <div class="success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+            <div class="error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+            <form name="invitationForm" novalidate ng-submit="vm.send()" ng-if="vm.form_enabled">
+
+                <md-input-container class="md-block" md-no-float>
+                    <label><span translate="INVITATION.PASSWORD"></span></label>
+                    <input type="password" ng-model="vm.form.password" required pattern=".{6,}" name="password" id="password" >
+                    <div ng-messages="invitationForm.password.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="pattern" ><span translate="ERRORS.FORM.PASSWORD"></span></div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" md-no-float>
+                    <label><span translate="INVITATION.PASSWORD_CONFIRM"></span></label>
+                    <input type="password" ng-model="vm.form.password_confirmation" required name="password_confirmation" ms-confirm="password" >
+                    <div ng-messages="invitationForm.password_confirmation.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="confirm" ><span translate="ERRORS.FORM.CONFIRM"></span></div>
+                    </div>
+                </md-input-container>
+
+                <div class="terms" layout="row" layout-align="center center">
+                    <md-checkbox name="terms" ng-model="vm.form.regulations" aria-label="I read and accept" required></md-checkbox>
+                    <div layout="row" layout-sm="column" layout-align="start center">
+                        <span translate="INVITATION.READ_ACCEPT">I read and accept</span>
+                        <a ng-href="https://fvonline.pl/regulamin" target="_blank" class="md-accent-color" translate="INVITATION.TERMS_COND" target="_blank">terms and conditions</a>
+                    </div>
+                </div>
+
+                <md-button type="submit" class="md-raised md-accent" aria-label="UPDATE MY PASSWORD"
+                           ng-disabled="invitationForm.$invalid || invitationForm.$pristine || vm.request_sending"
+                           translate="INVITATION.SEND"
+                           translate-attr-aria-label="INVITATION.SEND">
+
+                </md-button>
+            </form>
+
+            <div class="languages-no-login" layout="row" layout="column" layout-align="end center">
+                <div ng-click="vm.changeLanguage('pl')" class="mr-5" >
+                    <span>
+                        <img class="flag" ng-src="assets/images/flags/pl.png">
+                    </span>
+                </div>
+                <div ng-click="vm.changeLanguage('en')" >
+                    <span >
+                        <img class="flag" ng-src="assets/images/flags/us.png">
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer ng-include="'app/layouts/footer.html'"></footer>
+</div>

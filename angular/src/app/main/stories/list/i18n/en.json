@@ -1,0 +1,15 @@
+{
+    "STORIES_LIST": {
+        "TITLE": "Stories",
+        "SEARCH": "Search",
+        "ADD": "Add",
+        "DELETE_QUESTION": "Are you sure you want to remove this story?",
+        "DELETE_SUCCESS": "Deleted story successfully",
+        "SEARCH_QUERY_CLEAR": "Clear",
+        "COLOR": "Color",
+        "NO_RECORDS": "Stories empty"        
+    },
+    "ERRORS": {
+
+    }
+}

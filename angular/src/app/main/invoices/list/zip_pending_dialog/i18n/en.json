@@ -1,0 +1,7 @@
+{
+    "INVOICES_ZIP_PENDING_DIALOG": {
+        "INFO": "The system is generating your invoices package on the background.",
+        "ACTION_INFO": "Click INVOICES ZIPS button to download your ready packages.",
+        "INVOICES_ZIPS": "INVOICES ZIPS"
+    }
+}

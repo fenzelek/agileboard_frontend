@@ -1,0 +1,48 @@
+<md-dialog aria-label="METHOD">
+    <div id="add-edit-user-dialog">
+        <form id="addPyment" name="addPyment" >
+            <div layout-gt-sm="row">
+                <div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+                <div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+            </div>
+            <div class="mb-20">
+                <span ng-if="!vm.edit" translate="INVOICES_LIST.PAYMENTS.ADD" class="font-size-16"></span>
+            </div>
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label><span translate="INVOICES_LIST.PAYMENTS.AMOUNT"></span></label>
+                    <input ng-model="vm.form.amount" name="amount" required type="number" step="0.01" min="0" max="{{vm.max_payment}}">
+                    <div ng-messages="addPyment.amount.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="number" ><span translate="ERRORS.FORM.NUMBER_2_DP"></span></div>
+                        <div ng-message="min" ><span translate="ERRORS.FORM.NUMBER_2_DP"></span></div>
+                        <div ng-message="max" ><span translate="ERRORS.FORM.MAX_AMOUNT"></span></div>
+                        <div ng-message="step" ><span translate="ERRORS.FORM.NUMBER_2_DP"></span></div>
+                    </div>
+                </md-input-container>
+            </div>
+            <md-input-container class="md-block" md-no-float>
+                <label><span translate="INVOICES_LIST.PAYMENTS.PAYMENT_METHOD"></span></label>
+                <md-select ng-model="vm.form.payment_method_id" required name="payment_method_id">
+                    <md-option ng-value="null"></md-option>
+                    <md-option ng-value="method.id" ng-repeat="method in vm.payment_methods" >{{method.name}}</md-option>
+                </md-select>
+                <div ng-messages="addPyment.payment_method_id.$error">
+                    <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                </div>
+            </md-input-container>
+
+            <div layout-gt-sm="row"  layout-align="end none">
+                <md-button ng-if="!vm.edit" type="button" class="md-raised md-accent" aria-label="CANCEL"
+                           translate="OTHER.CANCEL" ng-click="vm.hide()"
+                           translate-attr-aria-label="OTHER.CANCEL">
+                </md-button>
+                <md-button ng-if="!vm.edit" type="button" class="md-raised md-accent" aria-label="SEND"
+                           ng-disabled="addPyment.$invalid || vm.request_sending"
+                           translate="OTHER.SAVE" ng-click="vm.create()"
+                           translate-attr-aria-label="OTHER.SAVE">
+                </md-button>
+            </div>
+        </form>
+    </div>
+</md-dialog>

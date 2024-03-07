@@ -1,0 +1,33 @@
+<md-dialog aria-label="METHOD">
+    <div id="jpk-fa-dialog">
+        <form id="JpkFa" name="JpkFa" >
+            <div class="mb-20">
+                <span translate="REGISTRY_SALES.INVOICES_LIST.JPK_FA" class="font-size-16"></span>
+            </div>
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex>
+                    <label><span translate="OTHER.FROM"></span></label>
+                    <input ng-model="vm.form.start_date" name="start_date" required moment-picker="vm.form.start_date" format="YYYY-MM-DD" start-view="decade" locale="pl" input-clear>
+                </md-input-container>
+            </div>
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex>
+                    <label><span translate="OTHER.TO"></span></label>
+                    <input ng-model="vm.form.end_date" name="end_date" required moment-picker="vm.form.end_date" format="YYYY-MM-DD" start-view="decade" locale="pl" input-clear>
+                </md-input-container>
+            </div>
+
+            <div layout-gt-sm="row"  layout-align="end none">
+                <md-button ng-if="!vm.edit" type="button" class="md-raised md-accent" aria-label="CANCEL"
+                           translate="OTHER.CANCEL" ng-click="vm.hide()"
+                           translate-attr-aria-label="OTHER.CANCEL">
+                </md-button>
+                <md-button ng-if="!vm.edit" type="button" class="md-raised md-accent" aria-label="SEND"
+                           ng-disabled="JpkFa.$invalid || vm.request_sending"
+                           translate="REGISTRY_SALES.INVOICES_LIST.JPK_FA" ng-click="vm.generate()"
+                           translate-attr-aria-label="OTHER.SAVE">
+                </md-button>
+            </div>
+        </form>
+    </div>
+</md-dialog>

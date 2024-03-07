@@ -1,0 +1,56 @@
+{
+  "data": [
+    {
+      "id": 2,
+      "name": "Company",
+      "created_value": "30",
+      "paid_value": "0",
+      "after_value": "0",
+      "nip": "644545454",
+      "deleted": false,
+      "main_address": {
+        "data": {
+          "zip_code": "10-100",
+          "city": "CityName",
+          "street": "Address",
+          "number": "1/10"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "name": "Company",
+      "created_value": "30",
+      "paid_value": "0",
+      "after_value": "0",
+      "nip": "644545454",
+      "deleted": false,
+      "main_address": {
+        "data": {
+          "zip_code": "10-100",
+          "city": "CityName",
+          "street": "Address",
+          "number": "1/10"
+        }
+      }
+    }
+  ],
+  "meta": {
+    "sum": {
+      "created_value": "30",
+      "paid_value": "0",
+      "after_value": "0"
+    },
+    "pagination": {
+      "total": 2,
+      "count": 15,
+      "per_page": 15,
+      "current_page": 1,
+      "total_pages": 1,
+      "links": {
+        "next": ""
+      }
+    }
+  },
+  "exec_time": 0.029
+}

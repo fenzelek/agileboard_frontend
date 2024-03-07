@@ -1,0 +1,125 @@
+<md-dialog aria-label="METHOD" id="add-edit-page-knowledge-md-dialog" style="overflow: hidden;">
+    <form id="addEditPage" name="addEditPage" >
+        <md-toolbar class="title">
+            <div ng-if="!vm.edit" translate="KNOWLEDGE.ADD_PAGE" flex="70"></div>
+            <div ng-if="vm.edit" translate="KNOWLEDGE.EDIT_PAGE" flex="70"></div>
+        </md-toolbar>
+
+        <md-dialog-content ms-scroll>
+            <div layout="row">
+                <div flex="100" class="form-wrapper min-900">
+                    <div layout-gt-sm="row">
+                        <div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+                        <div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+                    </div>
+                    <div layout-gt-sm="row">
+                        <md-input-container class="md-block" flex>
+                            <label><span class="page-name" translate="OTHER.NAME"></span></label>
+                            <input name="name" ng-model="vm.form.name" class="page-name" md-maxlength="255" required>
+                            <div ng-messages="vm.form.name.$error" role="alert">
+                                <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                                <div ng-message="md-maxlength" ><span translate="ERRORS.FORM.MAX_255"></span></div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div layout-gt-sm="row">
+                        <md-input-container class="md-block" flex>
+                            <label><span translate="KNOWLEDGE.DIR"></span></label>
+                            <md-select ng-model="vm.form.knowledge_directory_id" required name="knowledge_directory_id" ng-if="!translate_loading" >
+                                <md-option ng-value="null" ><span translate="KNOWLEDGE.NONE"></span></md-option>
+                                <md-option ng-value="dir.id" ng-repeat="dir in vm.directories" ng-if="dir.id" >{{dir.name}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <div ng-messages="vm.form.knowledge_directory_id.$error" role="alert">
+                            <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        </div>
+                    </div>
+                    <div layout-gt-sm="row">
+                        <md-input-container class="md-block stories-input" flex="100">
+                            <label><span translate="KNOWLEDGE.STORIES"></span></label>
+                            <md-contact-chips
+                                ng-model="vm.stories"
+                                md-contacts="vm.searchStories($query)"
+                                md-contact-name="name"
+                                placeholder="{{ 'KNOWLEDGE.STORIES_SEARCH' | translate }}"
+                                secondary-placeholder="{{ 'KNOWLEDGE.ADD_MORE' | translate }}"
+                                md-chip-append-delay="100"
+                            >
+                            </md-contact-chips>
+                        </md-input-container>
+                    </div>
+                    <div layout="column">
+                        <textarea-editor name="content" ng-model="vm.form.content" config="vm.contentConfig" required></textarea-editor>
+                        <!-- content limits and errors -->
+                        <div class="md-char-counter" layout-gt-sm="row" layout-align="end none" ng-class="{'error': vm.form.content.length > vm.maxLength}">{{vm.form.content.length ? vm.form.content.length : 0}}/{{vm.maxLength}}</div>
+                        <div ng-messages="vm.form.content.$error" role="alert">
+                            <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        </div>
+                    </div>
+                    <div layout="row">
+                        <md-input-container class="md-block" flex>
+                            <label><span translate="KNOWLEDGE.USERS"></span></label>
+                            <md-contact-chips
+                                    ng-model="vm.form_users"
+                                    md-contacts="vm.searchUser($query)"
+                                    md-contact-name="name"
+                                    md-contact-image="avatar"
+                                    md-contact-email="email"
+                                    placeholder="{{ 'KNOWLEDGE.USERS_SEARCH' | translate }}"
+                                    secondary-placeholder="{{ 'KNOWLEDGE.ADD_MORE' | translate }}">
+                            >
+                            </md-contact-chips>
+                        </md-input-container>
+                    </div>
+
+                    <div layout="row" >
+                        <md-input-container class="md-block" flex>
+                            <label><span translate="KNOWLEDGE.GROUPS"></span></label>
+                            <md-select ng-model="vm.form.roles" name="roles" multiple>
+                                <md-option ng-value="role.id" ng-repeat="role in vm.roles" ><span translate="ROLES.{{role.name}}"></span></md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+
+                    <div class="attachment-list" ng-if="vm.files.length">
+                        <div class="attachment" layout="row" layout-align="space-between center" ng-repeat="file in vm.files">
+                            <div layout="row" layout-align="start center">
+                                <md-icon md-font-icon="icon-attachment" class="s18 grey-600-fg"></md-icon>
+                                <span class="filename">{{file.name}}.{{file.extension}}</span>
+                                <span class="size">({{vm.getSize(file.size)}})</span>
+                            </div>
+
+                            <md-button class="md-icon-button" ng-click="vm.deleteFile(file.id)">
+                                <md-icon md-font-icon="icon-close" aria-label="delete attachment" class="s20 grey-600-fg"></md-icon>
+                            </md-button>
+                        </div>
+                    </div>
+
+                    <div layout="row">
+                        <md-input-container class="md-block" flex id="drop-files">
+                            <md-button id="file-upload-button" type="button" class="md-raised md-accent" ng-click="vm.addFile()" translate="KNOWLEDGE.ADD_FILE"
+                                    translate-attr-aria-label="ADD_EDIT_TICKET.ADD_FILE" ng-disabled="vm.request_file_sending" ></md-button>
+                            <input id="file-to-upload" type="file" file-model="vm.upload_files" style="display:none;">
+                            <div class="file-paste-info" translate="INFO.FILE_PASTE_INFO"></div>
+                        </md-input-container>
+                    </div>
+
+                    <md-progress-linear ng-if="vm.request_file_sending" md-mode="determinate" value="{{vm.progress}}"></md-progress-linear>
+
+                </div>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row" layout-align="end center">
+            <md-button type="button" class="md-raised md-accent" aria-label="CANCEL"
+                translate="OTHER.CANCEL" ng-click="vm.hide()"
+                translate-attr-aria-label="OTHER.CANCEL">
+            </md-button>
+            <md-button type="button" class="md-raised md-accent" aria-label="SEND"
+                ng-disabled="vm.request_sending || addEditPage.$invalid || addEditPage.$pristine || (vm.form.content.length > vm.maxLength)"
+                translate="OTHER.SAVE" ng-click="vm.send()"
+                translate-attr-aria-label="OTHER.SAVE">
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

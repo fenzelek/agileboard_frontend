@@ -1,0 +1,136 @@
+<!-- KNOWLEDGE CONTENT -->
+<div class="knowledge-header" layout="row" layout-align="start center" flex="100">
+    <div class="subject">{{vm.selected_page.name}}</div>
+    <div layout="row" layout-align="start center" ng-if="vm.selected_page.stories.data.length">
+        <div ng-repeat="story in vm.selected_page.stories.data" class="badge story" layout="row" layout-align="start center"
+            ng-style="{ 'color': story.color, 'border-color': story.color }" >
+            <span>{{ story.name }}</span>
+        </div>
+    </div>
+</div>
+
+<div class="mail-content">
+    <!-- <div class="info" layout="row" layout-align="space-between start">-->
+
+        <!--<div layout="column" layout-align="start start">-->
+
+            <!--<a class="toggle-details md-accent-color" ng-hide="vm.selected_pageShowDetails"-->
+               <!--ng-click="vm.selected_pageShowDetails = !vm.selected_pageShowDetails" translate="KNOWLEDGE.SHOW_DETAILS">-->
+                <!--Show Details-->
+            <!--</a>-->
+            <!--<a class="toggle-details md-accent-color" ng-show="vm.selected_pageShowDetails"-->
+               <!--ng-click="vm.selected_pageShowDetails = !vm.selected_pageShowDetails" translate="KNOWLEDGE.HIDE_DETAILS">-->
+                <!--Hide Details-->
+            <!--</a>-->
+
+            <!--<div ng-show="vm.selected_pageShowDetails" class="details" layout="row" layout-align="start start">-->
+                <!--<div layout="column">-->
+                    <!--<span class="title" translate="KNOWLEDGE.DETAILS.FROM">From:</span>-->
+                    <!--<span class="title" translate="KNOWLEDGE.DETAILS.TO">To:</span>-->
+                    <!--<span class="title" translate="KNOWLEDGE.DETAILS.DATE">Date:</span>-->
+                <!--</div>-->
+
+                <!--<div layout="column">-->
+                    <!--<span class="detail">{{vm.selected_page.from.email}}</span>-->
+                    <!--<span class="detail">{{vm.selected_page.to[0].email}}</span>-->
+                    <!--<span class="detail">{{vm.selected_page.time}}</span>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    <!--</div> -->
+
+    <!-- knowledge page content -->
+    <div ng-bind-html="vm.selected_page.trustedContent" class="i-normal html-content"></div>
+
+</div>
+
+<!-- attachments -->
+<div ng-if="vm.selected_page.files.data.length" class="attachments">
+    <div class="title">
+        <!-- <md-icon md-font-icon="icon-attachment" class="s20 grey-600-fg"></md-icon> -->
+        <span translate="KNOWLEDGE.ATTACHMENTS"></span>
+        <span class="count">({{vm.selected_page.files.data.length}})</span>
+    </div>
+    <div class="attachment-list" layout-wrap layout="row">
+        <div class="attachment" layout="column" ng-repeat="file in vm.selected_page.files.data">
+            <div class="preview file-icon" layout="row" layout-align="center center">
+                <i ng-if="vm.getIcon(file.extension) != 'icon-file-image'" class="{{vm.getIcon(file.extension)}} s48"></i>
+                <div class="zoom-image" ng-if="vm.getIcon(file.extension) == 'icon-file-image'" style="background-image: url('{{vm.getImageThumbnail(file.id, 120)}}')" ng-click="vm.imagePreview(file.id)"></div>
+            </div>
+
+            <div layout="column">
+                <a ng-click="vm.download(file.id)" class="md-accent-color link" >{{file.name}}.{{file.extension}}</a>
+
+                <div class="size">({{vm.getSize(file.size)}})</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- comments -->
+<div class="comments">
+    <!-- title -->
+    <div class="title">
+        <span translate="KNOWLEDGE.COMMENTS"></span>
+        <span class="count">({{ vm.selected_page.comments.data.length }})</span>
+    </div>
+
+    <!-- add comment -->
+    <div class="add-comment">
+        <inline-texteditor flex layout="row" layout-align="start center"
+            on-save="vm.addComment"
+            max-length="10000"
+            page-id="vm.selected_page.id"
+        >
+            <div layout="row" layout-align="start center">
+                <md-button class="md-raised" translate="KNOWLEDGE.ADD_COMMENT"></md-button>
+            </div>
+        </inline-texteditor>
+    </div>
+
+    <!-- list -->
+    <div class="list">
+        <div ng-repeat="comment in vm.selected_page.comments.data" class="comment">
+            <div class="left">
+                <img ng-src="{{vm.getAvatar(comment.user.data.avatar)}}">
+            </div>
+
+            <div class="right">
+                <div class="top">
+                    <div class="name">{{ comment.user.data.first_name }} {{ comment.user.data.last_name }}</div>
+                    <div class="time">
+                        {{ comment.created_at | date: 'dd.MM.yyyy HH:mm' }}
+                    </div>
+                    <div ng-if="comment.updated_at != comment.created_at" class="time">
+                        <span translate="KNOWLEDGE.EDITED"></span>: 
+                        {{ comment.updated_at | date: 'dd.MM.yyyy HH:mm' }}
+                    </div>
+                    <div ng-if="vm.isMe(comment.user.data)" class="buttons">
+                        <md-icon ng-click="vm.toggleEdit(comment.id)" md-font-icon="icon-edit" class="pointer s16 md-default-theme md-font material-icons icon-edit"
+                            role="img" aria-label="icon-edit"></md-icon>
+                        
+                        <md-icon ng-click="vm.removeComment(comment, $event)" md-font-icon="icon-close" class="pointer s18 md-default-theme md-font material-icons icon-close"
+                            role="img" aria-label="icon-close"></md-icon>
+                    </div>
+                </div>
+                <div class="text">
+                    <inline-texteditor flex layout="row" layout-align="start center"
+                        id="{{ comment.id }}"
+                        ng-model="comment.text"
+                        on-save="vm.updateComment"
+                        ee="vm.ee"
+                        max-length="10000"
+                        page-id="vm.selected_page.id"
+                    >
+                        <div class="text-edit text-edit-block" flex layout="row" layout-align="start center">
+                            <div ng-bind-html="comment.trustedText" class="html-content"></div>
+                        </div>
+                    </inline-texteditor>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- / KNOWLEDGE CONTENT -->

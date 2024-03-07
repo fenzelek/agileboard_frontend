@@ -1,0 +1,12 @@
+{
+    "SPRINT_CLOSE": {
+        "TITLE": "Close sprint",
+        "SPRINT": "Sprint where to move unfinished tickets",
+        "BACKLOG": "Backlog"
+    },
+    "ERRORS": {
+        "sprint": {
+            "invalid_current_status": "Sprint already has this status."
+        }
+    }
+}

@@ -1,0 +1,299 @@
+<div id="time-tracking-page" class="page-layout simple fullwidth doc-page" layout="column">
+
+	<!-- HEADER -->
+	<div class="header md-accent-bg" layout="row" layout-align="space-between">
+		<div layout="column" layout-align="space-between">
+			<div class="title" translate="TIME_TRACKING.TITLE"></div>
+		</div>
+	</div>
+	<!-- / HEADER -->
+
+	<!-- CONTENT -->
+	<div class="content" layout="column">
+
+		<div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+		<div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+		<div layout="row">
+
+			<div class="form-wrapper rounded-container min-1000">
+				<form novalidate name="filterTimeTracking"  ng-submit="vm.getTimeTracking()">
+					<div layout="row">
+						<md-input-container class="md-block" flex="33">
+							<label><span translate="OTHER.FROM"></span></label>
+							<input ng-model="vm.time_start" name="time_start" moment-picker="vm.time_start" format="YYYY-MM-DD HH:mm" start-view="year" locale="{{ vm.lang }}" input-clear>
+						</md-input-container>
+						<md-input-container class="md-block" flex="33">
+							<label><span translate="OTHER.TO"></span></label>
+							<input ng-model="vm.time_stop" name="time_stop" moment-picker="vm.time_stop" format="YYYY-MM-DD HH:mm" start-view="year" locale="{{ vm.lang }}" input-clear>
+						</md-input-container>
+                        <md-input-container class="md-block" flex="33">
+                            <label><span translate="TIME_TRACKING.ACTIVITIES_PEROID"></span></label>
+                            <md-select ng-model="vm.date_select" ng-if="!translate_loading" ng-change="vm.selectDate()">
+                                <md-option ng-value="'today'" ><span translate="TIME_TRACKING.TODAY"></span></md-option>
+                                <md-option ng-value="'yesterday'" ><span translate="TIME_TRACKING.YESTERDAY"></span></md-option>
+                                <md-option ng-value="'current_week'" ><span translate="TIME_TRACKING.CURRENT_WEEK"></span></md-option>
+                                <md-option ng-value="'previous_week'" ><span translate="TIME_TRACKING.PREVIOUS_WEEK"></span></md-option>
+                                <md-option ng-value="'current_month'" ><span translate="TIME_TRACKING.CURRENT_MONTH"></span></md-option>
+                                <md-option ng-value="'previous_month'" ><span translate="TIME_TRACKING.PREVIOUS_MONTH"></span></md-option>
+                            </md-select>
+                        </md-input-container>
+					</div>
+					<div layout="row" layout-wrap>
+                        <div flex-gt-sm="50" layout="row">
+                            <md-input-container class="md-block" flex="50">
+                                <label><span translate="TIME_TRACKING.MIN_TRACKED"></span></label>
+                                <input ng-model="vm.query.min_tracked" name="min_tracked" type="number" min="0" max="600">
+                                <div ng-messages="filterTimeTracking.min_tracked.$error">
+                                    <div ng-message="number" ><span translate="ERRORS.FORM.NUMBER"></span></div>
+                                    <div ng-message="min" ><span translate="ERRORS.FORM.NUMBER"></span></div>
+                                    <div ng-message="max" ><span translate="ERRORS.FORM.MAX_NUM_600"></span></div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex="50">
+                                <label><span translate="TIME_TRACKING.MAX_TRACKED"></span></label>
+                                <input ng-model="vm.query.max_tracked" name="max_tracked" type="number" min="0" max="600">
+                                <div ng-messages="filterTimeTracking.max_tracked.$error">
+                                    <div ng-message="number" ><span translate="ERRORS.FORM.NUMBER"></span></div>
+                                    <div ng-message="min" ><span translate="ERRORS.FORM.NUMBER"></span></div>
+                                    <div ng-message="max" ><span translate="ERRORS.FORM.MAX_NUM_600"></span></div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div flex-gt-sm="50" layout="row">
+                            <md-input-container class="md-block" flex="50">
+                                <label><span translate="TIME_TRACKING.MIN_ACTIVITY"></span></label>
+                                <input ng-model="vm.query.min_activity_level" name="min_activity_level" type="number" min="0" max="100">
+                                <div ng-messages="filterTimeTracking.min_activity_level.$error">
+                                    <div ng-message="number" ><span translate="ERRORS.FORM.PERCENTAGE"></span></div>
+                                    <div ng-message="min" ><span translate="ERRORS.FORM.PERCENTAGE"></span></div>
+                                    <div ng-message="max" ><span translate="ERRORS.FORM.PERCENTAGE"></span></div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex="50">
+                                <label><span translate="TIME_TRACKING.MAX_ACTIVITY"></span></label>
+                                <input ng-model="vm.query.max_activity_level" name="max_activity_level" type="number" min="0" max="100">
+                                <div ng-messages="filterTimeTracking.max_activity_level.$error">
+                                    <div ng-message="number" ><span translate="ERRORS.FORM.PERCENTAGE"></span></div>
+                                    <div ng-message="min" ><span translate="ERRORS.FORM.PERCENTAGE"></span></div>
+                                    <div ng-message="max" ><span translate="ERRORS.FORM.PERCENTAGE"></span></div>
+                                </div>
+                            </md-input-container>
+                        </div>
+					</div>
+					<div layout="row" layout-wrap>
+                        <div flex-gt-sm="50" layout="row">
+                            <!-- External project -->
+                            <md-input-container class="md-block" flex-gt-xs="50" flex="50">
+                                <label><span translate="TIME_TRACKING.EXTERNAL_PROJECT"></span></label>
+                                <md-select ng-model="vm.query.time_tracking_project_id" name="time_tracking_project_id" ng-if="!translate_loading">
+                                    <md-option ng-value="null"><span translate="OTHER.ALL"></span></md-option>
+                                    <md-option ng-value="project.id" ng-repeat="project in vm.external_projects">{{project.external_project_name}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            <!-- Project -->
+                            <md-input-container class="md-block" flex-gt-xs="50" flex="50">
+                                <label><span translate="TIME_TRACKING.PROJECT"></span></label>
+                                <md-select name="project_id" ng-model="vm.query.project_id" data-md-container-class="searchable-select"
+                                    ng-change="vm.selectProject()" md-on-close="vm.projectSearch = ''">
+                                    <!-- Search field -->
+                                    <md-select-header class="select-header">
+                                        <input class="select-search md-text" type="search" ng-model="vm.projectSearch" placeholder="{{ 'OTHER.SEARCH' | translate }}...">
+                                    </md-select-header>
+                                    <!-- List -->
+                                    <md-optgroup>
+                                        <md-option ng-value="null" ng-show="vm.showProject()"><span translate="OTHER.ALL"></span></md-option>
+                                        <md-option ng-value="'empty'" ng-show="vm.showProject()"><span translate="TIME_TRACKING.WITHOUT_PROJECT"></span></md-option>
+                                        <md-option ng-value="project.id" ng-repeat="project in vm.projects" ng-show="vm.showProject(project.name)">{{project.name}}</md-option>
+                                    </md-optgroup>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                        <!-- User -->
+                        <div flex-gt-sm="50" layout="row">
+                            <md-input-container class="md-block" flex-gt-sm="50" flex="50" ng-if="vm.external_users.length">
+                                <label><span translate="TIME_TRACKING.EXTERNAL_USER"></span></label>
+                                <md-select ng-model="vm.query.time_tracking_user_id" name="time_tracking_user_id" ng-if="!translate_loading">
+                                    <md-option ng-value="null"><span translate="OTHER.ALL_PERSONS"></span></md-option>
+                                    <md-option ng-value="user.id" ng-repeat="user in vm.external_users" >{{user.external_user_name}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm="50" flex="50" ng-if="vm.users.length">
+                                <label><span translate="TIME_TRACKING.USER"></span></label>
+                                <md-select ng-model="vm.query.user_id" name="user_id" ng-if="!translate_loading">
+                                    <md-option ng-value="null" ><span translate="OTHER.ALL_PERSONS"></span></md-option>
+                                    <md-option ng-value="user.id" ng-repeat="user in vm.users" >{{user.first_name}} {{user.last_name}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+					</div>
+					<div layout="row" layout-wrap>
+                        <div flex-gt-sm="50" layout="row">
+                            <!-- note -->
+                            <md-input-container class="md-block" flex="50">
+                                <label><span translate="TIME_TRACKING.NOTE"></span></label>
+                                <input ng-model="vm.query.time_tracking_note_content" name="time_tracking_note_content" type="text">
+                            </md-input-container>
+                            <!-- comment -->
+                            <md-input-container class="md-block" flex="50">
+                                <label><span translate="TIME_TRACKING.COMMENT"></span></label>
+                                <input ng-model="vm.query.comment" name="comment" type="text">
+                            </md-input-container>
+                        </div>
+                        <div flex-gt-sm="50" layout="row">
+                            <md-input-container class="md-block pl-15" flex-gt-xs="50" flex="50">
+                                <md-checkbox ng-model="vm.without_tickets">
+                                    {{ 'TIME_TRACKING.WITHOUT_TICKETS' | translate }}
+                                </md-checkbox>
+                            </md-input-container>
+                            <md-input-container class="md-block pl-15" flex-gt-xs="50" flex="50">
+                                <md-checkbox ng-model="vm.sum_ticket_times">
+                                    {{ 'TIME_TRACKING.SUM_TIMES' | translate }}
+                                </md-checkbox>
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div layout="row">
+                        <!-- Source -->
+                        <md-input-container class="md-block" flex-gt-xs="25" flex="100">
+                            <label><span translate="TIME_TRACKING.SOURCE"></span></label>
+                            <md-select ng-model="vm.query.source" name="source" ng-if="!translate_loading">
+                                <md-option ng-value="null" ><span translate="OTHER.ALL"></span></md-option>
+                                <md-option ng-value="type" ng-repeat="type in vm.sourceTypes">{{ ('TIME_TRACKING.' + type) | translate }}</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+
+                    <!-- Search button -->
+                    <div layout="row" layout-align="end center" layout-wrap>
+                        <md-button flex="100" flex-gt-sm="10" class="md-raised md-button md-default-theme md-warn"
+                            ng-click="vm.clear()">
+                            {{ 'OTHER.CLEAR' | translate }}
+                        </md-button>
+                        <md-button flex="100" flex-gt-sm="25" class="md-raised md-button md-default-theme md-accent"
+                            ng-click="vm.getTimeTracking()">
+                            {{ 'TIME_TRACKING.SEARCH' | translate }}
+                        </md-button>
+                    </div>
+				</form>
+
+                <!-- Manage time buttons -->
+				<div layout="row" layout-align="end center">
+					<md-button flex="25" flex-gt-sm="10" class="md-raised md-button md-default-theme md-accent" ng-disabled="!vm.selected.length" ng-click="vm.edit()">
+						<span translate="OTHER.EDIT"></span>
+					</md-button>
+
+					<md-button flex="25" flex-gt-sm="10" class="md-raised md-button md-default-theme green-600-bg white-text" ng-click="vm.add()">
+						<span translate="OTHER.ADD"></span>
+					</md-button>
+
+					<md-button flex="25" flex-gt-sm="10" class="md-raised md-button md-default-theme md-warn" ng-disabled="!vm.selected.length" ng-click="vm.remove()">
+						<span translate="OTHER.DELETE"></span>
+					</md-button>
+
+					<md-button flex="25" flex-gt-sm="10" class="md-raised md-button md-default-theme md-accent" ng-click="vm.exportToExcel()">
+						<span translate="OTHER.EXPORT"></span>
+					</md-button>
+				</div>
+
+                <!-- Standard activities list -->
+				<div ng-if="vm.pagination.total && !vm.query.sum_ticket_times" class="table-wrapper">
+					<md-table-container>
+						<table md-table md-progress="vm.promise" md-row-select multiple ng-model="vm.selected" >
+							<thead md-head>
+                                <tr md-row>
+                                    <th md-column><span translate="OTHER.No">Lp.</span></th>
+                                    <th md-column><span translate="TIME_TRACKING.USER"></span></th>
+                                    <th md-column><span translate="TIME_TRACKING.TIME"></span></th>
+                                    <th md-column><span translate="TIME_TRACKING.ACTIVITY"></span></th>
+                                    <th md-column><span translate="TIME_TRACKING.PROJECT"></span></th>
+                                    <th md-column><span translate="TIME_TRACKING.TICKET"></span></th>
+                                    <th md-column><span translate="TIME_TRACKING.COMMENT"></span></th>
+                                </tr>
+							</thead>
+							<tbody md-body>
+                                <tr md-row md-select="activity" md-select-id="id" md-auto-select ng-disabled="!vm.is_admin && activity.locked"
+                                    ng-repeat="activity in vm.activities">
+                                    <td md-cell>
+                                        {{ vm.pagination | no:$index }}
+                                        <i class="icon-lock s18" ng-if="activity.locked"></i>
+                                    </td>
+                                    <td md-cell>{{ activity.user.data.first_name }} {{ activity.user.data.last_name }}</td>
+                                    <td md-cell>{{ activity.utc_started_at | utcToLocal:'yyyy-MM-dd HH:mm' }} ({{vm.formatEstimate(activity.tracked)}})</td>
+                                    <td md-cell>
+                                        <span ng-if="activity.isManual">{{ 'TIME_TRACKING.MANUAL-TIME' | translate }}</span>
+                                        <span ng-if="!activity.isManual">{{ activity.activity_level }}%</span>
+                                    </td>
+                                    <td md-cell>{{ activity.project.data.name }}</td>
+                                    <td md-cell>
+                                        {{ activity.ticket.data.title }}
+                                        <md-tooltip ng-if="activity.ticket.data">
+                                            {{activity.ticket.data.name}}
+                                            <span v-if="activity.ticket.data.estimate_time">
+                                                , {{ vm.formatEstimate(activity.ticket.data.estimate_time) }}
+                                            </span>
+                                        </md-tooltip>
+                                    </td>
+                                    <td md-cell>{{ activity.comment }}</td>
+                                </tr>
+							</tbody>
+						</table>
+					</md-table-container>
+
+                    <md-table-pagination md-label="{{vm.table_translate}}" md-limit-options="[15, 30, 60, 100]"  md-limit="vm.query.limit"
+                        md-page="vm.query.page" md-total="{{vm.pagination.total}}" md-on-paginate="vm.getTimeTracking" md-page-select></md-table-pagination>
+                </div>
+
+                <!-- Summed ticket times list -->
+                <div ng-if="vm.query.sum_ticket_times" class="table-wrapper">
+					<md-table-container>
+						<table md-table md-progress="vm.promise">
+							<thead md-head>
+							<tr md-row>
+								<th md-column><span translate="OTHER.No">Lp.</span></th>
+								<th md-column><span translate="TIME_TRACKING.TICKET"></span></th>
+								<th md-column><span translate="TIME_TRACKING.DESCRIPTION"></span></th>
+								<th md-column><span translate="TIME_TRACKING.ESTIMATION"></span></th>
+								<th md-column><span translate="TIME_TRACKING.TIME"></span></th>
+                                <th md-column><span translate="TIME_TRACKING.USER"></span></th>
+							</tr>
+							</thead>
+							<tbody md-body>
+                                <tr md-row ng-repeat="activity in vm.ticket_summary">
+                                    <td md-cell>
+                                        {{ $index + 1 }}
+                                    </td>
+                                    <td md-cell style="white-space: nowrap;">
+                                        {{ activity.ticket ? activity.ticket.title : '-' }}
+                                    </td>
+                                    <td md-cell>
+                                        {{ activity.ticket ? activity.ticket.name : '' }}
+                                    </td>
+                                    <td md-cell style="white-space: nowrap;">
+                                        {{ activity.ticket && activity.ticket.estimate_time ? activity.ticket.estimate_time_formatted : '' }}
+                                    </td>
+                                    <td md-cell style="white-space: nowrap;">
+                                        {{ activity.tracked_formatted }}
+                                    </td>
+                                    <td md-cell>
+                                        <span ng-repeat="user in activity.users">
+                                            {{ user.first_name }} {{ user.last_name }} {{ !$last ? ', ' : '' }}
+                                        </span>
+                                    </td>
+							</tbody>
+						</table>
+					</md-table-container>
+                </div>
+
+				<div layout="row"  ng-if="vm.pagination.total == 0" translate="OTHER.NO_RECORDS" class="text-center" ></div>
+
+				<div class="font-size-16">
+					<div class="bold" ng-if="vm.summary.sum_time">
+                        <span translate="TIME_TRACKING.SUM_TIME"></span>: {{vm.formatEstimate(vm.summary.sum_time)}}
+                    </div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

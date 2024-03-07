@@ -1,0 +1,32 @@
+{
+    "RECEIPTS_LIST": {
+        "TITLE": "Paragony",
+        "GENERATE_PDF": "Utwórz pdf",
+        "GENERATE_REPORT": "Generuj podsumowanie zbiorcze",
+        "PAYMENTS_METHOD": "Metoda płatności",
+        "NUMBER": "Numer",
+        "QUANTITY": "Ilość",
+        "TRANSACTION_NUMBER": "Numer transakcji",
+        "USERS": "Użytkownik wystawiający paragon",
+        "SUM": "Podsumowanie",
+        "SUM_GROSS": "Suma brutto",
+        "SUM_NET": "Suma netto",
+        "METHOD": "Metoda płatności",
+        "PRICE_NET": "Wartość netto",
+        "PRICE_GROSS": "Wartość brutto",
+        "VAT_SUM": "VAT",
+        "GENERATE_INVOICE": "Wystaw fakturę",
+        "INVOICES": "Lista faktur",
+        "PDF": "Pobierz PDF",
+        "PDF_DUPLICATE": "Pobierz duplikat",
+        "SEARCH": "Szukaj",
+        "CREATED": "Utworzono",
+        "CREATE_INVOICE": "Stwórz fakturę zbiorczą",
+        "CREATE_INVOICE_ERROR": "Musisz wskazać co najmniej 2 faktury do utworzenia faktury zbiorczej.",
+        "RECEIPT": "Numer paragonu",
+        "RECEIPT_TITLE": "Nowa faktura zbiorcza"
+    },
+    "ERRORS": {
+
+    }
+}

@@ -1,0 +1,89 @@
+<div id="calendar" class="summary-calendar page-layout simple fullwidth height-full" layout="column">
+    <div class="content height-full">
+
+        <!-- Date bar -->
+        <div class="ph-20 pt-10 pb-5">
+            <div layout="row" layout-align="space-between center">
+                <div layout="row" layout-align="start center">
+                    <md-button type="button" class="md-raised md-accent" ng-click="vm.onDateChange(-6)"
+                        translate="CALENDAR.PREVIOUS"></md-button>
+                </div>
+                <div layout="row" layout-align="center center">
+                    <md-button type="button" class="md-raised md-accent" ng-click="vm.setDate()" translate="CALENDAR.PRESENT"></md-button>
+                    <!-- Datepicker -->
+                    <md-icon md-font-icon="icon-calendar" class="s22 ml-10" moment-picker="vm.pickerDate"
+                        format="YYYY-MM" start-view="month" locale="{{ vm.lang }}" ng-model="vm.date" change="vm.setDate(newValue)"
+                        disable="vm.loading" ng-class="{'grey-500-fg': !vm.loading, 'grey-300-fg': vm.loading }">
+                        <md-tooltip>{{ 'CALENDAR.SELECT_DATE' | translate }}</md-tooltip>
+                    </md-icon>
+                    <md-button ng-click="vm.getYearPDF()" class="md-icon-button ml-10">
+                        <md-icon md-font-icon="icon-printer" class="s22"></md-icon>
+                        <md-tooltip>{{ 'CALENDAR.GENERATE_REPORT.YEAR' | translate }}</md-tooltip>
+                    </md-button>
+                    
+                </div>
+                <div layout="row" layout-align="end center">
+                    <md-button type="button" class="md-raised md-accent" ng-click="vm.onDateChange(6)"
+                        translate="CALENDAR.NEXT"></md-button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calendar -->
+        <div class="calendar-scroll" ng-class="{'loading-content': vm.loading}" layout="row" ms-scroll>
+            <table class="calendar-content dataTable row-border hover table-fixed">
+                <thead fix-head>
+                    <tr>
+                        <th class="select-item" ng-click="vm.toggleAllSelected()"><md-checkbox ng-model="vm.select.all"></md-checkbox></th>
+                        <th class="sorting_disabled avatar-col" style="width: 60px;"></th>
+                        <th class="sorting_asc person" translate="CALENDAR.PERSON" style="width: 90px;"></th>
+                        <th class="sorting_disabled month-col" ng-repeat="month in vm.dates track by $index">
+                            <div class="date">
+                                {{ vm.moment(month).format('MMMM') }}
+                                <md-button ng-click="vm.getMonthPDF(month)" class="md-icon-button print-button">
+                                    <md-icon md-font-icon="icon-printer" class="s16">
+                                        <md-tooltip>{{ 'CALENDAR.GENERATE_REPORT.MONTH' | translate }}</md-tooltip>
+                                    </md-icon>
+                                </md-button>
+                            </div>
+                            <div class="day-in-week">
+                                {{ month | date: 'yyyy'}}
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in vm.users track by user.id" ng-if="(vm.role == 'owner' || vm.role == 'admin') || user.id == vm.user.id">
+                        <td ng-click="vm.toggleSelected($event, user)" class="select-item"><md-checkbox ng-model="vm.select.selected[user.id]"></md-checkbox></td>
+                        <td class="avatar-col">
+                            <img class="avatar ng-scope" ng-src="{{vm.getAvatar(user.avatar)}}" />
+                        </td>
+                        <td class="person">{{ user.first_name }}<br/>{{ user.last_name }}</td>
+                        <td ng-repeat="month in vm.dates track by $index">
+                            <!-- Vacations -->
+                            <div ng-if="user.working && user.working[month]" class="month-value">
+                                <div class="font-size-16 green-800-fg bold">
+                                    {{ vm.formatEstimate(user.working[month]) }}
+                                </div>
+                            </div>
+                            <!-- Vacations -->
+                            <div ng-if="user.vacations && user.vacations[month]" class="month-value">
+                                <div class="font-size-16 red-800-fg bold">
+                                    {{ 'CALENDAR.DAYS_FREE' | translate }}:
+                                    {{ user.vacations[month].length }}
+                                </div>
+                                <div class="font-size-10 grey-600-fg">
+                                    <div ng-repeat="v in user.vacations[month] track by v.day">
+                                        {{ v.day | date:'d' }}
+                                        - {{ vm.reasons.indexOf(v.description) != -1 ? ('CALENDAR.REASON.' + v.description | translate) : v.description }}{{ !$last ? ', ' : '' }}
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

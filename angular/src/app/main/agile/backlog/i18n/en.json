@@ -1,0 +1,56 @@
+{
+    "BACKLOG": {
+        "BACKLOG": "Backlog",
+        "TITLE": "Backlog",
+        "SHOW_ALL": "Show hidden",
+        "EMPTY": "No tickets",
+        "NO_FILTERED_TICKETS": "No tickets matching your criteria",
+        "CREATE_SPRINT": "Create sprint",
+        "SPRINT_NAME": "Sprint name",
+        "SPRINT_CREATED": "New sprint has been created",
+        "CREATE_TICKET": "Add ticket",
+        "ACTIVE": "Start",
+        "PAUSE": "Pause",
+        "RESUME": "Resume",
+        "LOCK": "Block adding tasks",
+        "UNLOCK": "Unblock adding tasks",
+        "CLOSE": "Close",
+        "CLONE": "Clone",
+        "SPRINT_DELETE_QUESTION": "Are you sure you want to delete this sprint?",
+        "SPRINT_ACTIVE_QUESTION": "Are you sure you want to open this sprint?",
+        "SPRINT_PAUSE_QUESTION": "Are you sure you want to pause this sprint?",
+        "SPRINT_RESUME_QUESTION": "Are you sure you want to resume this sprint?",
+        "SPRINT_LOCK_QUESTION": "Are you sure you want to lock this sprint?",
+        "SPRINT_UNLOCK_QUESTION": "Are you sure you want to unlock this sprint?",
+        "SPRINT_NAME_CLICK": "Sprint name (click to edit)",
+        "SPRINT_START_DATE": "Sprint start date",
+        "SPRINT_CLOSE_DATE": "Sprint close date",
+        "ADDED_TICKET": "Added ticket successfully",
+        "UPDATED_TICKET": "Updated ticket successfully",
+        "DELETED_TICKET": "Deleted ticket successfully",
+        "ESTIMATE_TIME": "Estimate time",
+        "LOGGED_TIME": "Logged time",
+        "TIME_USAGE": "Time usage",
+        "ALL_STORIES": "All stories",
+        "CLICK_TO_ADD": "click to add",
+        "HIDE_ALL_SPRINTS": "Hide all",
+        "SHOW_ALL_SPRINTS": "Show all",
+        "ESTIMATION_LEFT": "Estimation left",
+        "UN_STARTED_ESTIMATION": "Un-started estimations",
+        "EXPECTED_FINAL": "Expected final",
+        "ATTITUDE_TO_INITIAL": "Attitude to initial",
+        "DELETE_QUESTION": "Are you sure you want to delete this ticket?",
+        "SPRINT_BLOCKED": "Sprint is locked - ticket not added",
+        "RESET_FILTERS": "Reset filters",
+        "EXPORT": "Export"
+    },
+    "ERRORS": {
+        "sprint": {
+            "not_empty": "Selected sprint isn`t empty.",
+            "invalid_current_status": "Sprint already has this status."
+        },
+        "package": {
+            "limit_reached": "You have reached the limit of the amount of disk space used. Delete other files to be able to add more or contact your business owner to increase the limit."
+        }
+    }
+}

@@ -1,0 +1,127 @@
+{
+    "data": [
+        {
+            "name": "Minimal",
+            "image": "min_en",
+            "statuses": [
+                {
+                    "name": "To Do"
+                },
+                {
+                    "name": "In Progress"
+                },
+                {
+                    "name": "Done"
+                }
+            ]
+        },
+        {
+            "name": "Middle",
+            "image": "mid_en",
+            "statuses": [
+                {
+                    "name": "To Do"
+                },
+                {
+                    "name": "Next to resolve"
+                },
+                {
+                    "name": "In Progress"
+                },
+                {
+                    "name": "Resolved"
+                },
+                {
+                    "name": "Deployed to dev"
+                },
+                {
+                    "name": "Testing by Team"
+                },
+                {
+                    "name": "Checked"
+                },
+                {
+                    "name": "Done"
+                }
+            ]
+        },
+        {
+            "name": "Full",
+            "image": "full_en",
+            "statuses": [
+                {
+                    "name": "To Do"
+                },
+                {
+                    "name": "Reopens"
+                },
+                {
+                    "name": "Next to resolve"
+                },
+                {
+                    "name": "In Progress"
+                },
+                {
+                    "name": "Need Information"
+                },
+                {
+                    "name": "Resolved"
+                },
+                {
+                    "name": "Deployed to dev"
+                },
+                {
+                    "name": "Testing by Team"
+                },
+                {
+                    "name": "Checked"
+                },
+                {
+                    "name": "Testing by Client"
+                },
+                {
+                    "name": "Done"
+                }
+            ]
+        },
+
+        {
+            "name": "Weekly",
+            "image": "weekly_en",
+            "statuses": [
+                {
+                    "name": "To Do"
+                },
+                {
+                    "name": "Monday"
+                },
+                {
+                    "name": "Tuesday"
+                },
+                {
+                    "name": "Wednesday"
+                },
+                {
+                    "name": "Thursday"
+                },
+                {
+                    "name": "Friday"
+                },
+                {
+                    "name": "In Progress"
+                },
+                {
+                    "name": "Testing by Team"
+                },
+                {
+                    "name": "Reopens"
+                },
+                {
+                    "name": "Done"
+                }
+            ]
+        }
+
+
+    ]
+}

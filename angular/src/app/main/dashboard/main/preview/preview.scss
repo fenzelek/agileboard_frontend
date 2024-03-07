@@ -1,0 +1,14 @@
+#dashboard-preview {
+  background-color: #fff;
+  height: 100%;
+
+  md-progress-circular {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    svg {
+      margin-top: 20px;
+    }
+  }
+
+}

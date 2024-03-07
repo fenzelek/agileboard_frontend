@@ -1,0 +1,282 @@
+.project-min-menu {
+    display: none;
+}
+#logout {
+    color: rgb(3, 155, 229);
+}
+
+md-menu-content md-menu-item .active {
+    background-color: rgba(158, 158, 158, 0.3);
+}
+
+#toolbar {
+    height: $toolbarHeight;
+    min-height: $toolbarHeight;
+    max-height: $toolbarHeight;
+    z-index: 55 !important;
+
+    #navigation-toggle {
+        width: $toolbarHeight;
+        min-width: $toolbarHeight;
+        height: $toolbarHeight;
+        margin: 0;
+        border-right: 1px solid rgba(0, 0, 0, 0.12);
+        border-radius: 0;
+    }
+
+    #global-company-name, #global-company-plan {
+        .md-button {
+            //padding: 5px 16px !important;
+            line-height: 25px;
+            span {
+                font-weight: normal;
+            }
+        }
+        a {
+            min-height: 25px;
+            line-height: 25px;
+            font-size: 13px;
+        }
+    }
+
+    .has-border-left {
+        border-left: 1px solid #e0e0e0;
+    }
+
+    #global-company-invitation-tax-office {
+        .md-button {
+            background: #b6e4fb;
+            line-height: 25px;
+            padding: 5px 16px !important;
+        }
+    }
+
+    #user-menu, .project-menu, #informations-menu {
+        height: $toolbarHeight;
+        padding: 0;
+
+        a.md-button > div {
+            color: rgb(0,0,0);
+            padding-top: 15px;
+        }
+
+        md-menu-item .md-button {
+            font-size: 15px;
+
+            md-icon {
+                margin: auto 16px auto 0;
+            }
+        }
+
+        md-menu-content {
+
+            &.md-menu-bar-menu {
+
+                &.md-dense {
+                    padding: 8px 0;
+
+                    .md-button,
+                    md-menu-item {
+                        height: 48px;
+                        line-height: 48px;
+                    }
+                }
+            }
+        }
+
+        #user-status-menu {
+
+            md-menu-item {
+
+                &.selected {
+                    opacity: .3;
+                }
+            }
+        }
+
+        .no-hover:hover {
+            background:none;
+            cursor: default;
+        }
+
+        .user-button {
+            margin: 0;
+            padding: 0 12px;
+            height: $toolbarHeight;
+            text-transform: none;
+
+            &.active {
+                background-color: rgba(158,158,158,0.2);
+            }
+
+            .avatar-wrapper {
+                position: relative;
+
+                .status {
+                    position: absolute;
+                    bottom: -3px;
+                    right: 5px;
+                }
+            }
+
+            .username {
+                margin: 0 12px 0 8px;
+            }
+        }
+        @media screen and (max-width: 1170px) {
+            .user-button {
+                padding: 0;
+            }
+        }
+
+    }
+
+    #language-menu {
+        height: $toolbarHeight;
+
+        .language-button {
+            min-width: $toolbarHeight;
+            height: $toolbarHeight;
+            margin: 0;
+            padding: 0 16px;
+            border-radius: 0;
+
+            .iso {
+                text-transform: uppercase;
+            }
+
+            .flag {
+                margin-right: 8px;
+            }
+        }
+    }
+
+    #quick-panel-toggle {
+        width: $toolbarHeight;
+        height: $toolbarHeight;
+        margin: 0;
+        border-radius: 0;
+    }
+
+    .toolbar-separator {
+        height: $toolbarHeight;
+        width: 1px;
+        background: rgba(0, 0, 0, 0.12);
+    }
+}
+
+#language-menu-content {
+
+    md-menu-item {
+
+        .flag {
+            margin-right: 16px;
+        }
+    }
+}
+
+#language-message {
+    min-height: 88px;
+    max-width: 600px;
+
+    .md-toast-content {
+        height: 90px;
+    }
+}
+
+@media screen and (max-width: 1430px) {
+    #toolbar {
+        #user-menu, .project-menu, #informations-menu {
+            .user-button {
+                min-width: 64px;
+                padding: 0 2px 0 10px;
+            }
+        }
+    }
+}
+
+// RESPONSIVE
+@media screen and (max-width: 1300px) {
+
+    #toolbar {
+
+        #global-company-invitation-tax-office {
+            display: none;
+        }
+    }
+}
+
+@media screen and (max-width: 1110px) and (min-width:$layout-breakpoint-sm) {
+    #toolbar {
+        .project-full-menu {
+            display: none;
+        }
+    }
+
+    .project-min-menu {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+
+    #toolbar {
+
+        #global-company-plan {
+            display: none;
+        }
+    }
+}
+
+@media screen and (max-width: $layout-breakpoint-sm) {
+
+    #toolbar {
+
+        #user-menu, .project-menu, #informations-menu {
+
+            .user-button {
+                min-width: 50px;
+                padding: 0 15px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 580px) {
+
+    #toolbar {
+
+        #user-menu, .project-menu, #informations-menu {
+
+            .user-button {
+                min-width: 0;
+                padding: 0 3px;
+
+                .icon {
+                    font-size: 24px !important;
+                }
+            }
+
+            .avatar {
+                margin-right: 4px;
+            }
+        }
+
+        #navigation-toggle {
+            min-width: 45px;
+            width: 45px;
+        }
+
+        #language-menu {
+
+            .language-button {
+                padding: 0;
+                min-width: 40px;
+
+                .flag {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+}

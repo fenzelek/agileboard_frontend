@@ -1,0 +1,27 @@
+{
+    "ONLINE_SALES_LIST": {
+        "TITLE": "Sprzedaż internetowa",
+        "GENERATE_PDF": "Utwórz pdf",
+        "INFO": "Jeśli chciałbyś zintegrować swój sklep internetowy lub inny system sprzedaży internetowej z naszym systemem fakturowym prosimy o kontakt na",
+        "EMAIL": "Email",
+        "NUMBER": "Numer",
+        "QUANTITY": "Ilość",
+        "TRANSACTION_NUMBER": "Numer transakcji",
+        "SUM": "Podsumowanie",
+        "SUM_GROSS": "Suma brutto",
+        "SUM_NET": "Suma netto",
+        "METHOD": "Metoda płatności",
+        "PRICE_NET": "Wartość netto",
+        "PRICE_GROSS": "Wartość brutto",
+        "VAT_SUM": "VAT",
+        "GENERATE_INVOICE": "Wystaw fakturę",
+        "SEARCH": "Szukaj",
+        "CREATED": "Utworzono",
+        "INVOICES": "Lista faktur",
+        "PDF": "Pobierz PDF",
+        "PDF_DUPLICATE": "Pobierz duplikat"
+    },
+    "ERRORS": {
+
+    }
+}

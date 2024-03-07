@@ -1,0 +1,20 @@
+{
+    "INVITATION": {
+        "TITLE": "Akceptacja zaproszenia do firmy",
+        "PASSWORD": "Hasło",
+        "PASSWORD_CONFIRM": "Hasło (potwierdź)",
+        "SEND": "AKCEPTUJ",
+        "GO_BACK": "Wróć do logowania",
+        "READ_ACCEPT": "Przeczytałem i akceptuję",
+        "TERMS_COND": "regulamin",
+        "SUCCESS": "Akceptacja zakończyła się sukcesem."
+    },
+    "ERRORS": {
+        "company_invitation": {
+            "not_pending" : "Zaproszenie zostało już wcześniej zaakceptowane, skorzystaj z formularza logowania.",
+            "expired" : "Czas oczekiwania na akceptacje upłynął.",
+            "invalid_email_given" : "Nieprawidłowy adres email",
+            "already_assigned_to_company" : "Już dołączyłeś do tej firmy."
+        }
+    }
+}

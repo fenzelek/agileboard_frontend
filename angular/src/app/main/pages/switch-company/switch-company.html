@@ -1,0 +1,21 @@
+<div id="switch-company" class="flex-scrollable guest-layout" layout="column" ms-scroll>
+	<div class="guest-wrapper" layout="column" layout-align="center center">
+		<div class="rounded-container guest-form">
+
+			<md-icon md-font-icon="icon-swap-horizontal" class="s82 grey-500-fg"></md-icon>
+
+			<div class="title" translate="SWITCH_COMPANY.TITLE"></div>
+			<div class="text-center">
+				<span translate="SWITCH_COMPANY.DESCRIPTION"></span>
+			</div>
+			<div class="actions" layout="row" layout-align="space-between center">
+				<a ng-href="/" class="md-raised" aria-label="Go Back" translate="OTHER.GO_BACK" translate-attr-aria-label="OTHER.GO_BACK">Go Back</a>
+				<md-button ng-click="vm.changeCompany()" class="md-accent md-raised"><span translate="SWITCH_COMPANY.SWITCH"></span></md-button>
+			</div>
+		</div>
+	</div>
+
+
+	<img src="/assets/logos/cep/logo_sqr.jpg" alt="AgileBoard" class="footer-logo">
+	<footer ng-include="'app/layouts/footer.html'"></footer>
+</div>

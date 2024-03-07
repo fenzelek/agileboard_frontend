@@ -1,0 +1,52 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "number": "54454",
+            "transation_number": "fdfs",
+            "payment_method": {
+                "date":         {
+                    "id": 1,
+                    "name": "Gotówka",
+                    "default": 1
+                }
+            },
+            "price_gross": 10,
+            "price_net": 5,
+            "vat_sum": 5,
+            "sale_date":"2016-10-12 10:10:10"
+        },
+        {
+            "id": 2,
+            "number": "54454",
+            "transation_number": "fdfs",
+            "payment_method": {
+                "date":         {
+                    "id": 1,
+                    "name": "Gotówka",
+                    "default": 1
+                }
+            },
+            "price_gross": 10,
+            "price_net": 5,
+            "vat_sum": 5,
+            "sale_date":"2016-10-12 10:10:10"
+        }
+    ],
+    "meta": {
+        "sum": {
+            "sum_gross": "20",
+            "sum_net": "5"
+        },
+        "pagination": {
+            "total": 2,
+            "count": 15,
+            "per_page": 15,
+            "current_page": 1,
+            "total_pages": 1,
+            "links": {
+                "next": ""
+            }
+        }
+    }
+}

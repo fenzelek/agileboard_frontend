@@ -1,0 +1,13 @@
+<md-dialog aria-label="METHOD">
+    <div id="calendar-empty-dialog">
+        <h1 class="title" flex="noshrink" layout="row" layout-align="start center">
+            <md-icon md-font-icon="icon-calendar-blank" class="icon s42"></md-icon> 
+            <div translate="CALENDAR_EMPTY.TITLE"></div>
+        </h1>
+        <div class="content">
+            <span translate="CALENDAR_EMPTY.CONTENT"></span>
+        </div>
+        <md-button ng-click="vm.goToCalendar()" class="md-raised md-accent"><span translate="CALENDAR_EMPTY.GO_TO_CALENDAR"></span></md-button>
+        <md-button ng-click="vm.hide()"><span translate="OTHER.CLOSE"></span></md-button>
+    </div>
+</md-dialog>

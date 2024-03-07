@@ -1,0 +1,11 @@
+{
+    "LOGIN-QUICK": {
+        "TITLE" : "Log in to your account",
+        "INFO": "Login to the site..."
+    },
+    "ERRORS": {
+        "auth": {
+            "cannot_create_token": "Error during login. Please try again later."
+        }
+    }
+}

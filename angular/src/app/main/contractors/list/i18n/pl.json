@@ -1,0 +1,20 @@
+{
+    "CONTRACTORS_LIST": {
+        "TITLE": "Kontrahenci",
+        "SEARCH": "Szukaj",
+        "CONTRACTOR": "Kontrahent",
+        "NIP": "NIP",
+        "CREATED": "Wystawione",
+        "PAID": "Zapłacone",
+        "AFTER": "Po terminie",
+        "SUM": "Suma",
+        "TO_PAY": "Do zapłaty",
+        "ADD": "Dodaj",
+        "INVOICE_ADD": "Wystaw fakturę",
+        "DELETE_QUESTION": "Czy na pewno chcesz usunąć tę kontrahenta?",
+        "DELETE_SUCCESS": "Usunięto kontrahenta."
+    },
+    "ERRORS": {
+
+    }
+}

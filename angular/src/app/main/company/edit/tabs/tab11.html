@@ -1,0 +1,531 @@
+
+<div class="alert-success" ng-if="vm.tab11.msg_success">{{ vm.tab11.msg_success }}</div>
+<div class="alert-error" ng-if="vm.tab11.msg_error">{{ vm.tab11.msg_error }}</div>
+
+
+<div layout="row">
+    <div class="form-wrapper  rounded-container max-1000" flex ng-if="!vm.is_profile_completed">
+        <div class="content" layout="column">
+
+            <div layout="row">
+                <div translate="COMPANY_EDIT.PACKAGES.COMPLETE_PROFILE" class="font-size-20"></div>
+            </div>
+        </div>
+    </div>
+    <div id="company-edit-tab-11" class="form-wrapper  rounded-container max-1000" flex ng-if="vm.is_profile_completed">
+        <div>
+
+            <!-- package current -->
+            <div class="collapse">
+                <div class="collapse-header md-white-fg md-accent-bg" ng-click="vm.tab11.togglePackage(vm.tab11.packages_current, true)"
+                    flex layout-gt-xs="row" layout-align-gt-xs="space-between center" layout-xs="column" layout-align-xs="start start">
+                    <div class="collapse-header__title" flex layout="row" layout-align="flex-start center">
+                        <div>
+                            <md-icon class="md-font material-icons icon icon-menu-down" ng-class="{'icon-menu-down': vm.tab11.packages_current.togglePackage, 'icon-menu-right': !vm.tab11.packages_current.togglePackage }"></md-icon>
+                        </div>
+                        <div>
+                            <span translate="COMPANY_EDIT.PACKAGES.PACKAGES_LIST.{{vm.tab11.packages_current.slug}}"></span>
+                            <div class="status" translate="COMPANY_EDIT.PACKAGES.ACTIVE"></div>
+                        </div>
+                    </div>
+                    <div class="collapse-header__description text-right">
+                        <div ng-if="vm.tab11.packages_current.modules.data[0].company_module.data.expiration_date">
+                            <span ng-if="vm.tab11.packages_current.subscription.data && vm.tab11.packages_current.subscription.data.active">
+                                <span translate="COMPANY_EDIT.PACKAGES.RENEW_SUBSCRIPTION"></span>
+                                {{vm.tab11.packages_current.modules.data[0].company_module.data.expiration_date}}
+                            </span>
+                            <span ng-if="!vm.tab11.packages_current.subscription.data || !vm.tab11.packages_current.subscription.data.active">
+                                <span translate="COMPANY_EDIT.PACKAGES.EXPIRES"></span>
+                                {{vm.tab11.packages_current.modules.data[0].company_module.data.expiration_date}}
+                            </span>
+                        </div>
+                        <div ng-if="vm.tab11.packages_current.price <= 0 && !vm.tab11.packages_current.modules.data[0].company_module.data.expiration_date &&
+                            vm.tab11.packages_current.slug != 'cep_enterprise'"
+                            translate="COMPANY_EDIT.PACKAGES.FREE"></div>
+                        <div ng-if="vm.tab11.packages_current.price > 0 && vm.tab11.packages_current.slug != 'cep_enterprise'">
+                            <span class="price">{{(vm.tab11.packages_current.price / 100).toFixed(2) }}</span>
+                            {{vm.tab11.currency}}
+                            <span ng-if="vm.tab11.packages_current.subscription.data && vm.tab11.packages_current.subscription.data.active">/
+                                <span ng-if="vm.tab11.packages_current.days == 30" translate="COMPANY_EDIT.PACKAGES.MONTH_SHORT"></span>
+                                <span ng-if="vm.tab11.packages_current.days == 365" translate="COMPANY_EDIT.PACKAGES.YEAR"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="collapse-body" ng-if="vm.tab11.packages_current.togglePackage">
+                    <div class="package-info" flex layout="row" layout-align="flex-start flex-start"
+                        ng-if="vm.tab11.packages_current.slug != 'cep' && vm.tab11.packages_current.slug != 'cep_enterprise'">
+                        <md-icon md-font-icon="icon-information-outline" class="s42 grey-400-fg mt-0 mr-20"></md-icon>
+                        <div flex>
+                            <h2 translate="COMPANY_EDIT.PACKAGES.CHANGE_OR_RENEW_TITLE"></h2>
+                            <p translate="COMPANY_EDIT.PACKAGES.CHANGE_OR_RENEW_DESC_1"></p>
+                            <p translate="COMPANY_EDIT.PACKAGES.CHANGE_OR_RENEW_DESC_2"></p>
+                        </div>
+                    </div>
+                    <md-table-container>
+                        <table md-table>
+                            <thead md-head>
+                            <tr class="module-header" md-row>
+                                <th md-column class="status"><span translate="COMPANY_EDIT.PACKAGES.STATUS"></span></th>
+                                <th md-column><span translate="OTHER.NAME"></span></th>
+                                <th md-column><span translate="COMPANY_EDIT.PACKAGES.AVAILABLE"></span></th>
+                                <th md-column ng-if="vm.tab11.packages_current.slug != 'cep' && vm.tab11.packages_current.slug != 'cep_enterprise'">
+                                    <span translate="COMPANY_EDIT.PACKAGES.INCREASE_IN_ACTUAL_PEROID"></span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody md-body>
+                            <tr class="module-row" md-row ng-repeat="module in vm.tab11.packages_current.modules.data"
+                                ng-if="module.visible && !(vm.tab11.packages_current.slug === 'cep' && module.slug == 'projects.integrations.hubstaff')">
+                                <td class="status" md-cell>
+                                    <md-icon class="icon icon-checkbox-marked-outline green-500-fg"
+                                             ng-if="['0', '', 0].indexOf(module.company_module.data.value) == -1">
+                                        <md-tooltip><span translate="COMPANY_EDIT.PACKAGES.STATUS_LIST.ACTIVE"></span></md-tooltip>
+                                    </md-icon>
+                                    <md-icon ng-if="['0', '', 0].indexOf(module.company_module.data.value) > -1" class="icon icon-checkbox-blank-outline grey-300-fg">
+                                        <md-tooltip><span translate="COMPANY_EDIT.PACKAGES.STATUS_LIST.INACTIVE"></span></md-tooltip>
+                                    </md-icon>
+                                </td>
+                                <td class="name" md-cell>
+                                    <span translate="COMPANY_EDIT.PACKAGES.MODULES_LIST.{{vm.tab11.replaceModuleSlug(module.slug)}}"></span>
+                                    <span ng-if="vm.tab11.used.hasOwnProperty(module.slug)">
+                                        (<span translate="COMPANY_EDIT.PACKAGES.CURRENT"></span>:
+                                        <span ng-if="module.slug == 'projects.disc.volume'">
+                                            ~{{vm.tab11.used[module.slug].current.toFixed(2)}}GB)
+                                        </span>
+                                        <span ng-if="module.slug != 'projects.disc.volume'">
+                                            {{vm.tab11.used[module.slug].current}})
+                                        </span>
+                                    </span>
+                                </td>
+                                <td class="action" md-cell>
+                                    <div flex layout="row" layout-align="start center">
+                                        <div flex layout="row" layout-align="end center" class="input-change" ng-if="module.mods_count > 1">
+                                            <md-input-container class="md-block" md-no-float flex>
+                                                <label><span translate="COMPANY_EDIT.PACKAGES.VALUE"></span></label>
+                                                <md-select ng-model="vm.tab11.getModule(module).selected_mod" ng-change="vm.tab11.calculate(vm.tab11.packages_current)">
+                                                    <md-option ng-value="mod.id" ng-repeat="mod in vm.tab11.getMods(module)" ng-if="!mod.test"
+                                                               ng-disabled="mod.value != '' && mod.value != 'unlimited' && mod.value > 1 && mod.value < vm.tab11.used[module.slug].current">
+                                                        <span ng-if="mod.value == '' || mod.value == '0'" translate="COMPANY_EDIT.PACKAGES.DISABLED"></span>
+                                                        <span ng-if="mod.value == '1' " translate="COMPANY_EDIT.PACKAGES.ENABLED"></span>
+                                                        <span ng-if="mod.value != '' && mod.value != '0' && mod.value != '1'" >
+                                                            {{ 'COMPANY_EDIT.PACKAGES.UP_TO' | translate }} {{mod.value}}
+                                                            {{ 'COMPANY_EDIT.PACKAGES.UP_TO_ITEMS.' + vm.tab11.replaceModuleSlug(module.slug) | translate}}
+                                                        </span>
+                                                        <div ng-if="vm.tab11.getPriceChangeModule(module, mod.id, true) != 0">
+                                                            {{(vm.tab11.getPriceChangeModule(module, mod.id, true) / 100).toFixed(2)}} {{vm.tab11.currency}}
+                                                            {{ 'COMPANY_EDIT.PACKAGES.WITH_VAT' | translate }}
+                                                            <span ng-if="vm.tab11.packages_current.selected_days == 30" translate="COMPANY_EDIT.PACKAGES.PER_MONTH"></span>
+                                                            <span ng-if="vm.tab11.packages_current.selected_days == 365" translate="COMPANY_EDIT.PACKAGES.PER_YEAR"></span>
+                                                        </div>
+                                                    </md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </div>
+                                        <div flex layout="row" layout-align="start center" ng-if="module.mods_count == 1 && module.company_module.data.value != '0'">
+                                            <span ng-if="module.company_module.data.value == 'unlimited'" translate="COMPANY_EDIT.PACKAGES.UNLIMITED"></span>
+                                            <span ng-if="module.company_module.data.value != 'unlimited'">
+                                                {{module.company_module.data.value}}
+                                                <span ng-if="module.slug == 'projects.disc.volume'" >GB</span>
+                                                <span ng-if="module.slug == 'projects.file.size'" >MB</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="increase_immediately" ng-if="vm.tab11.packages_current.slug != 'cep' && vm.tab11.packages_current.slug != 'cep_enterprise'" md-cell>
+                                    <div ng-if="
+                                        (!vm.tab11.packages_current.subscription.data || !vm.tab11.packages_current.subscription.data.active) &&
+                                        (vm.tab11.canChangeModule(vm.tab11.getModule(module)) && vm.tab11.packages_current.price > 0) &&
+                                        vm.tab11.moduleValueIncreased(module)">
+                                        <md-button class="md-raised md-accent md-button" ng-click="vm.tab11.changeModule(vm.tab11.getModule(module))">
+                                            <span translate="COMPANY_EDIT.PACKAGES.INCREASE_IMMEDIATELY"></span>
+                                        </md-button>
+                                        <div class="font-size-12 grey-600-fg p-10">
+                                            {{(vm.tab11.getPriceChangeModule(module, vm.tab11.getModule(module).selected_mod) / 100).toFixed(2)}} {{vm.tab11.currency}}
+                                            {{ 'COMPANY_EDIT.PACKAGES.WITH_VAT' | translate }}
+                                            {{ 'COMPANY_EDIT.PACKAGES.FOR_THE_REST_DAYS' | translate }}.
+                                        </div>
+                                        <div class="font-size-10 grey-600-fg pl-10 pr-10">
+                                            {{ 'COMPANY_EDIT.PACKAGES.FOR_THE_REST_DAYS_INFO' | translate }}.
+                                        </div>
+                                    </div>
+                                    <span ng-else class="grey-300-fg text-center">-</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+
+                    <div flex layout="column" layout-align="start stretch" ng-if="vm.tab11.packages_current.modules_list">
+                        <!-- renew -->
+                        <div ng-if="(vm.tab11.canRenew(vm.tab11.packages_current, 30) || vm.tab11.canRenew(vm.tab11.packages_current, 365))"
+                            class="activate-option package-info" flex layout="row" layout-align="start center">
+                            <md-icon md-font-icon="icon-debug-step-over" class="s42 grey-400-fg mr-20"></md-icon>
+                            <div flex>
+                                <h2 translate="COMPANY_EDIT.PACKAGES.RENEW_TITLE"></h2>
+                                <p>{{ 'COMPANY_EDIT.PACKAGES.RENEW_DESC' | translate }}:</p>
+                                <div flex layout="row" layout-align="start center" layout-wrap>
+                                    <div class="mr-10 mb-10">
+                                        <div class="font-size-10 grey-500-fg">{{ 'COMPANY_EDIT.PACKAGES.TO_PAY' | translate }}:</div>
+                                        <div class="font-size-20">
+                                            {{(vm.tab11.packages_current.current_price / 100).toFixed(2)}} {{vm.tab11.currency}}
+                                            <span translate="COMPANY_EDIT.PACKAGES.WITH_VAT"></span>
+                                        </div>
+                                    </div>
+                                    <md-input-container class="md-block min-width-100 mt-10 mb-10" md-no-float flex>
+                                        <label><span translate="COMPANY_EDIT.PACKAGES.TIME"></span></label>
+                                        <md-select ng-model="vm.tab11.packages_current.selected_days" ng-change="vm.tab11.calculate(vm.tab11.packages_current)">
+                                            <md-option ng-value="30" ng-if="vm.tab11.canRenew(vm.tab11.packages_current, 30)"><span translate="COMPANY_EDIT.PACKAGES.MONTH"></span></md-option>
+                                            <md-option ng-value="365" ng-if="vm.tab11.canRenew(vm.tab11.packages_current, 365)"><span translate="COMPANY_EDIT.PACKAGES.YEAR"></span></md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                    <md-button class="md-raised md-accent md-button" ng-click="vm.tab11.renewPackage(vm.tab11.packages_current)">
+                                        <span translate="COMPANY_EDIT.PACKAGES.RENEW"></span>
+                                    </md-button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- change -->
+                        <div ng-if="vm.tab11.canChange(vm.tab11.packages_current)"
+                            class="activate-option package-info" flex layout="row" layout-align="start center">
+                            <md-icon md-font-icon="icon-content-duplicate" class="s42 grey-400-fg mt-0 mr-20"></md-icon>
+                            <div flex>
+                                <md-button class="md-raised md-accent md-button" ng-click="vm.tab11.changePackage(vm.tab11.packages_current)">
+                                    <span translate="COMPANY_EDIT.PACKAGES.CHANGE_PACKAGE"></span>
+                                </md-button>
+                            </div>
+                        </div>
+                        <!-- cancel -->
+                        <div ng-if="vm.tab11.packages_current.subscription.data && vm.tab11.packages_current.subscription.data.active"
+                            class="activate-option package-info" flex layout="row" layout-align="start center">
+                            <md-icon md-font-icon="icon-cellphone-link-off" class="s42 grey-400-fg mt-0 mr-20"></md-icon>
+                            <div flex>
+                                <md-button class="md-raised md-accent md-button" ng-click="vm.tab11.cancelSubscription(vm.tab11.packages_current.subscription.data.id, vm.tab11.packages_current)">
+                                    <span translate="COMPANY_EDIT.PACKAGES.CANCEL_SUBSCRIPTION"></span>
+                                </md-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- packages other -->
+            <div class="collapse" ng-repeat="(index, package) in vm.tab11.packages"
+                ng-if="package.id != vm.tab11.packages_current.id && vm.tab11.packages_current.slug != 'cep_enterprise'">
+                <div class="collapse-header md-accent-fg md-white-bg" ng-click="vm.tab11.togglePackage(package, true)"
+                    flex layout-gt-xs="row" layout-align-gt-xs="space-between center" layout-xs="column" layout-align-xs="start start">
+                    <div class="collapse-header__title" flex layout="row" layout-align="flex-start center">
+                        <div>
+                            <md-icon class="md-font material-icons icon icon-menu-down" ng-class="{'icon-menu-down': package.togglePackage, 'icon-menu-right': !package.togglePackage }"></md-icon>
+                        </div>
+                        <div>
+                            <span translate="COMPANY_EDIT.PACKAGES.PACKAGES_LIST.{{package.slug}}"></span>
+                        </div>
+                    </div>
+                    <div class="collapse-header__description">
+                        <div ng-if="package.price <= 0" translate="COMPANY_EDIT.PACKAGES.FREE"></div>
+                        <div ng-if="package.price > 0">
+                            {{ 'COMPANY_EDIT.PACKAGES.FROM' | translate }}
+                            <span class="price">{{(package.price / 100).toFixed(2) }}</span>
+                            {{vm.tab11.currency}}/{{ 'COMPANY_EDIT.PACKAGES.MONTH_SHORT' | translate}}
+                        </div>
+                    </div>
+                </div>
+                <div class="collapse-body" ng-if="package.togglePackage">
+                    <md-table-container ng-if="package.modules_list.length > 0">
+                        <table md-table>
+                            <thead md-head>
+                            <tr class="module-header" md-row>
+                                <th md-column class="status"><span translate="COMPANY_EDIT.PACKAGES.STATUS"></span></th>
+                                <th md-column><span translate="OTHER.NAME"></span></th>
+                                <th md-column><span translate="COMPANY_EDIT.PACKAGES.AVAILABLE"></span></th>
+                            </tr>
+                            </thead>
+                            <tbody md-body>
+                            <tr class="module-row" md-row ng-repeat="module in package.modules_list"
+                                ng-if="module.visible && !(package.slug === 'cep' && module.slug == 'projects.integrations.hubstaff')">
+                                <td class="status" md-cell>
+                                    <md-icon class="icon icon-checkbox-marked-outline green-500-fg" ng-if="vm.tab11.isActiveInOtherPackage(module)">
+                                        <md-tooltip><span translate="COMPANY_EDIT.PACKAGES.STATUS_LIST.ACTIVE"></span></md-tooltip>
+                                    </md-icon>
+                                    <md-icon class="icon icon-checkbox-marked-outline green-500-fg"
+                                        ng-if="!vm.tab11.isActiveInOtherPackage(module) && !vm.tab11.selectedModGetError(module) && !vm.tab11.isFreeMod(module)">
+                                        <md-tooltip><span translate="COMPANY_EDIT.PACKAGES.STATUS_LIST.AVAILABLE"></span></md-tooltip>
+                                    </md-icon>
+                                    <md-icon ng-if="vm.tab11.isFreeMod(module)" class="icon icon-checkbox-blank-outline grey-300-fg">
+                                        <md-tooltip><span translate="COMPANY_EDIT.PACKAGES.STATUS_LIST.INACTIVE"></span></md-tooltip>
+                                    </md-icon>
+                                    <md-icon ng-if="vm.tab11.selectedModGetError(module) == 'unavailable_value'" class="icon icon-block-helper red-500-fg">
+                                        <md-tooltip><span translate="COMPANY_EDIT.PACKAGES.STATUS_LIST.UNAVAILABLE"></span></md-tooltip>
+                                    </md-icon>
+                                    <md-icon ng-if="vm.tab11.selectedModGetError(module) == 'waiting_for_payment'" class="icon icon-clock orange-500-fg">
+                                        <md-tooltip><span translate="COMPANY_EDIT.PACKAGES.STATUS_LIST.WAITING"></span></md-tooltip>
+                                    </md-icon>
+                                </td>
+                                <td class="name" md-cell>
+                                    <span translate="COMPANY_EDIT.PACKAGES.MODULES_LIST.{{vm.tab11.replaceModuleSlug(module.slug)}}"></span>
+                                </td>
+                                <td class="action" md-cell>
+                                    <div flex layout="row" layout-align="end center" class="input-change" ng-if="vm.tab11.getCountMods(module) > 1">
+                                        <md-input-container class="md-block" md-no-float flex>
+                                            <label><span translate="COMPANY_EDIT.PACKAGES.VALUE"></span></label>
+                                            <md-select ng-model="module.selected_mod" ng-change="vm.tab11.calculate(package)">
+                                                <md-option ng-value="mod.id" ng-repeat="mod in module.mods.data" ng-if="!mod.test">
+                                                    <span ng-if="mod.value == '' || mod.value == '0'" translate="COMPANY_EDIT.PACKAGES.DISABLED"></span>
+                                                    <span ng-if="mod.value == '1' " translate="COMPANY_EDIT.PACKAGES.ENABLED"></span>
+                                                    <span ng-if="mod.value != '' && mod.value != '0' && mod.value != '1'" >
+                                                        {{ 'COMPANY_EDIT.PACKAGES.UP_TO' | translate }} {{mod.value}}
+                                                        {{ 'COMPANY_EDIT.PACKAGES.UP_TO_ITEMS.' + vm.tab11.replaceModuleSlug(module.slug) | translate }}
+                                                    </span>
+                                                    <div ng-if="vm.tab11.getPriceChangeModule(module, mod.id, true, package) != 0">
+                                                        {{(vm.tab11.getPriceChangeModule(module, mod.id, true, package) / 100).toFixed(2)}} {{vm.tab11.currency}}
+                                                        {{ 'COMPANY_EDIT.PACKAGES.WITH_VAT' | translate }}
+                                                        <span ng-if="package.selected_days == 30" translate="COMPANY_EDIT.PACKAGES.PER_MONTH"></span>
+                                                        <span ng-if="package.selected_days == 365" translate="COMPANY_EDIT.PACKAGES.PER_YEAR"></span>
+                                                    </div>
+                                                </md-option>
+                                            </md-select>
+                                        </md-input-container>
+                                    </div>
+                                    <!--<div flex layout="row" layout-align="start center" ng-if="vm.tab11.getCountMods(module) == 1 && module.company_module.data.value != '0'">-->
+                                    <div flex layout="row" layout-align="start center" ng-if="vm.tab11.getCountMods(module) == 1 && vm.tab11.getSelectedMod(module).value != '0'">
+                                        <span ng-if="vm.tab11.getSelectedMod(module).value == 'unlimited'" translate="COMPANY_EDIT.PACKAGES.UNLIMITED"></span>
+                                        <span ng-if="vm.tab11.getSelectedMod(module).value != 'unlimited'">
+                                            {{vm.tab11.getSelectedMod(module).value}}
+                                            <span ng-if="module.slug == 'projects.disc.volume'">GB</span>
+                                            <span ng-if="module.slug == 'projects.file.size'">MB</span>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+                    <div flex layout="column" layout-align="start stretch" ng-if="package.modules_list">
+                        <!-- test -->
+                        <div ng-if="vm.tab11.canTest(package)" class="activate-option" flex layout="column" layout-align="center start">
+                            <div class="package-info" flex layout="row" layout-align="flex-start center">
+                                <md-icon md-font-icon="icon-auto-fix" class="s42 grey-400-fg mr-20"></md-icon>
+                                <div flex>
+                                    <h3 translate="COMPANY_EDIT.PACKAGES.TRIAL_DESC"></h3>
+                                    <md-button class="md-raised md-accent md-button" ng-click="vm.tab11.testPackage(package)">
+                                        <span translate="COMPANY_EDIT.PACKAGES.TRIAL"></span>
+                                    </md-button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- change -->
+                        <div ng-if="package.price > 0 && vm.tab11.canChange(package)" class="activate-option" flex layout="column" layout-align="start stretch">
+                            <div class="package-info" flex layout="row" layout-align="flex-start center">
+                                <md-icon md-font-icon="icon-content-duplicate" class="s42 grey-400-fg mr-20"></md-icon>
+                                <div flex>
+                                    <h3 translate="COMPANY_EDIT.PACKAGES.CHANGE_IMMEDIATELY"></h3>
+                                    <div flex layout-gt-xs="row" layout-align-gt-xs="start center" layout-xs="column" layout-align-xs="start start">
+                                        <div flex class="mr-10 mb-15">
+                                            <div class="font-size-10 grey-500-fg">{{ 'COMPANY_EDIT.PACKAGES.TO_PAY' | translate }}:</div>
+                                            <div>
+                                                <span class="font-size-20">{{(package.current_price_change / 100).toFixed(2)}} {{vm.tab11.currency}}</span>
+                                                <span translate="COMPANY_EDIT.PACKAGES.WITH_VAT" class="font-size-20"></span>
+                                                <span translate="COMPANY_EDIT.PACKAGES.FOR_THE_REST_DAYS" class="font-size-14"></span>.
+                                            </div>
+                                            <div class="font-size-10 grey-600-fg">
+                                                <span translate="COMPANY_EDIT.PACKAGES.FOR_THE_REST_DAYS_INFO"></span>.
+                                            </div>
+                                        </div>
+                                        <md-button class="md-raised md-accent md-button" ng-click="vm.tab11.changePackage(package)">
+                                            <span translate="COMPANY_EDIT.PACKAGES.CHANGE_PACKAGE"></span>
+                                        </md-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- buy -->
+                        <div ng-if="package.price > 0 && (vm.tab11.canRenew(package, 30) || vm.tab11.canRenew(package, 365))"
+                            class="activate-option" flex layout="column" layout-align="start stretch">
+                            <div class="package-info" flex layout="row" layout-align="flex-start center">
+                                <md-icon md-font-icon="icon-cart-outline" class="s42 grey-400-fg mr-20"></md-icon>
+                                <div flex>
+                                    <h3 translate="COMPANY_EDIT.PACKAGES.BUY_PACKAGE"></h3>
+                                    <div flex layout="row" layout-align="start center" layout-wrap>
+                                        <div class="mr-10 mb-15">
+                                            <div class="font-size-10 grey-500-fg">{{ 'COMPANY_EDIT.PACKAGES.TO_PAY' | translate }}:</div>
+                                            <div class="font-size-20">
+                                                {{(package.current_price / 100).toFixed(2)}} {{vm.tab11.currency}}
+                                                <span translate="COMPANY_EDIT.PACKAGES.WITH_VAT"></span>
+                                            </div>
+                                        </div>
+                                        <md-input-container class="md-block min-width-100" md-no-float flex>
+                                            <label><span translate="COMPANY_EDIT.PACKAGES.TIME"></span></label>
+                                            <md-select ng-model="package.selected_days" ng-change="vm.tab11.calculate(package)">
+                                                <md-option ng-value="30" ng-if="vm.tab11.canRenew(package, 30)"><span translate="COMPANY_EDIT.PACKAGES.MONTH"></span></md-option>
+                                                <md-option ng-value="365" ng-if="vm.tab11.canRenew(package, 365)"><span translate="COMPANY_EDIT.PACKAGES.YEAR"></span></md-option>
+                                            </md-select>
+                                        </md-input-container>
+                                        <md-button class="md-raised md-accent md-button" ng-click="vm.tab11.renewPackage(package)">
+                                            <span translate="COMPANY_EDIT.PACKAGES.BUY"></span>
+                                        </md-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- additional modules (external) -->
+            <!--<div class="collapse">-->
+                <!--<div class="collapse-header md-white-fg md-accent-bg" ng-click="vm.tab11.toggleModules(true)" flex layout="row" layout-align="space-between center">-->
+                    <!--<div class="collapse-header__title" flex layout="row" layout-align="flex-start center">-->
+                        <!--<div>-->
+                            <!--<md-icon class="md-font material-icons icon icon-menu-down" ng-class="{'icon-menu-down': vm.tab11.additional_modules.toggled, 'icon-menu-right': !vm.tab11.additional_modules.toggled }"></md-icon>-->
+                        <!--</div>-->
+                        <!--<div translate="COMPANY_EDIT.PACKAGES.ADDITIONAL_MODULES"></div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="collapse-body active" ng-if="vm.tab11.additional_modules.toggled">-->
+                    <!--<md-table-container ng-if="vm.tab11.additional_modules.current.length > 0">-->
+                        <!--<table md-table>-->
+                            <!--<thead md-head>-->
+                            <!--<tr class="module-header" md-row>-->
+                                <!--<th md-column colspan="3"><span translate="COMPANY_EDIT.PACKAGES.MODULES_ACTIVE"></span></th>-->
+                            <!--</tr>-->
+                            <!--</thead>-->
+                            <!--<tbody md-body>-->
+                            <!--<tr class="module-row" md-row ng-repeat="module in vm.tab11.additional_modules.current"-->
+                            <!--ng-class="{'active': vm.tab11.modHasError(module.module.data, 'module_mod_currently_used') || vm.tab11.modHasError(module.module.data, 'module_mod_currently_used_can_extend'),-->
+                             <!--'waiting': vm.tab11.modHasError(module.module.data, 'waiting_for_payment')}">-->
+
+                                <!--<td class="status" md-cell>-->
+                                    <!--<md-icon class="icon icon-checkbox-marked-outline green-500-fg"-->
+                                             <!--ng-if="vm.tab11.modHasError(module.module.data, 'module_mod_currently_used') || vm.tab11.modHasError(module.module.data, 'module_mod_currently_used_can_extend')">-->
+                                        <!--<md-tooltip><span translate="COMPANY_EDIT.PACKAGES.STATUS_LIST.ACTIVE"></span></md-tooltip>-->
+                                    <!--</md-icon>-->
+                                    <!--&lt;!&ndash;<md-icon ng-if="!module.module.data.mods.data[0].error" class="icon icon-checkbox-blank-outline grey-300-fg">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<md-tooltip><span translate="COMPANY_EDIT.PACKAGES.STATUS_LIST.INACTIVE"></span></md-tooltip>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</md-icon>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<md-icon ng-if="module.module.data.mods.data[module.module.data.mods.data.length - 1].error == 'unavailable_value'" class="icon icon-block-helper red-500-fg ">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<md-tooltip><span translate="COMPANY_EDIT.PACKAGES.STATUS_LIST.UNAVAILABLE"></span></md-tooltip>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</md-icon>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<md-button ng-if="module.status == 0 && module.price > 0" class="md-icon-button md-button" ng-click="">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<md-icon class="icon icon-checkbox-blank-outline grey-300-fg">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<md-tooltip>Kliknij, aby aktywować</md-tooltip>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</md-icon>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
+                                    <!--<md-icon ng-if="vm.tab11.modHasError(module.module.data, 'waiting_for_payment')" class="icon icon-clock orange-500-fg">-->
+                                        <!--<md-tooltip><span translate="COMPANY_EDIT.PACKAGES.STATUS_LIST.WAITING"></span></md-tooltip>-->
+                                    <!--</md-icon>-->
+                                <!--</td>-->
+                                <!--<td class="name" md-cell>-->
+                                    <!--<span translate="COMPANY_EDIT.PACKAGES.MODULES_LIST.{{vm.tab11.replaceModuleSlug(module.module.data.slug)}}"></span>-->
+                                <!--</td>-->
+                                <!--<td class="action" md-cell>-->
+                                    <!--<div flex layout="row" layout-align="end center">-->
+                                        <!--<md-input-container class="md-block" md-no-float flex ng-show="module.module.data.mods.data.length > 1">-->
+                                            <!--<label><span translate="COMPANY_EDIT.PACKAGES.VALUE"></span></label>-->
+                                            <!--<md-select ng-model="module.module.data.selected_mod">-->
+                                                <!--<md-option ng-value="mod.id" ng-repeat="mod in module.module.data.mods.data">{{mod.value}}</md-option>-->
+                                            <!--</md-select>-->
+                                        <!--</md-input-container>-->
+                                        <!--<md-input-container class="md-block" md-no-float flex ng-if="!module.has_active_subscription">-->
+                                            <!--<label><span translate="COMPANY_EDIT.PACKAGES.TIME"></span></label>-->
+                                            <!--<md-select ng-model="module.module.data.selected_days">-->
+                                                <!--<md-option ng-value="30" ng-if="vm.tab11.enableDaysRenewModule(module.module.data, 30)"><span translate="COMPANY_EDIT.PACKAGES.MONTH"></span> {{vm.tab11.gePriceMod(module.module.data, 30)}}</md-option>-->
+                                                <!--<md-option ng-value="365" ng-if="vm.tab11.enableDaysRenewModule(module.module.data, 365)"><span translate="COMPANY_EDIT.PACKAGES.YEAR"></span> {{vm.tab11.gePriceMod(module.module.data, 365)}}</md-option>-->
+                                            <!--</md-select>-->
+                                        <!--</md-input-container>-->
+                                        <!--<md-button class="md-raised md-accent md-button" ng-click="vm.tab11.renewModule(module.module.data)" ng-disabled="!vm.tab11.canRenewModule(module.module.data)" ng-if="!module.has_active_subscription">-->
+                                            <!--<span translate="COMPANY_EDIT.PACKAGES.RENEW"></span>-->
+                                        <!--</md-button>-->
+                                        <!--<md-button class="md-raised md-accent md-button" ng-click="vm.tab11.changeModule(module.module.data)" ng-disabled="!vm.tab11.canChangeModule(module.module.data)" ng-if="!module.has_active_subscription">-->
+                                            <!--<span translate="COMPANY_EDIT.PACKAGES.CHANGE"></span>-->
+                                        <!--</md-button>-->
+                                        <!--<md-button ng-if="module.has_active_subscription"-->
+                                                   <!--class="md-raised md-accent md-button" ng-click="vm.tab11.cancelSubscription(module.subscription_id, null)">-->
+                                            <!--<span translate="COMPANY_EDIT.PACKAGES.CANCEL_SUBSCRIPTION"></span>-->
+                                        <!--</md-button>-->
+                                        <!--<md-button class="md-raised md-accent md-button" ng-click="vm.tab11.disableModule(module.module_id)">-->
+                                            <!--<span translate="COMPANY_EDIT.PACKAGES.DISABLE_MODULE"></span>-->
+                                        <!--</md-button>-->
+                                    <!--</div>-->
+                                    <!--<div flex layout="row" layout-align="end center" ng-if="module.expiration_date">-->
+                                        <!--<span ng-if="module.has_active_subscription">-->
+                                            <!--<span translate="COMPANY_EDIT.PACKAGES.RENEW_SUBSCRIPTION"></span>-->
+                                            <!--{{module.expiration_date}}-->
+                                        <!--</span>-->
+                                        <!--<span ng-if="!module.has_active_subscription">-->
+                                            <!--<span translate="COMPANY_EDIT.PACKAGES.EXPIRES"></span>-->
+                                            <!--{{module.expiration_date}}-->
+                                        <!--</span>-->
+                                    <!--</div>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--</tbody>-->
+                        <!--</table>-->
+                    <!--</md-table-container>-->
+                    <!--<md-table-container ng-if="vm.tab11.additional_modules.available.length > 0">-->
+                        <!--<table md-table>-->
+                            <!--<thead md-head>-->
+                            <!--<tr class="module-header" md-row>-->
+                                <!--<th md-column colspan="3"><span translate="COMPANY_EDIT.PACKAGES.MODULES_AVAILABLE"></span></th>-->
+                            <!--</tr>-->
+                            <!--</thead>-->
+                            <!--<tbody md-body>-->
+                            <!--<tr class="module-row" md-row ng-repeat="module in vm.tab11.additional_modules.available"-->
+                                <!--ng-class="{'waiting': module.mods.data[0].error == 'waiting_for_payment'}"-->
+                                <!--ng-if="module.hide !== true">-->
+
+                                <!--<td class="status" md-cell>-->
+                                    <!--<md-icon class="icon icon-checkbox-marked-outline green-500-fg"-->
+                                             <!--ng-if="module.mods.data[0].error == 'module_mod_currently_used' || module.mods.data[0].error == 'module_mod_currently_used_can_extend'">-->
+                                        <!--<md-tooltip><span translate="COMPANY_EDIT.PACKAGES.STATUS_LIST.ACTIVE"></span></md-tooltip>-->
+                                    <!--</md-icon>-->
+                                    <!--<md-icon ng-if="!module.mods.data[0].error" class="icon icon-checkbox-blank-outline grey-300-fg">-->
+                                        <!--<md-tooltip><span translate="COMPANY_EDIT.PACKAGES.STATUS_LIST.INACTIVE"></span></md-tooltip>-->
+                                    <!--</md-icon>-->
+                                    <!--<md-icon ng-if="module.mods.data[module.mods.data.length - 1].error == 'unavailable_value' || module.mods.data[0].error == 'free_package_now_used'" class="icon icon-block-helper red-500-fg ">-->
+                                        <!--<md-tooltip><span translate="COMPANY_EDIT.PACKAGES.STATUS_LIST.UNAVAILABLE"></span></md-tooltip>-->
+                                    <!--</md-icon>-->
+                                    <!--&lt;!&ndash;<md-button ng-if="module.status == 0 && module.price > 0" class="md-icon-button md-button" ng-click="">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<md-icon class="icon icon-checkbox-blank-outline grey-300-fg">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<md-tooltip>Kliknij, aby aktywować</md-tooltip>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</md-icon>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
+                                    <!--<md-icon ng-if="module.mods.data[0].error == 'waiting_for_payment'" class="icon icon-clock orange-500-fg">-->
+                                        <!--<md-tooltip><span translate="COMPANY_EDIT.PACKAGES.STATUS_LIST.WAITING"></span></md-tooltip>-->
+                                    <!--</md-icon>-->
+                                <!--<td class="name" md-cell>-->
+                                    <!--<span translate="COMPANY_EDIT.PACKAGES.MODULES_LIST.{{vm.tab11.replaceModuleSlug(module.slug)}}"></span>-->
+                                <!--</td>-->
+                                <!--<td class="action" md-cell>-->
+                                    <!--<div flex layout="row" layout-align="end center">-->
+                                        <!--<md-input-container class="md-block" md-no-float flex ng-show="module.mods.data.length > 1">-->
+                                            <!--<label><span translate="COMPANY_EDIT.PACKAGES.VALUE"></span></label>-->
+                                            <!--<md-select ng-model="module.selected_mod">-->
+                                                <!--<md-option ng-value="mod.id" ng-repeat="mod in module.mods.data">{{mod.value}}</md-option>-->
+                                            <!--</md-select>-->
+                                        <!--</md-input-container>-->
+                                        <!--<md-input-container class="md-block" md-no-float flex>-->
+                                            <!--<label><span translate="COMPANY_EDIT.PACKAGES.TIME"></span></label>-->
+                                            <!--<md-select ng-model="module.selected_days">-->
+                                                <!--<md-option ng-value="30" ng-if="vm.tab11.enableDaysRenewModule(module, 30)"><span translate="COMPANY_EDIT.PACKAGES.MONTH"></span> {{vm.tab11.gePriceMod(module, 30)}}</md-option>-->
+                                                <!--<md-option ng-value="365" ng-if="vm.tab11.enableDaysRenewModule(module, 365)"><span translate="COMPANY_EDIT.PACKAGES.YEAR"></span> {{vm.tab11.gePriceMod(module, 365)}}</md-option>-->
+                                            <!--</md-select>-->
+                                        <!--</md-input-container>-->
+                                        <!--<md-button class="md-raised md-accent md-button" ng-click="vm.tab11.renewModule(module)" ng-disabled="!vm.tab11.canRenewModule(module)">-->
+                                            <!--<span translate="COMPANY_EDIT.PACKAGES.TURN_ON"></span>-->
+                                        <!--</md-button>-->
+                                        <!--<md-button class="md-raised md-accent md-button" ng-click="vm.tab11.testModule(module)" ng-if="vm.tab11.canTestModule(module)">-->
+                                            <!--<span translate="COMPANY_EDIT.PACKAGES.TRIAL"></span>-->
+                                        <!--</md-button>-->
+                                    <!--</div>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--</tbody>-->
+                        <!--</table>-->
+                    <!--</md-table-container>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+
+    </div>
+</div>

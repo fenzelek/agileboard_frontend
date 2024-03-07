@@ -1,0 +1,34 @@
+#add-edit-directory-knowledge-dialog {
+  background-color: #fff;
+  overflow: hidden;
+
+  md-toolbar {
+    font-size: 17px;
+    background-color: #fff;
+    border-bottom: 1px solid #AAAAAA;
+    color: #000;
+    height: auto;
+    min-height: 40px;
+  }
+
+  md-dialog-content {
+    padding-top: 10px;
+  }
+
+  md-dialog-actions {
+    border-top: 1px solid #AAAAAA;
+  }
+
+  .title {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .directory-name {
+    font-size: 18px;    
+  }
+
+  .form-wrapper {
+    width: 100%;
+  }
+}

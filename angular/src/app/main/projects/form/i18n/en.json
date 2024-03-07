@@ -1,0 +1,74 @@
+{
+    "PROJECTS_FORM": {
+        "TITLE_ADD": "New project",
+        "TITLE_EDIT": "Edit project",
+        "SHORT_NAME": "Short name",
+        "USERS_DATA": "Users in project",
+        "ADD_MORE": "Add more...",
+        "CREATE_USER": "Invite new users",
+        "FIRST_TASK_NUMBER": "First task number",
+        "CALENDAR_REALIZATION_STATUS": "Calendar ticket realization status",
+        "OPTION_DISABLED": "Option disabled",
+        "CLIENT_ACCESS_TIME": "Client can see tracked time",
+        "TICKETS_WITH_TIME": "Set time in ticket schedule dates also",
+        "EMAIL_NOTIFICATION_ENABLED": "Emails notifications enabled",
+        "SLACK_NOTIFICATION_ENABLED": "Slack notifications enabled",
+        "SLACK_WEBHOOK_URL": "Slack webhook url",
+        "SLACK_CHANNEL": "Slack channel (e.g. general)",
+        "SLACK_INFO_1": "Generate a webhook url on the website",
+        "SLACK_INFO_2": "https://{team}.slack.com/apps/A0F7XDUAZ-incoming-webhooks",
+        "SLACK_INFO_3": "by inserting your team name in place of {team}.",
+        "NOTIFICATIONS_LANGUAGE": "Notifications language",
+        "POLISH": "Polish",
+        "ENGLISH": "English",
+        "COLOR": "Mark",
+        "CLONE_DESC": "You can clone any existing project",
+        "PRIVILEGES": {
+            "ticket_show": "Tasks visiblity",
+            "ticket_show_DESC": "Define which user roles can see tickets, e.g. select 'All' if user should see everything, select only 'Assigned' to see only tickets assigned to the user etc.",
+            "ticket": "Tasks operations",
+            "ticket_DESC": "",
+            "ticket_comment": "Task comments operations",
+            "ticket_comment_DESC": "",
+            "GROUPS": {
+                "owner": "Owner",
+                "admin": "Admin",
+                "user": "User",
+                "developer": "User",
+                "client": "Client",
+                "create": "Create",
+                "update": "Update",
+                "destroy": "Delete"
+            },
+            "ROLES": {
+                "owner": "Owner",
+                "admin": "Admin",
+                "user": "User",
+                "developer": "User",
+                "client": "Client"
+            },
+            "RELATIONS": {
+                "reporter": "Reporter",
+                "assigned": "Assigned",
+                "not_assigned": "Not assigned",
+                "all": "All",
+                "user": "Author"
+            }
+        },
+
+        "UPDATE_SUCCESS": "Updated project successfully",
+        "ADD_SUCCESS": "Added project successfully",
+        "TABS": {
+            "BASIC": "Basic",
+            "NOTIFICATIONS": "Notifications",
+            "PRIVILEGES": "Privileges"
+        }
+    },
+    "ERRORS": {
+        "NOT_UNIQUE": "This short name already exists. Plese enter a defferent one.",
+        "package": {
+            "limit_reached" : "You have reached the limit of the active package. Please update your package.",
+            "too_many_users" : "You are trying to add too many users to the project."
+        }
+    }
+}

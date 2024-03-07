@@ -1,0 +1,167 @@
+{
+    "data":
+    [
+        {
+            "user": {
+                "id": 1,
+                "email": "test1@example.com",
+                "first_name": "test1",
+                "last_name": "test1",
+                "avatar": ""
+            },
+            "workloads": [
+                {
+                    "start_at": "2018-07-02 00:00:00",
+                    "end_at": "2018-07-03 00:00:00",
+                    "rate": 90,
+                    "project": {
+                        "id": 1,
+                        "name": "Project One",
+                        "color": "md-green-800-bg"
+                    },
+                    "sprint": {
+                        "id": 1,
+                        "name": "Sprint One"
+                    }
+                },
+                {
+                    "start_at": "2018-07-09 00:00:00",
+                    "end_at": "2018-07-13 00:00:00",
+                    "rate": 15,
+                    "project": {
+                        "id": 1,
+                        "name": "Project One",
+                        "color": "md-green-800-bg"
+                    },
+                    "sprint": {
+                        "id": 1,
+                        "name": "Sprint Two"
+                    }
+                }
+            ]
+        },
+        {
+            "user": {
+                "id": 2,
+                "email": "test2@example.com",
+                "first_name": "test2",
+                "last_name": "test2",
+                "avatar": ""
+            },
+            "workloads": [
+                {
+                    "start_at": "2018-07-05 00:00:00",
+                    "end_at": "2018-07-13 00:00:00",
+                    "rate": 100,
+                    "project": {
+                        "id": 1,
+                        "name": "Project One",
+                        "color": "md-green-800-bg"
+                    },
+                    "sprint": {
+                        "id": 1,
+                        "name": "Sprint One"
+                    }
+                },
+                {
+                    "start_at": "2018-07-16 00:00:00",
+                    "end_at": "2018-07-30 00:00:00",
+                    "rate": 70,
+                    "project": {
+                        "id": 2,
+                        "name": "Project Two",
+                        "color": "md-red-800-bg"
+                    },
+                    "sprint": {
+                        "id": 3,
+                        "name": "Sprint One"
+                    }
+                },
+                {
+                    "start_at": "2018-07-12 00:00:00",
+                    "end_at": "2018-07-29 00:00:00",
+                    "rate": 45,
+                    "project": {
+                        "id": 3,
+                        "name": "Project Three",
+                        "color": "md-red-300-bg"
+                    },
+                    "sprint": {
+                        "id": 4,
+                        "name": "Sprint One"
+                    }
+                }
+            ]
+        },
+        {
+            "user": {
+                "id": 3,
+                "email": "test3@example.com",
+                "first_name": "test3",
+                "last_name": "test3",
+                "avatar": ""
+            },
+            "workloads": [
+                {
+                    "start_at": "2018-07-05 00:00:00",
+                    "end_at": "2018-07-13 00:00:00",
+                    "rate": 100,
+                    "project": {
+                        "id": 1,
+                        "name": "Project One",
+                        "color": "md-green-800-bg"
+                    },
+                    "sprint": {
+                        "id": 1,
+                        "name": "Sprint One"
+                    }
+                },
+                {
+                    "start_at": "2018-07-16 00:00:00",
+                    "end_at": "2018-07-30 00:00:00",
+                    "rate": 70,
+                    "project": {
+                        "id": 4,
+                        "name": "Project Four",
+                        "color": "md-green-300-bg"
+                    },
+                    "sprint": {
+                        "id": 5,
+                        "name": "Sprint One"
+                    }
+                },
+                {
+                    "start_at": "2018-07-12 00:00:00",
+                    "end_at": "2018-07-29 00:00:00",
+                    "rate": 45,
+                    "project": {
+                        "id": 3,
+                        "name": "Project Three",
+                        "color": "md-red-300-bg"
+                    },
+                    "sprint": {
+                        "id": 4,
+                        "name": "Sprint One"
+                    }
+                },
+                {
+                    "start_at": "2018-07-02 00:00:00",
+                    "end_at": "2018-07-11 00:00:00",
+                    "rate": 55,
+                    "project": {
+                        "id": 5,
+                        "name": "Super Project Super Project Super Project",
+                        "color": "md-blue-800-bg"
+                    },
+                    "sprint": {
+                        "id": 5,
+                        "name": "Sprint Super"
+                    }
+                }
+            ]
+        }
+    ],
+    "date_start":"2018-07-01",
+    "date_end":"2018-08-02",
+    "exec_time":3.0985
+}

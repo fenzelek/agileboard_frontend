@@ -1,0 +1,11 @@
+{
+  "TIME_TRACKER": {
+    "TITLE": "Screenshots",
+    "SUM_TIME": "Total time",
+    "NO_TICKET": "No task",
+    "NO_ACTIVITIES": "No activities",
+    "NO_SCREENS": "No screenshots",
+    "ACTIVITY": "Activity",
+    "PREVIEW_HINT": "Click to show preview"
+  }
+}

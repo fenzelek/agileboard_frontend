@@ -1,0 +1,358 @@
+<div id="invoice-form" class="page-layout simple fullwidth doc-page" layout="column">
+
+	<!-- HEADER -->
+	<div class="header md-accent-bg" layout="row" layout-align="space-between">
+		<div layout="column" layout-align="space-between" flex="100">
+			<div layout="row">
+				<div class="title" translate="INVOICES_FORM_CORRECTION.TITLE_ADD" flex="70"></div>
+				<div flex="30" layout="row" layout-align="end center">
+					<md-button href="/invoices/list" class="md-raised" aria-label="Go Back" translate="OTHER.GO_BACK" translate-attr-aria-label="OTHER.GO_BACK">
+						Go Back
+					</md-button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- / HEADER -->
+
+	<!-- CONTENT -->
+	<div class="content" layout="column">
+		<a name="up"></a>
+		<div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+		<div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+		<div layout="row">
+
+			<div class="form-wrapper  rounded-container min-1000 max-1000">
+
+				<form id="formCorrectionInvoice" name="formCorrectionInvoice" novalidate ng-submit="vm.send()">
+
+					<div class="form-title" translate="INVOICES_FORM_CORRECTION.TYPE"></div>
+
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex-gt-sm >
+							<label><span translate="INVOICES_FORM_CORRECTION.TYPE"></span></label>
+							<md-select ng-model="vm.form.correction_type" required name="correction_type" ng-if="!translate_loading" ng-disabled="vm.form.correction_type != ''">
+								<md-option ng-value="type.slug" ng-repeat="type in vm.correction_types" >{{type.description}}</md-option>
+							</md-select>
+						</md-input-container>
+						<md-input-container class="md-block" flex-gt-sm >
+						</md-input-container>
+					</div>
+
+					<div ng-if="vm.form.correction_type != ''">
+						<div class="form-title" translate="INVOICES_FORM_CORRECTION.GENERAL"></div>
+
+						<div layout-gt-sm="row">
+							<md-input-container class="md-block" flex-gt-sm>
+								<label><span translate="INVOICES_FORM_CORRECTION.ISSUE_DATE"></span></label>
+								<input ng-model="vm.form.issue_date" name="issue_date" moment-picker="vm.form.issue_date" format="YYYY-MM-DD" start-view="decade" locale="pl">
+								<div ng-messages="formCorrectionInvoice.issue_date.$error">
+									<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+								</div>
+							</md-input-container>
+							<md-input-container class="md-block" flex-gt-sm>
+								<label><span translate="INVOICES_FORM_CORRECTION.SALE_DATE"></span></label>
+								<input ng-model="vm.form.sale_date" name="sale_date" moment-picker="vm.form.sale_date" format="YYYY-MM-DD" start-view="decade" locale="pl" >
+								<div ng-messages="formCorrectionInvoice.sale_date.$error">
+									<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+								</div>
+							</md-input-container>
+							<md-input-container class="md-block" flex-gt-sm ng-if="vm.type != 'margin_correction' && vm.type != 'reverse_charge_correction' && vat_payer" >
+								<label><span translate="INVOICES_FORM_CORRECTION.COUNT_TAX"></span></label>
+								<md-select ng-model="vm.form.gross_counted" required name="gross_counted" ng-if="!translate_loading"  ng-disabled="true" >
+									<md-option ng-value="0" ><span translate="INVOICES_FORM_CORRECTION.FROM_NET"></span></md-option>
+									<md-option ng-value="1" ><span translate="INVOICES_FORM_CORRECTION.FROM_GROSS"></span></md-option>
+								</md-select>
+							</md-input-container>
+							<md-input-container class="md-block" flex-gt-sm ng-if="vm.type == 'margin_correction'" >
+								<label><span translate="INVOICES_FORM_CORRECTION.MARGIN_PROCEDURES"></span></label>
+								<md-select ng-model="vm.form.invoice_margin_procedure_id" required name="invoice_margin_procedure_id" ng-if="!translate_loading" ng-disabled="true"  >
+									<md-option ng-value="procedure.id" ng-repeat="procedure in vm.margin_procedures" >{{procedure.description}}</md-option>
+								</md-select>
+								<div ng-messages="formInvoice.invoice_margin_procedure_id.$error">
+									<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+								</div>
+							</md-input-container>
+						</div>
+
+						<div class="form-title mb-10" translate="INVOICES_FORM_CORRECTION.CLIENT"></div>
+
+						<div layout-gt-sm="row" layout-wrap="" ng-if="vm.contractor.id" class="mb-30 ml-30">
+							{{vm.contractor.name}}<br>
+							<div layout="row" flex="100">
+								{{ vm.contractor.main_address_street }}
+								{{ vm.contractor.main_address_number }},
+								{{ vm.contractor.main_address_zip_code }}
+								{{ vm.contractor.main_address_city }}
+							</div>
+							<div layout="row" flex="100">
+								<span translate="INVOICES_FORM_CORRECTION.VATIN"></span>: {{vm.contractor.vatin}}
+							</div>
+						</div>
+
+						<div class="form-title mb-10" translate="INVOICES_FORM_CORRECTION.PRODUCTS"></div>
+
+						<div layout="row">
+							<div class="table-wrapper table-products">
+								<md-table-container>
+									<table md-table>
+										<thead md-head >
+										<tr md-row md-row hide-xs hide-sm>
+											<th md-column><span translate="OTHER.No">Lp.</span></th>
+											<th md-column width="40%"><span translate="INVOICES_FORM_CORRECTION.PRODUCT"></span></th>
+											<th md-column width="10%"><span translate="INVOICES_FORM_CORRECTION.QUANTITY"></span></th>
+											<th md-column width="10%" ><span translate="INVOICES_FORM_CORRECTION.UNIT"></span></th>
+											<th md-column width="10%" ng-if="!vm.form.gross_counted"><span translate="INVOICES_FORM_CORRECTION.PRICE_NET"></span></th>
+											<th md-column width="10%" ng-if="!vm.form.gross_counted"><span translate="INVOICES_FORM_CORRECTION.PRICE_NET_SUM"></span></th>
+											<th md-column width="10%" ng-if="vm.form.gross_counted">
+												<span ng-if="vat_payer" translate="INVOICES_FORM_CORRECTION.PRICE_GROSS"></span>
+												<span ng-if="!vat_payer" translate="INVOICES_FORM_CORRECTION.PRICE"></span>
+											</th>
+											<th md-column width="10%" ng-if="vm.form.gross_counted">
+												<span ng-if="vat_payer" translate="INVOICES_FORM_CORRECTION.PRICE_GROSS_SUM"></span>
+												<span ng-if="!vat_payer" translate="INVOICES_FORM_CORRECTION.PRICE_SUM"></span>
+											</th>
+											<th md-column width="10%" ng-if="vat_payer"><span translate="INVOICES_FORM_CORRECTION.TAX"></span></th>
+											<th md-column><span translate="OTHER.ACTION">Akcje</span></th>
+										</tr>
+										</thead>
+										<tbody md-body>
+										<tr md-row ng-repeat="item in vm.form.items">
+											<td md-cell>{{ ($index + 1) }}</td>
+											<td md-cell>
+												<md-input-container class="md-block" flex-gt-sm>
+													<label hide-gt-sm ><span translate="INVOICES_FORM_CORRECTION.PRODUCT"></span></label>
+													<md-autocomplete autocomplete-required ng-disabled="!item.new_obj" ng-if="!item.new_obj"
+																	 md-input-name="company_service_id_{{$index}}"
+																	 ng-model-options="{debounce:200}"
+																	 md-selected-item="item.current_service"
+																	 md-search-text="item.search_text"
+																	 md-items="item in vm.searchProducts(item.search_text)"
+																	 md-item-text="item.name">
+														<md-item-template>
+															<span md-highlight-text="item.search_text">{{item.name}}</span>
+														</md-item-template>
+														<md-not-found><span translate="OTHER.NOT_FOUND"></span></md-not-found>
+													</md-autocomplete>
+													<div ng-messages="formCorrectionInvoice['company_service_id_'+$index].$error">
+														<div ng-message="selectedItem" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+													</div>
+												</md-input-container>
+												<md-input-container class="md-block input-style" flex="100" ng-if="item.custom_name_enable && vm.custom_name_products_enable" >
+													<input ng-model="item.custom_name" name="custom_name_{{$index}}" required ng-maxlength="255" ng-disabled="!item.new_obj" >
+													<div ng-messages="formCorrectionInvoice['custom_name_'+$index].$error">
+														<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+														<div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_255"></span></div>
+													</div>
+												</md-input-container>
+												<div ng-if="item.custom_name_enable && !item.new_obj">
+													<span translate="INVOICES_FORM_CORRECTION.CUSTOM_NAME"></span> {{item.custom_name}}
+												</div>
+											</td>
+											<td md-cell>
+												<md-input-container class="md-block input-style" flex-gt-sm  ng-if="!item.new_obj || vm.form.correction_type != 'quantity'" >
+													<label hide-gt-sm ><span translate="INVOICES_FORM_CORRECTION.QUANTITY"></span></label>
+													<input ng-model="item.quantity" name="quantity_{{$index}}" type="number" ng-disabled="true">
+												</md-input-container>
+												<md-input-container class="md-block input-style" flex-gt-sm  ng-if="item.new_obj && vm.form.correction_type == 'quantity'">
+													<label hide-gt-sm ><span translate="INVOICES_FORM_CORRECTION.QUANTITY"></span></label>
+													<input ng-model="item.quantity" name="quantity_{{$index}}" required type="number" step="{{item.service_unit.decimal ? 0.001 : 1}}" min="{{(-1 * vm.form.items[$index-1].quantity)}}" max="{{item.service_unit.decimal ? -0.001 : -1}}">
+													<div ng-messages="formCorrectionInvoice['quantity_'+$index].$error">
+														<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+														<div ng-message="number" ><span translate="ERRORS.FORM.NUMBER_NEGATIVE"></span></div>
+														<div ng-message="min" ><span translate="ERRORS.FORM.NUMBER_TOO_SMALL"></span></div>
+														<div ng-message="max" >
+															<span ng-if="!item.service_unit.decimal" translate="ERRORS.FORM.MAX_M1"></span>
+															<span ng-if="item.service_unit.decimal" translate="ERRORS.FORM.MAX_M001"></span>
+														</div>
+														<div ng-message="step" >
+															<span ng-if="!item.service_unit.decimal" translate="ERRORS.FORM.INTEGER_NEGATIVE"></span>
+															<span ng-if="item.service_unit.decimal" translate="ERRORS.FORM.NUMBER_NEGATIVE_3_DP"></span>
+														</div>
+													</div>
+												</md-input-container>
+											</td>
+											<td md-cell>
+												<md-input-container class="md-block select-style" flex-gt-sm>
+													<label hide-gt-sm ><span translate="INVOICES_FORM_CORRECTION.UNIT"></span></label>
+													<md-select ng-model="item.service_unit_id" required name="service_unit_id_{{$index}}" ng-disabled="true" >
+														<md-option ng-value="null" ></md-option>
+														<md-option ng-value="unit.id" ng-repeat="unit in vm.units" ng-if="unit.id">{{unit.slug}}</md-option>
+													</md-select>
+													<div ng-messages="formCorrectionInvoice['service_unit_id_'+$index].$error">
+														<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+													</div>
+												</md-input-container>
+											</td>
+											<td md-cell>
+												<md-input-container class="md-block input-style" flex-gt-sm  ng-if="!vm.form.gross_counted">
+													<label hide-gt-sm ><span translate="INVOICES_FORM_CORRECTION.PRICE_NET"></span></label>
+													<input ng-model="item.price_net" name="price_net_{{$index}}" required type="number" step="0.01" min="0.01" ng-disabled="!item.new_obj || vm.form.correction_type != 'price'" >
+													<div ng-messages="formCorrectionInvoice['price_net_'+$index].$error">
+														<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+														<div ng-message="number" ><span translate="ERRORS.FORM.NUMBER_2_DP"></span></div>
+														<div ng-message="min" ><span translate="ERRORS.FORM.NUMBER_2_DP"></span></div>
+														<div ng-message="step" ><span translate="ERRORS.FORM.NUMBER_2_DP"></span></div>
+													</div>
+												</md-input-container>
+												<md-input-container class="md-block input-style" flex-gt-sm  ng-if="vm.form.gross_counted">
+													<label hide-gt-sm >
+														<span ng-if="vat_payer" translate="INVOICES_FORM_CORRECTION.PRICE_GROSS"></span>
+														<span ng-if="!vat_payer" translate="INVOICES_FORM_CORRECTION.PRICE"></span>
+													</label>
+													<input ng-model="item.price_gross" name="price_gross_{{$index}}" required type="number" step="0.01" min="0.01" ng-disabled="!item.new_obj || vm.form.correction_type != 'price'" >
+													<div ng-messages="formCorrectionInvoice['price_gross_'+$index].$error">
+														<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+														<div ng-message="number" ><span translate="ERRORS.FORM.NUMBER_2_DP"></span></div>
+														<div ng-message="min" ><span translate="ERRORS.FORM.NUMBER_2_DP"></span></div>
+														<div ng-message="step" ><span translate="ERRORS.FORM.NUMBER_2_DP"></span></div>
+													</div>
+												</md-input-container>
+											</td>
+											<td md-cell="">
+												<md-input-container class="md-block input-style" flex-gt-sm  ng-if="!vm.form.gross_counted">
+													<label hide-gt-sm ><span translate="INVOICES_FORM_CORRECTION.PRICE_NET_SUM"></span></label>
+													<input ng-model="item.price_net_sum" required ng-disabled="true">
+												</md-input-container>
+												<md-input-container class="md-block input-style" flex-gt-sm  ng-if="vm.form.gross_counted">
+													<label hide-gt-sm >
+														<span ng-if="vat_payer" translate="INVOICES_FORM_CORRECTION.PRICE_GROSS_SUM"></span>
+														<span ng-if="!vat_payer" translate="INVOICES_FORM_CORRECTION.PRICE_SUM"></span>
+													</label>
+													<input ng-model="item.price_gross_sum" required ng-disabled="true">
+												</md-input-container>
+											</td>
+											<td md-cell ng-if="vat_payer">
+												<md-input-container class="md-block select-style" flex-gt-sm>
+													<label hide-gt-sm ><span translate="INVOICES_FORM_CORRECTION.TAX"></span></label>
+													<md-select ng-model="item.vat_rate_id" required name="vat_rate_id_{{$index}}" ng-disabled="!item.new_obj || vm.form.correction_type != 'tax'" >
+														<md-option ng-value="null" ></md-option>
+														<md-option ng-value="tax.id" ng-repeat="tax in vm.taxes" >{{tax.name}}</md-option>
+													</md-select>
+													<div ng-messages="formCorrectionInvoice['vat_rate_id'+$index].$error">
+														<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+													</div>
+												</md-input-container>
+											</td>
+											<td md-cell>
+												<md-button type="button" class="md-raised md-accent" ng-click="vm.addProductCorrection($index)" ng-if="!item.new_obj && !item.is_correction" translate="INVOICES_FORM_CORRECTION.ADD_CORRECTION" >
+													ADD
+												</md-button>
+												<md-button class="md-fab md-mini md-warn" ng-click="vm.deleteProductCorrection($index)" ng-if="vm.form.items.length > 1 && item.new_obj" >
+													<md-icon md-font-icon="icon-close-circle font-size-22"></md-icon>
+												</md-button>
+											</td>
+										</tr>
+										</tbody>
+									</table>
+								</md-table-container>
+							</div>
+						</div>
+
+
+						<div class="form-title mb-10" translate="INVOICES_FORM_CORRECTION.SUMMARY"></div>
+
+						<div layout-gt-sm="row">
+							<md-input-container class="md-block" flex-gt-sm>
+								<label><span translate="INVOICES_FORM_CORRECTION.TERM"></span></label>
+								<input ng-model="vm.payment_date" name="payment_date" moment-picker="vm.payment_date" format="YYYY-MM-DD" start-view="year" locale="pl" min-date="vm.form.issue_date" max-date="vm.stop_callendar" ng-disabled="vm.disabled_payment_date">
+								<div ng-messages="formCorrectionInvoice.payment_date.$error">
+									<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+								</div>
+							</md-input-container>
+							<md-input-container class="md-block" flex-gt-sm>
+								<label><span translate="INVOICES_FORM_CORRECTION.PAYMENT_METHOD"></span></label>
+								<md-select ng-model="vm.form.payment_method_id" required name="payment_method_id" ng-if="!translate_loading">
+									<md-option ng-value="payment_method.id" ng-repeat="payment_method in vm.payment_methods" >{{payment_method.name}}</md-option>
+								</md-select>
+								<div ng-messages="formCorrectionInvoice.payment_method_id.$error">
+									<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+								</div>
+							</md-input-container>
+						</div>
+
+						<div layout-gt-sm="row" ng-if="vm.company.bank_accounts.data.length > 1 && vm.form.payment_method_id == 2">
+							<md-input-container class="md-block" flex-gt-sm>
+								<label><span translate="INVOICES_FORM_CORRECTION.BANK_ACCOUNT"></span></label>
+								<md-select ng-model="vm.form.bank_account_id" required name="bank_account" ng-if="!translate_loading" >
+									<md-option ng-value="bank_account.id" ng-repeat="bank_account in vm.company.bank_accounts.data">
+										{{bank_account.bank_name}}
+									</md-option>
+								</md-select>
+								<div ng-messages="formInvoice.bank_account.$error">
+									<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+								</div>
+							</md-input-container>
+						</div>
+
+						<div layout-gt-sm="row" ng-if="!vm.is_extra_item">
+							<md-input-container class="md-block" flex-gt-sm>
+								<md-checkbox ng-model="vm.show_description" >
+									<span translate="INVOICES_FORM_CORRECTION.DESCRIPTION"></span>
+								</md-checkbox>
+							</md-input-container>
+						</div>
+
+						<div layout-gt-sm="row"  ng-if="vm.show_description">
+							<md-input-container class="md-block" flex-gt-sm>
+								<label><span translate="INVOICES_FORM_CORRECTION.DESCRIPTION"></span></label>
+								<textarea ng-model="vm.form.description" ng-maxlength="1000" name="description" ></textarea>
+							</md-input-container>
+						</div>
+
+						<div layout-gt-sm="row" class="mb-30 ml-30" >
+							<div class="table-wrapper width-auto" ng-if="vm.form.taxes.length && vat_payer"  flex-gt-sm>
+								<md-table-container>
+									<table md-table md-progress="vm.promise">
+										<thead md-head >
+										<tr md-row>
+											<th md-column md-numeric><span translate="INVOICES_FORM_CORRECTION.TAX"></span></th>
+											<th md-column md-numeric><span translate="INVOICES_FORM_CORRECTION.PRICE_NET_SUM"></span></th>
+											<th md-column md-numeric><span translate="INVOICES_FORM_CORRECTION.PRICE_GROSS_SUM"></span></th>
+										</tr>
+										</thead>
+										<tbody md-body>
+										<tr md-row ng-repeat="tax in vm.form.taxes">
+											<td md-cell>{{vm.taxes[tax.vat_rate_id].name}}</td>
+											<td md-cell>{{ tax.price_net.toFixed(2) | numFormat}}zł</td>
+											<td md-cell>{{ tax.price_gross.toFixed(2) | numFormat}}zł</td>
+										</tr>
+										</tbody>
+									</table>
+								</md-table-container>
+							</div>
+							<div layout-gt-sm="row" layout-wrap="" flex-gt-sm class="p-20 font-size-18">
+								<div layout="row" flex="100" layout-align="end center">
+									<div class="block">
+										<span ng-if="vat_payer"><span translate="INVOICES_FORM_CORRECTION.PRICE_NET_SUMMARY"></span>: <b>&nbsp;{{vm.form.price_net.toFixed(2) | numFormat}}zł</b><br></span>
+										<span ng-if="vat_payer" ><span translate="INVOICES_FORM_CORRECTION.PRICE_GROSS_SUMMARY"></span>: <b>&nbsp;{{vm.form.price_gross.toFixed(2) | numFormat}}zł</b></span>
+										<span ng-if="!vat_payer" ><span translate="INVOICES_FORM_CORRECTION.PRICE_SUMMARY"></span>: <b>&nbsp;{{vm.form.price_gross.toFixed(2) | numFormat}}zł</b></span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<div layout-gt-sm="row">
+							<md-input-container class="md-block" flex-gt-sm>
+								<span class="require">*</span> <span translate="INFO.REQUIRE_INFO"></span>
+							</md-input-container>
+						</div>
+
+						<div layout="row"  layout-align="end none">
+							<md-button href="/invoices/list" class="md-raised" aria-label="Go Back" translate="OTHER.GO_BACK" translate-attr-aria-label="OTHER.GO_BACK">
+								Go Back
+							</md-button>
+							<md-button type="submit" class="md-raised md-accent" aria-label="SAVE"
+									   ng-disabled="formCorrectionInvoice.$invalid || (formCorrectionInvoice.$pristine && vm.form.correction_type != 'quantity') || vm.request_sending"
+									   translate="INVOICES_FORM_CORRECTION.SAVE"
+									   translate-attr-aria-label="INVOICES_FORM_CORRECTION.SAVE">
+							</md-button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

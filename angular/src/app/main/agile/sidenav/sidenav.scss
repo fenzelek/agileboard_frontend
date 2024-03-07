@@ -1,0 +1,471 @@
+// Filters sidenav
+.preview-sidenav {
+    z-index: 51;
+    box-shadow: $whiteframe-shadow-8dp;
+    overflow-x: hidden;
+
+    #file-upload-area {
+
+        &.is-dragover {
+
+            &::before {
+                content: '\e9a8';
+                font-family: icomoon;
+                color: rgba(0,0,0,0.16);
+                speak: none;
+                font-style: normal;
+                font-weight: 400;
+                font-variant: normal;
+                text-transform: none;
+                font-size: 60px;
+                width: 60px;
+                display: block;
+
+                position: absolute;
+                z-index: 99;
+                top: 50%;
+                left: 50%;
+                margin-left: -30px;
+            }
+            md-content {
+                opacity: 0.62;
+            }
+        }
+    }
+
+    .upload-file-info {
+        margin: 15px 0 10px 10px;
+        font-size: 12px;
+        opacity: 0.62;
+        text-align: left;
+    }
+
+    .md-toolbar-tools {
+        .menu-title {
+            font-size: 16px;
+            text-align: center;
+
+            .ticket-title-name {
+                position: relative;
+
+                .title-overflow {
+                    max-height: 60px;
+                    max-width: 210px;
+                    padding: 0 5px;
+                    overflow: hidden;
+                    cursor: pointer;
+                }
+
+                .inline-errors {
+                  color: #ffffff;
+                }
+            }
+
+
+            .ticket-title-edit {
+                display: none;
+                position: absolute;
+                bottom: -3px;
+                right: -13px;
+                cursor: pointer;
+
+                .icon {
+                    min-width: auto;
+                    min-height: auto;
+                }
+            }
+            &:hover {
+                .ticket-title-edit {
+                    display: block;
+                }
+            }
+
+        }
+
+        .more {
+            margin-left: 0;
+        }
+
+        .close {
+            position: absolute;
+            right: 0;
+            top: 0;
+            margin: 0;
+            margin-bottom: -5px;
+            padding: 0;
+            width: 30px;
+        }
+    }
+
+    md-content {
+        overflow-x: hidden;
+        position: absolute;
+        top: 64px;
+        bottom: 64px;
+        left: 0;
+        right: 0;
+        padding: 12px 10px 20px 5px;
+
+        md-divider {
+            margin: 10px 0;
+        }
+        .md-subheader{
+            margin: 16px;
+        }
+        .label {
+            .label-icon {
+                margin-top: auto;
+                margin-bottom: auto;
+            }
+        }
+
+        .card-breadcrumb {
+            font-weight: 500;
+            font-size: 14px;
+            margin-bottom: 12px;
+            margin-left: 20px;
+            margin-top: 5px;
+            color: lightgray;
+        }
+
+        .card-subscribe {
+            margin-right: 8px;
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .card-name {
+            font-size: 24px;
+        }
+
+        .due-date {
+
+
+            .picker {
+                font-size: 12px;
+                background: material-color('grey', '200');
+                padding: 8px 5px;
+                border-radius: 8px;
+                color: rgba(0,0,0,0.62);
+
+                //&:hover {
+                //    background: material-color('grey', '300');
+                //}
+
+                i {
+                    margin-right: 8px;
+                }
+            }
+
+            .picker + .picker {
+                margin-left: 8px;
+            }
+
+            .moment-picker-container {
+                margin-top: 8px;
+                right: 0;
+
+                &:before, &:after {
+                    right: 15px;
+                    left: auto;
+                }
+            }
+        }
+
+        .details {
+            margin: 4px 2px;
+            min-height: 20px;
+
+            .list-card-member-avatar {
+                vertical-align: middle;
+                margin-right: 4px;
+            }
+
+            &.description {
+                font-size: 1.4rem;
+
+                .inline-edit {
+                    width: 100%;
+
+                    .inline-text-input {
+                        width: 100%;
+                    }
+                }
+            }
+
+            .preview_title {
+                font-weight: bold;
+                line-height: 1.1;
+            }
+        }
+
+        .sections {
+
+            #additional-info {
+                padding-left: 5px;
+                margin-left: 5px;
+            }
+
+            .section {
+                border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+                margin-bottom: 32px;
+
+                &:last-child {
+                    border-bottom: none;
+                    margin-bottom: 0;
+
+                    .section-content {
+                        padding-bottom: 0;
+                    }
+                }
+
+                .section-header {
+                    font-size: 16px;
+
+                    i {
+                        margin-right: 8px;
+                        color: rgba(0, 0, 0, 0.6);
+                    }
+
+                    .section-title {
+                        font-weight: 500;
+                    }
+                }
+
+                .section-content {
+                    padding-bottom: 20px;
+                }
+
+                .attachments {
+                    border-top: 1px dotted lightgray;
+                    padding-top: 5px;
+                    margin-top: 16px;
+
+                    .attachment {
+                        margin: 0 16px 10px;
+                        width: 100px;
+                        line-height: 1.2;
+
+                        .preview {
+                            background: #FFFFFF;
+                            width: 100px;
+                            height: 100px;
+                            margin: 0 16px 6px 0;
+
+                            div {
+                                width: 100px;
+                                height: 100px;
+                                background-position: center center;
+                                background-repeat: no-repeat;
+                                background-size: contain;
+                            }
+                        }
+
+                        .link {
+                            font-size: 0.9em;
+                            margin-bottom: 2px;
+                        }
+
+                        .desc {
+                            font-size: 0.8em;
+                            color: rgba(0,0,0,0.62);
+                        }
+                    }
+                }
+
+                .checklist {
+
+                    .checklist-progress {
+                        margin-bottom: 16px;
+
+                        .checklist-progress-value {
+                            margin-right: 12px;
+                            font-weight: 500;
+                            white-space: nowrap;
+                            font-size: 14px;
+                        }
+
+                        .checklist-progressbar {
+                            //
+                        }
+                    }
+
+                    .check-items {
+
+                        .check-item {
+
+                            md-checkbox {
+
+                                .md-label {
+                                    font-size: 14px;
+                                }
+
+                                &.md-checked {
+
+                                    .md-label {
+                                        text-decoration: line-through;
+                                        color: rgba(0, 0, 0, 0.6);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .new-check-item-form {
+                        padding-top: 16px;
+
+                        md-input-container {
+                            margin: 0;
+                        }
+
+                        .md-button {
+                            margin: 0 0 0 16px;
+                        }
+                    }
+                }
+
+                .comments {
+                    border-top: 1px dotted lightgray;
+                    padding-top: 5px;
+                    margin-top: 10px;
+
+                    .comment {
+                        margin-bottom: 16px;
+
+                        .comment-member-avatar {
+                            width: 32px;
+                            height: 32px;
+                            border-radius: 50%;
+                            margin-right: 16px;
+                        }
+
+                        .comment-member-name {
+                            margin-top: 3px;
+                            font-size: 14px;
+                            font-weight: 700;
+                        }
+
+                        .comment-time {
+                            font-size: 12px;
+                            opacity: 0.5;
+
+                            i {
+                                margin-right: 3px;
+                                color: rgba(0,0,0,0.62);
+                            }
+
+                            .comment-time-edit {
+                                margin-left: 8px;
+                            }
+                        }
+
+                        .comment-bubble {
+                            position: relative;
+                            max-width: 250px;
+                            box-sizing: border-box;
+                            word-wrap: break-word;
+                            padding: 3px 5px;
+                            background-color: white;
+                            border: 1px solid rgb(220, 223, 225);
+                            font-size: 14px;
+                            margin: 4px 0;
+
+                            &:after,
+                                &:before {
+                                content: ' ';
+                                position: absolute;
+                                width: 0;
+                                height: 0;
+                            }
+
+                            &:after {
+                                left: -7px;
+                                right: auto;
+                                top: 0px;
+                                bottom: auto;
+                                border: 11px solid;
+                                border-color: white transparent transparent transparent;
+                            }
+
+                            &:before {
+                                left: -9px;
+                                right: auto;
+                                top: -1px;
+                                bottom: auto;
+                                border: 8px solid;
+                                border-color: rgb(220, 223, 225) transparent transparent transparent;
+                            }
+                        }
+
+                        &.new-comment {
+
+                            md-input-container {
+                                margin: 0;
+                                border: none;
+
+                                textarea {
+                                    font-size: 14px;
+                                    border: 1px solid rgb(220, 223, 225);
+                                    background-color: white;
+                                    padding: 8px;
+                                    min-height: 96px;
+                                }
+                            }
+                        }
+                    }
+
+                    .comments-info {
+                        margin: 0 0 10px 10px;
+                        font-size: 12px;
+                        opacity: 0.62;
+                        text-align: left;
+                    }
+                }
+
+                .activities {
+
+                    .activity {
+                        margin-bottom: 12px;
+
+                        .activity-member-avatar {
+                            width: 24px;
+                            height: 24px;
+                            border-radius: 50%;
+                            margin-right: 16px;
+                        }
+
+                        .activity-member-name {
+                            font-size: 14px;
+                            font-weight: 500;
+                            margin-right: 8px;
+                        }
+
+                        .activity-message {
+                            font-size: 14px;
+                            margin-right: 8px;
+                        }
+
+                        .activity-time {
+                            font-size: 12px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    .checklist-menu-content {
+        padding: 8px 16px 16px 16px;
+
+        md-input-container {
+            width: 100%;
+            margin: 8px 0 8px 0;
+        }
+
+        .md-button {
+            margin: 8px 0 0 0;
+        }
+    }
+
+
+}

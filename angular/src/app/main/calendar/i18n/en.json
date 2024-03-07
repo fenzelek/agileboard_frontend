@@ -1,0 +1,60 @@
+{
+    "CALENDAR": {
+        "SET_AVAILABILITY": "Set availability",
+        "AVAILABILITY_HOURS": "Availability hours:",
+        "OFFLINE_TITLE": "Till Date:",
+        "CALENDAR": "Calendar",
+        "SEARCH": "Search",
+        "TODAY": "Today",
+        "DAY": "Day",
+        "WEEK": "Week",
+        "MONTH": "Month",
+        "PREVIOUS": "Previous",
+        "NEXT": "Next",
+        "PRESENT": "Present",
+        "PERSON": "Person",
+        "ADD_EVENT": "Add event",
+        "EDIT_EVENT": "Edit event",
+        "CLOSE_DIALOG": "Close dialog",
+        "TITLE": "Title",
+        "AVAILABILITY": "Offline/Online",
+        "START_DATE": "Start Date",
+        "START_TIME": "Start Time",
+        "END_DATE": "End Date",
+        "END_TIME": "End Time",
+        "SELECT_DATE": "Select date",
+        "REPEAT": "Repeat",
+        "LOCATION": "Location",
+        "OFFLINE_REASON": "Reason",
+        "ADD_TIME_PERIOD": "+ Add Another Time Period",
+        "NOTES": "Notes",
+        "SAVE": "SAVE",
+        "DELETE": "Delete",
+        "CUSTOM_REASON": "Other reason",
+        "DESCRIPTION": "Description",
+        "PROJECT": "Project",
+        "DAYS_FREE": "Free days",
+        "NO_USERS_SELECTED": "No users selected",
+        "OVERTIME": "Overtime",
+        "AVAILABILITY_CONFIRMED": "Confirmed",
+        "GENERATE_REPORT": {
+            "MONTH": "Generate report for month",
+            "YEAR": "Generate reprt for year"
+        },
+        "REASON": {
+            "holidays": "Holidays",
+            "sick_note": "Sick note",
+            "day_off": "Day off",
+            "other": "Other"
+        },
+        "VIEWS": {
+            "WORKING_HOURS": "Working hours",
+            "TICKET_REALIZATION": "Task realizations",
+            "PLANNED_WORKS": "Planned works",
+            "GANTT_DIAGRAM": "Gant - sprints"
+        },
+        "ERRORS": {
+            "TITLE_REQUIRED": "Title field is required"
+        }
+    }
+}

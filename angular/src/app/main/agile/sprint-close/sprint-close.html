@@ -1,0 +1,37 @@
+<md-dialog aria-label="METHOD">
+    <div id="sprint-close-dialog">
+        <form id="sprintClose" name="sprintClose" >
+            <div layout-gt-sm="row">
+                <div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+                <div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+            </div>
+            <div class="mb-20">
+                <span translate="SPRINT_CLOSE.TITLE" class="font-size-16"></span>
+            </div>
+            <md-input-container class="md-block" md-no-float>
+                <label><span translate="SPRINT_CLOSE.SPRINT"></span></label>
+                <md-select ng-model="vm.form.sprint_id" required name="sprint_id">
+                    <md-option ng-value="null" translate="SPRINT_CLOSE.BACKLOG"></md-option>
+                    <md-option ng-value="sprint.id" ng-repeat="sprint in vm.sprints" ng-if="sprint.id != vm.form.id && sprint.id" >
+                        {{sprint.name}}
+                    </md-option>
+                </md-select>
+                <div ng-messages="sprintClose.sprint_id.$error">
+                    <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                </div>
+            </md-input-container>
+
+            <div layout-gt-sm="row"  layout-align="end none">
+                <md-button type="button" class="md-raised md-accent" aria-label="CANCEL"
+                           translate="OTHER.CANCEL" ng-click="vm.hide()"
+                           translate-attr-aria-label="OTHER.CANCEL">
+                </md-button>
+                <md-button type="button" class="md-raised md-accent" aria-label="SEND"
+                           ng-disabled="sprintClose.$invalid || vm.request_sending"
+                           translate="OTHER.OK" ng-click="vm.send()"
+                           translate-attr-aria-label="OTHER.OK">
+                </md-button>
+            </div>
+        </form>
+    </div>
+</md-dialog>

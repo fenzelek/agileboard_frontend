@@ -1,0 +1,10 @@
+{
+    "ERROR404": {
+        "CODE": "Page not found",
+        "MESSAGE": "Check the url you entered.",
+        "SUBMESSAGE": "If the problem reappears, contact administrator this page.",
+        "SUBMESSAGE_1": "phone",
+        "SUBMESSAGE_2": "e-mail",
+        "BACK": "Back to site"
+    }
+}

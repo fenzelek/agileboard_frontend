@@ -1,0 +1,138 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "email": "test1@example.com",
+            "first_name": "test1",
+            "last_name": "test1",
+            "role_id": 3,
+            "avatar": "",
+            "deleted": false,
+            "availabilities": {
+                "data": []
+            }
+        },
+        {
+            "id": 2,
+            "email": "test2@example.com",
+            "first_name": "test2",
+            "last_name": "test2",
+            "role_id": 1,
+            "avatar": "",
+            "deleted": false,
+            "availabilities": {
+                "data": []
+            }
+        },
+        {
+            "id": 3,
+            "email": "test3@example.com",
+            "first_name": "test3",
+            "last_name": "test3",
+            "role_id": 1,
+            "avatar": "",
+            "deleted": false,
+            "availabilities": {
+                "data": []
+            }
+        },
+        {
+            "id": 4,
+            "email": "test4@example.com",
+            "first_name": "test4",
+            "last_name": "test4",
+            "role_id": 1,
+            "avatar": "",
+            "deleted": false,
+            "availabilities": {
+                "data": []
+            }
+        },
+        {
+            "id": 5,
+            "email": "test5@example.com",
+            "first_name": "test5",
+            "last_name": "test5",
+            "role_id": 1,
+            "avatar": "",
+            "deleted": false,
+            "availabilities": {
+                "data": []
+            }
+        },
+        {
+            "id": 6,
+            "email": "test6@example.com",
+            "first_name": "test6",
+            "last_name": "test6",
+            "role_id": 1,
+            "avatar": "",
+            "deleted": false,
+            "availabilities": {
+                "data": []
+            }
+        },
+        {
+            "id": 7,
+            "email": "test7@example.com",
+            "first_name": "test7",
+            "last_name": "test7",
+            "role_id": 1,
+            "avatar": "",
+            "deleted": false,
+            "availabilities": {
+                "data": []
+            }
+        },
+        {
+            "id": 8,
+            "email": "test8@example.com",
+            "first_name": "test8",
+            "last_name": "test8",
+            "role_id": 1,
+            "avatar": "",
+            "deleted": false,
+            "availabilities": {
+                "data": []
+            }
+        },
+        {
+            "id": 9,
+            "email": "test9@example.com",
+            "first_name": "test9",
+            "last_name": "test9",
+            "role_id": 1,
+            "avatar": "",
+            "deleted": false,
+            "availabilities": {
+                "data": []
+            }
+        },
+        {
+            "id": 10,
+            "email": "test10@example.com",
+            "first_name": "test10",
+            "last_name": "test10",
+            "role_id": 1,
+            "avatar": "",
+            "deleted": false,
+            "availabilities": {
+                "data": []
+            }
+        },
+        {
+            "id": 11,
+            "email": "test11@example.com",
+            "first_name": "test11",
+            "last_name": "test11",
+            "role_id": 1,
+            "avatar": "",
+            "deleted": false,
+            "availabilities": {
+                "data": []
+            }
+        }
+    ],
+    "date_start":"2018-07-01",
+    "date_end":"2018-08-12"
+}

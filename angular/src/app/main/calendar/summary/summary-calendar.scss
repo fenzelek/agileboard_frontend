@@ -1,0 +1,42 @@
+#calendar.summary-calendar {
+
+    .calendar-content tr td, .calendar-content tr th {
+        width: 140px;
+        &:first-child {
+            width: 50px;
+        }
+    }
+
+    .calendar-scroll {
+        width: 100%;
+        height: calc(100% - 140px);
+        overflow: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .month-value + .month-value {
+        border-top: 1px dashed $box-border-color;
+        margin-top: 0.6rem;
+        padding-top: 0.6rem;
+    }
+
+    .month-col {
+        position: relative;
+    }
+
+    .print-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+    }
+
+    .select-item {
+        cursor: pointer;
+        md-checkbox {
+            pointer-events: none;
+            width: 20px;
+        }
+    }
+
+}

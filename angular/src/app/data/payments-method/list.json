@@ -1,0 +1,19 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Gotówka",
+            "default": 1
+        },
+        {
+            "id": 2,
+            "name": "Przelew",
+            "default": 0
+        },
+        {
+            "id": 3,
+            "name": "Pobranie",
+            "default": 0
+        }
+    ]
+}

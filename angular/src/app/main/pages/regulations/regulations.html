@@ -1,0 +1,215 @@
+<div id="regulations" class="flex-scrollable guest-layout" layout="column" ms-scroll>
+	<div id="regulations-wrapper" class="guest-wrapper" layout="column" layout-align="center center">
+		<div id="regulations-form" class="guest-form rounded-container">
+			<logo-sqr></logo-sqr>
+
+			<div class="title" translate="REGULATIONS.TITLE"></div>
+
+			<div class="text-justify">
+				<p>Niniejszy regulamin określa zasady świadczenia usług drogą elektroniczną przez Devpark sp. z o.o. z siedzibą w Komornikach za pomocą serwisu internetowego umieszczonego pod adresem {{ vm.app_name }}, na innych domenach wskazujących na poszczególne części serwisu.<br>
+				<h2>Definicje</h2>
+				<p>
+					Ilekroć w Regulaminie używane są następujące pojęcia, powinny one być rozumiane w następujący sposób:<br>
+					<b>Operator Serwisu: </b>Devpark sp. z o.o. z siedzibą w Komornikach, ul. Wspólna 15/1, wpisaną do rejestru przedsiębiorców prowadzonego przez Sąd Rejonowy Poznań, VIII Wydział Gospodarczy Krajowego Rejestru Sądowego pod numerem 0000458710, NIP PL7773231047;<br>
+					<b>Serwis: </b>serwis internetowy umieszczony w sieci Internet pod adresem głównym {{ vm.app_name }}, umożliwiający dostęp do Usług;<br>
+					<b>Usługa: </b>usługa świadczona w ramach Serwisu {{ vm.app_name }};<br>
+					<b>Użytkownik: </b>podmiot posiadający co najmniej ograniczoną zdolność do czynności prawnych, składający Zamówienie określające warunki umowy, na podstawie której Strony będą zobowiązane do świadczeń wynikających z Umowy;<br>
+					<b>Umowa: </b>umowa o świadczeniu Usług w sposób ciągły, rozliczana cyklicznie w powtarzających się okresach rozliczeniowych;<br>
+					<b>Abonament: </b>opłata uiszczana przez Użytkownika za świadczenie Usługi w danym okresie rozliczeniowym;<br>
+					<b>Okres rozliczeniowy: </b>okres jednego miesiąca albo inny okres rozliczania usług świadczonych w trybie abonamentowym;<br>
+					<b>Cennik: </b>aktualnie obowiązujący Cennik, zawierający listę Usług pozostających w ofercie oraz ich cenę.<br>
+				</p>
+				<h2>Zawarcie Umowy</h2>
+				<ol type="I">
+					<li>
+						Darmowe konto Użytkownika
+						<ol type="1">
+							<li>W celu zawierania Umów dotyczących poszczególnych Usług konieczne jest założenie indywidualnego konta Użytkownika w Serwisie. Prowadzenie konta Użytkownika jest darmowe. Zakładając konto Użytkownika, Użytkownik wyraża zgodę na akceptację warunków Regulaminu oraz obowiązany jest podać dane umożliwiające przesłanie mu linku aktywacyjnego do konta (poprawny adres konta e-mail).</li>
+						</ol>
+					</li>
+					<li>
+						Zawieranie umów dotyczących Usług
+						<ol type="1">
+							<li>W celu zawarcia Umowy dotyczącej konkretnej Usługi oferowanej przez Operatora Serwisu, Użytkownik wybiera interesującą go opcję Abonamentu widoczną na stronie dotyczącej tej Usługi, a następnie zaznacza, czy wystawiona ma być faktura VAT z tytułu świadczonych usług. Użytkownik zobowiązany jest podać wszelkie dane niezbędne do wystawienia faktury, w tym NIP. Użytkownik zagraniczny, posiadający NIP europejski, zobowiązany jest do uzupełnienia swoich danych firmowych o ten numer.</li>
+							<li>W przypadku wyboru Usługi w opcji płatnej Użytkownik zobowiązany jest do opłacenia tej Usługi w wysokości wskazanej w Cenniku oraz Zamówieniu za pomocą przelewu internetowego.</li>
+							<li>Użytkownik, chcąc uzyskać dostęp do funkcji, która nie występuje w wykupionym lub używanym przez Niego planie abonamentowym, zobowiązany jest do zmiany planu abonamentowego na wyższy, zgodnie z Cennikiem.</li>
+							<li>Użytkownik w ramach pakietu Standard może wykupić u Operatora pakiet godzin programistycznych oraz zlecić wykonanie spersonalizowanych funkcji uzupełniających świadczoną Usługę. Operator zastrzega sobie prawo do odrzucenia proponowanych rozwiązań, jeżeli takowe nie wpisują się w założone przez Operatora przeznaczenie systemu oraz prawo do udostępniania wszystkim Użytkownikom Serwisu dostępu do funkcji, których wykonanie zostało zlecone.</li>
+							<li>Umowa zostaje zawarta w momencie potwierdzenia zaksięgowania środków na koncie Operatora Serwisu. Użytkownik otrzyma automatyczne powiadomienie e-mailem o aktywacji usługi i jej okresie abonamentowym. W przypadku płatności kartą wypowiedzenie umowy możliwe jest w terminie do 14 dni przed zakończeniem opłaconego okresu abonamentowego, w przeciwnym wypadku usługa zostanie automatycznie przedłużona na kolejny okres abonamentowy.</li>
+							<li>Po upływie danego okresu rozliczeniowego Serwis przesyła automatyczną wiadomość dotyczącą dokonania kolejnej płatności wraz z Fakturą Proformą do opłacenia.</li>
+						</ol>
+					</li>
+					<li>
+						Płatności
+						<ol type="1">
+							<li>Faktura wystawiana jest po uiszczeniu zapłaty przez Użytkownika, ze wskazaniem danych określonych przez Użytkownika, podanych przy zakładaniu Konta.</li>
+							<li>Za dostarczenie faktury, wysłanej na adres e-mailowy właściciela konta, uważa się przyjęcie przez serwer pocztowy Użytkownika wiadomości zawierającej fakturę.</li>
+							<li>Koszty związane z realizacją płatności za Usługi ponosi Użytkownik.</li>
+							<li>Za dzień zapłaty uznaje się datę uznania kwoty na rachunku bankowym Operatora Serwisu.</li>
+						</ol>
+					</li>
+					<li>
+						Ogólne obowiązki Stron
+						<ol type="1">
+							<li>Serwis {{ vm.app_name }} dostępny jest dla Abonentów przez całą dobę. Operator serwisu zastrzega sobie prawo do krótkich przerw wynikających z okresowej konserwacji systemu lub spowodowanych zdarzeniami losowymi.</li>
+							<li>Operator Serwisu zobowiązuje się do niezwłocznej naprawy wszelkich usterek uniemożliwiających dostęp do serwisu lub utrudniających dostęp do usług. W przypadku nieusunięcia zgłoszonych awarii w terminie dłuższym niż 7 dni, Użytkownik może wypowiedzieć umowę ze skutkiem natychmiastowym.</li>
+							<li>Użytkownik, korzystając z Usługi, wyraża zgodę na otrzymywanie faktur od Operatora Serwisu drogą elektroniczną, zgodnie z art. 106n ust. 1 Ustawy z dnia 11 marca 2004 r. o podatku od towarów i usług.</li>
+							<li>Operator Serwisu umożliwia Użytkownikom wysyłanie faktur w wersji elektronicznej. Użytkownicy oświadczają, iż otrzymali od swoich kontrahentów stosowną zgodę na otrzymanie faktury drogą elektroniczną w rozumieniu art. 106n ust. 1 Ustawy z dnia 11 marca 2004 r. o podatku od towarów i usług.</li>
+							<li>Klient zobowiązuje się do korzystania z usługi w sposób nienaruszający praw osób trzecich (dóbr osobistych, praw autorskich), dobrych obyczajów ani przepisów prawa.</li>
+							<li>Operator serwisu potwierdza, że właścicielem całej treści wprowadzonej za pomocą Usługi {{ vm.app_name }} jest Użytkownik.</li>
+							<li>Operator serwisu nie ponosi żadnej odpowiedzialności za treść prezentowaną na stronie założonej przez Użytkownika.</li>
+							<li>Wszelkie powinności wynikające z przepisów prawa dotyczące publikacji treści leżą po stronie Użytkownika.</li>
+							<li>W przypadku otrzymania zgłoszenia o bezprawnym charakterze danych, Operator Serwisu ma prawo, zgodnie z art. 14 Ustawy o świadczeniu usług drogą elektroniczną do uniemożliwienia dostępu do danych Użytkownika. W takim przypadku użytkownik zostanie powiadomiony o wprowadzeniu blokady konta.</li>
+							<li>W przypadku naruszania norm współżycia społecznego, Operator Serwisu może zablokować konto Użytkownika po jego uprzednim wezwaniu do zaprzestania działań naruszających normy.</li>
+							<li>Operator Serwisu nie ponosi odpowiedzialności za szkody wynikające z:<br>
+								- przerw w dostawie usługi lub niedostępności serwisu {{ vm.app_name }} niezależnych od Operatora Serwisu lub będących następstwem zdarzeń, których Operator nie mógł przewidzieć,<br>
+								- niepoprawnego funkcjonowania systemu niebędącego winą Operatora, na przykład, błędów sieci telekomunikacyjnej,<br>
+								- dostępu do konta Użytkownika przez osoby nieautoryzowane,<br>
+								- nieznajomości lub nieprzestrzegania Regulaminu,<br>
+								- niebezpieczeństw związanych z użytkowaniem sieci: ataków hakerskich, zainfekowania systemu przez wirusy.
+							</li>
+						</ol>
+					</li>
+					<li>
+						Dane osobowe
+						<ol type="1">
+							<li>Administratorem danych osobowych Użytkownika podawanych w trakcie rejestracji jest Operator Serwisu. Abonent oświadcza, że został poinformowany o celu oraz zakresie przetwarzania danych osobowych przez Operatora Serwisu, prawie wglądu do swoich danych i ich poprawiania, uprawnieniach do żądania zaprzestania przetwarzania danych oraz wniesienia sprzeciwu wobec przetwarzania danych, wynikających z art. 32 ustawy z dnia 29 sierpnia 1997 r. o ochronie danych osobowych (tekst jend.:Dz.U.2002, nr 101, poz. 926 z późn. zm.).</li>
+							<li>Użytkownik jest administratorem danych osobowych przesyłanych. Użytkownik przesyłając dane osobowe do serwisu powierza ich przetwarzanie Operatorowi Serwisu w zakresie w jakim konieczne jest to do świadczenia usługi przechowywania danych. Dane będą przechowywane przez Operatora Serwisu z zachowaniem środków bezpieczeństwa wymaganych przez ustawę o ochronie danych osobowych. Operator Serwisu nie ponosi odpowiedzialność za bezprawne przechowywanie danych przesłanych do Serwisu przez Użytkownika.</li>
+							<li>Rejestrując się w Serwisie, Użytkownik wyraża zgodę na przetwarzanie zebranych danych w celach statystycznych i marketingowych. Na podany e-mail będziemy przesyłali wyłącznie informacje odnośnie systemu i sporadycznie odnośnie innych rozwiązań naszej firmy, ale w każdej chwili Użytkownik będzie mógł zrezygnować z otrzymywania takich e-maili.</li>
+							<li>Użytkownik powierza Dane do przetwarzania Operatorowi Serwisu wyłącznie w celu realizacji zobowiązań Operatora Serwisu wynikających z Regulaminu. Wszystkie Dane osobowe wprowadzone są przez Użytkownika do Serwisu z prawem dalszego powierzania tych danych do przetwarzania w celu wyżej opisanym.</li>
+						</ol>
+					</li>
+					<li>
+						Wymagania techniczne
+						<ol type="1">
+							<li>W celu zapewnienia poprawnego działania Usług, konieczne jest zainstalowanie przeglądarki Internetowej IE, Firefox, Opera, Chrome, Safari z zaleceniem, aby były to najnowsze stabilne wersje tych przeglądarek.</li>
+						</ol>
+					</li>
+					<li>
+						Zmiana regulaminu
+						<ol type="1">
+							<li>Regulamin może być zmieniany przez Operatora Serwisu. O każdej zmianie w Regulaminie Operator Serwisu poinformuje Użytkowników.</li>
+							<li>Aktualna wersja regulaminu wchodzi w życie z dniem 28.05.2018 r.</li>
+						</ol>
+					</li>
+					<li>
+						Procedura reklamacji
+						<ol type="1">
+							<li>Reklamacje dotyczące funkcjonowania Serwisu powinny być zgłaszane pocztą elektroniczną na adres: info[AT]{{ vm.app_name }} lub listownie na adres: Dąbrowskiego 8, 64-920 Piła</li>
+							<li>Termin rozpatrzenia reklamacji wynosi 14 dni.</li>
+						</ol>
+					</li>
+				</ol>
+
+				<h2 class="mt-40">Postanowienia dotyczące powierzenia przetwarzania danych</h2>
+				<h4>
+					§1. Powierzenie przetwarzania danych
+				</h4>
+				<ol>
+					<li>Użytkownik, będący administratorem wprowadzanych do Serwisu danych ze zbioru “Dane powierzane”, powierza Operatorowi Serwisu, w trybie art. 28 Rozporządzenia jako przedmiot przetwarzania dane osobowe w zakresie zgodnym i wybranym przez Użytkownika do tego zbioru, zgodnie z zakresem wyszczególnionym §1.pkt.2 oraz na zasadach i w celu określonym w §1 pkt.3 niniejszego Regulaminu.</li>
+					<li>Zakres danych ze zbioru „Dane powierzane” obejmuje dane kontrahentów administratora, będące danymi zwykłymi, a w szczegόlności: Imie, Nazwisko, Numer identyfikacji podatkowej lub PESEL oraz dane pracowników administratora, będące danymi zwykłymi, a w szczegόlności: Adres e-mail, Imię, Nazwisko, Rola w serwisie, .</li>
+					<li>Powierzenie przetwarzania danych osobowych na mocy niniejszej Umowy następuje wyłącznie w celu i w zakresie realizacji Usługi.</li>
+					<li>Przetwarzanie powierzonych danych osobowych odbywa się po stronie Operatora Serwisu przy wykorzystaniu systemów informatycznych.</li>
+					<li>Operator Serwisu przetwarza powierzone mu do przetwarzania dane w okresie świadczenia Usługi, tj. od momentu założenia konta w Serwisie do 60 (słownie: sześćdziesiąt) dni po skasowaniu konta Użytkownika  Serwisu. Okres sześćdziesięciodniowego przetwarzania danych związany jest z istnieniem backupów Serwisu, dzięki którym Operator Serwisu umożliwia zachowanie integralności danych podczas świadczenia Usługi. Okres przetwarzania danych może być dłuższy, gdy prawo polskie lub unijne nakłada na Operatora Serwisu taki obowiązek.</li>
+					<li>Operator Serwisu, po zakończeniu świadczenia Usług związanych z przetwarzaniem, zależnie od decyzji administratora usuwa lub zwraca mu wszelkie dane osobowe oraz usuwa wszelkie ich istniejące kopie, chyba że prawo polskie lub unijne nakazują przechowywanie tych danych osobowych.</li>
+					<li>Operator Serwisu zobowiązuje się, w ramach swojej organizacji, przetwarzać powierzone dane ze szczególną starannością, zgodnie z Rozporządzeniem oraz innymi przepisami prawa powszechnie obowiązującego, które chronią prawa osób, których dane dotyczą, w szczególności poprzez zastosowanie odpowiednich środków technicznych i organizacyjnych zapewniających ochronę przetwarzania danych osobowych adekwatną do zagrożeń związanych z przetwarzaniem danych osobowych, o których mowa w art. 32 Rozporządzenia.</li>
+					<li>Operator Serwisu zobowiązuje się do nadania upoważnień do przetwarzania danych osobowych wszystkim osobom, które będą przetwarzały powierzone dane w celu realizacji niniejszej Umowy oraz zobligować je do zachowania w tajemnicy (o której mowa w art. 28 ust 3 pkt b Rozporządzenia) przetwarzanych danych zarówno w trakcie zatrudniania ich przez Operatora Serwisu, jak i po ustaniu zatrudnienia.</li>
+					<li>Biorąc pod uwagę charakter przetwarzania, w miarę możliwości Operator Serwisu będzie pomagał Użytkownikowi administrującemu danymi w niezbędnym zakresie, poprzez odpowiednie środki techniczne i organizacyjne wywiązać się z obowiązku odpowiadania na żądania osoby, której dane dotyczą, w zakresie wykonywania jej praw określonych w rozdziale III Rozporządzenia oraz, uwzględniając charakter przetwarzania oraz dostępne mu informacje, będzie pomagał administratorowi wywiązać się z obowiązków określonych w art. 32–36 Rozporządzenia.</li>
+					<li>Operator Serwisu po stwierdzeniu naruszenia ochrony danych osobowych bez zbędnej zwłoki zgłasza je Administratorowi.</li>
+					<li>Zgodnie z art. 28 ust. 3 pkt h Rozporządzenia Użytkownik będący administratorem danych powierzanych Operatorowi Serwisu ma prawo skontrolowania, czy środki zastosowane przez Operatora Serwisu przy przetwarzaniu i zabezpieczeniu powierzonych danych osobowych spełniają postanowienia umowy. Prawo do przedmiotowej kontroli może być realizowane w godzinach pracy Operatora serwisu tj. poniedziałek – piątek w godzinach 8 – 16 z wykluczeniem dni ustawowo wolnych od pracy i z minimum siedmiodniowym uprzedzeniem o zamiarze dokonania kontroli. W trakcie kontroli Operator Serwisu udostępni Użytkownikowi administrującemu danymi powierzanymi wszelkie informacje niezbędne do wykazania spełnienia obowiązków określonych w art. 28 Rozporządzenia.</li>
+					<li>W razie stwierdzenia uchybień w trakcie kontroli, Operator Serwisu zobowiązuje się do ich usunięcia w terminie wskazanym przez Administratora danych, nie dłuższym niż 14 (słownie: czternaście) dni.</li>
+					<li>Administrator danych może rozwiązać niniejszą Umowę ze skutkiem natychmiastowym, gdy Operator Serwisu, pomimo zobowiązania go do usunięcia uchybień stwierdzonych podczas kontroli, nie usunie ich w wyznaczonym terminie lub przetwarza dane osobowe w sposób niezgodny z niniejszym Regulaminem.</li>
+					<li>Operator Serwisu powierza dane osobowe objęte niniejszą Umową do dalszego przetwarzania zewnętrznym podmiotom w obrębie Europejskiego Obszaru Gospodarczego oraz, zgodnie z artykułem 45 pkt. 1 Rozporządzenia, podmiotom w państwach trzecich lub organizacji międzynarodowej tylko w przypadku, gdy Komisja stwierdzi, że to państwo trzecie, terytorium lub określony sektor lub określone sektory w tym państwie trzecim lub dana organizacja międzynarodowa zapewniają odpowiedni stopień ochrony. Dane powierzane są jedynie w celu i zakresie wykonania niniejszej Umowy, na co Operator Serwisu otrzymuje zgodę Administratora.</li>
+					<li>Operator Serwisu posiada podpisaną Umowę powierzenia przetwarzania danych osobowych z podmiotami wskazanymi w §1 pkt.14 niniejszego Regulaminu.</li>
+					<li>Przekazanie powierzonych danych do państwa trzeciego lub organizacji międzynarodowej, w przypadku gdy Komisja nie stwierdzi, że to państwo trzecie, terytorium lub określony sektor lub określone sektory w tym państwie trzecim lub dana organizacja międzynarodowa zapewniają odpowiedni stopień ochrony, może nastąpić jedynie na udokumentowane polecenie Administratora danych, chyba że obowiązek przekazania danych nakłada na Operatora Serwisu prawo polskie lub unijne. W takim przypadku przed rozpoczęciem przetwarzania Operator Serwisu informuje Administratora danych o tym obowiązku prawnym, o ile prawo to nie zabrania udzielania takiej informacji z uwagi na ważny interes publiczny.</li>
+				</ol>
+				<h4>
+					§2 Podmiot Przetwarzający Dane
+				</h4>
+				<p>
+					Podmiot odpowiedzialny za przetwarzanie danych osobowych:
+				</p>
+				<p class="text-center">
+					DevPark Sp. z o. o. z siedzibą w Komornikach <br>
+					ul. Wspólna 15/1 <br>
+					62-052 Komorniki <br>
+					Polska
+				</p>
+
+				<h2>
+					Polityka Prywatności i Cookies
+				</h2>
+				<h4>
+					§3 Zakres danych oraz moment ich zbierania
+				</h4>
+				<ol>
+					<li>W chwili rejestracji i zakładania konta w Serwisie, Użytkownik jest proszony o podanie danych. Danymi podawanymi przy rejestracji są dane dotyczące obsługi konta w Serwisie, tj. adres email Użytkownika, login (generowany na podstawie adresu mailowego Użytkownika, hasło, oraz dane :
+						<ol>
+							<li>Nazwa firmy;</li>
+							<li>Imię;</li>
+							<li>Nazwisko;</li>
+							<li>Numer identyfikacji podatkowej lub PESEL.</li>
+						</ol>
+					</li>
+					<li>Operator Serwisu wykorzystuje dodatkowe dane, które mogą być udostępniane przez Użytkownika lub jego urządzenie w celu świadczenia kompleksowych usług oraz gwarancji dostępu do oferowanych funkcji Serwisu w obrębie przeglądarki.</li>
+					<li>Operator Serwisu przetwarza dane pobierane w procesie interakcji urządzenia Użytkownika z przeglądarką, które to dane zostały opisane w §6 Polityka Cookies i znaczniki pikselowe.</li>
+					<li>Czas przetwarzania danych Użytkownika oraz danych konta przez Operatora Serwisu nie jest dłuższy niż wymaga tego zapewnienie poprawnego świadczenia Usługi, tj. od momentu założenia konta w Serwisie do 30 (słownie: trzydzieści) dni po skasowaniu konta Użytkownika w Serwisie. Okres trzydziestodniowego przetwarzania danych związany jest z istnieniem backupów Serwisu, dzięki którym Operator Serwisu umożliwia zachowanie integralności danych podczas świadczenia Usługi. Okres przetwarzania danych może być dłuższy, gdy prawo polskie lub unijne nakłada na Operatora Serwisu taki obowiązek.</li>
+					<li>Podczas zakładania konta w Serwisie oraz korzystania z Witryny lub Serwisu Operator Serwisu informuje Użytkowników o gromadzeniu i wykorzystywaniu danych. Tam gdzie jest to wymagane, Użytkownik proszony jest o wyrażenie zgody na wskazane działania Operatora Serwisu.</li>
+				</ol>
+				<h4>
+					§4 Cel przetwarzania danych
+				</h4>
+				<ol>
+					<li>Dane zbierane przez Operatora Serwisu podczas korzystania z Witryny, Serwisu są przetwarzane w poniżej określonych zakresie i celach:
+						<ul>
+							<li><b>Świadczenia Usługi</b> – dane Użytkownika będą przetwarzane w celu zapewnienia poprawnego funkcjonowania Usługi, w celach rozliczeń za Abonament oraz przesyłania dokumentów, linków weryfikacyjnych, wiadomości autoryzujących dostęp do Serwisu oraz powiadomień systemowych.</li>
+							<li><b>Kontaktu z działem obsługi klienta i świadczenia pomocy technicznej</b> – dane Użytkownika będą wykorzystywane w celach kontaktu z klientem oraz udzielenia mu pomocy technicznej. Podczas obsługi klienta oraz udzielania pomocy technicznej Operator Serwisu może wykorzystać dostęp do wszelkich danych, znajdujących się w zakładce Ustawienia, między innymi: danych ustawień konta, danych firm, wybranego Pakietu, Okresu Rozliczeniowego, a także faktur wystawionych przez Operatora Serwisu na rzecz Użytkownika, płatności, informacji o przeglądarce, integracjach, API tokenie, aktywnościach Użytkownika, danych z konta Użytkownika czy danych o programach partnerskich.</li>
+							<li><b>Fakturowania oraz prowadzenia działalności</b> – dane Użytkownika będą wykorzystane do wystawienia mu faktury za zakupioną Usługę. Dane będą przetwarzane w celach archiwizacji dokumentów przez okres zgodny z przepisami prawa polskiego i unijnego, w tym Rozporządzenia. Dane te będą przechowywane w należyty sposób i chronione przed niedozwolonymi zmianami, nieupoważnionym rozpowszechnianiem, uszkodzeniem lub zniszczeniem. Dane mogą zostać wykorzystane w celach realizacji funkcji audytowych oraz na inne potrzeby wewnętrzne, takie jak diagnostyka problemów technicznych oraz administracja Serwisu.</li>
+							<li><b>Wysyłania informacji o Usłudze i informacji handlowej oraz innych celach związanych z promocją</b> – dane Użytkownika będą wykorzystywane do przesyłania informacji o Usłudze: wprowadzanych nowych funkcjach i integracjach Serwisu, informacji o zmianach prawnych, zmianach systemowych oraz do przesyłania informacji handlowej, informowania Użytkownika o aktualnych rabatach oraz akcjach promocyjnych w Serwisie, a także informowania o rozwiązaniach podmiotów współpracujących z Operatorem Serwisu. Operator Serwisu może wykorzystać posiadane dane w celach personalizacji komunikacji na temat usług, które mogą być dla Użytkownika interesujące. Użytkownikowi przysługują wszelkie prawa dotyczące jego danych określone w Rozporządzeniu. W celu skorzystania z przysługujących praw, Użytkownik powinien skontaktować się z Operatorem Serwisu przy użyciu danych kontaktowych wskazanych w §5 niniejszego Regulaminu. W przypadkach, w których zgodnie z prawem Operator Serwisu ma obowiązek uzyskać zgodę na przesyłanie korespondencji, Użytkownik zostanie poproszony o wyrażenie zgody na przesyłanie materiałów marketingowych.</li>
+							<li><b>Zapewnienia bezpieczeństwa Użytkownikom Witryny, Serwisu oraz ochrony praw, mienia i własności Operatora Serwisu</b> – dane o sposobie korzystania z Witryny, Serwisu mogą zostać wykorzystane przez Operatora Serwisu w celu zapobiegania oraz wykrywania nadużyć, oszustw, łamania prawa oraz postanowień Regulaminu, a także odpowiadania na kierowane do Operatora Serwisu żądania ze strony uprawnionych organów państwowych oraz w celach zachowania zgodności funkcjonowania działalności Operatora Serwisu z obowiązującymi przepisami prawa.</li>
+							<li><b>Tworzenia statystyk oraz rozwoju Serwisu</b> – Operator Serwisu wykorzystuje dane dotyczące sposobu korzystania z Witryny, Serwisu przez Użytkowników w celu lepszego zrozumienia ich zachowań oraz preferencji. Na podstawie tych danych Operator Serwisu tworzy statystyki oraz stara się zrozumieć jaki sposób przedstawienia Usługi będzie dla Użytkownika satysfakcjonujący oraz atrakcyjny.</li>
+							<li><b>Umożliwienia korzystania z integracji z innymi systemami</b> – Operator Serwisu przetwarza dane dostępowe dla aplikacji zintegrowanych z Serwisem w celu przekazywania informacji do tych aplikacji, zgodnie z zasadami działania uruchamianej przez Użytkownika integracji.</li>
+							<li><b>Inne cele</b> – Operator Serwisu może wykorzystywać dane osobowe Użytkowników w inny sposób, o czym Użytkownik będzie każdorazowo informowany, a w przypadku gdy obowiązujące prawo wymaga od Operatora Serwisu posiadania dodatkowej zgody na przetwarzanie danych, poprosi on Użytkownika o jej wyrażenie.</li>
+						</ul>
+					</li>
+					<li>Operator Serwisu w celu zabezpieczenia przetwarzanych danych stosuje środki organizacyjne i techniczne zgodne z przepisami prawa polskiego i unijnego w tym Rozporządzeniem oraz połączenia szyfrowane przez protokół SSL.</li>
+				</ol>
+				<h4>
+					§5 Kontakt z Administratorem / Inspektorem Ochrony Danych Osobowych
+				</h4>
+				<p class="text-center">
+					DevPark Sp. z o. o. z siedzibą w Komornikach <br>
+					ul. Wspólna 15/1 <br>
+					62-052 Komorniki <br>
+					Polska <br>
+					<a href="mailto:info@agileboard.me">info@agileboard.me</a>
+				</p>
+				<h4>
+					§6 Polityka Cookies i znaczniki pikselowe
+				</h4>
+				<ul>
+					<li>Korzystanie z Serwisu wymaga od Użytkownika akceptacji niniejszej Polityki Cookies i znaczników pikselowych jak rόwnież umieszczenia po stronie przeglądarki internetowej Użytkownika tzw. Cookies – tj. małych plików tekstowych z informacjami wykorzystywanymi przez strony internetowe, łączące się z przeglądarką Użytkownika. Podczas korzystania z Witryny, Serwisu Operator Serwisu pobiera od przeglądarek Użytkowników i zapisuje informacje, które mogą zawierać dane osobowe. Operator Serwisu pozyskuje te informacje korzystając z plików cookies oraz znaczników pikselowych.</li>
+					<li>Okres aktywności plikόw cookies:
+						<ul>
+							<li>Czasowe / tymczasowe – to takie pliki, ktόre są automatycznie usuwane po określonej dacie ważności.</li>
+							<li>Stałe – to takie pliki, ktόre są aktywne na przeglądarce Użytkownika do chwili ich usunięcia przez Użytkownika, co może zostać przez niego dokonane w dowolnym momencie.</li>
+						</ul>
+						Użytkownik ma prawo do skorzystania z oferowanych przez każdą przeglądarkę możliwości przeglądania, usuwania oraz ograniczania i kontrolowania przyjmowania plików cookie. W celu pozyskania dodatkowych informacji może zapoznać się z treścią pomocy lub ustawieniami prywatności/bezpieczeństwa w używanej przeglądarce. Usunięcie plikόw cookies może mieć jednak wpływ na poprawne działanie Serwisu i jego funkcjonalność.
+					</li>
+					<li>Pliki cookies oraz znaczniki pikselowe mogą być również wykorzystane przez podmioty trzecie (np. Google, Facebook, Smartlook) do udostępnienia własnych treści czy reklam na stronach internetowych lub portalach w oparciu o zapisy z tych plików oraz z tych znaczników pikselowych.</li>
+					<li>Operator Serwisu wykorzystuje następujące rodzaje plikόw cookies przekazywane przez urządzenie Użytkownika:
+						<ul>
+							<li>techniczne – niezbędne do właściwego funkcjonowania Serwisu tj. tymczasowe pliki przechowujące sesję użytkownika oraz umożliwiające działanie i usprawniające funkcjonowanie Serwisu;</li>
+							<li>zewnętrzne – umieszczane przez serwisy zewnętrzne, z których korzysta Operatora Serwisu, a na które nie ma wpływu (np. serwisy społecznościowe);</li>
+							<li>statystyczne – pliki umożliwiające prowadzenie statystyk Serwisu;</li>
+							<li>reklamowe – w przypadku prowadzenia kampanii reklamowych, aby dostosować reklamę do użytkownika i zapamiętać jej ustawienia.</li>
+						</ul>
+					</li>
+				</ul>
+
+				<!-- end of regulations text -->
+			</div>
+		</div>
+	</div>
+
+	<footer ng-include="'app/layouts/footer.html'"></footer>
+</div>

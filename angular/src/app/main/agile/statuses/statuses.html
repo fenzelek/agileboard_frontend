@@ -1,0 +1,96 @@
+<div id="agile-statuses" class="page-layout simple fullwidth doc-page" layout="column">
+
+	<!-- HEADER -->
+	<div class="header md-accent-bg" layout="row" layout-align="space-between">
+		<div layout="column" layout-align="space-between">
+			<div class="title">
+				<span translate="AGILE_STATUSES.TITLE"></span> - {{current_project_name}}
+			</div>
+		</div>
+	</div>
+	<!-- / HEADER -->
+
+	<!-- CONTENT -->
+	<div class="content" layout="column">
+
+		<div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+		<div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+		<div layout="row">
+
+			<div class="form-wrapper  rounded-container max-1000" flex>
+
+				<form name="agileStatuses" novalidate ng-submit="vm.save()">
+
+					<md-radio-group ng-model="vm.scheme_index" ng-change="vm.selectScheme()" ng-if="!vm.edit">
+
+						<div ng-repeat="scheme in vm.scheme_list" class="mb-20">
+							<md-radio-button ng-value="$index" class="md-primary">{{ scheme.name }}</md-radio-button>
+							<div>
+								<img ng-src="/assets/images/statuses/{{scheme.image}}.png">
+							</div>
+						</div>
+
+					</md-radio-group>
+
+					<div class="scheme-row" layout="column" ng-if="!vm.edit">
+						<div layout="row">
+							<md-input-container ng-if="vm.projects.length" class="md-block" flex-gt-sm>
+								<label><span translate="AGILE_STATUSES.SELECT_PROJECT"></span></label>
+								<md-select ng-model="vm.selected_project_id" name="scheme_index" ng-if="!translate_loading" ng-change="vm.selectProject()">
+									<md-option ng-value="project.id" ng-repeat="project in vm.projects">{{project.name}}</md-option>
+								</md-select>
+							</md-input-container>
+						</div>
+					</div>
+
+					<div ng-if="!vm.form.statuses.length && !vm.loading_statuses" class="no-records-info" layout="column" layout-align="center center">
+						<md-icon md-font-icon="icon-table-row-plus-before" class="s62"></md-icon>
+						<span translate="AGILE_STATUSES.EMPTY"></span>
+					</div>
+
+					<div ui-sortable="vm.sortableOptions" ng-model="vm.form.statuses">
+						<div layout="row" ng-repeat="item in vm.form.statuses" ng-if="item.delete !== 1">
+							<div class="handle">
+								<md-icon md-font-icon="icon-drag-vertical" class="icon"></md-icon>
+							</div>
+							<md-input-container class="md-block" flex>
+								<label><span translate="OTHER.NAME"></span></label>
+								<input ng-model="item.name" required ng-maxlength="100" name="name" type="text">
+								<div ng-messages="agileStatuses.name.$error">
+									<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+									<div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_100"></span></div>
+								</div>
+							</md-input-container>
+							<div class="md-block delete">
+								<md-button class="md-fab md-mini md-warn" ng-click="vm.deleteStatus($index)" >
+									<md-icon md-font-icon="icon-close fs22"></md-icon>
+									<md-tooltip>
+										<span translate="AGILE_STATUSES.DELETE_STATUS"></span>
+									</md-tooltip>
+								</md-button>
+							</div>
+						</div>
+					</div>
+
+					<div  layout-gt-sm="row" layout-align="start none">
+						<md-button type="button" class="md-raised md-accent" ng-click="vm.addStatus()">
+							<md-icon md-font-icon="icon-table-row-plus-before" class="s20"></md-icon> <span translate="AGILE_STATUSES.ADD_STATUS"></span>
+						</md-button>
+					</div>
+
+					<div ng-show="vm.form.statuses.length >= 2" layout="row" layout-align="end center" class="save-row">
+						<md-button type="submit" class="md-raised md-accent" aria-label="SEND"
+								   ng-disabled="agileStatuses.$invalid || vm.request_sending || vm.form.statuses.length < 2"
+								   translate="OTHER.SAVE"
+								   translate-attr-aria-label="OTHER.SAVE">
+						</md-button>
+					</div>
+				</form>
+
+			</div>
+
+		</div>
+
+	</div>
+</div>

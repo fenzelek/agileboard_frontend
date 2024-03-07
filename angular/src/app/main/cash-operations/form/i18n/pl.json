@@ -1,0 +1,36 @@
+{
+    "CASH_OPERATIONS_FORM": {
+        "TITLE_ADD_1": "Nowa operacja gotówkowa",
+        "TITLE_ADD_2": "Nowa operacja bezgotówkowa",
+        "TITLE_EDIT_1": "Edytuj operację gotówkową",
+        "TITLE_EDIT_2": "Edytuj operację bezgotówkową",
+        "NUMBER": "Numer",
+        "METHOD": "Metoda płatności",
+        "SUM": "Podsumowanie",
+        "CASH_START": "Stan początkowy",
+        "CASH_STOP": "Stan końcowy",
+        "CASH_RELEASED": "Kasa wydała",
+        "CASH_TOOK": "Kasa przyjęła",
+        "DESCRIPTION": "Opis",
+        "RECEIPT": "Numer paragonu",
+        "INVOICE": "Numer faktury",
+        "RECEIPT_2": "Paragon",
+        "INVOICE_2": "Faktura",
+        "AMOUNT": "Wartość",
+        "DIRECTION": "Typ",
+        "PDF": "Generuj PDF",
+        "DATE": "Data",
+        "DIRECTION_LIST": {
+            "initial": "Stan początkowy",
+            "in": "Kasa przyjęła",
+            "out": "Kasa wydała",
+            "final": "Stan końcowy"
+        },
+        "UPDATE_SUCCESS": "Zaktualizowano operację",
+        "ADD_SUCCESS": "Dodano operację",
+        "WRONG_SELECTED": "W numerze paragonu/faktury masz wpisany numer ale nie masz wybranego żadnego paragonu z listy."
+    },
+    "ERRORS": {
+
+    }
+}

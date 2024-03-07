@@ -1,0 +1,47 @@
+{
+    "CONTRACTORS_FORM": {
+        "TITLE_ADD": "New contractor",
+        "TITLE_EDIT": "Edit contractor",
+        "SKIP": "Go to the form",
+        "NIP": "NIP",
+        "NIP_PREFIX": "NIP prefix",
+        "NIP_EMPTY": "- empty -",
+        "EMAIL": "Email",
+        "PHONE": "Phone",
+        "OTHER_CONTACT_ADDRESS": "Other contact address",
+        "OTHER_DELIVERY_ADDRESS": "Other delivery addresses",
+        "COMPANY": "Company",
+        "NATURAL_PERSON": "Natural person",
+        "COMPANY_NAME": "Company name",
+        "COMPANY_NAME_2": "Name and surname",
+        "GENERAL_DATA": "Contractor data",
+        "MAIN_ADDRESS": "Main address",
+        "CONTACT_ADDRESS": "Contact address",
+        "DELIVERY_ADDRESS": "Delivery address",
+        "DELIVERY_ADDRESS_DEFAULT": "Default delivery address",
+        "DEFAULT_SETTINGS": "Default settings",
+        "COUNTRY": "Country",
+        "ZIP_CODE": "Zip code",
+        "CITY": "City",
+        "STREET": "Street",
+        "NUMBER": "Number",
+        "TERM": "Date of payment",
+        "OR_DAYS": "or days",
+        "DAYS": "days",
+        "MONTH": "months",
+        "METHOD": "Payments methods",
+        "DEFAULT": "Default",
+        "GET_GUS": "Get data from GUS",
+        "ADDRESS_COPY": "Insert main address",
+        "CONTACT_COPY": "Insert contact address",
+        "UPDATE_SUCCESS": "Updated contractor successfully",
+        "ADD_SUCCESS": "Added contractor successfully",
+        "GUS_ERROR": "No data in GUS for given NIP.",
+        "SAVE_AND_INVOICE": "Save and create invoice"
+    },
+    "ERRORS": {
+        "gus": {
+            "technical_problems": "GUS is not available at this time. Try again in a minute or skip this step."
+        }
+    }
+}

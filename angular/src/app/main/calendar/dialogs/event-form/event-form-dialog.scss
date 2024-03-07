@@ -1,0 +1,102 @@
+md-dialog {
+
+    &.event-form-dialog {
+        max-width: 700px;
+        width: 100%;
+
+        md-dialog-content {
+            padding-top: 0;
+            padding-bottom: 36px;
+            display: block;
+            position: relative;
+        }
+
+        form {
+            overflow: hidden;
+
+            md-toolbar {
+
+                .title {
+                    font-size: 17px;
+                    margin-right: 10px;
+                }
+                .date {
+                    font-size: 0.62em;
+                    color: rgba(255,255,255,0.62);
+                }
+            }
+
+            md-input-container {
+
+                textarea {
+                    min-height: 120px;
+                }
+            }
+
+            .overtime {
+                display: flex;
+                align-items: center;
+                margin-bottom: 8px;
+                padding-left: 5px;
+            }
+
+            .date-row {
+
+                md-datepicker {
+                    margin-right: 24px;
+                }
+            }
+
+            .notifications {
+                padding: 16px 0;
+
+                > .md-button {
+                    margin: 0;
+                }
+            }
+        }
+
+        md-dialog-actions {
+            position: relative;
+            overflow-y: hidden;
+            overflow-x: auto;
+            justify-content: space-between;
+            border-top: 1px solid rgba(0, 0, 0, 0.12);
+            background-color: rgba(0, 0, 0, 0.03);
+        }
+    }
+
+    .show-hide-transition {
+        -webkit-transition:all linear .2s  !important;
+        transition:all linear .2s !important;
+    }
+
+    .show-hide-transition.ng-hide {
+        opacity: 0;
+    }
+
+    .show-hide-transition.ng-show {
+        opacity: 1;
+    }
+}
+
+// RESPONSIVE
+@media screen and (max-width: $layout-breakpoint-sm) {
+
+    md-dialog {
+
+        &.event-form-dialog {
+            width: 80%;
+        }
+    }
+}
+
+@media screen and (max-width: $layout-breakpoint-xs) {
+
+    md-dialog {
+
+        &.event-form-dialog {
+            width: 90%;
+        }
+    }
+}

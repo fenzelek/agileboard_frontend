@@ -1,0 +1,7 @@
+{
+    "INVOICES_ZIP_PENDING_DIALOG": {
+        "INFO": "System generuje paczkę faktur w tle.",
+        "ACTION_INFO": "Kliknij przycisk PACZKI FAKTUR, aby ściągnąć gotowe paczki.",
+        "INVOICES_ZIPS": "PACZKI FAKTUR"
+    }
+}

@@ -1,0 +1,283 @@
+<div layout="row" layout-align="start center">
+    <div layout="row" layout-align="start center" flex>
+        <md-button id="navigation-toggle" class="md-icon-button" ng-click="vm.toggleSidenav('navigation')"
+                   hide-gt-sm aria-label="Toggle navigation" translate
+                   translate-attr-aria-label="TOOLBAR.TOGGLE_NAVIGATION">
+            <md-icon md-font-icon="icon-menu" class="icon"></md-icon>
+        </md-button>
+
+        <div id="global-company-name" class="project-menu" hide-xs ng-if="invoices_active && current_company_nip">
+            <div class="user-button md-button md-default-theme md-ink-ripple no-hover">
+                <div layout-align="center">
+                    <span translate="TOOLBAR.COMPANY"></span><br><span>NIP:</span> {{current_company_nip}}
+                </div>
+            </div>
+        </div>
+        <div id="global-company-invitation-tax-office" class="project-menu" ng-if="invoices_active && show_tax_office_button">
+            <div class="user-button md-button md-default-theme md-ink-ripple" ng-click="inviteTaxOffice()">
+                <div layout-align="center">
+                    <span translate="TOOLBAR.TAX_OFFICE_INVITATION_1"></span>
+                    <br>
+                    <span translate="TOOLBAR.TAX_OFFICE_INVITATION_2"></span>
+                </div>
+            </div>
+        </div>
+        <div id="global-company-plan" class="project-menu" ng-if="invoices_active && packageName" ng-class="{'has-border-left': !show_tax_office_button}">
+            <div class="user-button md-button md-default-theme md-ink-ripple no-hover">
+                <span translate="TOOLBAR.CURRENT_PACKAGE"></span> {{packageName | firstLetterUpper}}
+                <br>
+                <a ng-if="!packageExpires && button_change_packet" class="md-raised md-accent md-button md-default-theme" translate="TOOLBAR.CHANGE_PACKAGE" href="/company/edit?package=premium" ></a>
+                <span ng-if="packageExpires" translate="TOOLBAR.EXPIRES"></span> {{packageExpires}}
+            </div>
+        </div>
+
+        <div class="project-menu" ng-if="show_projects_buttons">
+            <md-button class="user-button" active-link="active" aria-label="Board" ng-href="/projects/{{current_project_id}}/agile">
+                <div layout="row" layout-align="space-between center">
+                    <md-icon md-font-icon="icon-border-all" class="icon s30"></md-icon>
+                    <span class="username" hide-xs hide-sm translate="TOOLBAR.BOARD"></span>
+                </div>
+            </md-button>
+        </div>
+
+        <div class="project-menu" ng-if="show_projects_buttons">
+            <md-button class="user-button" active-link="active" aria-label="Backlog" ng-href="/projects/{{current_project_id}}/backlog">
+                <div layout="row" layout-align="space-between center">
+                    <md-icon md-font-icon="icon-debug-step-over" class="icon s30"></md-icon>
+                    <span class="username" hide-xs hide-sm translate="TOOLBAR.BACKLOG"></span>
+                </div>
+            </md-button>
+        </div>
+
+        <div class="project-menu project-full-menu" ng-if="show_projects_buttons">
+            <md-button class="user-button" active-link="active" aria-label="Calendar" ng-href="/projects/{{current_project_id}}/calendar">
+                <div layout="row" layout-align="space-between center">
+                    <md-icon md-font-icon="icon-calendar-today" class="icon s30"></md-icon>
+                    <span class="username" hide-xs hide-sm translate="TOOLBAR.CALENDAR"></span>
+                </div>
+            </md-button>
+        </div>
+
+        <div class="project-menu" id="knowledge-menu" ng-if="show_projects_buttons">
+            <md-button class="user-button" active-link="active" aria-label="Knowledge" ng-href="/projects/{{current_project_id}}/knowledge">
+                <div layout="row" layout-align="space-between center">
+                    <md-icon md-font-icon="icon-book-open" class="icon s30"></md-icon>
+                    <span class="username" hide-xs hide-sm translate="TOOLBAR.KNOWLEDGE"></span>
+                </div>
+            </md-button>
+        </div>
+
+        <div class="project-menu project-full-menu" ng-if="show_projects_buttons">
+            <md-button class="user-button" active-link="active" aria-label="Stories" ng-href="/projects/{{current_project_id}}/stories">
+                <div layout="row" layout-align="space-between center">
+                    <md-icon md-font-icon="icon-star" class="icon s30"></md-icon>
+                    <span class="username" hide-xs hide-sm translate="TOOLBAR.STORIES"></span>
+                </div>
+            </md-button>
+        </div>
+
+        <md-menu-bar class="project-menu" id="agile-menu" ng-if="show_projects_buttons">
+            <md-menu md-position-mode="left bottom">
+                <md-button class="user-button" ng-click="$mdMenu.open()" aria-label="More">
+                    <div layout="row" layout-align="space-between center">
+                        <md-icon md-font-icon="icon-layers" class="icon s30"></md-icon>
+                        <span class="username" hide-xs hide-sm translate="TOOLBAR.MORE"></span>
+                        <md-icon md-font-icon="icon-chevron-down"
+                                 class="icon s16" hide-xs hide-sm></md-icon>
+                    </div>
+                </md-button>
+
+                <md-menu-content width="3">
+                    <md-menu-item class="md-indent project-min-menu">
+                        <md-icon md-font-icon="icon-calendar-today" class="icon s20"></md-icon>
+                        <md-button ng-href="/projects/{{current_project_id}}/calendar" active-link="active"><span translate="TOOLBAR.CALENDAR"></span></md-button>
+                    </md-menu-item>
+                    <md-menu-item class="md-indent project-min-menu">
+                        <md-icon md-font-icon="icon-star" class="icon s20"></md-icon>
+                        <md-button ng-href="/projects/{{current_project_id}}/stories" active-link="active"><span translate="TOOLBAR.STORIES"></span></md-button>
+                    </md-menu-item>
+                    <md-menu-item class="md-indent">
+                        <md-icon md-font-icon="icon-file" class="icon s20"></md-icon>
+                        <md-button ng-href="/projects/{{current_project_id}}/files" active-link="active"><span translate="TOOLBAR.FILES"></span></md-button>
+                    </md-menu-item>
+                    <md-menu-item class="md-indent">
+                        <md-icon md-font-icon="icon-information-outline" class="icon s20"></md-icon>
+                        <md-button ng-href="/projects/{{current_project_id}}/show" active-link="active"><span translate="TOOLBAR.INFO"></span></md-button>
+                    </md-menu-item>
+                    <md-menu-item class="md-indent">
+                        <md-icon md-font-icon="icon-backup-restore" class="icon s20"></md-icon>
+                        <md-button ng-href="/projects/{{current_project_id}}/history" active-link="active"><span translate="TOOLBAR.HISTORY"></span></md-button>
+                    </md-menu-item>
+                    <md-menu-item class="md-indent" ng-if="current_project_user_role == 'owner' || current_project_user_role == 'admin'">
+                        <md-icon md-font-icon="icon-table-edit" class="icon s20"></md-icon>
+                        <md-button ng-href="/projects/{{current_project_id}}/statuses" active-link="active"><span translate="TOOLBAR.AGILE_CONFIG"></span></md-button>
+                    </md-menu-item>
+                    <md-menu-item class="md-indent" ng-if="current_project_user_role == 'owner' || current_project_user_role == 'admin'">
+                        <md-icon md-font-icon="icon-cog" class="icon s20"></md-icon>
+                        <md-button ng-href="projects/form/edit/{{current_project_id}}" active-link="active"><span translate="TOOLBAR.EDIT_PROJECT"></span></md-button>
+                    </md-menu-item>
+                    <md-menu-item class="md-indent">
+                        <md-icon md-font-icon="icon-content-copy" class="icon s20"></md-icon>
+                        <a class="md-button" ng-click="vm.cloneProject()"><span translate="OTHER.CLONE_PROJECT"></span></a>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </md-menu-bar>
+
+        <div class="project-menu" ng-if="show_department_buttons">
+            <md-button class="user-button" active-link="active" aria-label="Dział programistyczny" ng-href="/calendar/working/developers">
+                <div layout="row" layout-align="space-between center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon s25">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+                    </svg>
+
+                    <span class="username" hide-xs hide-sm translate="DEPARTMENTS.DEVELOPERS"></span>
+                </div>
+            </md-button>
+        </div>
+
+        <div class="project-menu" ng-if="show_department_buttons">
+            <md-button class="user-button" active-link="active" aria-label="Dział teletechniczny" ng-href="/calendar/working/telecommunication">
+                <div layout="row" layout-align="space-between center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon s25">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.348 14.651a3.75 3.75 0 010-5.303m5.304 0a3.75 3.75 0 010 5.303m-7.425 2.122a6.75 6.75 0 010-9.546m9.546 0a6.75 6.75 0 010 9.546M5.106 18.894c-3.808-3.808-3.808-9.98 0-13.789m13.788 0c3.808 3.808 3.808 9.981 0 13.79M12 12h.008v.007H12V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                    </svg>
+                      
+                    <span class="username" hide-xs hide-sm translate="DEPARTMENTS.TELECOMMUNICTION"></span>
+                </div>
+            </md-button>
+        </div>
+
+        <div class="project-menu" ng-if="show_department_buttons">
+            <md-button class="user-button" active-link="active" aria-label="Inni" ng-href="/calendar/working/other">
+                <div layout="row" layout-align="space-between center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon s25">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                    </svg>
+                      
+                    <span class="username" hide-xs hide-sm translate="DEPARTMENTS.OTHER"></span>
+                </div>
+            </md-button>
+        </div>
+
+        <!--<ms-search-bar></ms-search-bar>-->
+
+        <div class="toolbar-separator"></div>
+        <md-progress-circular id="toolbar-progress" class="md-accent" ng-if="$root.loadingProgress"
+                              md-mode="indeterminate" >
+        </md-progress-circular>
+    </div>
+
+    <div layout="row" layout-align="start center">
+        <md-menu-bar id="user-menu">
+            <md-menu md-position-mode="left bottom">
+                <md-button class="user-button" ng-click="$mdMenu.open()"
+                           aria-label="User settings"
+                           translate translate-attr-aria-label="TOOLBAR.USER_SETTINGS">
+                    <div ng-if="!invoices_active" layout="row" layout-align="space-between center">
+                        <div class="avatar-wrapper">
+                            <img md-menu-align-target class="avatar" ng-src="{{vm.current_avatar}}">
+                            <!--<md-icon md-font-icon ng-class="vm.userStatus.icon"-->
+                                     <!--ng-style="{'color': vm.userStatus.color }"-->
+                                     <!--class="icon status s16">-->
+                            <!--</md-icon>-->
+                        </div>
+                        <span class="username" hide-xs hide-sm hide-md>{{ vm.currentUser.first_name + ' ' + vm.currentUser.last_name }}</span>
+                        <md-icon md-font-icon="icon-chevron-down"
+                                 class="icon s16" hide-xs hide-sm></md-icon>
+                    </div>
+                    <div ng-if="invoices_active" layout="row" layout-align="space-between center">
+                        <div class="avatar-wrapper">
+                        </div>
+                        <span class="username">{{ vm.currentUser.first_name + ' ' + vm.currentUser.last_name }}</span>
+                        <md-icon md-font-icon="icon-chevron-down"
+                                 class="icon s16" hide-xs hide-sm></md-icon>
+                    </div>
+                </md-button>
+                <md-menu-content width="3">
+                    <md-menu-item class="md-indent" ng-if="show_companies_list">
+                        <md-icon md-font-icon="icon-tile-four" class="icon"></md-icon>
+                        <md-button ng-href="/company/my-list/open" ><span translate="NAV.COMPANY.MY_LIST"></span></md-button>
+                    </md-menu-item>
+                    <md-menu-item class="md-indent" ng-if="current_company == 2">
+                        <md-icon md-font-icon="icon-camcorder-box" class="icon"></md-icon>
+                        <a class="md-button" href="https://voice-chat.agileboard.me" target="_blank">VOICE CHAT</a>
+                    </md-menu-item>
+                    <md-menu-item class="md-indent">
+                        <md-icon md-font-icon="icon-pencil" class="icon"></md-icon>
+                        <md-button ng-href="/user-edit" ><span translate="TOOLBAR.EDIT"></span></md-button>
+                    </md-menu-item>
+                    <md-menu-item class="md-indent">
+                        <md-icon md-font-icon="icon-logout" class="icon"></md-icon>
+                        <md-button ng-click="logout()"><span translate="TOOLBAR.LOGOUT" id="logout"></span></md-button>
+                    </md-menu-item>
+
+                    <md-menu-divider></md-menu-divider>
+
+                    <md-menu-item class="md-indent">
+                        <md-button ng-href="/page/regulations"><span translate="LAYOUT.REGULATIONS"></span></md-button>
+                    </md-menu-item>
+                    <md-menu-item class="md-indent">
+                        <md-button ng-href="/page/privacy-policy"><span translate="LAYOUT.PRIVACY_POLICY"></span></md-button>
+                    </md-menu-item>
+                    <md-menu-item class="md-indent">
+                        <md-button ng-href="/page/cookie"><span translate="LAYOUT.COOKIE"></span></md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </md-menu-bar>
+
+        <md-menu-bar id="informations-menu" ng-if="invoices_active">
+            <md-menu md-position-mode="left bottom">
+                <md-button class="user-button" ng-click="$mdMenu.open()">
+                    <div layout="row" layout-align="space-between center">
+                        <span class="username" translate="TOOLBAR.INFO" >INFO</span>
+                        <md-icon md-font-icon="icon-chevron-down" class="icon s16" hide-xs hide-sm></md-icon>
+                    </div>
+                </md-button>
+                <md-menu-content width="3">
+                    <md-menu-item class="md-indent">
+                        <md-button ng-href="/page/regulations" target="_blank" ><span translate="LAYOUT.REGULATIONS"></span></md-button>
+                    </md-menu-item>
+                    <md-menu-item class="md-indent">
+                        <md-button ng-href="/page/privacy-policy" ><span translate="LAYOUT.PRIVACY_POLICY"></span></md-button>
+                    </md-menu-item>
+                    <md-menu-item class="md-indent">
+                        <md-button ng-href="/page/cookie"><span translate="LAYOUT.COOKIE"></span></md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </md-menu-bar>
+
+        <div class="toolbar-separator"></div>
+
+        <md-menu id="language-menu" md-offset="0 72" md-position-mode="target-right target">
+            <md-button class="language-button" ng-click="$mdMenu.open()"
+                       aria-label="Language" md-menu-origin md-menu-align-target>
+                <div layout="row" layout-align="center center">
+                    <img class="flag" ng-src="assets/images/flags/{{vm.selectedLanguage.flag}}.png">
+                    <span hide-xs class="iso">{{vm.selectedLanguage.code}}</span>
+                </div>
+            </md-button>
+
+            <md-menu-content width="3" id="language-menu-content">
+                <md-menu-item ng-repeat="(iso, lang) in vm.languages">
+                    <md-button ng-click="vm.changeLanguage(lang)" aria-label="{{lang.title}}" translate
+                               translate-attr-aria-label="{{lang.title}}">
+                        <span layout="row" layout-align="start center">
+                            <img class="flag" ng-src="assets/images/flags/{{lang.flag}}.png">
+                            <span translate="{{lang.translation}}">{{lang.title}}</span>
+                        </span>
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+
+        <!--<div class="toolbar-separator"></div>-->
+
+        <!--<md-button id="quick-panel-toggle" class="md-icon-button" ng-click="vm.toggleSidenav('quick-panel')"-->
+                   <!--aria-label="Toggle quick panel" translate translate-attr-aria-label="TOOLBAR.TOGGLE_QUICK_PANEL">-->
+            <!--<md-icon md-font-icon="icon-format-list-bulleted" class="icon"></md-icon>-->
+        <!--</md-button>-->
+    </div>
+</div>

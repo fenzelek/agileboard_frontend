@@ -1,0 +1,127 @@
+{
+    "data": [
+        {
+            "name": "Mini",
+            "image": "min_pl",
+            "statuses": [
+                {
+                    "name": "Do realizacji"
+                },
+                {
+                    "name": "W trakcie realizacji"
+                },
+                {
+                    "name": "Zamknięte"
+                }
+            ]
+        },
+        {
+            "name": "Średni",
+            "image": "mid_pl",
+            "statuses": [
+                {
+                    "name": "Do realizacji"
+                },
+                {
+                    "name": "Następne do wykonania"
+                },
+                {
+                    "name": "W trakcie realizacji"
+                },
+                {
+                    "name": "Zrobione"
+                },
+                {
+                    "name": "Wdrożone na serwer testowy"
+                },
+                {
+                    "name": "Testowane przez Zespół"
+                },
+                {
+                    "name": "Sprawdzone"
+                },
+                {
+                    "name": "Zamknięte"
+                }
+            ]
+        },
+        {
+            "name": "Pełny",
+            "image": "full_pl",
+            "statuses": [
+                {
+                    "name": "Do realizacji"
+                },
+                {
+                    "name": "Do poprawy"
+                },
+                {
+                    "name": "Następne do wykonania"
+                },
+                {
+                    "name": "W trakcie realizacji"
+                },
+                {
+                    "name": "Potrzebuję informacji"
+                },
+                {
+                    "name": "Zrobione"
+                },
+                {
+                    "name": "Wdrożone na serwer testowy"
+                },
+                {
+                    "name": "Testowane przez Zespół"
+                },
+                {
+                    "name": "Sprawdzone"
+                },
+                {
+                    "name": "Testowane przez Klienta"
+                },
+                {
+                    "name": "Zamknięte"
+                }
+            ]
+        },
+
+        {
+            "name": "Tygodniowy",
+            "image": "weekly_pl",
+            "statuses": [
+                {
+                    "name": "Do realizacji"
+                },
+                {
+                    "name": "Poniedziałek"
+                },
+                {
+                    "name": "Wtorek"
+                },
+                {
+                    "name": "Środa"
+                },
+                {
+                    "name": "Czwartek"
+                },
+                {
+                    "name": "Piątek"
+                },
+                {
+                    "name": "W trakcie"
+                },
+                {
+                    "name": "Do weryfikacji"
+                },
+                {
+                    "name": "Do poprawy"
+                },
+                {
+                    "name": "Zamknięte"
+                }
+            ]
+        }
+
+
+    ]
+}

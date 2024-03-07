@@ -1,0 +1,64 @@
+<div id="projects-form" class="page-layout simple fullwidth doc-page" layout="column">
+
+	<!-- HEADER -->
+	<div class="header md-accent-bg" layout="row" layout-align="space-between">
+		<div layout="column" layout-align="space-between" flex="100">
+			<div layout="row">
+				<div ng-if="!vm.edit" class="title" translate="PROJECTS_FORM.TITLE_ADD" flex="70"></div>
+				<div ng-if="vm.edit" class="title" translate="PROJECTS_FORM.TITLE_EDIT" flex="70"></div>
+				<div flex="30" layout="row" layout-align="end center">
+					<md-button href="/projects/list" class="md-raised" aria-label="Go Back" translate="OTHER.GO_BACK" translate-attr-aria-label="OTHER.GO_BACK">
+						Go Back
+					</md-button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- / HEADER -->
+
+	<!-- CONTENT -->
+	<div class="content" layout="column">
+		<a name="up"></a>
+		<div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+		<div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+		<div layout="row">
+
+			<div class="form-wrapper  rounded-container min-1000">
+				<form id="formProject" name="formProject" novalidate ng-submit="vm.send()">
+
+          <!-- Divide project form through tabs -->
+          <md-tabs md-dynamic-height class="border-bottom">
+              <md-tab>
+                  <md-tab-label><span translate="PROJECTS_FORM.TABS.BASIC"></span></md-tab-label>
+                  <md-tab-body>
+                      <div ng-include="'app/main/projects/form/tabs/basic.html'"></div>
+                  </md-tab-body>
+              </md-tab>
+              <md-tab>
+                  <md-tab-label><span translate="PROJECTS_FORM.TABS.NOTIFICATIONS"></span></md-tab-label>
+                  <md-tab-body>
+                      <div ng-include="'app/main/projects/form/tabs/notifications.html'"></div>
+                  </md-tab-body>
+              </md-tab>
+              <md-tab ng-if="vm.edit">
+                  <md-tab-label><span translate="PROJECTS_FORM.TABS.PRIVILEGES"></span></md-tab-label>
+                  <md-tab-body>
+                      <div ng-include="'app/main/projects/form/tabs/privileges.html'"></div>
+                  </md-tab-body>
+              </md-tab>
+          </md-tabs>
+
+          <div layout-gt-sm="row" layout-align="end none" class="p-16">
+              <md-button type="submit" class="md-raised md-accent" aria-label="SEND"
+                          ng-disabled="formProject.$invalid || (formProject.$pristine && !vm.edit) || vm.request_sending || vm.shortNameError"
+                          translate="OTHER.SAVE"
+                          translate-attr-aria-label="OTHER.SAVE">
+              </md-button>
+          </div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

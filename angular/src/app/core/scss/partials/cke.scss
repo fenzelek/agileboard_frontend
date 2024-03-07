@@ -1,0 +1,12 @@
+div.cke_contents.image-upload-loading {
+  position: relative;
+  &::after {
+      font-family: 'icomoon';
+      content: "\e77e";
+      position: absolute;
+      top: 6px;
+      right: 18px;
+      font-size: 22px;
+      animation: rotate 0.8s linear infinite;
+  }
+}

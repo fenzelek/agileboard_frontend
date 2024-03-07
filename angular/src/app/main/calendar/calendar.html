@@ -1,0 +1,182 @@
+<div id="calendar" class="page-layout simple fullwidth height-full" layout="column">
+    <!-- CONTENT -->
+    <div class="content height-full">
+        <div layout="row" layout-align="space-between center" class="ph-20 pt-10 pb-5">
+            <div layout="row" layout-align="center center">
+                <md-button type="button" class="md-raised md-accent" aria-label="PREVIOUS" translate="CALENDAR.PREVIOUS" ng-click="vm.getPrev()"></md-button>
+            </div>
+            <div layout="row" layout-align="center center">
+                <md-button type="button" class="md-raised md-accent" aria-label="TODAY" translate="CALENDAR.TODAY" ng-click="vm.setDay()"></md-button>
+                <!-- Datepicker -->
+                <md-icon md-font-icon="icon-calendar" class="s22 grey-500-fg ml-10" moment-picker="vm.pickerDate"
+                    format="YYYY-MM-DD" start-view="day" locale="{{ vm.lang }}" ng-model="vm.currentDate" change="vm.setDay(newValue)">
+                    <md-tooltip>{{ 'CALENDAR.SELECT_DATE' | translate }}</md-tooltip>
+                </md-icon>
+            </div>
+            <div layout="row" layout-align="center center">
+                <md-button type="button" class="md-raised md-accent" aria-label="NEXT" translate="CALENDAR.NEXT" ng-click="vm.getNext()"></md-button>
+            </div>
+        </div>
+
+        <!-- calendar - working time -->
+        <div ng-show="vm.currentView == 'working_hours'" class="opened-view">
+            <div class="ms-widget layout-row flex-100 calendar-scroll" ms-scroll>
+                <table class="calendar-content dataTable row-border hover ng-scope no-footer dtr-inline table-fixed">
+                    <thead fix-head>
+                    <tr role="row">
+                        <th class="sorting_disabled avatar-col"></th>
+                        <th class="sorting_asc person"
+                            translate="CALENDAR.PERSON">Person</th>
+                        <th class="sorting_disabled"
+                            ng-repeat="day in vm.dates">
+                            <div class="date">{{ day | date: 'yyyy-MM-dd' }} </div>
+                            <div class="day-in-week"> {{ vm.moment(day).format('dddd'); }}</div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr role="row"
+                        ng-class="{selected: currentUser.id == user.id}"
+                        ng-repeat="user in vm.users track by user.id">
+                        <td class="avatar-col">
+                            <img alt="{{ user.first_name + ' ' + user.last_name }}"
+                                class="avatar ng-scope"
+                                ng-src="{{vm.getAvatar(user.avatar)}}">
+                        </td>
+                        <td class="person">{{ user.first_name }}<br/>{{ user.last_name }}</td>
+                        <td ng-repeat="day in vm.dates" drag-drop-calendar id="{{user.id}}-{{day}}" drop="vm.drop(from, to)"
+                            ng-click="vm.showEventsModal($event, user, day)" ng-class="{ 'editable': vm.canModifyEvent(user, day) }">
+
+                            <div ng-repeat="availability in user.availabilities.data | availability:day"
+                                ng-class="vm.getAvailabilityCssClass(availability)">
+
+                                <span ng-show="availability.available">
+                                    {{ availability.time_start | slice:0:5 }} - {{ availability.time_stop | slice:0:5 }}
+                                    <div class="desc">{{availability.description}}</div>
+                                </span>
+
+                                <span ng-show="! availability.available">
+                                    <span ng-if="-1 == vm.reasons.indexOf(availability.description)">
+                                        {{ availability.description }}
+                                        <md-tooltip>{{ 'CALENDAR.REASON.other' | translate }}: {{ availability.description }} </md-tooltip>
+                                    </span>
+                                    <span ng-if="-1 != vm.reasons.indexOf(availability.description)" translate="CALENDAR.REASON.{{availability.description}}"></span>
+                                </span>
+
+                                <div class="confirmed-mark" ng-if="vm.isConfirmed(availability)">
+                                    <md-icon md-font-icon="icon-check" class="icon icon-flat s14"></md-icon>
+                                    <md-tooltip>
+                                        {{ 'CALENDAR.AVAILABILITY_CONFIRMED' | translate }}
+                                    </md-tooltip>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- calendar - ticket realization -->
+        <div ng-show="vm.currentView == 'ticket_realization'" class="opened-view">
+            <div class="ms-widget layout-row flex-100 calendar-scroll" ms-scroll>
+                <table class="calendar-content dataTable row-border hover ng-scope no-footer dtr-inline" on-size-changed="vm.realizationResize">
+                    <thead fix-head>
+                    <tr role="row">
+                        <th class="sorting_disabled avatar-col"></th>
+                        <th class="sorting_asc person"
+                            translate="CALENDAR.PERSON">Person</th>
+                        <th class="sorting_disabled"
+                            ng-repeat="day in vm.dates">
+                            <div class="date">{{ day | date: 'yyyy-MM-dd' }} </div>
+                            <div class="day-in-week"> {{ vm.moment(day).format('dddd'); }}</div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr role="row" ng-class="{selected: currentUser.id == user.id}" ng-repeat="user in vm.users_ticket_realization">
+                        <td class="avatar-col">
+                            <img alt="{{ user.first_name + ' ' + user.last_name }}" class="avatar ng-scope" ng-src="{{vm.getAvatar(user.avatar)}}">
+                        </td>
+                        <td class="person">{{ user.first_name }}<br/>{{ user.last_name }}</td>
+                        <td ng-repeat="(index_day, day) in vm.dates" class="realization">
+                            <div ng-repeat="realizations in user.realizations">
+                                <div class="{{realizations[index_day].ticket.data.project.data.color}}" ng-style="{'width': vm.realizationWidth(realizations[index_day])}" ng-if="realizations[index_day] && realizations[index_day] !== true">
+                                    <md-tooltip>{{ realizations[index_day].ticket.data.title }} - {{ realizations[index_day].ticket.data.name }}</md-tooltip>
+                                    <a ng-href="/projects/{{realizations[index_day].ticket.data.project.data.id}}/ticket/{{realizations[index_day].ticket.data.title}}" target="_blank">
+                                        {{ realizations[index_day].ticket.data.title }} - {{ realizations[index_day].ticket.data.name }}
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- calendar - Gantt diagram -->
+        <div ng-show="vm.currentView == 'gantt_diagram'" class="opened-view gantt_diagram">
+            <div class="ms-widget layout-row flex-100 calendar-scroll" ms-scroll>
+                <table class="calendar-content-gantt dataTable row-border hover ng-scope no-footer dtr-inline" on-size-changed="vm.workloadResize">
+                    <thead fix-head>
+                        <tr role="row">
+                            <th class="sorting_disabled avatar-col"></th>
+                            <th class="sorting_asc person"></th>
+                            <th ng-repeat="month in vm.ganttMonths track by $index" ng-if="month" colspan="{{ month.days_count }}">{{ month.label }}</th>
+                            <th></th>
+                        </tr>
+                        <tr role="row">
+                            <th class="sorting_disabled avatar-col"></th>
+                            <th class="sorting_asc person" translate="CALENDAR.PERSON"></th>
+                            <th class="sorting_disabled" ng-repeat="day in vm.ganttDates">
+                                <div class="date">{{ day | date: 'd' }} </div>
+                            </th>
+                            <th colspan="1" translate="CALENDAR.PROJECT"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr role="row" ng-class="{selected: currentUser.id == user_workload.user.id}" ng-repeat="user_workload in vm.users_workloads">
+                            <td class="avatar-col">
+                                <img alt="{{ user_workload.user.first_name + ' ' + user_workload.user.last_name }}" class="avatar ng-scope" ng-src="{{vm.getAvatar(user_workload.user.avatar)}}">
+                            </td>
+                            <td class="person">{{ user_workload.user.first_name }}<br/>{{ user_workload.user.last_name }}</td>
+                            <td ng-repeat="(index_day, day) in vm.ganttDates" class="workload" ng-class="{ weekend: vm.isWeekendDay(day) }">
+                                <div ng-repeat="project in user_workload.projects track by $index" ng-if="project">
+                                    <div
+                                        class="{{project[0].project.color}}"
+                                        ng-repeat="project_workload in project track by $index"
+                                        ng-style="{'width': vm.workloadWidth(project_workload)}"
+                                        ng-if="project_workload.arr[index_day] !== null && project_workload.arr[index_day] !== true">
+                                        <md-tooltip>{{ project_workload.sprint.name + ' - ' + project_workload.project.name }}</md-tooltip>
+                                        <div
+                                            ng-if="project_workload.rate && project_workload.rate < 100"
+                                            class="{{ vm.workloadRateColor(project[0].project.color)}}"
+                                            ng-style="{'width': vm.workloadRateWidth(project_workload), 'opacity': 0.4}">
+                                        </div>
+                                        <span>
+                                            {{ project_workload.sprint.name }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td colspan="1">
+                                <div
+                                ng-repeat="project in user_workload.projects track by $index"
+                                ng-if="project"
+                                class="workload-label {{ vm.projectTextColor(project[0].project.color) }} {{ vm.projectBorderColor(project[0].project.color) }}">
+                                    {{ project[0].project.name }}
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <!-- MAIL LIST PANE -->
+    </div>
+    <!-- / CONTENT -->
+
+</div>

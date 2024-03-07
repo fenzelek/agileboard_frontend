@@ -1,0 +1,9 @@
+{
+    "UNAUTHORIZED": {
+        "TITLE": "Nie masz uprawnień do tego projektu",
+        "DESCRIPTION": "Skontaktuj się z jego właścicielem."
+    },
+    "ERRORS": {
+
+    }
+}

@@ -1,0 +1,214 @@
+#history {
+
+    .sprint {
+        width: 100%;
+        clear: both;
+        margin-bottom: 40px;
+        background-color: white;
+
+        .sprint-handle {
+            min-height: 30px;
+            padding: 5px 0;
+
+            .title {
+                margin-right: 16px;
+                //color: blueviolet;
+                font-size: 15px;
+                line-height: 25px;
+                font-weight: bold;
+                display: inline-flex;
+            }
+
+            .dates {
+                color: rgba(0,0,0,0.62);
+                font-size: 0.86em;
+                line-height: 12px;
+
+                .date {
+                    margin-right: 12px;
+                    max-width: 200px;
+                    cursor: default;
+
+                    md-icon {
+                        min-width: 20px;
+                    }
+                    span {
+                        margin-left: 2px;
+                        line-height: 1;
+                    }
+
+                    .no-data {
+                        opacity: 0.6;
+                    }
+                }
+            }
+        }
+
+        .backlog-items {
+            margin-left: 20px;
+            border: 1px solid lightgray;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            background-color: #ffffff;
+        }
+
+        .estimate {
+            width: 50px;
+            margin: 0 3px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .sprint-footer {
+            .estimate-separator {
+                font-size: 12px;
+                font-weight: 700;
+            }
+        }
+
+    }
+
+    // Single scroll
+    &.single-scroll {
+
+        .backlog-list-pane {
+            overflow: hidden;
+        }
+    }
+
+    .empty-sprint {
+        padding: 15px;
+        color: #aaa;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    .backlog-list-pane {
+
+        .backlog-items {
+
+            .backlog-item {
+                padding: 2px 5px 2px 30px;
+                border-left: 4px solid rgb(3,155,229);
+                &.bug {
+                    border-left: 4px solid #ff0000;
+                }
+            }
+        }
+
+        .backlog-items {
+            overflow-x: hidden;
+        }
+    }
+}
+
+.backlog-item {
+    position: relative;
+    min-height: 45px;
+    box-sizing: border-box;
+    padding: 2px 5px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    text-transform: none;
+    cursor: pointer;
+
+    &.backlog-item-placeholder {
+        background: rgba(0, 0, 0, 0.12);
+        * {
+            opacity: 0;
+        }
+    }
+
+    &.selected {
+        background: #FFF8E1;
+    }
+
+    .info {
+        margin: 0 16px 0 8px;
+
+        .code {
+
+            .title {
+                font-size: 15px;
+                white-space: nowrap;
+                color: rgb(3,155,229);
+                font-weight: 500;
+                margin-right: 6px;
+                margin-left: 8px;
+                text-decoration: underline;
+            }
+
+            .name {
+                font-size: 13px;
+                color: black;
+                margin-right: 6px;
+                margin-left: 6px;
+            }
+            .stories, .scheduled_time {
+                margin-left: 6px;
+            }
+
+        }
+
+        .badge.story, .badge.date {
+            margin-top: 1px;
+            margin-bottom: 1px;
+        }
+
+        .notes {
+            margin-top: 4px;
+            color: gray;
+            font-size: 12px;
+        }
+    }
+
+    .list-card-members {
+        margin: 0;
+    }
+
+    .estimate {
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .buttons {
+
+        .is-starred {
+            margin: 0 0 0 16px;
+        }
+
+        .is-important {
+            margin: 0;
+        }
+    }
+}
+
+.backlog-item-ghost {
+    opacity: 1 !important;
+    background: #FFFFFF;
+    box-shadow: $whiteframe-shadow-14dp;
+    border: none;
+
+    .md-ripple-container {
+        display: none;
+    }
+}
+
+// RESPONSIVE
+@media screen and (max-width: $layout-breakpoint-xs) {
+
+    #backlog {
+
+        .backlog-list-pane {
+
+            .sortable {
+
+                .backlog-items {
+
+                    .backlog-item {
+                        padding-left: 32px;
+                    }
+                }
+            }
+        }
+    }
+}

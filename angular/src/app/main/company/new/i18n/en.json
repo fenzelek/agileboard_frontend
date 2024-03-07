@@ -1,0 +1,23 @@
+{
+    "COMPANY_NEW": {
+        "TITLE": "New company",
+        "NAME": "Name",
+        "GET_GUS": "Get data from GUS and create company.",
+        "SKIP": "Go to the form",
+        "NIP": "NIP",
+        "SUCCESS": "Creted company successfully",
+        "GUS_ERROR": "No data in GUS for given NIP.",
+        "VAT_PAYER_YES": "The company is a VAT payer",
+        "VAT_PAYER_NO": "The company exempt from VAT",
+        "VAT_REASON": "Reason",
+        "VAT_REASON_OTHER": "Custom reason"
+    },
+    "ERRORS": {
+        "company": {
+            "creation_limit" : "You have exceeded the limit on the number of companies created."
+        },
+        "gus": {
+            "technical_problems": "GUS is not available at this time. Try again in a minute or skip this step."
+        }
+    }
+}

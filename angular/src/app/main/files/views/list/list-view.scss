@@ -1,0 +1,104 @@
+#files-page {
+
+    .list-view {
+
+        tr {
+
+            th, td {
+
+            }
+        }
+
+        > thead {
+
+            tr {
+
+                th {
+
+                    &:first-child {
+                        width: 80px;
+                        min-width: 80px;
+                    }
+                    &:last-child {
+                        min-width: 60px;
+                    }
+                }
+            }
+        }
+
+        > tbody {
+
+            tr {
+                cursor: pointer;
+                outline: none;
+
+                td {
+                    padding: 24px 8px;
+                    border-bottom: none;
+
+                    &.file-icon {
+                        padding: 24px 8px 24px 34px;
+                        width: 80px;
+                        min-width: 80px;
+                        text-align: center;
+                    }
+
+                    &.name {
+                        font-weight: 500;
+                    }
+
+                    &.type {
+                        text-transform: capitalize;
+                    }
+
+                    &.owner {
+                        text-transform: capitalize;
+                    }
+
+                    &.last-modified {
+
+                    }
+
+                    &.show-details {
+                        // padding: 24px 8px 24px 36px;
+                        width: 60px;
+                        min-width: 60px;
+                        text-align: center;
+                    }
+
+                    &.more {
+                        padding: 24px 16px;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// media query
+@media screen and (min-width: $layout-breakpoint-md) {
+    #files-page {
+        
+        .list-view {
+            > tbody {
+                
+                tr {
+
+                    &:hover {
+                        background-color: #f3f3f3;
+                    }
+
+                    &.selected {
+                        background-color: #E3F2FD;
+            
+                        &:hover {
+                            background-color: #d7ebf9;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+}

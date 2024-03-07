@@ -1,0 +1,27 @@
+{
+    "PROJECT_WIZARD": {
+        "TITLE": "Kreator projektu",
+        "CLOSE": "Zamknij",
+        "START": "Startujemy!",
+        "PROJECT_NAME": "Nazwa projektu",
+        "PROJECT_NAME_DESC": "Co masz do zrobienia? Nazwij to:",
+        "PROJECT_NAME_PLACEHOLDER": "Wpisz nazwę projektu",
+        "PROJECT_SHORT_NAME": "Krótka nazwa projketu",
+        "STATUSES": "Statusy",
+        "STATUSES_DESC": "Każde zadanie ma swój status, podaj listę statusów dla Twojego projektu. Wielu ludzi zaczyna z tymi statusami:",
+        "STATUSES_ADD": "Dodaj status",
+        "STATUSES_ADD_NEXT": "Dodaj następny",
+        "SPRINT": "Etapy",
+        "SPRINT_DESC": "Etap to grupa zadań, które są ze sobą powiązane w jakiś sposób. Może to być ta sama funkcjonalność, okres czasu do wykonania itp. Ty wybierasz.",
+        "SPRINT_NAME": "Nazwa etapu",
+        "SPRINT_FIRST": "Mój pierwszy etap",
+        "TICKET": "Zadanie",
+        "TICKET_DESC": "Utwórzmy pierwsze zadanie! Trafi ono do przed chwilą utworzonego przez Ciebie etapu:",
+        "TICKET_NAME": "Nazwa zadania",
+        "TICKET_FIRST": "Moje pierwsze zadanie",
+        "SUMMARY": "Podsumowanie",
+        "SUMMARY_DESC": "Sprawdźmy czy wszystko się zgadza. Możesz kliknąć przycisk \"Wróć\" i wszystko poprawić.",
+        "SUMMARY_END": "Jeśli wszystko jest ok, kliknij przycisk \"Zapisz\":",
+        "ERROR": "Wystąpił błąd"
+    }
+}

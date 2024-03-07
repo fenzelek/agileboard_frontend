@@ -1,0 +1,45 @@
+{
+    "SIDANAV_PREVIEW": {
+        "OPEN": "Otwórz",
+        "ASSIGNED": "Przypisany do:",
+        "REPORTER": "Zgłaszający:",
+        "ESTIMATE": "Estymacja:",
+        "SPRINT": "Etap:",
+        "STORIES": "Oznaczenia:",
+        "BACKLOG": "Lista zadań",
+        "EDITED": "Edytowany:",
+        "MY_LOGGED_TIME": "Mój zalogowany czas:",
+        "ALL_LOGGED_TIME": "Cały zalogowany czas:",
+        "ESTIMATE_EXAMPLE": "Przykład: 8h 30m",
+        "ESTIMATE_ERROR": "Błąd formatu estymacji",
+        "SCHEDULED_DATE_START": "Planowana data startu:",
+        "SCHEDULED_DATE_END": "Planowana data końca:",
+        "DESCRIPTION": "Opis",
+        "ATTACHMENTS": "Załączniki",
+        "DELETE_QUESTION": "Czy na pewno chcesz usunąć to zadanie?",
+        "COMMENTS": "Komentarze",
+        "ADD_COMMENT": "Dodaj komentarz",
+        "NONE": "Brak",
+        "CLICK_TO_ASSIGN": "Kliknij aby przypisać",
+        "CLICK_TO_ADD": "Kliknij aby dodać",
+        "CLICK_TO_ADD_DESC": "Kliknij aby dodać opis",
+        "CLICK_TO_EDIT": "kliknij, aby edytować",
+        "ENTER_TEXT": "Wpisz tekst",
+        "USER_SEARCH": "Wyszukaj użytkownika...",
+        "STORIES_SEARCH": "Szukaj oznaczenia...",
+        "STORIES_ADD_MORE": "Dodaj następne...",
+        "STATUS_SEARCH": "Szukaj statusu...",
+        "FILE_UPLOAD_INFO": "Możesz preciągnąć i upuścić plik na tym oknie lub wkleić go za pomocą Ctrl+V.",
+        "CREATE_NEW": "Utwórz nowe: ",
+        "DOWNLOAD": "Pobierz",
+        "COPY_LINK": "Kopiuj link",
+        "COPY_TITLE_AND_NAME": "Kopiuj tytuł",
+        "RELATED_WITH": "Powiązane z",
+        "SUBTASKS": "Pod-zadania"
+    },
+    "ERRORS": {
+        "package": {
+            "limit_reached": "Osiągnięto limit ilości zajętego miejsca na dysku. Usuń inne pliki aby móc dodać kolejne lub skontaktuj sie z właścicielem Twojej firmy, aby zwiększył limit."
+        }
+    }
+}

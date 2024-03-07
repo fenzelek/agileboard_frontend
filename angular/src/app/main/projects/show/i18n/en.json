@@ -1,0 +1,22 @@
+{
+    "PROJECTS_SHOW": {
+        "TITLE": "Project",
+        "USERS": "Users",
+        "STATS": {
+            "TITLE": "Statistics",
+            "TOTAL_ESTIMATE_TIME": "Total estimate time:",
+            "MY_TOTAL_ESTIMATE_TIME": "My total estimate time:",
+            "NON_TODO_ESTIMATE_TIME": "Total estimate time (without tasks in todo):",
+            "MY_NON_TODO_ESTIMATE_TIME": "My total estimate time (without tasks in todo):",
+            "NOT_ESTIMATED_TICKETS_COUNT": "Non estimated tickets count:",
+            "NOT_ASSIGNED_TICKETS_COUNT": "Non assigned tickets count:",
+            "TRACKED": "Total tracked time:",
+            "MY_TRACKED": "Total tracked time:",
+            "USER": "User",
+            "TIME": "Time",
+            "ACTIVITY": "Activity"
+        }
+    },
+    "ERRORS": {
+    }
+}

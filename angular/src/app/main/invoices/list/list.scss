@@ -1,0 +1,25 @@
+#invoices-list {
+
+    .add-invoice-options {
+        margin-bottom: 1rem;
+    }
+
+    .filtering-label {
+        color: material-color('grey', '400');
+        font-size: 1.1rem;
+        padding-left: 1.2rem;
+        margin-bottom: 3px;
+    }
+
+    .filter-options {
+        background: material-color('grey', '100');
+        border-radius: 10px;
+        padding: 1rem 1rem 0;
+        margin-bottom: 2rem;
+    }
+
+    md-dialog {
+        max-width: 600px;
+    }
+
+}

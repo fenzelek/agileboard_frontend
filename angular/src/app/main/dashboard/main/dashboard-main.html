@@ -1,0 +1,33 @@
+<div id="dashboard-main" class="content" layout="column">
+
+  <md-tabs md-dynamic-height md-selected="$ctrl.selected_tab">
+    <md-tab md-on-select="">
+      <md-tab-label>
+        <span translate="DASHBOARD.NOTIFICATIONS"></span>
+      </md-tab-label>
+      <md-tab-body>
+        <div class="two-box">
+          <!-- left: Notifications -->
+          <notifications class="notifications"></notifications>
+
+          <!-- Right: Notification target preview: ticket / knowledge page -->
+          <notification-preview class="notification-preview" ng-if="$ctrl.showPreview" projects="$ctrl.projects"></notification-preview>
+
+        </div>
+        
+      </md-tab-body>
+    </md-tab>
+
+    <md-tab md-on-select="" ng-disabled="true">
+      <md-tab-label>
+        <span translate="DASHBOARD.ASSOCIATED_TASKS"></span>
+        <md-tooltip md-direction="top">{{ 'DASHBOARD.COMMING_SOON' | translate }}</md-tooltip>
+      </md-tab-label>
+      <md-tab-body>
+          tab 2
+      </md-tab-body>
+    </md-tab>
+    
+  </md-tabs>
+
+</div>

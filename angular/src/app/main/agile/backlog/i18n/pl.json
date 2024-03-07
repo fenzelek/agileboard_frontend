@@ -1,0 +1,56 @@
+{
+    "BACKLOG": {
+        "BACKLOG": "Lista zadań",
+        "TITLE": "Planowanie",
+        "SHOW_ALL": "Pokaż ukryte",
+        "EMPTY": "Brak zadań",
+        "NO_FILTERED_TICKETS": "Brak zadań spełniających kryteria",
+        "CREATE_SPRINT": "Nowy etap",
+        "SPRINT_NAME": "Nazwa etapu",
+        "SPRINT_CREATED": "Nowy etap został utworzony",
+        "CREATE_TICKET": "Dodaj zadanie",
+        "ACTIVE": "Rozpocznij",
+        "PAUSE": "Pauzuj",
+        "RESUME": "Wznów",
+        "LOCK": "Zablokuj dodawanie zadań",
+        "UNLOCK": "Odblokuj dodawanie zadań",
+        "CLOSE": "Zakończ",
+        "CLONE": "Sklonuj",
+        "SPRINT_DELETE_QUESTION": "Czy na pewno chcesz usunąć ten etap?",
+        "SPRINT_ACTIVE_QUESTION": "Czy na pewno chcesz otworzyć ten etap?",
+        "SPRINT_PAUSE_QUESTION": "Czy na pewno chcesz spauzować ten etap?",
+        "SPRINT_RESUME_QUESTION": "Czy na pewno chcesz wznowić ten etap?",
+        "SPRINT_LOCK_QUESTION": "Czy na pewno chcesz zablokować ten etap?",
+        "SPRINT_UNLOCK_QUESTION": "Czy na pewno chcesz odblokować ten etap?",
+        "SPRINT_NAME_CLICK": "Nazwa etapu (kliknij, aby edytować)",
+        "SPRINT_START_DATE": "Data rozpoczęcia",
+        "SPRINT_CLOSE_DATE": "Data zakończenia",
+        "ADDED_TICKET": "Dodano zadanie",
+        "UPDATED_TICKET": "Zaktualizowano zadanie",
+        "DELETED_TICKET": "Usunięto zadanie",
+        "ESTIMATE_TIME": "Estymacja",
+        "LOGGED_TIME": "Zalogowany czas",
+        "TIME_USAGE": "Wykorzystanie czasu",
+        "ALL_STORIES": "Wszystkie oznaczenia",
+        "CLICK_TO_ADD": "kliknij, aby dodać",
+        "HIDE_ALL_SPRINTS": "Zwiń wszystkie",
+        "SHOW_ALL_SPRINTS": "Rozwiń wszystkie",
+        "ESTIMATION_LEFT": "Pozostało z oszacowania",
+        "UN_STARTED_ESTIMATION": "Czas nierozpoczętych",
+        "EXPECTED_FINAL": "Przewidywana całość",
+        "ATTITUDE_TO_INITIAL": "Stosunek do pierwotnego",
+        "DELETE_QUESTION": "Czy na pewno chcesz usunąć to zadanie?",
+        "SPRINT_BLOCKED": "Etap jest zablokowany - zadanie nie zostało dodane",
+        "RESET_FILTERS": "Usuń filtry",
+        "EXPORT": "Eksport"
+    },
+    "ERRORS": {
+        "sprint": {
+            "not_empty": "Wybrany etap nie jest pusty.",
+            "invalid_current_status": "Etap ma już ten status."
+        },
+        "package": {
+            "limit_reached": "Osiągnięto limit ilości zajętego miejsca na dysku. Usuń inne pliki aby móc dodać kolejne lub skontaktuj sie z właścicielem Twojej firmy, aby zwiększył limit."
+        }
+    }
+}

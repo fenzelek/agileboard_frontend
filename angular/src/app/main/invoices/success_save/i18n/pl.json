@@ -1,0 +1,13 @@
+{
+    "INVOICES_SUCCESS_SAVE": {
+        "CREATED": "Utworzono fakturę:",
+        "UPDATED": "Zaktualizowano fakturę:",
+        "INVOICE": "Faktura:",
+        "PDF": "Utwórz pdf z zapisanej faktury",
+        "MAIL": "Wyślij mailem fakturę",
+        "SEND_SUCCESS": "Email został wysłany.",
+        "EMAIL": "Email",
+        "LIST": "Przejdź do listy",
+        "NEW": "Wystaw nową"
+    }
+}

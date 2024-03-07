@@ -1,0 +1,13 @@
+{
+    "INVOICES_SUCCESS_SAVE": {
+        "CREATED": "Invoice created:",
+        "UPDATED": "Invoice updated:",
+        "INVOICE": "Invoice:",
+        "PDF": "Create pdf from saved invoice",
+        "MAIL": "Send invoice by email",
+        "EMAIL": "Email",
+        "SEND_SUCCESS": "Email send successfully.",
+        "LIST": "Go to the list",
+        "NEW": "Create new"
+    }
+}

@@ -1,0 +1,82 @@
+#add-edit-page-knowledge-md-dialog {
+  background-color: #fff;
+  overflow: hidden;
+
+  md-toolbar {
+    font-size: 17px;
+    background-color: #fff;
+    border-bottom: 1px solid #AAAAAA;
+    color: #000;
+    height: auto;
+    min-height: 40px;
+  }
+
+  md-dialog-content {
+    padding-top: 10px;
+  }
+
+  md-dialog-actions {
+    border-top: 1px solid #AAAAAA;
+  }
+
+  .title {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .page-name {
+    font-size: 18px;    
+  }
+
+  .attachment-list {
+    font-size: 14px;
+    color: rgba(0,0,0,0.8);
+    padding-top: 10px;
+
+    .attachment {
+      background-color: #f2f2f2;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      padding-left: 16px;
+      margin-top: 8px;
+      border-radius: 2px;
+
+      .filename {
+        font-weight: 500;
+        line-height: 1.1;
+      }
+
+      .size {
+        margin-left: 5px;
+        margin-top: 1px;
+        font-size: 0.8em;
+        color: rgba(0,0,0,0.45);
+      }
+
+      .md-button {
+        margin: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  md-progress-linear {
+    margin-bottom: 30px !important;
+  }
+
+  .ta-group {
+    margin-bottom: 0;
+
+    &:last-child {
+      margin-bottom: 6px;
+    }
+
+    .md-button {
+      margin: 2px;
+      line-height: 24px;
+    }
+  }
+
+}

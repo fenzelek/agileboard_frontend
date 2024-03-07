@@ -1,0 +1,135 @@
+#knowledge {
+
+    // Center
+    .center {
+
+        .header {
+            position: relative;
+            padding-bottom: 0 !important;
+            height: 110px !important;
+            min-height: 110px !important;
+
+            .title {
+                font-size: 24px;
+                color: #fff;
+            }
+        }
+
+        .options-row {
+            padding-top: 15px;
+
+            .icon {
+                color: rgba(255,255,255,0.7);
+            }
+        }
+
+        .content-card {
+
+            .toolbar {
+                position: relative;
+                padding: 8px 16px;
+
+                &.knowledge-read-pane-toolbar {
+                    display: none;
+                }
+            }
+
+            .content-wrapper {
+                overflow: hidden;
+                position: relative;
+
+                .knowledge-tabs {
+
+                    md-tabs-wrapper {
+                        display: none;
+                    }
+
+                    md-tabs-content-wrapper {
+                        top: 0;
+                    }
+
+                    .content {
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        bottom: 0;
+                        left: 0;
+                        padding: 0;
+
+                        &.dir-list-pane {
+                            border-right: 1px solid rgba(0, 0, 0, 0.12);
+                            background: #FAFAFA;
+                        }
+
+                        &.knowledge-read-pane {
+                            padding: 24px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// RESPONSIVE
+@media screen and (min-width: $layout-breakpoint-sm) {
+
+    #knowledge {
+
+        .center {
+
+            .content-card {
+
+                .content-wrapper {
+
+                    .knowledge-tabs {
+
+                        md-tabs-content-wrapper {
+
+                            md-tab-content {
+                                opacity: 1;
+                                animation: none !important;
+
+                                * {
+                                    visibility: visible;
+                                    transition: none !important;
+                                }
+                            }
+                            md-tab-content:first-child {
+                                width: 30%;
+                            }
+                            md-tab-content:last-child {
+                                width: 70%;
+                                left: -40%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+// RESPONSIVE
+@media screen and (max-width: $layout-breakpoint-xs) {
+
+    #knowledge {
+
+        .center {
+
+            .content-card {
+
+                .content-wrapper {
+
+                    .knowledge-tabs {
+
+                        .content {
+                            position: relative;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

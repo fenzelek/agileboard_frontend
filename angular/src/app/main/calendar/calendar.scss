@@ -1,0 +1,471 @@
+#calendar {
+    background: #FFFFFF;
+    background-color: transparent;
+
+    .desc {
+        font-size: 11px;
+    }
+
+    .calendar-scroll {
+        height: calc(100% - 70px);
+        overflow: scroll;
+        padding:0 12px;
+    }
+
+    .opened-view {
+        height: calc(100% - 70px);
+    }
+
+    .gantt_diagram {
+        .calendar-scroll {
+            height: calc(100% - 94px);
+        }
+    }
+
+    .table-fixed {
+        table-layout: fixed;
+    }
+
+    .header {
+        position: relative;
+        background-size: 100% auto;
+        background-position: 0 50%;
+        background-repeat: no-repeat;
+        background-color: #FAFAFA;
+        color: #FFFFFF;
+        padding-bottom: 16px;
+
+        min-height: 100px;
+        height: 100px;
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1;
+            background: rgba(0, 0, 0, 0.45);
+        }
+
+        &.Jan {
+            background-image: url('/assets/images/backgrounds/january.jpg');
+            background-position: 0 45%;
+        }
+        &.Feb {
+            background-image: url('/assets/images/backgrounds/february.jpg');
+            background-position: 0 50%;
+        }
+        &.Mar {
+            background-image: url('/assets/images/backgrounds/march.jpg');
+            background-position: 0 45%;
+        }
+        &.Apr {
+            background-image: url('/assets/images/backgrounds/april.jpg');
+            background-position: 0 48%;
+        }
+        &.May {
+            background-image: url('/assets/images/backgrounds/may.jpg');
+            background-position: 0 47%;
+        }
+        &.Jun {
+            background-image: url('/assets/images/backgrounds/june.jpg');
+            background-position: 0 48%;
+        }
+        &.Jul {
+            background-image: url('/assets/images/backgrounds/july.jpg');
+            background-position: 0 3%;
+        }
+        &.Aug {
+            background-image: url('/assets/images/backgrounds/august.jpg');
+            background-position: 0 61%;
+        }
+        &.Sep {
+            background-image: url('/assets/images/backgrounds/september.jpg');
+            background-position: 0 58%;
+        }
+        &.Oct {
+            background-image: url('/assets/images/backgrounds/october.jpg');
+            background-position: 0 50%;
+        }
+        &.Nov {
+            background-image: url('/assets/images/backgrounds/november.jpg');
+            background-position: 0 46%;
+        }
+        &.Dec {
+            background-image: url('/assets/images/backgrounds/december.jpg');
+            background-position: 0 43%;
+        }
+
+        .header-content {
+            height: 100%;
+
+            .header-top {
+                position: relative;
+                z-index: 2;
+
+                .logo {
+
+                    .logo-icon {
+                        margin-right: 16px;
+                    }
+
+                    .logo-text {
+                        font-size: 24px;
+                    }
+                }
+            }
+
+            .header-bottom {
+                position: relative;
+                z-index: 2;
+
+                .title {
+                    font-size: 20px;
+                    min-width: 160px;
+                    text-align: center;
+                }
+            }
+        }
+
+        .add-event-button {
+            position: absolute;
+            right: 18px;
+            bottom: -32px;
+        }
+
+        md-icon {
+            color: #FFFFFF;
+        }
+    }
+
+    .content {
+        padding: 0px;
+
+        .calendar-content {
+            border-radius: $actions-radius;
+
+            thead {
+                text-align: center;
+              padding: 0 12px;
+
+                .date {
+                    color: gray;
+                }
+                .day-in-week {
+                    font-weight: normal;
+                }
+
+                .weekend {
+                    color: blueviolet;
+                }
+
+                th {
+                    background: rgb(237,237,237);
+                }
+            }
+            tr {
+                &:hover {
+                    background: rgba(0,0,0,0.01);
+                    // background: lightgoldenrodyellow; /* For browsers that do not support gradients */
+                    // background: -webkit-linear-gradient(white, lightgoldenrodyellow, white); /* For Safari 5.1 to 6.0 */
+                    // background: -o-linear-gradient(white, lightgoldenrodyellow, white); /* For Opera 11.1 to 12.0 */
+                    // background: -moz-linear-gradient(white, lightgoldenrodyellow, white); /* For Firefox 3.6 to 15 */
+                    // background: linear-gradient(white, lightgoldenrodyellow, white); /* Standard syntax */
+                }
+                &.selected {
+                    cursor: pointer;
+
+                    td {
+                        cursor: pointer;
+                    }
+                }
+
+                td, th {
+                    padding: 8px;
+                    width: 100px;
+                    border-right: 1px solid lightgray;
+                    text-align: center;
+
+                    &:first-child {
+                        padding-left: 5px;
+                    }
+                }
+
+                td:nth-child(8), td:nth-child(9) {
+                    background-color: rgba(34, 140, 193, 0.1);
+                }
+
+                td.editable {
+                    &:hover {
+                        cursor: pointer;
+                        background: rgba(0,0,0,0.06);
+                    }
+
+                    &:nth-child(8):hover, &:nth-child(9):hover {
+                        background-color: rgba(0, 70, 104, 0.16)
+                    }
+                }
+
+
+                .avatar-col {
+                    border-right: 0px;
+                    width: 60px;
+                }
+
+                .person {
+                    text-align: right;
+                    line-height: 1.2;
+                }
+            }
+
+
+            .online {
+                position: relative;
+                border-radius: $actions-radius;
+                padding: 1px;
+                width: 100%;
+                margin: 0 auto;
+                font-size: 11px;
+
+                &:not(:last-child) {
+                    margin-bottom: 3px;
+                }
+            }
+            .offline {
+                position: relative;
+                border-radius: $actions-radius;
+                padding: 4px 2px;
+                width: 100%;
+                margin: 0 auto;
+                font-size: 11px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .confirmed {
+                padding-right: 21px !important;
+
+                .confirmed-mark {
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    width: 19px;
+                    height: 100%;
+                    border-left: solid 1px #fff;
+
+                    md-icon {
+                        color: #fff;
+                        position: absolute;
+                        left: 2px;
+                        top: 45%;
+                        transform: translateY(-50%);
+                    }
+                }
+            }
+
+            .realization {
+                min-width: 96px;
+
+                &> div {
+                    position: relative;
+                    width: 100%;
+                    height: 20px;
+
+                    div {
+                        z-index: 100;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow:ellipsis;
+                        width: 80px;
+                        height: 18px;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        border-radius: $actions-radius;
+                        margin-bottom: 3px;
+                        padding: 1px 3px;
+                        font-size: 11px;
+
+                        a {
+                            color: inherit;
+                        }
+                    }
+                }
+            }
+            .avatar {
+                min-width: 32px;
+                width: 32px;
+                height: 32px;
+                line-height: 32px;
+            }
+        }
+
+        .calendar-content-gantt {
+            border-radius: $actions-radius;
+
+            thead {
+                text-align: center;
+                padding: 0 12px;
+
+                .date {
+                    color: gray;
+                }
+                .day-in-week {
+                    font-weight: normal;
+                }
+
+                .weekend {
+                    color: blueviolet;
+                }
+
+                th {
+                    background: rgb(237,237,237);
+                }
+            }
+            tr {
+                &:hover {
+                    background: lightgoldenrodyellow; /* For browsers that do not support gradients */
+                    background: -webkit-linear-gradient(white, lightgoldenrodyellow, white); /* For Safari 5.1 to 6.0 */
+                    background: -o-linear-gradient(white, lightgoldenrodyellow, white); /* For Opera 11.1 to 12.0 */
+                    background: -moz-linear-gradient(white, lightgoldenrodyellow, white); /* For Firefox 3.6 to 15 */
+                    background: linear-gradient(white, lightgoldenrodyellow, white); /* Standard syntax */
+                }
+                &.selected {
+                    cursor: pointer;
+
+                    td {
+                        cursor: pointer;
+                    }
+                }
+
+                td, th {
+                    padding: 14px 0;
+                    min-width: 40px;
+                    max-width: 60px;
+                    border-right: 1px solid lightgray;
+                    text-align: center;
+
+                    &:first-child {
+                        padding-left: 5px;
+                    }
+                }
+
+                th {
+                    padding: 14px 3px;
+                }
+                td.weekend {
+                    background-color: rgba(34, 140, 193, 0.1);
+                }
+
+                .avatar-col {
+                    border-right: 0px;
+                }
+
+                .person {
+                    text-align: right;
+                    padding-right: 4px;
+                    min-width: 90px;
+                }
+            }
+
+
+            .online {
+                border-radius: $actions-radius;
+                margin-bottom: 3px;
+                padding: 2px;
+                font-size: 11px;
+                width: 100%;
+            }
+            .offline {
+                border-radius: $actions-radius;
+                padding: 2px;
+                font-size: 11px;
+            }
+            .workload-label {
+                border-bottom: 1px solid rgb(191, 191, 191);
+                border-top: 1px solid rgb(191, 191, 191);
+                margin: 4px 0px;
+                font-size: 12px;
+                overflow: hidden;
+                padding: 1px 0px;
+                height: 20px;
+            }
+            .workload {
+                min-width: 32px;
+
+                &> div {
+                    position: relative;
+                    width: 100%;
+                    height: 20px;
+                    margin: 4px 0px;
+                    border-bottom: 1px solid rgb(191, 191, 191);
+                    border-top: 1px solid rgb(191, 191, 191);
+
+                    div {
+                        z-index: 100;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow:ellipsis;
+                        width: 30px;
+                        height: 18px;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        border-radius: $actions-radius;
+                        margin-bottom: 3px;
+                        padding: 1px 3px;
+                        font-size: 11px;
+
+                        a {
+                            color: inherit;
+                        }
+                    }
+                }
+            }
+
+            .avatar {
+                min-width: 32px;
+                width: 32px;
+                height: 32px;
+                line-height: 32px;
+            }
+        }
+    }
+}
+
+// RESPONSIVE
+@media screen and (max-width: $layout-breakpoint-xs) {
+
+    #calendar {
+
+        .header {
+            padding: 8px;
+
+            .header-content {
+
+                .header-top {
+
+                    .logo {
+                        margin-bottom: 16px;
+                    }
+                }
+            }
+
+            .add-event-button {
+                right: 10px;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1700px) {
+    .calendar-content-gantt {
+        tr {
+            td, th {
+                width: 40px;
+            }
+        }
+    }
+}

@@ -1,0 +1,179 @@
+/**
+ * This styles change standard AngularJS Material "underline-style" inputs
+ * into outline-style
+**/
+
+$outline-basic-color: rgba(0,0,0,0.16);
+$outline-active-color: rgba(0,0,0,.5);
+$outline-disabled-color: rgba(0,0,0,.1);
+$outline-error-color: rgb(213,0,0);
+$outline-basic-width: 1px;
+$outline-active-width: 2px;
+$input-height: 40px;
+$input-radius: 0.5rem;
+
+// to increase CSS Specificity:
+body {
+
+    /**
+     * Global
+    **/
+    // Too large margins
+    md-input-container {
+        margin: 32px 0 8px; // default is "18px 0"
+    }
+    // Label
+    md-input-container > label {
+        padding-left: 12px !important;
+        line-height: 22px;
+    }
+    md-input-container.md-input-focused label,
+    md-input-container.md-input-has-value label,
+    md-input-container.md-input-has-placeholder label {
+        padding-bottom: 5px;
+    }
+
+    /**
+     * Text input
+    **/
+    // Standard
+    md-input-container > .md-input,
+    md-input-container .moment-picker .md-input {
+        border: $outline-basic-width solid $outline-basic-color;
+        height: $input-height;
+        border-radius: $input-radius;
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-top: -6px;
+
+        padding-bottom: 1px !important;
+        background-image: none !important;
+    }
+    // Hover
+    md-input-container > .md-input:hover:not([disabled]),
+    md-input-container .moment-picker .md-input:hover:not([disabled])  {
+        border-width: $outline-active-width;
+        padding-left: 9px;
+        padding-right: 9px;
+    }
+    // Focus
+    md-input-container.md-input-focused > .md-input,
+    md-input-container.md-input-focused .moment-picker .md-input {
+        border-color: $outline-active-color;
+        border-width: $outline-active-width !important;
+        padding-left: 9px;
+        padding-right: 9px;
+    }
+    // Error
+    md-input-container.md-input-invalid > .md-input,
+    md-input-container.md-input-invalid .moment-picker .md-input {
+        border-width: $outline-active-width !important;
+        border-color: $outline-error-color;
+    }
+    // Disabled
+    md-input-container > .md-input[disabled],
+    md-input-container .moment-picker .md-input[disabled] {
+        border-width: $outline-active-width;
+        border-color: $outline-disabled-color !important;
+        background-color: rgba(0,0,0,0.02);
+    }
+
+    /**
+     * Select
+    **/
+    // Standard
+    md-input-container > md-select {
+        border: $outline-basic-width solid $outline-basic-color;
+        height: $input-height;
+        border-radius: $input-radius;
+        padding-left: 8px;
+        padding-right: 8px;
+        margin-top: -6px;
+
+        .md-select-value {
+            border-bottom: 0 !important;
+            padding-bottom: 2px !important;
+            background-image: none !important;
+        }
+    }
+    // Focus
+    md-input-container.md-input-focused > md-select {
+        border-color: $outline-active-color;
+        border-width: $outline-active-width;
+        padding-left: 7px;
+        padding-right: 7px;
+    }
+    // Error
+    md-input-container.md-input-invalid > md-select {
+        border-color: $outline-error-color;
+    }
+    // Disabled
+    md-input-container > md-select[disabled] {
+        border-width: $outline-active-width;
+        border-color: $outline-disabled-color;
+        background-color: rgba(0,0,0,0.02);
+    }
+
+    /**
+     * Autocomplete "progress-bar" and "clear button" fix
+    **/
+    md-autocomplete md-autocomplete-wrap md-progress-linear.md-inline {
+        bottom: 28px;
+        right: 3px;
+        left: 3px;
+        border-radius: 0 0 5px 5px;
+        overflow: hidden;
+    }
+    md-autocomplete.no-errors-spacer md-autocomplete-wrap md-progress-linear.md-inline {
+        bottom: 8px;
+        right: 3px;
+        left: 3px;
+        border-radius: 0 0 5px 5px;
+        overflow: hidden;
+    }
+    md-autocomplete.no-errors-spacer md-autocomplete-wrap button,
+    #inline-autocomplete-input md-autocomplete-wrap button {
+        top: 33px !important;
+    }
+
+    /**
+     * Chips
+    **/
+    // Standard
+    md-input-container md-contact-chips md-chips-wrap {
+        border: $outline-basic-width solid $outline-basic-color;
+        min-height: 46px;
+        border-radius: $input-radius;
+        padding-left: 6px !important;
+        padding-right: 6px !important;
+        padding-bottom: 6px !important;
+        margin-top: -6px;
+
+        box-shadow: none !important;
+        padding-bottom: 8px;
+
+        md-chip, .md-chip-input-container {
+            margin-top: 6px !important;
+        }
+
+        & > input[type="search"] {
+            padding: 0 5px !important;
+        }
+    }
+    // Focus
+    md-input-container.md-input-focused md-contact-chips md-chips-wrap {
+        border-color: $outline-active-color;
+        border-width: $outline-active-width;
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+        padding-bottom: 5px !important;
+
+        .md-input {
+            border: none !important;
+        }
+        md-chip, .md-chip-input-container {
+            margin-top: 5px !important;
+        }
+    }
+
+}

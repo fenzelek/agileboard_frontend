@@ -1,0 +1,91 @@
+<md-dialog aria-label="METHOD">
+    <div id="add-edit-user-dialog">
+        <form id="addEditUser" name="addEditUser" >
+            <div layout-gt-sm="row">
+                <div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+                <div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+            </div>
+            <div class="mb-20">
+                <span ng-if="vm.edit" translate="COMPANY_EDIT.USER.UPDATE" class="font-size-16"></span>
+                <span ng-if="!vm.edit" translate="COMPANY_EDIT.USER.ADD" class="font-size-16"></span>
+            </div>
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex>
+                    <label><span translate="COMPANY_EDIT.USER.EMAIL"></span></label>
+                    <input ng-model="vm.form.email"  required  ng-maxlength="255" name="email" type="email" ng-disabled="vm.edit">
+                    <div ng-messages="addEditUser.email.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="email" ><span translate="ERRORS.FORM.EMAIL"></span></div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex>
+                    <label><span translate="COMPANY_EDIT.USER.NAME"></span></label>
+                    <input ng-model="vm.form.first_name" required ng-maxlength="100"  name="first_name">
+                    <div ng-messages="addEditUser.first_name.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_100"></span></div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex>
+                    <label><span translate="COMPANY_EDIT.USER.SURNAME"></span></label>
+                    <input ng-model="vm.form.last_name" required ng-maxlength="100" name="last_name">
+                    <div ng-messages="addEditUser.last_name.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_100"></span></div>
+                    </div>
+                </md-input-container>
+            </div>
+            <md-input-container class="md-block" md-no-float>
+                <label><span translate="COMPANY_EDIT.USER.ROLE"></span></label>
+                <md-select ng-model="vm.form.role_id" required name="role_id" ng-disabled="vm.edit">
+                    <md-option ng-value="null"></md-option>
+                    <md-option ng-value="role.id" ng-repeat="role in vm.roles" ng-if="role.name.indexOf('api.') == -1 && role.name != 'owner' && role.name != 'dealer'" ><span translate="ROLES.{{role.name}}"></span></md-option>
+                </md-select>
+                <div ng-messages="addEditUser.role_id.$error">
+                    <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                </div>
+            </md-input-container>
+            <div layout-gt-sm="row" ng-if="vm.create_user">
+                <md-input-container class="md-block" flex>
+                    <label><span translate="COMPANY_EDIT.USER.PASSWORD"></span></label>
+                    <input type="password" ng-model="vm.form.password" ng-required="!vm.edit" pattern=".{6,}" name="password" id="password" >
+                    <div ng-messages="addEditUser.password.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="maxlength" ><span translate="ERRORS.FORM.PASSWORD"></span></div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div layout-gt-sm="row" ng-if="vm.create_user">
+                <md-input-container class="md-block" flex>
+                    <label><span translate="COMPANY_EDIT.USER.PASSWORD_CONFIRM"></span></label>
+                    <input type="password" ng-model="vm.form.password_confirmation" ng-required="!vm.edit" ms-confirm="password"  name="password_confirmation" >
+                    <div ng-messages="addEditUser.password_confirmation.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="confirm" ><span translate="ERRORS.FORM.CONFIRM"></span></div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <div layout-gt-sm="row"  layout-align="end none">
+                <md-button ng-if="!vm.edit" type="button" class="md-raised md-accent" aria-label="CANCEL"
+                           translate="OTHER.CANCEL" ng-click="vm.hide()"
+                           translate-attr-aria-label="OTHER.CANCEL">
+                </md-button>
+                <md-button ng-if="!vm.edit" type="button" class="md-raised md-accent" aria-label="SEND"
+                           ng-disabled="addEditUser.$invalid || vm.request_sending"
+                           translate="OTHER.ADD" ng-click="vm.create()"
+                           translate-attr-aria-label="OTHER.ADD">
+                </md-button>
+                <md-button ng-if="vm.edit" type="button" class="md-raised md-accent" aria-label="SEND"
+                           ng-disabled="addEditUser.$invalid || vm.request_sending"
+                           translate="OTHER.SAVE" ng-click="vm.update()"
+                           translate-attr-aria-label="OTHER.SAVE">
+                </md-button>
+            </div>
+        </form>
+    </div>
+</md-dialog>

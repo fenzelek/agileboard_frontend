@@ -1,0 +1,10 @@
+{
+    "SWITCH_COMPANY": {
+        "TITLE": "The project that you are coming is in different company.",
+        "DESCRIPTION": "Would you like to switch into this company?",
+        "SWITCH": "Switch"
+    },
+    "ERRORS": {
+
+    }
+}

@@ -1,0 +1,116 @@
+<div class="alert-success" ng-if="vm.tab4.msg_success">{{ vm.tab4.msg_success }}</div>
+<div class="alert-error" ng-if="vm.tab4.msg_error">{{ vm.tab4.msg_error }}</div>
+
+<div layout="row">
+
+    <div class="form-wrapper  rounded-container max-1000" flex>
+        <div layout="row" layout-align="space-between start">
+            <div flex="50" layout="row">
+                <md-input-container flex="50">
+                    <label><span translate="COMPANY_EDIT.USER.STATUS"></span></label>
+                    <md-select ng-model="vm.tab4.selected_status" name="selected_status" ng-change="vm.getUsers()">
+                        <md-option ng-value="1"><span translate="COMPANY_EDIT.USER.STATUSES.ACCEPTED"></span></md-option>
+                        <!-- <md-option ng-value="0"><span translate="COMPANY_EDIT.USER.STATUSES.INVITED"></span></md-option> -->
+                        <md-option ng-value="4"><span translate="COMPANY_EDIT.USER.STATUSES.DELETED"></span></md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+            <md-button class="md-raised md-button md-default-theme md-accent" ng-click="vm.newUser()">
+                <span translate="COMPANY_EDIT.USER.NEW"></span>
+            </md-button>
+        </div>
+
+        <div ng-if="vm.tab4.users.length" class="table-wrapper">
+            <md-table-container>
+                <table md-table md-progress="vm.tab4.promise">
+                    <thead md-head>
+                    <tr md-row>
+                        <th md-column ><span translate="OTHER.No">Lp.</span></th>
+                        <th md-column ><span translate="COMPANY_EDIT.USER.NAME"></span></th>
+                        <th md-column ><span translate="COMPANY_EDIT.USER.SURNAME"></span></th>
+                        <th md-column ><span translate="COMPANY_EDIT.USER.EMAIL"></span></th>
+                        <th md-column style="width: 130px;" ng-if="vm.tab4.selected_status != 0">
+                            <md-select class="simplified" ng-model="vm.tab4.selected_role">
+                                <md-option ng-value="null" translate="COMPANY_EDIT.USER.ALL_ROLES"></md-option>
+                                <md-option ng-value="role.id" ng-repeat="role in vm.tab4.roles" ng-if="role.default && role.name != 'dealer'">
+                                    {{ 'ROLES.' + role.name | translate }}
+                                </md-option>
+                            </md-select>
+                        </th>
+                        <th md-column ng-if="vm.tab4.selected_status != 4 && vm.tab4.selected_status != 0"><span translate="OTHER.ACTION"></span></th>
+                    </tr>
+                    </thead>
+                    <tbody md-body>
+                    <tr md-row ng-repeat="user in vm.tab4.users" ng-show="vm.tab4.filterUserThroughRole(user)">
+                        <td md-cell>{{ ($index + 1) }}</td>
+                        <td md-cell>{{ user.first_name }}</td>
+                        <td md-cell>{{ user.last_name }}</td>
+                        <td md-cell>{{ user.email }}</td>
+                        <td md-cell ng-if="vm.tab4.selected_status != 0">
+                            <inline-select ng-if="vm.userRoleIsEditable(user.company_role_id)" flex layout="row" layout-align="start center"
+                                    name="{{ user.id }}"
+                                    ng-model="user.company_role_id"
+                                    items="vm.tab4.editable_roles"
+                                    items-translation="ROLES."
+                                    on-save="vm.tab4.setNewRole"
+                                    label="{{ 'OTHER.SELECT_FROM_LIST' | translate }}"
+                            >
+                                <div layout="row" layout-align="start center">
+                                    <div class="text-edit" flex layout="row" layout-align="start center">
+                                        <span translate="ROLES.{{ vm.tab4.getRoleName(user.company_role_id) }}"></span>
+                                    </div>
+                                </div>
+                            </inline-select>
+                            <!-- 'owner' role is not editable -->
+                            <div ng-if="!vm.userRoleIsEditable(user.company_role_id)">
+                                <span class="not-editable-text" translate="ROLES.{{ vm.tab4.getRoleName(user.company_role_id) }}"></span>
+                            </div>
+                        </td>
+                        <td md-cell ng-if="vm.tab4.selected_status != 4 && vm.tab4.selected_status != 0">
+                            <md-menu>
+                                <md-button ng-click="vm.tab4.getUserProjects(user); $mdMenu.open()" class="grey-800-fg underlined">
+                                    <span translate="COMPANY_EDIT.USER.PROJECTS"></span>
+                                </md-button>
+                                <md-menu-content width="5">
+                                    <md-menu-item ng-show="vm.tab4.user_projects.loading" layout="row" layout-align="center center">
+                                        <md-progress-circular class="md-accent" md-diameter="25"></md-progress-circular>
+                                    </md-menu-item>
+                                    <md-menu-item ng-if="!vm.tab4.user_projects.loading && !vm.tab4.user_projects.list.length"
+                                        layout="row" layout-align="center center">
+                                        {{ 'OTHER.NO_RECORDS' | translate }}
+                                    </md-menu-item>
+                                    <md-menu-item ng-repeat="project in vm.tab4.user_projects.list">
+                                        <div layout="row" layout-align="space-between center">
+                                            <div flex="2" class="grey-900-fg">{{ project.name }}</div>
+                                            <div flex="1" class="grey-600-fg ml-10">
+                                                {{ ('ROLES.' + project.role) | translate }}
+                                                <a ng-href="/projects/form/edit/{{project.id}}" target="_blank">
+                                                    <md-icon md-font-icon="icon-cog" class="s18 grey-400-fg ml-5"></md-icon>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                            <a class="md-button md-default-theme grey-800-fg underlined" href="/users/tokens/{{user.id}}">
+                                <span translate="COMPANY_EDIT.USER.TOKENS"></span>
+                            </a>
+                            <md-button class="md-raised md-accent md-button md-default-theme" ng-click="vm.editUser($index)" ng-if="vm.user.role == 'system_admin'" >
+                                <span translate="OTHER.EDIT"></span>
+                            </md-button>
+                            <md-button class="md-raised md-button md-default-theme md-warn" ng-click="vm.deleteUser(user.id)" ng-if="vm.tab4.roles[user.company_role_id].name != 'owner'" >
+                                <span translate="OTHER.DELETE"></span>
+                            </md-button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+
+            <!--<md-table-pagination md-label="{{vm.tab4.table_translate}}" md-limit="vm.tab4.query.limit" md-page="vm.tab4.query.page" md-total="{{vm.tab4.pagination.total}}" md-on-paginate="vm.getUsers" md-page-select></md-table-pagination>-->
+        </div>
+
+        <div ng-if="vm.tab4.users.length == 0" translate="OTHER.NO_RECORDS" class="text-center" ></div>
+
+    </div>
+</div>

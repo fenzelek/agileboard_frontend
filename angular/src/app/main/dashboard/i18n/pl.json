@@ -1,0 +1,88 @@
+{
+    "DASHBOARD": {
+        "_": "",
+        "TITLE": "Dashboard",
+        "ADD_TICKET": "Dodaj zadanie",
+        "TICKET": "Zadanie",
+        "LATEST_ACTIVITIES": "Ostatnie aktywności",
+        "TOGGLE_LATES_ACTIVITIES": "Pokaż/ukryj ostatnie aktywności",
+        "ALL_COMPANIES": "Wszystkie firmy",
+        "ALL_PROJECTS": "Wszystkie projekty",
+        "ALL_STATUSES": "Wszystkie statusy",
+        "ALL_SPRINTS": "Wszystkie sprinty",
+        "YOUR_TASKS": "Twoje Zadania",
+        "ASSIGNED_TO_ME": "Przypisane do mnie",
+        "NO_RESULTS": "Brak wyników, spróbuj odświeżyć listę",
+        "OPEN_TICKET": "Otwórz zadanie",
+        "OPEN_TICKET_IN_NEW_WINDOW": "Otwórz zadanie w nowym oknie",
+        "EDIT_TICKET": "Edytuj zadanie",
+        "CREATE": "Utwórz nowy",
+        "COMPANY": "Firma",
+        "PROJECT": "Projekt",
+        "WIZARD": "Uruchom kreator",
+        "YOUR_PROJECTS": "Twoje Projekty",
+        "LAST_ADDED": "Ostatnio dodane",
+        "DAYS": "dni",
+        "MONTH": "miesiąc",
+        "MONTHS": "miesiące",
+        "TICKETS": "Zadania",
+        "TOO_MANY_PROJECTS" : "Posiadasz maksymalna liczbę projektów. Przejdź do pakietów aby zwiększyć ich ilość.",
+        "QUICK_TASK" : "Szybkie zadanie",
+        "CREATED": "utworzone",
+        "SPRINT": "Sprint",
+        "BACKLOG": "Lista zadań",
+        "DESCRIPTIONS": {
+            "QUICK_TASK": "Najszybszy sposób na utworzenie nowego zadania",
+            "YOUR_PROJECTS": "Pełna lista Twoich projektów",
+            "LAST_ADDED": "Ostatnio dodane rzeczy z danego czasu, np. przypisane do Ciebie zadania",
+            "YOUR_TASKS": "Przypisane do Ciebie, niezrobione zadania z aktywnych sprintów"
+        },
+
+        "NOTIFICATIONS": "Powiadomienia",
+        "ATTACHMENTS": "Załączniki",
+        "ASSOCIATED_TASKS": "Zadania skojarzone z Tobą",
+        "COMMING_SOON": "Już wkrótce!",
+        "READ": "Odczytane",
+        "UNREAD": "Nieodczytane",
+        "COMMENTS": "Komentarze",
+        "ADD_COMMENT": "Dodaj komentarz",
+        "EDITED": "Edytowane",
+        "ADD_TAG_TICKET": "Dodaj",
+
+        "EVENT_TYPE.MALE": {
+            "ticket_new": "dodał zadanie",
+            "ticket_edit": "edytował zadanie",
+            "ticket_comment_new": "dodał komentarz",
+            "ticket_comment_edit": "edytował komentarz",
+            "knowledge_page_new": "dodał stronę bazy wiedzy",
+            "knowledge_page_edit": "edytował stronę bazy wiedzy",
+            "knowledge_page_comment_new": "dodał komentarz",
+            "knowledge_page_comment_edit": "edytował komentarz"
+        },
+        "EVENT_TYPE.FEMALE": {
+            "ticket_new": "dodała zadanie",
+            "ticket_edit": "edytowała zadanie",
+            "ticket_comment_new": "dodała komentarz",
+            "ticket_comment_edit": "edytowała komentarz",
+            "knowledge_page_new": "dodała stronę bazy wiedzy",
+            "knowledge_page_edit": "edytowała stronę bazy wiedzy",
+            "knowledge_page_comment_new": "dodała komentarz",
+            "knowledge_page_comment_edit": "edytowała komentarz"
+        },
+
+        "MARK_ALL_AS_READ": "Oznacz wszystkie jako odczytane",
+        "NOTIFICATIONS_EMPTY": "Brak powiadomień",
+        "NOTIFICATION_SOURCE_DELETED": "Źródło tego powiadomienia zostało usunięte i nie jest już dostępne.",
+
+        "PREVIEW": {
+            "no_item_selected": "Wybierz element, aby wyświetlić podgląd"
+        },
+
+        "INVOICE_LIST": "Lista faktur",
+        "DOWNLOAD_REGISTRY": "Pobierz rejestr faktur (zeszły miesiąc)",
+        "NEW_INVOICE": "Dodaj fakturę",
+        "EDIT_COMPANY": "Konfiguracja firmy",
+        "NEW_CONTRACTOR": "Dodaj kontrahenta",
+        "NEW_PRODUCT": "Dodaj usługę/towar"
+    }
+}

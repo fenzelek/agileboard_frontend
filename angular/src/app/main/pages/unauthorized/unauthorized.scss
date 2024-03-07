@@ -1,0 +1,34 @@
+#unauthorized {
+    color: rgba(0,0,0,0.62);
+    font-size: 14px;
+
+    .guest-wrapper {
+        margin-bottom: 3rem;
+    }
+
+    md-icon {
+        margin: 2rem auto 0;
+    }
+
+    .title {
+        font-size: 32px;
+        margin-bottom: 1.6rem;
+    }
+
+    .actions {
+        text-align: left;
+        margin-top: 4rem;
+    }
+    
+    .footer-logo {
+        display: block;
+        width: 80px;
+        max-width: 100%;
+        height: auto;
+        margin: 4rem auto 1rem;
+    }
+
+    footer {
+        color: rgba(255,255,255,0.6);
+    }
+}

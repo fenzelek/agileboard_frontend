@@ -1,0 +1,73 @@
+<div id="contractors-list" class="page-layout simple fullwidth doc-page" layout="column">
+
+        <!-- BOARDS -->
+        <div id="fv-dashboard" layout="column" flex>
+
+            <!-- BOARD SELECTION -->
+            <div id="board-selector" layout="column" layout-align="start center" flex>
+
+                <div class="board-list" ng-if="vm.role != 'tax_office'">
+                    <div layout="row" layout-align="center center" layout-wrap>
+
+                        <a class="board-list-item" layout="column" layout-align="center center"
+                           href="/company/edit" ng-if="vm.role == 'admin' || vm.role == 'owner'">
+                            <md-icon md-font-icon="icon-pencil" class="icon s64"></md-icon>
+                            <div class="board-name" translate="DASHBOARD.EDIT_COMPANY"></div>
+                        </a>
+
+                        <a class="board-list-item disabled" layout="column" layout-align="center center"
+                            ng-if="vm.role != 'admin' && vm.role != 'owner'" >
+                            <md-icon md-font-icon="icon-pencil" class="icon s64"></md-icon>
+                            <div class="board-name" translate="DASHBOARD.EDIT_COMPANY"></div>
+                        </a>
+
+                        <a class="board-list-item" layout="column" layout-align="center center"
+                           href="/invoices/form/new">
+                            <md-icon md-font-icon="icon-plus-circle" class="icon s64"></md-icon>
+                            <div class="board-name" translate="DASHBOARD.NEW_INVOICE"></div>
+                        </a>
+
+                    </div>
+
+                    <div layout="row" layout-align="center center" layout-wrap>
+
+                        <a class="board-list-item" layout="column" layout-align="center center"
+                           href="/contractors/form/new">
+                            <md-icon md-font-icon="icon-account" class="icon s64"></md-icon>
+                            <div class="board-name" translate="DASHBOARD.NEW_CONTRACTOR"></div>
+                        </a>
+
+                        <a class="board-list-item" layout="column" layout-align="center center"
+                           href="/products/form/new">
+                            <md-icon md-font-icon="icon-cube-outline" class="icon s64"></md-icon>
+                            <div class="board-name" translate="DASHBOARD.NEW_PRODUCT"></div>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div class="board-list" ng-if="vm.role == 'tax_office'">
+                    <div layout="row" layout-align="center center" layout-wrap>
+
+                        <a class="board-list-item" layout="column" layout-align="center center"
+                           href="/invoices/list">
+                            <md-icon md-font-icon="icon-file-document" class="icon s64"></md-icon>
+                            <div class="board-name" translate="DASHBOARD.INVOICE_LIST"></div>
+                        </a>
+
+                        <div class="board-list-item" layout="column" layout-align="center center"
+                           ng-click="vm.csvInvoices()">
+                            <md-icon md-font-icon="icon-download" class="icon s64"></md-icon>
+                            <div class="board-name" translate="DASHBOARD.DOWNLOAD_REGISTRY"></div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- / BOARD SELECTION -->
+
+        </div>
+        <!-- / BOARDS -->
+    </div>

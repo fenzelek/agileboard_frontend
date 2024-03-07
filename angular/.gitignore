@@ -1,0 +1,10 @@
+node_modules/
+bower_components/
+coverage/
+.sass-cache/
+.idea/
+.tmp/
+dist/
+yarn-error.log
+npm-debug.log
+src/env/env.js

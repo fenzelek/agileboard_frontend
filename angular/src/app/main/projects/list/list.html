@@ -1,0 +1,127 @@
+<div id="projects-list" class="page-layout simple fullwidth doc-page" layout="column">
+
+	<!-- HEADER -->
+	<div class="header md-accent-bg" layout="row" layout-align="space-between">
+		<div layout="column" layout-align="space-between">
+			<div class="title" translate="PROJECTS_LIST.TITLE"></div>
+		</div>
+	</div>
+	<!-- / HEADER -->
+
+	<!-- CONTENT -->
+	<div class="content" layout="column">
+
+		<div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+		<div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+		<div layout="row">
+
+			<div class="form-wrapper  rounded-container min-1000">
+				<div ng-if="vm.role == 'owner' || vm.role == 'admin'" layout="row" layout-align="space-between start" layout-wrap>
+					<div flex="100" flex-gt-xs="66" layout="row" layout-align="row">
+                        <md-input-container class="md-block" flex="50">
+                            <label><span translate="OTHER.SEARCH"></span></label>
+                            <input type="text" ng-model="vm.search" ng-model-options="{ debounce: 300 }" ng-change="vm.searchProjects()">
+                        </md-input-container>
+						<md-input-container class="md-block" flex="50">
+							<label><span translate="PROJECTS_LIST.STATUS"></span></label>
+							<md-select ng-model="vm.query.status" required name="status" ng-if="!translate_loading" ng-change="vm.getProjects()">
+								<md-option ng-value="'all'" ><span translate="OTHER.ALL"></span></md-option>
+								<md-option ng-value="'closed'" ><span translate="PROJECTS_LIST.CLOSED"></span></md-option>
+								<md-option ng-value="'opened'" ><span translate="PROJECTS_LIST.OPENED"></span></md-option>
+							</md-select>
+						</md-input-container>
+					</div>
+					<md-input-container flex="100" flex-gt-xs="33" layout="column" layout-align="center end">
+						<a class="md-raised md-button md-default-theme md-accent" ng-click="vm.createProject()" >
+							<span translate="PROJECTS_LIST.ADD" ></span>
+						</a>
+					</md-input-container>
+				</div>
+
+				<div ng-if="vm.pagination.total" class="table-wrapper">
+					<md-table-container>
+						<table md-table md-progress="vm.promise">
+							<thead md-head >
+							<tr md-row>
+								<th md-column><span translate="OTHER.No">Lp.</span></th>
+								<th md-column><span translate="OTHER.NAME"></span></th>
+								<th md-column><span translate="PROJECTS_LIST.SHORT_NAME"></span></th>
+								<th md-column><span translate="PROJECTS_LIST.STATUS"></span></th>
+								<th md-column ng-if="vm.role == 'owner' || vm.role == 'admin'"><span translate="OTHER.ACTION">Akcje</span></th>
+							</tr>
+							</thead>
+							<tbody md-body>
+							<tr md-row ng-repeat="project in vm.projects">
+								<td md-cell>{{ vm.pagination | no:$index }}</td>
+								<td md-cell><a ng-click="vm.show(project.id)" >{{ project.name }}</a></td>
+								<td md-cell>{{ project.short_name }}</td>
+								<td md-cell>
+									<span ng-if="project.closed_at" translate="PROJECTS_LIST.CLOSED"></span>
+									<span ng-if="!project.closed_at" translate="PROJECTS_LIST.OPENED"></span>
+								</td>
+								<td ng-if="vm.role == 'owner' || vm.role == 'admin'" md-cell>
+									<md-menu>
+										<md-button class="md-icon-button" ng-click="$mdMenu.open()"
+												   aria-label="more">
+											<md-icon md-font-icon="icon-dots-vertical"></md-icon>
+										</md-button>
+
+										<md-menu-content width="3">
+											<md-menu-item>
+												<md-button ng-click="vm.show(project.id)" aria-label="Show">
+													<span translate="OTHER.SHOW"></span>
+												</md-button>
+											</md-menu-item>
+											<md-menu-item>
+												<md-button ng-click="vm.edit(project.id)">
+													<span translate="OTHER.EDIT"></span>
+												</md-button>
+											</md-menu-item>
+											<md-menu-item>
+												<md-button ng-click="vm.clone(project)">
+													<span translate="OTHER.CLONE"></span>
+												</md-button>
+											</md-menu-item>
+											<md-menu-item ng-if="project.closed_at" >
+												<md-button ng-click="vm.openProjects(project.id)">
+													<span translate="PROJECTS_LIST.OPEN"></span>
+												</md-button>
+											</md-menu-item>
+											<md-menu-item ng-if="!project.closed_at">
+												<md-button ng-click="vm.closeProjects(project.id)">
+													<span translate="OTHER.CLOSE"></span>
+												</md-button>
+											</md-menu-item>
+											<md-menu-item>
+												<md-button ng-click="vm.deleteProjects(project.id)">
+													<span translate="OTHER.DELETE"></span>
+												</md-button>
+											</md-menu-item>
+										</md-menu-content>
+									</md-menu>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</md-table-container>
+
+					<md-table-pagination md-label="{{vm.table_translate}}" md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.pagination.total}}" md-on-paginate="vm.onPaginationChanged" md-page-select></md-table-pagination>
+				</div>
+
+				<div ng-if="vm.pagination.total == 0" class="no-records-info">
+                    <div ng-if="vm.role == 'owner' || vm.role == 'admin'" layout="column" layout-align="center center">
+                        <md-icon md-font-icon="icon-no" class="s62"></md-icon>
+                        <span translate="PROJECTS_LIST.PROJECTS_EMPTY"></span>
+                    </div>
+                    <div ng-if="vm.role != 'owner' && vm.role != 'admin'" layout="column" layout-align="center center">
+                        <md-icon md-font-icon="icon-message-alert" class="s62"></md-icon>
+                        <span translate="PROJECTS_LIST.NO_PROJECTS"></span>
+                    </div>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+</div>

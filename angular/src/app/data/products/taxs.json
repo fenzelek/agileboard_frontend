@@ -1,0 +1,40 @@
+{
+  "data" : [
+    {
+      "value": 23,
+      "name": "23%"
+    },
+    {
+      "value": 8,
+      "name": "8%"
+    },
+    {
+      "value": 5,
+      "name": "5%"
+    },
+    {
+      "value": 0,
+      "name": "0%"
+    },
+    {
+      "value": "np.",
+      "name": "np."
+    },
+    {
+      "value": "zw.",
+      "name": "zw."
+    },
+    {
+      "value": 22,
+      "name": "22%"
+    },
+    {
+      "value": 7,
+      "name": "7%"
+    },
+    {
+      "value": 3,
+      "name": "3%"
+    }
+  ]
+}

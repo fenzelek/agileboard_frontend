@@ -1,0 +1,20 @@
+{
+    "TOKENS_FORM": {
+        "TITLE_ADD": "Nowy token",
+        "TOKEN": "Token",
+        "DOMAIN": "Domena",
+        "IP_FROM": "IP start",
+        "IP_TO": "IP stop",
+        "TTL": "TTL",
+        "ROLE": "Rola",
+        "ROLES": {
+            "company": "Firma",
+            "user": "Użytkownik"
+        },
+
+        "ADD_SUCCESS": "Dodano token"
+    },
+    "ERRORS": {
+
+    }
+}

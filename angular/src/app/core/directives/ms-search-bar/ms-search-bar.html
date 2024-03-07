@@ -1,0 +1,8 @@
+<div flex layout="row" layout-align="start center">
+    <input id="ms-search-bar-input" type="text" ng-model="ngModel" placeholder="{{ 'OTHER.SEARCH' | translate }}" flex>
+    <label for="ms-search-bar-input" layout="row">
+        <div id="ms-search-query" ng-if="ngModel" class="hide-xs">{{ ngModel }}</div>
+        <md-icon id="ms-search-bar-expander" md-font-icon="icon-magnify" class="icon s24"></md-icon>
+        <md-icon id="ms-search-bar-collapser" md-font-icon="icon-close" class="icon s24"></md-icon>
+    </label>
+</div>

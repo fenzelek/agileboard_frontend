@@ -1,0 +1,43 @@
+{
+    "TIME_TRACKING": {
+        "TITLE": "Time tracking",
+        "SEARCH": "Search",
+        "USER": "User",
+        "EXTERNAL_USER": "External user",
+        "TIME": "Time",
+        "ACTIVITY": "Activity level",
+        "PROJECT": "Project",
+        "EXTERNAL_PROJECT": "External project",
+        "WITHOUT_PROJECT": "- Empty -",
+        "WITHOUT_TICKETS": "Without tickets",
+        "TICKET": "Ticket",
+        "DESCRIPTION": "Description",
+        "ESTIMATION": "Estimation",
+        "COMMENT": "Comment",
+        "NOTE": "Note",
+        "LOCKED": "Locked",
+        "ACTIVITIES_PEROID": "Select activities from",
+        "TODAY": "Today",
+        "YESTERDAY": "Yesterday",
+        "CURRENT_WEEK": "Current week",
+        "PREVIOUS_WEEK": "Previous week",
+        "CURRENT_MONTH": "Current month",
+        "PREVIOUS_MONTH": "Previous month",
+        "MIN_TRACKED": "Min tracked (s)",
+        "MAX_TRACKED": "Max tracked (s)",
+        "MIN_ACTIVITY": "Min activity (%)",
+        "MAX_ACTIVITY": "Max activity (%)",
+        "SUM_TIME": "Summary time",
+        "SUM_TIMES": "Sum times",
+        "SOURCE": "Source",
+        "TIME-TRACKER": "Time Tracker",
+        "HUBSTAFF": "Hubstaff",
+        "MANUAL": "Manual",
+        "MANUAL-TIME": "Manual time"
+    },
+    "ERRORS": {
+        "FORM": {
+            "MAX_NUM_600": "Too big number. The maximum number is 600."
+        }
+    }
+}

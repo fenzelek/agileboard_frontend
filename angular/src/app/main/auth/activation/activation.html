@@ -1,0 +1,53 @@
+<div id="login" class="flex-scrollable guest-layout" layout="column" ms-scroll>
+    <div id="login-form-wrapper" class="guest-wrapper" layout="column" layout-align="center center">
+        <div id="login-form" class="rounded-container guest-form">
+            <logo-sqr></logo-sqr>
+
+            <div class="title" translate="ACTIVATION.TITLE"></div>
+
+            <div class="success" >{{vm.msg_success}}</div>
+            <div class="error">{{vm.msg_error}}</div>
+            <div class="error" ng-if="vm.error_code == 'broken-link'">
+                <span translate="ACTIVATION.ACCOUNT.BROKEN_LINK_1"></span>
+                <a ng-click="vm.recreate_form = true" translate="ACTIVATION.ACCOUNT.BROKEN_LINK_2"></a>
+            </div>
+            <div class="error" ng-if="vm.error_code == 'user-not-found'">
+                <span translate="ACTIVATION.ACCOUNT.BROKEN_ACTIVATION_1"></span>
+                <a href="/contact" translate="ACTIVATION.ACCOUNT.BROKEN_ACTIVATION_2"></a>
+                <span translate="ACTIVATION.ACCOUNT.BROKEN_ACTIVATION_3"></span>
+            </div>
+
+            <form name="reactivateForm" ng-if="vm.recreate_form">
+
+                <md-input-container class="md-block" md-no-float>
+                    <label><span translate="ACTIVATION.RECREATE.EMAIL"></span></label>
+                    <input ng-model="vm.form.email" required  ng-maxlength="255" name="email" type="email">
+                    <div ng-messages="reactivateForm.email.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="email" ><span translate="ERRORS.FORM.EMAIL"></span></div>
+                    </div>
+                </md-input-container>
+
+                <md-button type="button" class="md-raised md-accent" aria-label="SEND" ng-click="vm.recreate()"
+                           ng-disabled="reactivateForm.$invalid || vm.request_sending"
+                           translate="OTHER.SEND" translate-attr-aria-label="OTHER.SEND">
+                </md-button>
+            </form>
+
+
+            <div class="languages-no-login" layout="row" layout="column" layout-align="end center">
+                <div ng-click="vm.changeLanguage('pl')" class="mr-5" >
+                    <span>
+                        <img class="flag" ng-src="assets/images/flags/pl.png">
+                    </span>
+                </div>
+                <div ng-click="vm.changeLanguage('en')" >
+                    <span >
+                        <img class="flag" ng-src="assets/images/flags/us.png">
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer ng-include="'app/layouts/footer.html'"></footer>
+</div>

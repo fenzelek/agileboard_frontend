@@ -1,0 +1,43 @@
+{
+    "KNOWLEDGE": {
+        "TITLE": "Knowledge base",
+        "ADD_PAGE": "Create page",
+        "EDIT_PAGE": "Edit page",
+        "ADDED_PAGE": "Added page successfully",
+        "UPDATED_PAGE": "Updated page successfully",
+        "USERS": "Users with access",
+        "USERS_SEARCH": "Search user...",
+        "ADD_MORE": "Add more...",
+        "GROUPS": "Groups with access",
+        "ADD_FILE": "Add file",
+        "ADD_DIR": "Create category",
+        "EDIT_DIR": "Edit category",
+        "ADDED_DIR": "Added category successfully",
+        "UPDATED_DIR": "Updated category successfully",
+        "NONE": "none",
+        "DELETE_DIR_QUESTION": "Are you sure you want to delete this category?",
+        "DELETE_DIR": "Deleted category successfully.",
+        "DIR": "Category",
+        "DIR_EMPTY": "Category empty",
+        "DELETE_PAGE_QUESTION": "Are you sure you want to delete this page?",
+        "DELETE_PAGE": "Deleted page successfully.",
+        "PAGE_NOT_FOUND": "Page not found.",
+        "SEARCH_RESULTS": "Search results",
+        "NO_SEARCH_RESULTS": "No search results",
+        "SHOW_DETAILS": "Show Details",
+        "HIDE_DETAILS": "Hide Details",
+        "ATTACHMENTS": "Attachments",
+        "ADD_COMMENT": "Add comment",
+        "COMMENTS": "Comments",
+        "EDITED": "Edited",
+        "STORIES": "Stories",
+        "STORIES_SEARCH": "Search stories...",
+        "ALL_STORIES": "All stories",
+        "NO_RECORDS": "Knowledge base is empty"
+    },
+    "ERRORS": {
+        "package": {
+            "limit_reached": "You have reached the limit of the amount of disk space used. Delete other files to be able to add more or contact your business owner to increase the limit."
+        }
+    }
+}

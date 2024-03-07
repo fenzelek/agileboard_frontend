@@ -1,0 +1,6 @@
+{
+    "LANGUAGE_WEBBROWSER": {
+        "TITLE": "Number format in fields",
+        "CONTENT": "Your browser has a different language than Polish. Numeric fields may take a different format than Polish, eg for English 1,000 means 1000."
+    }
+}

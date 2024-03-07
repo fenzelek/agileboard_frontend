@@ -1,0 +1,23 @@
+{
+    "LOGIN": {
+        "TITLE": "Log in to your account",
+        "EMAIL": "Email",
+        "PASSWORD": "Password",
+        "REMEMBER_ME": "Remember Me",
+        "FORGOT_PASSWORD": "Forgot Password?",
+        "LOG_IN": "LOG IN",
+        "OR": "OR",
+        "WITH_GOOGLE": "Log in with Google",
+        "WITH_FACEBOOK": "Log in with Facebook",
+        "DONT_HAVE_ACCOUNT": "Don't have an account?",
+        "CREATE_ACCOUNT": "Create an account"
+    },
+    "ERRORS": {
+        "auth": {
+            "invalid_login_data" : "You have entered invalid data."
+        },
+        "ACTIVE_1" : "The account is not yet activated. Activate it by clicking on the activation link in the email.",
+        "ACTIVE_2" : "Resend email activation.",
+        "CONTACT" : "contact"
+    }
+}

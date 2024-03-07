@@ -1,0 +1,108 @@
+<div id="contractors-list" class="page-layout simple fullwidth doc-page" layout="column">
+
+	<!-- HEADER -->
+	<div class="header md-accent-bg" layout="row" layout-align="space-between">
+		<div layout="column" layout-align="space-between">
+			<div class="title" translate="CONTRACTORS_LIST.TITLE"></div>
+		</div>
+	</div>
+	<!-- / HEADER -->
+
+	<!-- CONTENT -->
+	<div class="content" layout="column">
+
+		<div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+		<div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+		<div layout="row">
+
+			<div class="form-wrapper  rounded-container min-1000">
+				<form novalidate ng-submit="vm.getContractors()">
+					<div layout="row" >
+						<md-input-container class="md-block" flex="50">
+							<label><span translate="CONTRACTORS_LIST.SEARCH"></span></label>
+							<input ng-model="vm.query.search" type="search" name="search" >
+						</md-input-container>
+						<div layout="row" layout-align="start center" flex-gt-xs="25">
+							<md-button class="md-raised md-button md-default-theme md-accent" ng-click="vm.getContractors()" >
+								<span translate="CONTRACTORS_LIST.SEARCH" ></span>
+							</md-button>
+						</div>
+						<div layout="row" layout-align="end center" flex-gt-xs="25" ng-if="!vm.is_tax_office">
+							<a class="md-raised md-button md-default-theme md-accent" ng-href="/contractors/form/new" >
+								<span translate="CONTRACTORS_LIST.ADD" ></span>
+							</a>
+						</div>
+					</div>
+				</form>
+
+				<div ng-if="vm.pagination.total" class="table-wrapper">
+					<md-table-container>
+						<table md-table md-progress="vm.promise">
+							<thead md-head >
+							<tr md-row>
+								<th md-column><span translate="OTHER.No">Lp.</span></th>
+								<th md-column><span translate="CONTRACTORS_LIST.CONTRACTOR"></span></th>
+								<th md-column><span translate="CONTRACTORS_LIST.NIP"></span></th>
+								<th md-column md-numeric><span translate="CONTRACTORS_LIST.CREATED"></span></th>
+								<th md-column md-numeric><span translate="CONTRACTORS_LIST.PAID"></span></th>
+								<th md-column md-numeric><span translate="CONTRACTORS_LIST.AFTER"></span></th>
+								<th md-column ><span translate="OTHER.ACTION">Akcje</span></th>
+							</tr>
+							</thead>
+							<tbody md-body>
+							<tr md-row ng-repeat="contractor in vm.contractors">
+								<td md-cell>{{ vm.pagination | no:$index }}</td>
+								<td md-cell>
+									<div>{{ contractor.name }}</div>
+									<div>
+										{{ contractor.main_address_street }}
+										{{ contractor.main_address_number }},
+										{{ contractor.main_address_zip_code }}
+										{{ contractor.main_address_city }}
+									</div>
+								</td>
+								<td md-cell>{{contractor.vatin_prefix.data.key}}{{ contractor.vatin }}</td>
+								<td md-cell>{{ contractor.payments_all | numFormat}}zł</td>
+								<td md-cell>{{ contractor.payments_paid | numFormat}}zł</td>
+								<td md-cell>{{ contractor.payments_paid_late | numFormat}}zł</td>
+								<td md-cell>
+									<md-menu  ng-if="!vm.is_tax_office">
+										<md-button class="md-icon-button" ng-click="$mdMenu.open()"
+												   aria-label="more">
+											<md-icon md-font-icon="icon-dots-vertical"></md-icon>
+										</md-button>
+
+										<md-menu-content width="3">
+											<md-menu-item>
+												<md-button ng-click="vm.invoice_add(contractor.id)" aria-label="Edit">
+													<span translate="CONTRACTORS_LIST.INVOICE_ADD"></span>
+												</md-button>
+											</md-menu-item>
+											<md-menu-item>
+												<md-button ng-click="vm.edit(contractor.id)" aria-label="Edit">
+													<span translate="OTHER.EDIT"></span>
+												</md-button>
+											</md-menu-item>
+											<md-menu-item ng-if="contractor.is_used != true">
+												<md-button ng-click="vm.deleteContractor(contractor.id)" aria-label="Delete">
+													<span translate="OTHER.DELETE"></span>
+												</md-button>
+											</md-menu-item>
+										</md-menu-content>
+									</md-menu>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</md-table-container>
+
+					<md-table-pagination md-label="{{vm.table_translate}}" md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.pagination.total}}" md-on-paginate="vm.getContractors" md-page-select></md-table-pagination>
+				</div>
+
+				<div layout="row"  ng-if="vm.pagination.total == 0" translate="OTHER.NO_RECORDS" class="text-center" ></div>
+			</div>
+		</div>
+
+	</div>
+</div>

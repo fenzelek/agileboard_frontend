@@ -1,0 +1,74 @@
+{
+    "TOOLBAR": {
+        "TOGGLE_NAVIGATION": "Toggle navigation",
+        "TOGGLE_NAVIGATION_MODE": "Toggle navigation mode",
+        "SEARCH": "Search",
+        "USER_SETTINGS": "User settings",
+        "TOGGLE_QUICK_PANEL": "Toggle quick panel",
+        "EDIT": "Profile edit",
+        "MORE": "More",
+        "BOARD": "Board",
+        "BACKLOG": "Backlog",
+        "HISTORY": "History",
+        "KNOWLEDGE": "Knowledge",
+        "CALENDAR": "Calendar",
+        "COMPANY": "Current company",
+        "TAX_OFFICE_INVITATION_1": "Invite your accountant",
+        "TAX_OFFICE_INVITATION_2": "to the fvonline.pl",
+        "CHANGE_PACKAGE": "Change package",
+        "INFO": "Info",
+        "STORIES": "Stories",
+        "FILES": "Files",
+        "CURRENT_PACKAGE": "Current package:",
+        "EXPIRES": "Expires:",
+        "POLISH": "Polish",
+        "ENGLISH": "English",
+        "SPANISH": "Spanish",
+        "TURKISH": "Turkish",
+        "AGILE_CONFIG": "Board configuration",
+        "EDIT_PROJECT": "Edit project",
+        "LOGOUT": "Logout"
+    },
+    "NAV": {
+        "COMPANY" : {
+            "TITLE" : "Manage company",
+            "MY_LIST" : "List companies/invitations"
+        },
+        "CONTRACTORS" : {
+            "LIST": "Contractors"
+        },
+        "PRODUCTS" : {
+            "LIST": "Products/services"
+        },
+        "CACHE_OPERATIONS" : {
+            "LIST": "Cash/Bank"
+        },
+        "RECEIPTS" : {
+            "LIST": "Receipts"
+        },
+        "ONLINE_SALES" : {
+            "LIST": "Online sales"
+        },
+        "INVOICES" : {
+            "LIST": "Invoices"
+        },
+        "REGISTRY_SALES" : {
+            "LIST": "Registry sales"
+        },
+        "PROJECTS" : {
+            "TITLE": "Projects",
+            "ALL": "All projects"
+        },
+        "DASHBOARD": "Dashboard",
+        "CALENDAR" : "Calendars",
+        "CALENDAR_WORKING" : "Working hours, absences",
+        "SUMMARY": "Summary",
+        "CALENDAR_REALIZATION" : "Tickets realization",
+        "CALENDAR_GANTT" : "Gantt - sprints",
+        "ACTIVITY_CALENDAR": "Activity",
+        "TIME_TRACKING" : "Time tracking",
+        "TIME_TRACKER": {
+            "SCREENS": "Screens"
+        }
+    }
+}

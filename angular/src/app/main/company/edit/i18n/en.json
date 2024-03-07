@@ -1,0 +1,279 @@
+{
+    "COMPANY_EDIT": {
+        "TITLE": "Company configuration",
+
+        "TAB1": "General",
+        "TAB2": "Payments methods",
+        "TAB3": "Invoice settings",
+        "TAB4": "Users",
+        "TAB5": "Packets",
+        "TAB7": "Integrations",
+        "TAB9": "Settings",
+        "TAB10": "JPK FA",
+        "TAB11": "Package/modules",
+        "TAB13": "Payments",
+        "INTEGRATION_1": "Main",
+        "INTEGRATION_2": "Projects",
+        "INTEGRATION_3": "Users",
+
+        "NIP": "NIP",
+        "NIP_PREFIX": "NIP prefix",
+        "NIP_EMPTY": "- empty -",
+        "NAME": "Company name / first name and last name",
+        "EMAIL": "Email",
+        "PHONE": "Phone",
+        "PHOTO": "Logo",
+        "REMOVE_LOGO": "Remove logo",
+        "WWW": "Website url",
+        "VAT_PAYER_YES": "The company is a VAT payer",
+        "VAT_PAYER_NO": "The company exempt from VAT",
+        "VAT_REASON": "Reason",
+        "VAT_REASON_OTHER": "Custom reason",
+        "BANK": "Bank account",
+        "BANK_ACCOUNT": "Bank account number",
+        "BANK_NAME": "Bank name",
+        "GENERAL_DATA": "General data",
+        "MAIN_ADDRESS": "Main address",
+        "CONTACT_ADDRESS": "Contact address",
+        "COUNTRY": "Country",
+        "ZIP_CODE": "Zip code",
+        "CITY": "City",
+        "STREET": "Street",
+        "NUMBER": "Number",
+        "ADDRESS_COPY": "Insert main address",
+        "OTHER_CONTACT_ADDRESS": "Other contact address",
+        "TAX_OFFICES": "Tax offices",
+        "REGON": "REGON",
+        "COUNTY": "County",
+        "COMMUNITY": "Community",
+        "STATE": "State",
+        "POSTAL": "Postal",
+        "BUILDING_NUMBER": "Building number",
+        "FLAT_NUMBER": "Flat number",
+        "STREET_2": "Street",
+
+        "NUMBERING_TITLE": "Numbering methods",
+        "NUMBERING": "Select numbering method",
+        "START_NUMBER": "Start number",
+        "ADD_NEX_NUMBERING": "Add other numbering method",
+        "PREFIX": "Prefix e.g. FV",
+        "TERM": "Date of payment",
+        "EXAMPLE": "Example",
+        "DAYS": "days",
+        "OTHER": "other",
+        "MONTH": "months",
+        "COUNT_TAX": "VAT counting",
+        "COUNT_TAX2": "VAT counting",
+        "FROM_NET": "from the net",
+        "FROM_GROSS": "from the gross",
+
+        "METHOD_LIST": "List of active methods",
+        "DEFAULT": "Set as default",
+        "CURRENT_DEFAULT": "Default",
+        "DEFAULT_METHOD_QUESTION": "Are you sure you want this set to default?",
+        "DEFAULT_METHOD_SUCCESS": "Setting the default method successfully.",
+        "PREFIX_ERROR": "You have at least 2 identical prefixes in the numbering schemes. Prefixes must be unique.",
+        "RESERVED_ERROR": "You used the reserved prefix. You can not use prefixes PRO, ZAL, KOR, KOR/ZAL",
+
+        "SUCCESS": "Updated company successfully",
+
+        "USER": {
+            "NEW": "Add user",
+            "EMAIL": "Email",
+            "NAME": "First name",
+            "SURNAME": "Last name",
+            "ROLE": "Role",
+            "ALL_ROLES": "All roles",
+            "SELECT_FROM_LIST": "Select from list",
+            "DELETE_QUESTION": "Are you sure you want to delete this user?",
+            "DELETE_SUCCESS": "Deleting user successfully.",
+            "UPDATE_SUCCESS": "Updated user successfully",
+            "UPDATE": "Edit",
+            "ADD_SUCCESS": "Added user successfully",
+            "INVITE_SUCCESS": "Invited user successfully",
+            "ADD": "New",
+            "PASSWORD_CONFIRM": "Confirm password",
+            "PASSWORD": "Password",
+            "TOKENS": "Tokens",
+            "PROJECTS": "Projects",
+            "TOO_MANY" : "You have the maximum number of users. Go to packages to increase their quantity.",
+            "STATUS": "Status",
+            "STATUSES": {
+                "ACCEPTED": "Accepted",
+                "INVITED": "Invited",
+                "DELETED": "Deleted"
+            }
+        },
+
+        "INTEGRATIONS_PROJECTS" : {
+            "REFRESH": "Refresh list",
+            "EXTERNAL_PROJECT_NAME": "External project name",
+            "PROJECT_NAME": "Internal project name",
+            "INTEGRATION_ID": "Integration ID",
+            "TYPE": "Integrations",
+            "PROJECT": "Project",
+            "QUESTION": "WARNING! Changing integration can lead to unpredictable consequences!",
+            "SUCCESS": "Refreshed list of projects"
+        },
+
+        "INTEGRATIONS" : {
+            "ADD": "Add",
+            "PROVIDER": "Provider",
+            "APP_TOKEN": "APP TOKEN",
+            "AUTH_TOKEN": "AUTH TOKEN",
+            "START_TIME": "Start time (UTC)",
+            "NEW_INTEGRATION": "New integration"
+        },
+
+        "INTEGRATIONS_USERS" : {
+            "EXTERNAL_USER": "External user",
+            "USER": "Internal user"
+        },
+
+        "SETTINGS":{
+            "CALENDAR": "Calendar",
+            "CALENDAR_DESC": "Force users to fill in working hours",
+            "CALENDAR_ENABLE": "Show calendar button in main menu",
+            "ACTIVITY": "Activity",
+            "ACTIVITY_ENABLE": "Show time tracking button in main menu and users' logged time"
+        },
+
+        "PACKAGE_TEST_SUCCESS": "Premium package activated",
+        "PACKAGE_TEST_ACTIVE": "Try a premium package",
+
+        "PACKAGES": {
+            "ADDITIONAL_MODULES": "Additional modules",
+            "MODULES_ACTIVE": "Active modules",
+            "MODULES_AVAILABLE": "Available modules",
+            "COMPLETE_PROFILE": "Before purchasing a package/module, complete the \"general\" tab.",
+            "FREE": "Free",
+            "STATUS": "Status",
+            "CURRENTLY_USED": "Currently used",
+            "LIMIT": "Limit",
+            "ACTIVE": "active",
+            "DISABLED": "Inactive",
+            "ENABLED": "Active",
+            "UNLIMITED": "Unlimited",
+            "CANCEL_SUBSCRIPTION": "Cancel subscription",
+            "CANCEL_SUBSCRIPTION_QUESTION": "Are you sure you want to cancel this subscription?",
+            "CANCEL_SUBSCRIPTION_SUCCESS": "Subscription canceled.",
+            "DISABLE_MODULE": "Disable",
+            "DISABLE_MODULE_QUESTION": "Are you sure you want to disable this module?",
+            "DISABLE_MODULE_SUCCESS": "Module disabled.",
+            "TRIAL": "Test",
+            "TRIAL_DESC": "Test selected package for 30 days without any commitment",
+            "TRIAL_MODULE_QUESTION": "Are you sure you want to test this module?",
+            "TRIAL_PACKAGE_QUESTION": "Are you sure you want to test this package?",
+            "MODULE_ACTIVE_SUCCESS": "Module activated",
+            "PACKAGE_ACTIVE_SUCCESS": "Package activated",
+            "RENEW": "Renew",
+            "BUY": "Buy",
+            "CHANGE": "Change",
+            "CHANGE_PACKAGE": "Change to this package",
+            "TURN_ON": "Active",
+            "TIME": "Time",
+            "MONTH": "Month",
+            "MONTH_SHORT": "mo. with VAT",
+            "WITH_VAT": "with VAT",
+            "YEAR": "Year",
+            "VALUE": "Select",
+            "EXPIRES": "Expires:",
+            "RENEW_SUBSCRIPTION": "Renewal:",
+            "OPTION": "Option",
+            "AVAILABLE": "Available",
+            "INCREASE_IN_ACTUAL_PEROID": "Increase in actual peroid",
+            "CURRENT": "current",
+            "CHANGE_OR_RENEW_TITLE": "Change or renew the package",
+            "CHANGE_OR_RENEW_DESC_1": "Configure the limits as you need. If you are in the middle of a billing period, you can quickly buy a larger limit of users or projects. All you need to do is use the \"CHANGE IMMEDIATELY\" button.",
+            "CHANGE_OR_RENEW_DESC_2": "Before the end of the billing period, you will also be able to set up the extension of the subscription for the next month. Configure the limits and click \"RENEW\".",
+            "FROM": "from",
+            "UP_TO": "up to",
+            "PER_MONTH": "per month",
+            "PER_YEAR": "per year",
+            "INCREASE_IMMEDIATELY": "Change immediately",
+            "CHANGE_IMMEDIATELY": "Change to this package immediately",
+            "BUY_PACKAGE": "Buy this package in the new billing peroid",
+            "FOR_THE_REST_DAYS": "for the number of days remaining in the current billing period",
+            "FOR_THE_REST_DAYS_INFO": "The fee has been calculated proportionally according to the number of days remaining until the end of the current billing cycle",
+            "RENEW_TITLE": "Renew the package",
+            "RENEW_DESC": "Amount to be paid for extending the subscription according to the configuration set up above",
+            "TO_PAY": "To pay",
+            "UP_TO_ITEMS": {
+                "general-multiple_users": "users",
+                "projects-multiple-projects": "projects"
+            },
+            "PACKAGES_LIST": {
+                "cep": "Basic",
+                "cep_classic": "Classic",
+                "cep_business": "Business",
+                "cep_enterprise": "Enterprise"
+            },
+            "MODULES_LIST": {
+                "invoices-addresses-delivery-enabled": "Active adding delivery addresses",
+                "invoices-services-name-allow_customization": "Customising service name on issuing invoice.",
+                "invoices-proforma-enabled": "Active issuing proforma",
+                "invoices-ue-enabled": "Active issuing UE invoice",
+                "invoices-footer-enabled": "Enabled invoice footer",
+                "invoices-margin-enabled": "Active issuing invoice margin",
+                "invoices-registry-export-name": "Active export registry to CSV",
+                "invoices-reverse-charge-enabled": "Active issuing invoice reverse charge",
+                "invoices-advance-enabled": "Active issuing advance invoice",
+                "general-multiple_users": "Limit of the users number",
+                "invoices-jpk_export": "Export to JPK",
+                "projects-disc-volume": "Disc volume",
+                "projects-file-size": "Max file size",
+                "projects-multiple-projects": "Limit of the project number",
+                "projects-users-in-project": "Limit the number of users in the project",
+                "projects-integrations-hubstaff": "Hubstaff integration"
+            },
+            "STATUS_LIST": {
+                "AVAILABLE": "Available",
+                "ACTIVE": "Active",
+                "INACTIVE": "Inactive",
+                "WAITING": "Waiting for payment",
+                "UNAVAILABLE": "Unavailable"
+            }
+        },
+
+        "PAYMENTS" : {
+            "NUMBER": "Number",
+            "CREATED": "Created",
+            "TOTAL_PRICE": "Gross",
+            "VAT": "Tax",
+            "STATUS": "Status",
+            "RETRY": "Retry",
+            "CANCEL_QUESTION": "Are you sure you want to cancel this payment?",
+            "CANCEL_SUCCESS": "Cancellation request was sending to PayU.",
+
+            "STATUS_LIST": {
+                "ALL": "All",
+                "BEFORE_START": "Before start",
+                "NEW": "New",
+                "PENDING": "Penfing",
+                "COMPLETED": "Completed",
+                "COMPLETED_BUT_NOT_USED": "Completed",
+                "CANCELED": "Canceled",
+                "REJECTED": "Rejected"
+            }
+        }
+    },
+    "ERRORS": {
+        "company": {
+            "creation_limit" : "You have exceeded the limit on the number of companies created."
+        },
+        "company_invitation": {
+            "already_assigned_to_company" : "This user is already assigned to this company."
+        },
+        "package": {
+            "data_consistency_error" : "There was a problem with the package/module. Please refresh the page and try again.",
+            "limit_reached" : "The user limit has been reached. Delete user to be able to add another or contact your business owner to increase the limit."
+        },
+        "integration" : {
+            "invalid_time_tracking_data" : "The given data is incorrect. Failed to connect to external service."
+        },
+        "FORM": {
+            "PREFIX":"Fields can only consist of numbers, underscores and hyphens.",
+            "REGON": "Field must have 9 or 14 characters."
+        }
+    }
+}

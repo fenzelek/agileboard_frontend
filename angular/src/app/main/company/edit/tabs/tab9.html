@@ -1,0 +1,35 @@
+
+<div layout="row">
+
+    <div class="form-wrapper  rounded-container max-1000" flex>
+
+        <!-- messages -->
+        <div class="alert-success" ng-if="vm.tab9.msg_success">{{ vm.tab9.msg_success }}</div>
+        <div class="alert-error" ng-if="vm.tab9.msg_error">{{ vm.tab9.msg_error }}</div>
+
+        <!-- settings -->
+        <div class="settings" ng-class="{ 'loading': vm.tab9.request_sending }">
+
+            <!-- calendar -->
+            <div class="form-title" translate="COMPANY_EDIT.SETTINGS.CALENDAR"></div>
+            <!-- enable calendar -->
+            <md-switch ng-model="vm.tab9.company.enable_calendar" ng-change="vm.changeSettings()" ng-disabled="vm.tab9.request_sending" aria-label="{{ 'COMPANY_EDIT.SETTINGS.CALENDAR_ENABLE' | translate }}" >
+                <span class="desc" translate="COMPANY_EDIT.SETTINGS.CALENDAR_ENABLE"></span>
+            </md-switch>
+            <!-- force calendar to fill -->
+            <md-switch ng-model="vm.tab9.company.force_calendar_to_complete" ng-change="vm.changeSettings()" ng-disabled="vm.tab9.request_sending || !vm.tab9.company.enable_calendar" aria-label="{{ 'COMPANY_EDIT.SETTINGS.CALENDAR_DESC' | translate }}" >
+                <span class="desc" translate="COMPANY_EDIT.SETTINGS.CALENDAR_DESC"></span>
+            </md-switch>
+
+            <!-- activity -->
+            <div class="form-title" translate="COMPANY_EDIT.SETTINGS.ACTIVITY"></div>
+            <!-- enable activities -->
+            <md-switch ng-model="vm.tab9.company.enable_activity" ng-change="vm.changeSettings()" ng-disabled="vm.tab9.request_sending" aria-label="{{ 'COMPANY_EDIT.SETTINGS.ACTIVITY_ENABLE' | translate }}" >
+                <span class="desc" translate="COMPANY_EDIT.SETTINGS.ACTIVITY_ENABLE"></span>
+            </md-switch>
+
+        </div>
+
+
+    </div>
+</div>

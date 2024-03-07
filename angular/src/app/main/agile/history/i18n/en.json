@@ -1,0 +1,20 @@
+{
+    "HISTORY": {
+        "TITLE": "History",
+        "SPRINTS": "Sprints",
+        "STORIES": "Stories",
+        "ALL_SPRINTS": "All sprints",
+        "ALL_STORIES": "All stories",
+        "FILTERS": "Filters",
+        "EMPTY": "No tickets",
+        "NO_DATA": "no data",
+        "SPRINT_START_DATE": "Sprint start date",
+        "SPRINT_CLOSE_DATE": "Sprint close date",
+        "ESTIMATE_TIME": "Estimate time",
+        "LOGGED_TIME": "Logged time",
+        "TIME_USAGE": "Time usage",
+        "LOCK": "Block adding tasks",
+        "UNLOCK": "Unblock adding tasks",
+        "EXPORT": "Export"
+    }
+}

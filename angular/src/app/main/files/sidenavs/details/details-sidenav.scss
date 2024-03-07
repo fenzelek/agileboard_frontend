@@ -1,0 +1,116 @@
+#files-page {
+
+    // Sidenav
+    .sidenav {
+        width: 320px;
+        min-width: 320px;
+        max-width: 320px;
+        padding: 0;
+
+        &.md-locked-open {
+            width: 320px;
+            min-width: 320px;
+            max-width: 320px;
+            overflow: hidden;
+        }
+
+        .header {
+            height: 200px;
+            min-height: 200px;
+            max-height: 200px;
+            padding: 24px 24px;
+
+            .title {
+                font-size: 15px;
+                margin-bottom: 8px;
+            }
+
+            .subtitle {
+
+            }
+        }
+
+        .content {
+            position: relative;
+            background: #FFFFFF;
+
+            .file-details {
+                padding-bottom: 30px;
+
+
+                .preview {
+                    background: #FFFFFF;
+                    height: 240px;
+
+                    div {
+                        font-size: 18px;
+                        width: 200px;
+                        height: 200px;
+                        background-position: center center;
+                        background-repeat: no-repeat;
+                        background-size: contain;
+                    }
+                }
+
+                .title {
+                    padding: 24px 24px 16px 24px;
+                }
+
+                .title.border-title {
+                    border-top: 1px solid rgba(0, 0, 0, 0.12);
+                }
+
+                table {
+                    padding: 0 24px;
+                    width: 100%;
+                    text-align: left;
+
+                    tr {
+
+                        th, td {
+                            padding: 10px 0;
+                        }
+
+                        th {
+
+                        }
+
+                        td {
+
+                        }
+
+                        &.type {
+                            text-transform: capitalize;
+                        }
+
+                        &.size {
+                        }
+
+                        &.owner {
+                            text-transform: capitalize;
+                        }
+
+                        &.created {
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// RESPONSIVE
+@media screen and (max-width: $layout-breakpoint-xs) {
+
+    #files-page {
+
+        .sidenav {
+
+            .header {
+                height: 160px;
+                min-height: 160px;
+                max-height: 160px;
+            }
+        }
+    }
+}

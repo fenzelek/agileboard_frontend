@@ -1,0 +1,256 @@
+<div id="scrumboard" ng-class="{ 'compact-view': vm.compact_view }" class="page-layout simple fullwidth doc-page" layout="row" layout-wrap="">
+
+    <!-- HEADER -->
+    <div class="header md-accent-bg" layout="row" layout-align="space-between"  flex="100">
+        <div layout="column" layout-align="space-between" flex="100">
+            <div layout="row">
+                <div class="title" flex="60">
+                    {{current_project_name}}
+                </div>
+                <div flex="40" layout="row" layout-align="end center">
+                    <md-button type="button" class="md-raised add-ticket-btn" ng-click="vm.addEditTicket()"
+                        ng-if="vm.statuses.length > 0" ng-disabled="vm.selected_sprint.length === 1 && vm.selected_sprint[0].locked">
+                        <md-icon md-font-icon="icon-library-plus" class="s20 grey-600-fg"></md-icon>
+                        <span hide-gt-xs>{{ 'BOARD.TICKET' | translate }}</span>
+                        <span hide show-gt-xs>{{ 'BOARD.CREATE_TICKET' | translate }}</span>
+                    </md-button>
+                </div>
+            </div>
+
+            <div class="options-row" flex layout-wrap layout="row" layout-align="space-between end">
+
+                <!-- mobile menu -->
+                <div class="header-filters-btn">
+                    <md-menu md-offset="0 48">
+                        <div class="selected-option button" ng-click="$mdMenu.open()" md-menu-origin md-menu-align-target role="button">
+                            <span translate="OTHER.FILTERS">Filters</span><md-icon md-font-icon="icon-menu-down" class="s20 white-fg"></md-icon>
+                        </div>
+                        <md-menu-content width="2" class="md-menu-bar-menu">
+                            <!-- sprints -->
+                            <md-menu-item class="md-indent">
+                                <md-menu md-position-mode="cascade" md-nest-level="1">
+                                    <md-button ng-click="$mdMenu.open()" class="childs-option" role="menuitem" >
+                                        <md-icon md-font-icon="icon-flag-variant"></md-icon> <span translate="OTHER.SPRINTS"></span>
+                                    </md-button>
+                                    <md-menu-content width="3">
+                                        <md-menu-item>
+                                            <md-button ng-click="vm.selectSprintAll(); vm.selectSprint()">
+                                                <span ng-if="!vm.backlog">{{ 'OTHER.ALL_SPRINTS' | translate }}</span>
+                                                <span ng-if="vm.backlog">{{ 'BOARD.BACKLOG' | translate }}</span>
+                                            </md-button>
+                                        </md-menu-item>
+                                        <md-menu-item ng-repeat="sprint in vm.sprints">
+                                            <md-button ng-click="vm.selectSprint(sprint.id)">
+                                                <span ng-class="{'secondary-text': vm.selected_sprints.indexOf(sprint.id) !== -1}">
+                                                    {{ sprint.name }}
+                                                </span>
+                                            </md-button>
+                                        </md-menu-item>
+                                    </md-menu-content>
+                                </md-menu>
+                            </md-menu-item>
+                            <!-- stories -->
+                            <md-menu-item class="md-indent">
+                                <md-menu md-position-mode="cascade" md-nest-level="1">
+                                    <md-button ng-click="$mdMenu.open()" class="childs-option" role="menuitem">
+                                        <md-icon md-font-icon="icon-star"></md-icon> <span translate="OTHER.STORIES"></span>
+                                    </md-button>
+                                    <md-menu-content width="3">
+                                        <md-menu-item>
+                                            <md-button ng-click="vm.selectStoryAll(); vm.selectStory()">
+                                                {{ 'OTHER.ALL_STORIES' | translate }}
+                                            </md-button>
+                                        </md-menu-item>
+                                        <md-menu-item ng-repeat="story in vm.stories">
+                                            <md-button ng-click="vm.selectStory(story.id)" >
+                                                <span ng-class="{'secondary-text': vm.selected_stories.indexOf(story.id) !== -1}">
+                                                    {{ story.name }}
+                                                </span>
+                                            </md-button>
+                                        </md-menu-item>
+                                    </md-menu-content>
+                                </md-menu>
+                            </md-menu-item>
+                            <!-- users -->
+                            <md-menu-item ng-if="vm.hasPermission('ticket_show', ['all', 'reporter', 'not_assigned'])" class="md-indent">
+                                <md-menu md-position-mode="cascade" md-nest-level="1">
+                                    <md-button ng-click="$mdMenu.open()" class="childs-option" role="menuitem">
+                                        <md-icon md-font-icon="icon-account"></md-icon> <span translate="OTHER.USERS"></span>
+                                    </md-button>
+                                    <md-menu-content width="3">
+                                        <md-menu-item>
+                                            <md-button ng-click="vm.selectUserAll(); vm.selectUser()">
+                                                {{ 'OTHER.ALL_USERS' | translate }}
+                                            </md-button>
+                                        </md-menu-item>
+                                        <md-menu-item>
+                                            <md-button ng-click="vm.selectUserNotAssigned(); vm.selectUser()">
+                                                {{ 'OTHER.NOT_ASSIGNED' | translate }}
+                                            </md-button>
+                                        </md-menu-item>
+                                        <md-menu-item ng-repeat="user in vm.users">
+                                            <md-button ng-click="vm.selectUser(user.user_id)">
+                                                <span ng-class="{'secondary-text': vm.selected_users.indexOf(user.user_id) !== -1}">
+                                                    {{user.user.data.first_name}} {{user.user.data.last_name}}
+                                                </span>
+                                            </md-button>
+                                        </md-menu-item>
+                                    </md-menu-content>
+                                </md-menu>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                </div>
+
+
+                <!-- tablet / desktop menu -->
+                <div class="header-filters-block" layout="row">
+                     <!-- sprints filter -->
+                     <div layout="row" layout-align="start end">
+                        <md-select class="md-no-underline" ng-model="vm.selected_sprints" data-md-container-class="searchable-select"
+                            md-on-close="vm.selectSprint()" multiple="true" md-selected-text="vm.selectSprintLabel()">
+                            <!-- Search field -->
+                            <md-select-header class="select-header">
+                                <input class="select-search md-text" type="search" ng-model="vm.sprintSearch"
+                                    placeholder="{{ 'OTHER.SEARCH' | translate }}...">
+                            </md-select-header>
+                            <!-- Select all -->
+                            <md-select-header class="select-header" ng-click="vm.selectSprintAll()" md-ink-ripple>
+                                <md-icon ng-if="vm.selected_sprints.length && vm.selected_sprints.length !== vm.sprints.length"
+                                    md-font-icon="icon-checkbox-multiple-blank-outline" class="ml-0 mr-5"></md-icon>
+                                <md-icon ng-if="!vm.selected_sprints.length || vm.selected_sprints.length === vm.sprints.length"
+                                    md-font-icon="icon-checkbox-multiple-marked" class="ml-0 mr-5"></md-icon>
+                                <span ng-if="!vm.backlog">{{ 'OTHER.ALL_SPRINTS' | translate }}</span>
+                                <span ng-if="vm.backlog">{{ 'BOARD.BACKLOG' | translate }}</span>
+                            </md-select-header>
+                            <!-- List -->
+                            <md-optgroup>
+                                <md-option ng-value="sprint.id" ng-repeat="sprint in vm.sprints"
+                                    ng-show="searchItem(sprint, 'name', vm.sprintSearch)">
+                                    {{ sprint.name }}
+                                </md-option>
+                            </md-optgroup>
+                        </md-select>
+                    </div>
+
+                    <!-- stories filter -->
+                    <div layout="row" layout-align="start end">
+                        <md-select class="md-no-underline" ng-model="vm.selected_stories" data-md-container-class="searchable-select"
+                            md-on-close="vm.selectStory()" multiple="true" md-selected-text="vm.selectStoryLabel()">
+                            <!-- Search field -->
+                            <md-select-header class="select-header">
+                                <input class="select-search md-text" type="search" ng-model="vm.storySearch"
+                                    placeholder="{{ 'OTHER.SEARCH' | translate }}...">
+                            </md-select-header>
+                            <!-- Select all -->
+                            <md-select-header class="select-header" ng-click="vm.selectStoryAll()" md-ink-ripple>
+                                <md-icon ng-if="vm.selected_stories.length && vm.selected_stories.length !== vm.stories.length"
+                                    md-font-icon="icon-checkbox-multiple-blank-outline" class="ml-0 mr-5"></md-icon>
+                                <md-icon ng-if="!vm.selected_stories.length || vm.selected_stories.length === vm.stories.length"
+                                    md-font-icon="icon-checkbox-multiple-marked" class="ml-0 mr-5"></md-icon>
+                                <span>{{ 'OTHER.ALL_STORIES' | translate }}</span>
+                            </md-select-header>
+                            <!-- List -->
+                            <md-optgroup>
+                                <md-option ng-value="story.id" ng-repeat="story in vm.stories"
+                                    ng-show="searchItem(story, 'name', vm.storySearch)">
+                                    {{ story.name }}
+                                </md-option>
+                            </md-optgroup>
+                        </md-select>
+                    </div>
+
+                    <!-- users filter -->
+                    <div ng-show="vm.hasPermission('ticket_show', ['all', 'reporter', 'not_assigned'])" layout="row" layout-align="start end">
+                        <md-select class="md-no-underline" ng-model="vm.selected_users" data-md-container-class="searchable-select"
+                            md-on-close="vm.selectUser()" multiple="true" md-selected-text="vm.selectUserLabel()">
+                            <!-- Search field -->
+                            <md-select-header class="select-header">
+                                <input class="select-search md-text" type="search" ng-model="vm.userSearch"
+                                    placeholder="{{ 'OTHER.SEARCH' | translate }}...">
+                            </md-select-header>
+                            <!-- Select all -->
+                            <md-select-header class="select-header" ng-click="vm.selectUserAll()" md-ink-ripple>
+                                <md-icon ng-if="!vm.selected_users || vm.selected_users.length && vm.selected_users.length !== vm.users.length"
+                                    md-font-icon="icon-checkbox-multiple-blank-outline" class="ml-0 mr-5"></md-icon>
+                                <md-icon ng-if="(vm.selected_users && !vm.selected_users.length) || (vm.selected_users.length === vm.users.length)"
+                                    md-font-icon="icon-checkbox-multiple-marked" class="ml-0 mr-5"></md-icon>
+                                <span>{{ 'OTHER.ALL_USERS' | translate }}</span>
+                            </md-select-header>
+                            <!-- Only unassigned -->
+                            <md-select-header class="select-header" ng-click="vm.selectUserNotAssigned()" md-ink-ripple>
+                                <md-icon ng-if="vm.selected_users && vm.selected_users.length !== vm.users.length"
+                                    md-font-icon="icon-account-outline" class="ml-0 mr-5"></md-icon>
+                                <md-icon ng-if="vm.selected_users === null || vm.selected_users.length === vm.users.length"
+                                    md-font-icon="icon-account-remove" class="ml-0 mr-5"></md-icon>
+                                <span>{{ 'OTHER.NOT_ASSIGNED' | translate }}</span>
+                            </md-select-header>
+                            <!-- List -->
+                            <md-optgroup>
+                                <md-option ng-value="user.user_id" ng-repeat="user in vm.users"
+                                    ng-show="searchItem(user.user.data, 'first_name', vm.userSearch) || searchItem(user.user.data, 'last_name', vm.userSearch) ||
+                                        (vm.userSearch === '' && !user.user.data)">
+                                    {{ user.user.data.first_name }} {{ user.user.data.last_name }}
+                                </md-option>
+                            </md-optgroup>
+                        </md-select>
+                    </div>
+
+                    <!-- reset filters button -->
+                    <md-button ng-if="vm.selected_sprints.length || vm.selected_stories.length || vm.selected_users.length"
+                        ng-click="vm.resetfilters()" class="md-icon-button option-selector" layout="row" layout-align="center center">
+                        <md-icon md-font-icon="icon-filter-remove" class="icon s18"></md-icon>
+                        <md-tooltip>
+                            {{ 'BOARD.RESET_FILTERS' | translate }}
+                        </md-tooltip>
+                    </md-button>
+
+                </div>
+
+                <!-- search filter -->
+                <div layout="row">
+                    <div class="compact-switch">
+                        <md-button class="md-icon-button option-selector" ng-class="{ 'active': vm.compact_view }" layout="row" layout-align="center center" ng-click="vm.toggleCompactView()">
+                            <md-icon md-font-icon class="icon s18 md-default-theme md-font material-icons" ng-class="{ 'icon-grid': !vm.compact_view, 'icon-grid-off': vm.compact_view }"></md-icon>
+                            <md-tooltip>
+                                <span ng-if="vm.compact_view" translate="{{ 'BOARD.BACK_TO_STANDARD_VIEW' | translate }}"></span>
+                                <span ng-if="!vm.compact_view" translate="{{ 'BOARD.SWITCH_TO_COMPACT_VIEW' | translate }}"></span>
+                            </md-tooltip>
+                        </md-button>
+                    </div>
+                    <div class="calendar">
+                        <md-button class="md-icon-button option-selector" layout="row" layout-align="center center" ng-click="vm.openCalendar()">
+                            <md-icon class="icon s20 md-default-theme material-icons icon-calendar-today" md-font-icon="calendar-today"></md-icon>
+                            <md-tooltip>
+                                <span translate="{{ 'BOARD.OPEN_CALENDAR' | translate }}"></span>
+                            </md-tooltip>
+                        </md-button>
+                    </div>
+                    <div class="search-bar">
+                        <ms-search-bar ng-model="vm.search"></ms-search-bar>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <div class="center" layout="column" flex>
+
+        <div class="alert-success" ng-if="vm.msg_success" bind-html-compile="vm.msg_success"></div>
+        <div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+        <!-- CONTENT -->
+        <md-content class="content" flex layout="column" ng-include="'app/main/agile/scrumboard/views/board/board-view.html'" ms-scroll></md-content>
+        <!-- / CONTENT -->
+    </div>
+
+    <!-- TASK DETAILS SIDENAV -->
+    <md-sidenav class="preview-sidenav md-sidenav-right" md-component-id="preview-sidenav" md-is-locked-open="$mdMedia('gt-md')"
+                ng-include="'app/main/agile/sidenav/sidenav.html'" ng-show="vm.selected_ticket"
+                ms-sidenav-helper>
+    </md-sidenav>
+    <!-- / TASK DETAILS SIDENAV -->
+
+</div>

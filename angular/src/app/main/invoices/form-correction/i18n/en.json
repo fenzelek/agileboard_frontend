@@ -1,0 +1,47 @@
+{
+    "INVOICES_FORM_CORRECTION": {
+        "TITLE_ADD": "New correction invoice",
+        "TYPE": "Correction reason",
+        "SALE_DATE": "Date correction",
+        "ISSUE_DATE": "Issue date",
+        "GENERAL": "General",
+        "MARGIN_PROCEDURES": "Margin procedures",
+        "ADD_CORRECTION": "Correction",
+        "CLIENT": "Contractor",
+        "EDIT_CONTRACTOR": "Edit",
+        "ADD_CONTRACTOR": "Add",
+        "VATIN": "NIP",
+        "PRODUCTS": "Services",
+        "PRODUCT": "Service",
+        "TAX": "VAT rate",
+        "QUANTITY": "Quantity",
+        "PRICE_NET": "Price net (zł)",
+        "PRICE_NET_SUM": "Value net (zł)",
+        "PRICE_GROSS": "Price gross (zł)",
+        "PRICE_GROSS_SUM": "Value gross (zł)",
+        "PRICE": "Price (zł)",
+        "PRICE_SUM": "Value (zł)",
+        "CUSTOM_NAME": "Custom description:",
+        "UNIT": "Unit",
+        "DESCRIPTION": "Invoice description",
+        "BANK_ACCOUNT": "Bank account",        
+
+        "SUMMARY": "Summary",
+        "PRICE_NET_SUMMARY": "Total net price",
+        "PRICE_GROSS_SUMMARY": "Total gross price",
+        "PRICE_SUMMARY": "Total price",
+        "TERM": "Date of payment",
+        "PAYMENT_METHOD": "Payments method",
+        "SAVE": "Save",
+
+        "COUNT_TAX": "VAT counting",
+        "FROM_NET": "from the net",
+        "FROM_GROSS": "from the gross",
+
+        "ADD_QUESTION": "Are you sure you want to issue this invoice?",
+        "QUANTITY_ERROR": "Number of services must be greater than 0."
+    },
+    "ERRORS": {
+
+    }
+}

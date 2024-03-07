@@ -1,0 +1,21 @@
+{
+    "TOKENS_LIST": {
+        "TITLE": "Tokeny użytkownika",
+        "TOKEN": "Token",
+        "DOMAIN": "Domena",
+        "IP_FROM": "IP start",
+        "IP_TO": "IP stop",
+        "TTL": "TTL",
+        "ADD": "Dodaj",
+        "ROLE": "Rola",
+        "ROLES": {
+            "company": "Firma",
+            "user": "Użytkownik"
+        },
+        "DELETE_QUESTION": "Czy na pewno chcesz usunąć ten token?",
+        "DELETE_SUCCESS": "Usunięto token."
+    },
+    "ERRORS": {
+
+    }
+}

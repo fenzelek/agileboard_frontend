@@ -1,0 +1,41 @@
+<md-dialog aria-label="METHOD">
+    <div id="add-edit-integration-project-dialog">
+        <form id="addEditIntegrationProject" name="addEditIntegrationProject" >
+            <div layout-gt-sm="row">
+                <div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+                <div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+            </div>
+            <!--<div class="mb-20">-->
+                <!--<span translate="COMPANY_EDIT.INTEGRATIONS.NEW_INTEGRATION" class="font-size-16"></span>-->
+            <!--</div>-->
+            <div layout-gt-sm="row">
+                <md-autocomplete flex
+                                 md-input-name="id"
+                                 ng-model-options="{debounce:200}"
+                                 md-selected-item="vm.project"
+                                 md-search-text="search_text"
+                                 md-items="item in vm.searchProjects(search_text)"
+                                 md-item-text="item.name"
+                                 md-floating-label="{{'COMPANY_EDIT.INTEGRATIONS_PROJECTS.PROJECT' | translate}} *"
+                                 md-clear-button="true">
+                    <md-item-template>
+                        <span md-highlight-text="search_text">{{item.name}}</span>
+                    </md-item-template>
+                    <md-not-found><span translate="OTHER.NOT_FOUND"></span></md-not-found>
+                </md-autocomplete>
+            </div>
+
+            <div layout-gt-sm="row"  layout-align="end none">
+                <md-button ng-if="!vm.edit" type="button" class="md-raised md-accent" aria-label="CANCEL"
+                           translate="OTHER.CANCEL" ng-click="vm.hide()"
+                           translate-attr-aria-label="OTHER.CANCEL">
+                </md-button>
+                <md-button type="button" class="md-raised md-accent" aria-label="SEND"
+                           ng-disabled="addEditIntegrationProject.$invalid || vm.request_sending"
+                           translate="OTHER.SAVE" ng-click="vm.create()"
+                           translate-attr-aria-label="OTHER.SAVE">
+                </md-button>
+            </div>
+        </form>
+    </div>
+</md-dialog>

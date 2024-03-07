@@ -1,0 +1,116 @@
+<md-dialog aria-label="METHOD">
+    <div id="add-edit-time-tracking-dialog" ng-class="{ 'loading-content': vm.loadingProject || vm.loadingTicket || vm.request_sending }">
+        <form id="addEditTimeTracking" name="addEditTimeTracking" >
+            <div layout-gt-sm="row">
+                <div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+                <div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+            </div>
+            <!--<div class="mb-20">-->
+                <!--<span translate="COMPANY_EDIT.INTEGRATIONS.NEW_INTEGRATION" class="font-size-16"></span>-->
+            <!--</div>-->
+
+            <!-- project -->
+            <div layout-gt-sm="row">
+                <md-autocomplete flex autocomplete-required
+                                 md-input-name="id"
+                                 ng-model-options="{debounce:200}"
+                                 md-selected-item="vm.project"
+                                 md-search-text="search_text"
+                                 md-items="item in vm.searchProjects(search_text)"
+                                 md-item-text="item.name"
+                                 md-floating-label="{{'TIME_TRACKING.PROJECT' | translate}} *"
+                                 md-clear-button="true">
+                    <md-item-template>
+                        <span md-highlight-text="search_text">{{item.name}}</span>
+                    </md-item-template>
+                    <md-not-found><span translate="OTHER.NOT_FOUND"></span></md-not-found>
+                </md-autocomplete>
+            </div>
+
+            <!-- ticket -->
+            <div layout-gt-sm="row">
+                <md-autocomplete flex ng-disabled="!vm.project"
+                                 md-input-name="id"
+                                 ng-model-options="{debounce:200}"
+                                 md-selected-item="vm.ticket"
+                                 md-search-text="search_text_ticket"
+                                 md-items="item in vm.searchTicket(search_text_ticket)"
+                                 md-item-text="item.title + ' ' + item.name"
+                                 md-floating-label="{{'TIME_TRACKING.TICKET' | translate}}"
+                                 md-clear-button="true">
+                    <md-item-template>
+                        <span md-highlight-text="search_text">{{item.title}} {{item.name}}</span>
+                    </md-item-template>
+                    <md-not-found><span translate="OTHER.NOT_FOUND"></span></md-not-found>
+                </md-autocomplete>
+            </div>
+
+            <!-- user -->
+            <md-input-container class="md-block" flex-gt-sm="50" flex="50" ng-if="vm.is_admin && !vm.inEditMode">
+                <label><span translate="TIME_TRACKING.USER"></span></label>
+                <md-select ng-model="vm.form.user_id" name="user_id" ng-if="!translate_loading">
+                    <md-option ng-value="user.id" ng-repeat="user in vm.users" >{{user.first_name}} {{user.last_name}}</md-option>
+                </md-select>
+            </md-input-container>
+
+            <!-- period -->
+            <div layout-gt-sm="row" ng-if="!vm.inEditMode">
+                <md-input-container class="md-block" flex="33">
+                    <label><span translate="OTHER.DATE"></span></label>
+                    <input ng-model="vm.form.date" ng-click="vm.scrollToPicker()" name="date" moment-picker="vm.form.date" format="YYYY-MM-DD" start-view="day" locale="{{ vm.lang }}" input-clear autocomplete="off">
+                </md-input-container>
+
+                <md-input-container class="md-block" flex="33">
+                    <label><span translate="OTHER.FROM"></span></label>
+                    <input type="text" id="form_from" time="vm.form.from" placeholder="hh:mm:ss" ng-model='vm.form.from' />
+                </md-input-container>
+
+                <md-input-container class="md-block" flex="33">
+                    <label><span translate="OTHER.TO"></span></label>
+                    <input type="text" id="form_to" time="vm.form.to" placeholder="hh:mm:ss" ng-model='vm.form.to' />
+                </md-input-container>
+            </div>
+
+            <!-- comment -->
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex>
+                    <label><span translate="TIME_TRACKING.COMMENT"></span></label>
+                    <input ng-model="vm.form.comment" ng-maxlength="500" name="comment">
+                    <div ng-messages="addEditIntegration.settings_app_token.$error">
+                        <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_500"></span></div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <!-- note -->
+            <!-- <div layout-gt-sm="row" ng-if="vm.inEditMode">
+                <md-input-container class="md-block" flex>
+                    <label><span translate="TIME_TRACKING.NOTE"></span></label>
+                    <input ng-model="vm.form.note" name="note" ng-disabled="true">
+                </md-input-container>
+            </div> -->
+
+            <!-- locked -->
+            <div layout-gt-sm="row" ng-if="vm.enable_locked && vm.inEditMode">
+                <md-input-container class="md-block" flex>
+                    <md-checkbox ng-model="vm.form.locked" >
+                        <span translate="TIME_TRACKING.LOCKED"></span>
+                    </md-checkbox>
+                </md-input-container>
+            </div>
+
+            <!-- buttons -->
+            <div layout-gt-sm="row" layout-align="end none">
+                <md-button type="button" class="md-raised md-accent" aria-label="CANCEL"
+                           translate="OTHER.CANCEL" ng-click="vm.cancel()"
+                           translate-attr-aria-label="OTHER.CANCEL">
+                </md-button>
+                <md-button type="button" class="md-raised md-accent" aria-label="SEND"
+                           ng-disabled="!vm.formValid || vm.request_sending"
+                           translate="OTHER.SAVE" ng-click="vm.save()"
+                           translate-attr-aria-label="OTHER.SAVE">
+                </md-button>
+            </div>
+        </form>
+    </div>
+</md-dialog>

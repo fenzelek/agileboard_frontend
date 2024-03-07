@@ -1,0 +1,106 @@
+<div id="profile-edit" class="page-layout simple fullwidth doc-page" layout="column">
+
+	<!-- HEADER -->
+	<div class="header md-accent-bg" layout="row" layout-align="space-between">
+		<div layout="column" layout-align="space-between">
+			<div class="title" translate="USER_EDIT.TITLE"></div>
+		</div>
+	</div>
+	<!-- / HEADER -->
+
+	<!-- CONTENT -->
+	<div class="content" layout="column">
+
+		<div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+		<div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+		<div layout="row">
+
+			<!-- BASIC FORM -->
+			<div class="form-wrapper  rounded-container max-1000" flex>
+
+				<form name="editUser" novalidate ng-submit="vm.send()">
+
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex>
+							<label><span translate="USER_EDIT.NAME"></span></label>
+							<input ng-model="vm.form.first_name" required ng-maxlength="100"  name="first_name">
+							<div ng-messages="editUser.first_name.$error">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+								<div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_100"></span></div>
+							</div>
+						</md-input-container>
+					</div>
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex>
+							<label><span translate="USER_EDIT.SURNAME"></span></label>
+							<input ng-model="vm.form.last_name" required ng-maxlength="100" name="last_name">
+							<div ng-messages="editUser.last_name.$error">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+								<div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_100"></span></div>
+							</div>
+						</md-input-container>
+					</div>
+					<div layout="row" >
+						<md-input-container class="md-block" flex-gt-sm="50" >
+							<md-button id="file-upload-button" type="button" class="md-raised md-accent" ng-click="vm.addFile()" translate="USER_EDIT.AVATAR"
+									   translate-attr-aria-label="USER_EDIT.AVATAR" ng-disabled="vm.form.remove_avatar" ></md-button>
+							<span>{{vm.form.avatar.name}}</span>
+							<input id="file-to-upload" type="file" file-model="vm.form.avatar" accept="image/*" style="display:none;">
+						</md-input-container>
+						<md-input-container class="md-block" flex-gt-sm="50" ng-if="vm.enable_delete_avatar" >
+							<md-checkbox name="remove_avatar" ng-model="vm.form.remove_avatar" ng-disabled="vm.form.avatar" >
+								<span translate="USER_EDIT.DELETE_AVATAR"></span>
+								<img ng-src="{{vm.avatar}}" style="max-height: 50px; vertical-align: middle;">
+							</md-checkbox>
+						</md-input-container>
+					</div>
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex>
+							<label><span translate="USER_EDIT.PASSWORD_OLD"></span></label>
+							<input type="password" ng-model="vm.form.old_password" ng-required="vm.passwordRequired()" name="old_password" id="old_password" >
+							<div ng-messages="editUser.old_password.$error">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+								<div ng-message="maxlength" ><span translate="ERRORS.FORM.PASSWORD"></span></div>
+							</div>
+						</md-input-container>
+					</div>
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex>
+							<label><span translate="USER_EDIT.PASSWORD"></span></label>
+							<input type="password" ng-model="vm.form.password" ng-required="vm.passwordRequired()" pattern=".{6,}" name="password" id="password" >
+							<div ng-messages="editUser.password.$error">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+								<div ng-message="maxlength" ><span translate="ERRORS.FORM.PASSWORD"></span></div>
+							</div>
+						</md-input-container>
+					</div>
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex>
+							<label><span translate="USER_EDIT.PASSWORD_CONFIRM"></span></label>
+							<input type="password" ng-model="vm.form.password_confirmation" ng-required="vm.passwordRequired()" ms-confirm="password"  name="password_confirmation" >
+							<div ng-messages="editUser.password_confirmation.$error">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+								<div ng-message="confirm" ><span translate="ERRORS.FORM.CONFIRM"></span></div>
+							</div>
+						</md-input-container>
+					</div>
+
+					<md-progress-linear md-mode="determinate" value="{{vm.progress}}"></md-progress-linear>
+
+					<div layout-gt-sm="row" layout-align="end none">
+						<md-button type="submit" class="md-raised md-accent" aria-label="CREATE"
+								   ng-disabled="editUser.$invalid || vm.request_sending"
+								   translate="OTHER.SAVE"
+								   translate-attr-aria-label="OTHER.SAVE">
+						</md-button>
+					</div>
+				</form>
+
+			</div>
+			<!-- / BASIC FORM -->
+
+		</div>
+
+	</div>
+</div>

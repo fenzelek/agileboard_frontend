@@ -1,0 +1,83 @@
+/*----------------------------------------------------------------*/
+/*  ms-search-bar
+/*----------------------------------------------------------------*/
+
+.ms-search-bar {
+    height: 40px;
+
+    #ms-search-bar-expander,
+    #ms-search-bar-collapser {
+        cursor: pointer;
+        width: 40px !important;
+        height: 40px !important;
+        padding: 8px;
+    }
+
+    #ms-search-bar-expander {
+        display: inline-block;
+        color: #ffffff;
+        background-color: #fff;
+        margin-left: 1px;
+        background: rgba(0, 0, 0, 0.12);
+        border-radius: $element-radius $element-radius 0 0;
+    }
+
+    #ms-search-bar-collapser {
+        display: none;
+        margin-right: 30px;
+
+    }
+
+    #ms-search-bar-input {
+        display: none;
+        min-height: 40px;
+        background-color: transparent;
+        padding-left: 30px;
+        font-size: 14px;
+    }
+
+    #ms-search-query {
+        height: 40px;
+        max-width: 100px;
+        background: rgba(0, 0, 0, 0.2);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #ffffff;
+        font-size: 16px;
+        line-height: 24px;
+        padding: 8px 16px;
+    }
+
+    &.expanded {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: #FFFFFF;
+        z-index: 10;
+        transition: all 0.1s ease-in;
+
+        #ms-search-bar-input {
+            display: block;
+        }
+
+        #ms-search-bar-expander, #ms-search-query  {
+            display: none;
+        }
+
+        #ms-search-bar-collapser {
+            display: block;
+            color: rgba(0,0,0,0.6);
+        }
+    }
+}
+
+// RESPONSIVE
+
+@media screen and (max-width: $layout-breakpoint-sm) {
+
+    .ms-search-bar-label {
+        padding: 0 8px 0 12px;
+    }
+}

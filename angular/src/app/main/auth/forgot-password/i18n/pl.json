@@ -1,0 +1,18 @@
+{
+    "FORGOTPASSWORD": {
+        "TITLE": "Odzyskaj hasło",
+        "EMAIL_ADRESS": "E-mail",
+        "SEND_RESET_LINK": "PRZYPOMNIJ HASŁO",
+        "GO_BACK": "Wróć ",
+        "SUCCESS": "Wysłano e-mail z linkiem do zmiany hasła."
+    },
+    "ERRORS": {
+        "password": {
+            "no_user_found" : "Nie znaleziono konta z podanym adresem e-mail.",
+            "validation_failed" : "Nie znaleziono konta z podanym adresem e-mail."
+        },
+        "auth" : {
+            "user_already_logged" : "Jesteś już zalogowany do tej strony."
+        }
+    }
+}

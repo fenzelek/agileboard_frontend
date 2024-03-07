@@ -1,0 +1,10 @@
+{
+    "ERROR403": {
+        "CODE": "No permissions",
+        "MESSAGE": "You do not have permission to this page",
+        "SUBMESSAGE": "If the problem reappears, contact administrator this page.",
+        "SUBMESSAGE_1": "phone",
+        "SUBMESSAGE_2": "e-mail",
+        "BACK": "Back to site"
+    }
+}

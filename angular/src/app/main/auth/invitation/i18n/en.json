@@ -1,0 +1,20 @@
+{
+    "INVITATION": {
+        "TITLE": "Acceptance of the invitation to the company.",
+        "PASSWORD": "Password",
+        "PASSWORD_CONFIRM": "Password (Confirm)",
+        "SEND": "ACCEPT",
+        "GO_BACK": "Back to login",
+        "READ_ACCEPT": "I read and accept",
+        "TERMS_COND": "terms and conditions",
+        "SUCCESS": "Acceptance was a success."
+    },
+    "ERRORS": {
+        "company_invitation": {
+            "not_pending" : "The invitation has already been accepted, use the login form.",
+            "expired" : "Time to wait for acceptance has expired. Please contact with the company owner.",
+            "invalid_email_given" : "Incorrect e-mail address",
+            "already_assigned_to_company" : "You have already joined this company."
+        }
+    }
+}

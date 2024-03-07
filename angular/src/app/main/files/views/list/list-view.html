@@ -1,0 +1,45 @@
+<!-- LIST VIEW -->
+
+<div ng-if="vm.pagination.total" class="table-wrapper">
+    <md-table-container>
+        <table md-table md-progress="vm.promise" class="simple list-view">
+            <thead md-head >
+                <tr md-row>
+                    <th md-column></th>
+                    <th md-column ><span translate="FILES.NAME"></span></th>
+                    <th md-column hide show-gt-sm ><span translate="FILES.TYPE"></span></th>
+                    <th md-column hide-xs><span translate="FILES.OWNER"></span></th>
+                    <th md-column hide-xs><span translate="FILES.SIZE"></span></th>
+                    <th md-column hide show-gt-md ><span translate="FILES.CREATED"></span></th>
+                    <th md-column hide-gt-md></th>
+                </tr>
+            </thead>
+            <tbody md-body>
+                <tr md-row ng-repeat="file in vm.files" ng-click="vm.select(file)" ng-class="{'selected' : vm.selected.id === file.id}">
+                    <td md-cell class="file-icon">
+                        <md-icon md-font-icon="{{vm.getIcon(file.extension)}}"></md-icon>
+                    </td>
+                    <td md-cell class="name">{{file.name}}</td>
+                    <td md-cell class="type" hide show-gt-sm>{{file.extension}}</td>
+                    <td md-cell class="owner" hide-xs>{{file.owner.data.first_name}} {{file.owner.data.last_name}}</td>
+                    <td md-cell class="size" hide-xs>{{vm.getSize(file.size)}}</td>
+                    <td md-cell class="last-modified" hide show-gt-md>{{file.created_at}}</td>
+                    <td md-cell class="show-details" hide-gt-md>
+                        <md-button class="md-icon-button sidenav-toggle" ng-click="vm.toggleDetails(file)" aria-label="Details" translate translate-attr-aria-label="FILES.DETAILS">
+                            <md-icon md-font-icon="icon-information-outline"></md-icon>
+                        </md-button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </md-table-container>
+
+    <md-table-pagination md-label="{{vm.table_translate}}" md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.pagination.total}}" md-on-paginate="vm.getFiles" md-page-select></md-table-pagination>
+</div>
+
+<div class="no-records-info" ng-if="vm.pagination.total == 0" flex layout="column" layout-align="center center" >
+    <md-icon md-font-icon="icon-file-hidden" class="s58"></md-icon>
+    <span translate="OTHER.NO_RECORDS"></span>
+</div>
+
+<!-- / LIST VIEW -->

@@ -1,0 +1,279 @@
+{
+    "COMPANY_EDIT": {
+        "TITLE": "Konfiguracja firmy",
+
+        "TAB1": "Ogólne",
+        "TAB2": "Sposoby płatności",
+        "TAB3": "Ustawienia faktury",
+        "TAB4": "Użytkownicy",
+        "TAB5": "Pakiety",
+        "TAB7": "Integracje",
+        "TAB9": "Ustawienia",
+        "TAB10": "JPK FA",
+        "TAB11": "Pakiety/moduły",
+        "TAB13": "Płatności",
+
+        "INTEGRATION_1": "Główne",
+        "INTEGRATION_2": "Projekty",
+        "INTEGRATION_3": "Użytkownicy",
+
+
+        "NIP": "NIP",
+        "NIP_PREFIX": "Prefix nipu",
+        "NIP_EMPTY": "- brak -",
+        "NAME": "Nazwa firmy / imię i nazwisko",
+        "EMAIL": "Email",
+        "PHONE": "Numer telefonu",
+        "PHOTO": "Logo",
+        "REMOVE_LOGO": "Usuń logo",
+        "WWW": "Strona www",
+        "VAT_PAYER_YES": "Firma jest płatnikiem VAT",
+        "VAT_PAYER_NO": "Firma zwolniona z VAT",
+        "VAT_REASON": "Powód",
+        "VAT_REASON_OTHER": "Inny powód",
+        "BANK": "Rachunek bankowy",
+        "BANK_ACCOUNT": "Numer rachunku",
+        "BANK_NAME": "Nazwa banku",
+        "GENERAL_DATA": "Ogólne dane",
+        "MAIN_ADDRESS": "Dane adresowe",
+        "CONTACT_ADDRESS": "Adres korespondencji",
+        "COUNTRY": "Kraj",
+        "ZIP_CODE": "Kod pocztowy",
+        "CITY": "Miasto",
+        "STREET": "Ulica/miejscowość",
+        "NUMBER": "Numer",
+        "ADDRESS_COPY": "Wstaw dane adresowe firmy",
+        "OTHER_CONTACT_ADDRESS": "Inny adres korespondencyjny",
+        "TAX_OFFICES": "Urząd skarbowy",
+        "REGON": "REGON",
+        "COUNTY": "Powiat",
+        "COMMUNITY": "Gmina",
+        "STATE": "Województwo",
+        "POSTAL": "Poczta",
+        "BUILDING_NUMBER": "Numer budynku",
+        "FLAT_NUMBER": "Numer mieszkania",
+        "STREET_2": "Ulica",
+
+        "NUMBERING_TITLE": "Schematy numeracji",
+        "NUMBERING": "Wybierz schemat numeracji",
+        "START_NUMBER": "Numer startowy",
+        "ADD_NEX_NUMBERING": "Dodaj inny schemat numeracji",
+        "PREFIX": "Prefiks np. FV",
+        "TERM": "Termin płatności",
+        "EXAMPLE": "Przykład",
+        "DAYS": "dni",
+        "OTHER": "inne",
+        "MONTH": "miesiące",
+        "COUNT_TAX": "Liczenie podatku VAT",
+        "COUNT_TAX2": "Liczenie podatku VAT",
+        "FROM_NET": "z netto",
+        "FROM_GROSS": "z brutto",
+
+        "METHOD_LIST": "Lista aktywnych metod",
+        "DEFAULT": "Ustaw jako domyślny",
+        "CURRENT_DEFAULT": "Domyślny",
+        "DEFAULT_METHOD_QUESTION": "Czy na pewno chcesz tę metodę ustawić jako domyślną?",
+        "DEFAULT_METHOD_SUCCESS": "Ustawianie domyślnej metody zakończone powodzeniem.",
+        "PREFIX_ERROR": "Masz co namniej 2 takie same prefiksy w schematach numeracji. Prefiksy muszą być unikalne.",
+        "RESERVED_ERROR": "Użyłeś zarezerwowanego prefiksu. Nie można użyć prefiksów PRO, ZAL, KOR, KOR/ZAL",
+
+        "SUCCESS": "Zaktualizowano firmę",
+
+        "USER": {
+            "NEW": "Dodaj użytkownika",
+            "EMAIL": "Email",
+            "NAME": "Imię",
+            "SURNAME": "Nazwisko",
+            "ROLE": "Typ",
+            "ALL_ROLES": "Wszystkie role",
+            "SELECT_FROM_LIST": "Wybierz z listy",
+            "DELETE_QUESTION": "Czy na pewno chcesz usunąć tego użytkownika?",
+            "DELETE_SUCCESS": "Usunięto użytkownika",
+            "UPDATE_SUCCESS": "Zaktualizowano użytkownika",
+            "UPDATE": "Edycja",
+            "ADD_SUCCESS": "Dodano użytkownika",
+            "INVITE_SUCCESS": "Zaproszono użytkownika",
+            "ADD": "Nowy",
+            "PASSWORD_CONFIRM": "Potwierdż hasło",
+            "PASSWORD": "Hasło",
+            "TOKENS": "Tokeny",
+            "PROJECTS": "Projekty",
+            "TOO_MANY" : "Posiadasz maksymalna liczbę użytkowników. Przejdź do pakietów aby zwiększyć ich ilość.",
+            "STATUS": "Status",
+            "STATUSES": {
+                "ACCEPTED": "Zaakceptowani",
+                "INVITED": "Zaproszeni",
+                "DELETED": "Usunięci"
+            }
+        },
+
+        "INTEGRATIONS_PROJECTS" : {
+            "REFRESH": "Odśwież listę",
+            "EXTERNAL_PROJECT_NAME": "Zewnętrzna nazwa projektu",
+            "PROJECT_NAME": "Wewnętrzna nazwa projektu",
+            "INTEGRATION_ID": "ID integracji",
+            "TYPE": "Integracja",
+            "PROJECT": "Projekt",
+            "QUESTION": "UWAGA! Zmiana integracji może doprowadzić do nieprzewidzianych konsekwencji!",
+            "SUCCESS": "Odświeżono listę projektów"
+        },
+
+        "INTEGRATIONS" : {
+            "ADD": "Dodaj",
+            "PROVIDER": "Dostawca",
+            "APP_TOKEN": "APP TOKEN",
+            "AUTH_TOKEN": "AUTH TOKEN",
+            "START_TIME": "Czas startu (UTC)",
+            "NEW_INTEGRATION": "Nowa integracja"
+        },
+
+        "INTEGRATIONS_USERS" : {
+            "EXTERNAL_USER": "Zewnętrzny użytkownik",
+            "USER": "Wewnętrzny użytkownik"
+        },
+
+        "SETTINGS":{
+            "CALENDAR": "Kalendarz",
+            "CALENDAR_DESC": "Wymuś uzupełnianie godzin pracy",
+            "CALENDAR_ENABLE": "Pokaż przycisk kalendarza w menu głównym",
+            "ACTIVITY": "Aktywności",
+            "ACTIVITY_ENABLE": "Pokaż przycisk aktywności w menu głównym i zalogowane czasy użytkowników"
+        },
+
+        "PACKAGE_TEST_SUCCESS": "Aktywowano pakiet premium",
+        "PACKAGE_TEST_ACTIVE": "Wypróbuj pakiet premium",
+        "PACKAGES": {
+            "ADDITIONAL_MODULES": "Dodatkowe moduły",
+            "MODULES_ACTIVE": "Aktywne moduły",
+            "MODULES_AVAILABLE": "Dostępne moduły",
+            "COMPLETE_PROFILE": "Przed zakupem pakietu/modułu uzupełnij zakładkę \"ogólne\".",
+            "FREE": "Darmowy",
+            "STATUS": "Status",
+            "CURRENTLY_USED": "W użyciu",
+            "LIMIT": "Limit",
+            "ACTIVE": "aktywny",
+            "DISABLED": "Wyłączona",
+            "ENABLED": "Włączona",
+            "UNLIMITED": "Bez limitu",
+            "CANCEL_SUBSCRIPTION": "Zatrzymaj subskrypcję",
+            "CANCEL_SUBSCRIPTION_QUESTION": "Czy jesteś pewny, że chcesz anulowac tę subskrypcję?",
+            "CANCEL_SUBSCRIPTION_SUCCESS": "Subskrypcja anulowana.",
+            "DISABLE_MODULE": "Wyłącz",
+            "DISABLE_MODULE_QUESTION": "Czy jesteś pewny, że chcesz wyłaczyć ten moduł?",
+            "DISABLE_MODULE_SUCCESS": "Moduł wyłaczony.",
+            "TRIAL": "Przetestuj",
+            "TRIAL_DESC": "Przetestuj wybrany pakiet przez 30 dni bez żadnych zobowiązań",
+            "TRIAL_MODULE_QUESTION": "Czy jesteś pewny, że chcesz przetestować ten moduł?",
+            "TRIAL_PACKAGE_QUESTION": "Czy jesteś pewny, że chcesz przetestować tę paczkę?",
+            "MODULE_ACTIVE_SUCCESS": "Aktywowano moduł.",
+            "PACKAGE_ACTIVE_SUCCESS": "Aktywowano paczkę.",
+            "RENEW": "Przedłuż",
+            "BUY": "Wykup",
+            "CHANGE": "Zmień",
+            "CHANGE_PACKAGE": "Zmień na ten pakiet",
+            "TURN_ON": "Aktywuj",
+            "TIME": "Okres",
+            "MONTH": "Miesiąc",
+            "MONTH_SHORT": "m-c z VAT",
+            "WITH_VAT": "z VAT",
+            "YEAR": "Rok",
+            "VALUE": "Wybierz",
+            "EXPIRES": "Wygasa:",
+            "RENEW_SUBSCRIPTION": "Odnowienie:",
+            "OPTION": "Opcja",
+            "AVAILABLE": "Dostępne",
+            "INCREASE_IN_ACTUAL_PEROID": "Zwiększ w bieżącym okresie",
+            "CURRENT": "aktualnie",
+            "CHANGE_OR_RENEW_TITLE": "Zmień lub przedłuż pakiet",
+            "CHANGE_OR_RENEW_DESC_1": "Skonfiguruj limity, jakie są Ci potrzebne. Jeżeli jesteś w trakcie okresu rozliczeniowego, możesz błyskawicznie dokupić większy limit użytkowników lub projektów. Wystarczy, że użyjesz opcji \"ZMIEŃ NATYCHMIAST\"",
+            "CHANGE_OR_RENEW_DESC_2": "Przed końcem okresu rozliczeniowego otrzymasz również możliwość skonfigurowania przedłużenia pakietu na kolejny miesiąc lub rok. Skonfiguruj limity i kliknij \"PRZEDŁUŻ\"",
+            "FROM": "od",
+            "UP_TO": "do",
+            "PER_MONTH": "za miesiąc",
+            "PER_YEAR": "za rok",
+            "INCREASE_IMMEDIATELY": "Zmień natychmiast",
+            "CHANGE_IMMEDIATELY": "Zmień na ten pakiet natychmiast",
+            "BUY_PACKAGE": "Wykup ten pakiet w nowym okresie rozliczeniowym",
+            "FOR_THE_REST_DAYS": "za dni pozostałe w bieżącym okresie rozliczeniowym",
+            "FOR_THE_REST_DAYS_INFO": "Opłata wyliczona proporcjonalnie według ilości dni pozostałych do końca aktualnego okresu rozliczeniowego",
+            "RENEW_TITLE": "Przedłużenie pakietu",
+            "RENEW_DESC": "Kwota do zapłaty za przedłużenie pakietu według wybranej powyżej konfiguracji",
+            "TO_PAY": "Kwota do zapłaty",
+            "UP_TO_ITEMS": {
+                "general-multiple_users": "użytkowników",
+                "projects-multiple-projects": "projektów"
+            },
+            "PACKAGES_LIST": {
+                "cep": "Podstawowy",
+                "cep_classic": "Klasyczny",
+                "cep_business": "Biznes",
+                "cep_enterprise": "Enterprise"
+            },
+            "MODULES_LIST": {
+                "invoices-addresses-delivery-enabled": "Dodawanie adresów dostawy.",
+                "invoices-services-name-allow_customization": "Własne nazwy produktów",
+                "invoices-proforma-enabled": "Faktura proforma",
+                "invoices-ue-enabled": "Faktura UE",
+                "invoices-footer-enabled": "Stopka na fakturze",
+                "invoices-margin-enabled": "Faktura marża",
+                "invoices-registry-export-name": "Export faktur",
+                "invoices-reverse-charge-enabled": "Faktura odwrotne obciążenie",
+                "invoices-advance-enabled": "Zaawansowane opcje faktur",
+                "general-multiple_users": "Limit ilości użytkowników",
+                "invoices-jpk_export": "Export JPK",
+                "projects-disc-volume": "Miejsce na pliki",
+                "projects-file-size": "Maksymalny rozmiar pliku",
+                "projects-multiple-projects": "Limit ilości projektów",
+                "projects-users-in-project": "Limit ilości użytkowników w projekcie",
+                "projects-integrations-hubstaff": "Integracja z Hubstaff"
+            },
+            "STATUS_LIST": {
+                "AVAILABLE": "Dostepny",
+                "ACTIVE": "Aktywny",
+                "INACTIVE": "Nieaktywny",
+                "WAITING": "Oczekiwanie na płatność",
+                "UNAVAILABLE": "Niedostepne"
+            }
+        },
+        "PAYMENTS" : {
+            "NUMBER": "Numer",
+            "CREATED": "Utworzono",
+            "TOTAL_PRICE": "Brutto",
+            "VAT": "VAT",
+            "STATUS": "Status",
+            "RETRY": "Ponów",
+            "CANCEL_QUESTION": "Czy jesteś pewny, że chcesz anulować tę płatność?",
+            "CANCEL_SUCCESS": "Prośba o anulowanie została wysłana do PayU.",
+
+            "STATUS_LIST": {
+                "ALL": "Wszystkie",
+                "BEFORE_START": "Przed startem",
+                "NEW": "Nowa",
+                "PENDING": "Oczekująca",
+                "COMPLETED": "Zakończona",
+                "COMPLETED_BUT_NOT_USED": "Zakończona",
+                "CANCELED": "Anulowana",
+                "REJECTED": "Odrzucona"
+            }
+        }
+    },
+    "ERRORS": {
+        "company": {
+            "creation_limit" : "Przekroczyłeś limit ilości utworzonych firm."
+        },
+        "company_invitation": {
+            "already_assigned_to_company" : "Ten użytkownik już jest przypisany do tej firmy."
+        },
+        "package": {
+            "data_consistency_error" : "Wystapił problem z paczką/modułem. Odśwież strone i spróbuj ponownie.",
+            "limit_reached" : "Osiągnięto limit ilości użytkowników. Usuń użytkownika aby móc dodać kolejnego lub skontaktuj sie z właścicielem Twojej firmy, aby zwiększył limit."
+        },
+        "integration" : {
+            "invalid_time_tracking_data": "Podane dane są niepoprawne. Nie udało się połączyć z zewnętrznym serwisem."
+        },
+        "FORM": {
+            "PREFIX":"Pole może składać jedynie z liczb, liter podkreślnika oraz myślnika.",
+            "REGON": "Pole musi mieć 9 lub 14 znaków"
+        }
+    }
+}

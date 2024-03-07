@@ -1,0 +1,37 @@
+<md-toolbar class="navigation-header md-whiteframe-1dp" layout="row" layout-align="space-between center">
+    <div ng-if="vm.logo == ''" class="logo" layout="row" layout-align="start center">
+        <span class="logo-image" ng-click="vm.redirectToDashboard()">F</span>
+        <span class="logo-text" ng-click="vm.redirectToDashboard()">{{page_title}}</span>
+    </div>
+    <div ng-if="vm.logo != ''" class="logo" layout="row" layout-align="start center">
+        <a class="logo-logo-image-2" style='background-image: url("/assets/logos/{{vm.logo}}/logo_sqr.jpg")' ng-href="/home"></a>
+        <a class="logo-text-2" style='background-image: url("/assets/logos/{{vm.logo}}/logo.png")' ng-click="openHome()"></a>
+    </div>
+
+    <md-icon class="fold-toggle s18" md-font-icon="icon-backburger" hide show-gt-sm
+             ng-click="vm.toggleMsNavigationFolded()"></md-icon>
+</md-toolbar>
+
+<ms-navigation class="scrollable navigation-list" folded="vm.folded" ms-scroll="vm.msScrollOptions"></ms-navigation>
+
+<div class="company-change-container" ng-if="vm.companies.length > 1">
+    <md-button ng-repeat="company in vm.companies" ng-if="company.enabled || vm.user.id == company.owner.data.id"
+      ng-click="vm.selectCompany(company.id)" class="company-change-btn" ng-class="{ 'active': vm.companyActive(company.id) }"
+      layout="row" layout-align="space-between center">
+        <div class="company-name">
+            {{ company.name }}
+        </div>
+        <div class="company-logo" flex="noshrink">
+            <img ng-src="{{ company.logo }}" alt="{{ company.name }}" />
+        </div>
+    </md-button>
+</div>
+
+<footer>
+    <div>
+        <a href="https://play.google.com/store/apps/details?id=devpark.ab" target="_blank" title="Play Store">
+            <md-icon md-font-icon="icon-google-play" class="s24"></md-icon>
+        </a>
+    </div>
+    {{ 'INFO.DOWNLOAD_MOBILE_APP' | translate }}!
+</footer>

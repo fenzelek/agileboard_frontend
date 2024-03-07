@@ -1,0 +1,174 @@
+<!-- SIDENAV HEADER -->
+<div class="header md-accent-bg" layout="column" layout-align="space-between">
+    <div class="toolbar" layout="row" layout-align="end center">
+
+        <md-button class="md-icon-button" aria-label="Download" translate translate-attr-aria-label="FILES.DOWNLOAD" ng-click="vm.download()">
+            <md-icon md-font-icon="icon-download"></md-icon>
+            <md-tooltip><span translate="FILES.DOWNLOAD">Download</span></md-tooltip>
+        </md-button>
+        <md-button class="md-icon-button" ng-click="vm.deleteFile()" aria-label="Delete" translate
+            translate-attr-aria-label="FILES.DELETE">
+            <md-icon md-font-icon="icon-delete"></md-icon>
+            <md-tooltip><span translate="FILES.DELETE">Delete</span></md-tooltip>
+        </md-button>
+    </div>
+
+    <div>
+        <div class="title">{{vm.selected.name}}</div>
+        <div class="subtitle secondary-text"><span translate="FILES.EDITED">Edited</span>: {{vm.selected.updated_at}}</div>
+    </div>
+</div>
+<!-- / SIDENAV HEADER -->
+
+<!-- SIDENAV CONTENT -->
+<md-content class="content" flex ms-scroll>
+
+    <div class="file-details" ng-if="vm.selected">
+        <div class="preview file-icon" layout="row" layout-align="center center">
+            <i ng-if="vm.getIcon(vm.selected.extension) != 'icon-file-image'" class="{{vm.getIcon(vm.selected.extension)}} s48"></i>
+            <div class="zoom-image" ng-if="vm.getIcon(vm.selected.extension) == 'icon-file-image'" style="background-image: url('{{vm.getImageThumbnail(vm.selected.id, 200)}}')" ng-click="vm.imagePreview()"></div>
+        </div>
+
+        <div class="title border-title" translate="FILES.INFO">Info</div>
+
+        <table>
+            <tr class="description">
+                <th style="width: 110px;" translate="FILES.DESCRIPTION"></th>
+                <td>
+                    <inline-textarea flex layout="row" layout-align="start center"
+                            name="description"
+                            ng-model="vm.selected.description"
+                            on-save="vm.update"
+                            rows="2"
+                            max-rows="5"
+                            max-length="255"
+                            placeholder="{{ 'FILES.ENTER_TEXT' | translate }}"
+                    >
+                        <div layout="row" layout-align="start center">
+                            <div class="text-edit" flex layout="row" layout-align="start center" ng-if="vm.selected.description">
+                                {{ vm.selected.description }}
+                            </div>
+                            <div class="set-edit-text" ng-if="!vm.selected.description" translate="FILES.CLICK_TO_ADD"></div>
+                        </div>
+                    </inline-textarea>
+                </td>
+            </tr>
+            <tr class="type">
+                <th translate="FILES.TYPE">Type</th>
+                <td>{{vm.selected.extension}}</td>
+            </tr>
+
+            <tr class="size">
+                <th translate="FILES.SIZE">Size</th>
+                <td>{{vm.getSize(vm.selected.size)}}</td>
+            </tr>
+
+            <tr class="owner">
+                <th translate="FILES.OWNER">Owner</th>
+                <td>{{vm.selected.owner.data.first_name}} {{vm.selected.owner.data.last_name}}</td>
+            </tr>
+
+            <tr class="created">
+                <th translate="FILES.CREATED">Created</th>
+                <td>{{vm.selected.created_at}}</td>
+            </tr>
+
+            <tr class="tickets" ng-if="vm.selected.tickets.data.length">
+                <th translate="FILES.TICKETS"></th>
+                <td>
+                    <span ng-repeat="ticket in vm.selected.tickets.data" >
+                        {{ticket.name}}<span ng-if="!$last">,&nbsp; </span>
+                    </span>
+                </td>
+            </tr>
+
+            <tr class="pages" ng-if="vm.selected.pages.data.length">
+                <th translate="FILES.PAGES"></th>
+                <td>
+                    <span ng-repeat="page in vm.selected.pages.data">
+                        {{page.name}}<span ng-if="!$last">,&nbsp; </span>
+                    </span>
+                </td>
+            </tr>
+
+            <tr class="stories">
+                <th translate="FILES.STORIES"></th>
+                <td>
+                    <inline-chips flex layout="row" layout-align="start center"
+                        name="stories"
+                        selected-items="vm.selected.stories.data"
+                        on-search="vm.searchStories"
+                        on-save="vm.update"
+                        show-name="name"
+                        placeholder="{{ 'FILES.STORIES_SEARCH' | translate }}"
+                        secondary-placeholder="{{ 'FILES.STORIES_ADD_MORE' | translate }}"
+                    >
+                        <div layout="row" layout-align="start center">
+                            <div class="text-edit" layout="row" layout-wrap flex ng-if="vm.selected.stories.data.length">
+                                <span ng-repeat="story in vm.selected.stories.data">
+                                    {{story.name}}<span ng-if="!$last">,&nbsp; </span>
+                                </span>
+                            </div>
+                            <div class="set-edit-text" ng-if="!vm.selected.stories.data.length" translate="FILES.CLICK_TO_ASSIGN"></div>
+                        </div>
+                    </inline-chips>
+                </td>
+            </tr>
+
+            <tr class="groups">
+                <th translate="FILES.GROUPS"></th>
+                <td>
+                    <inline-select flex layout="row" layout-align="start center"
+                            name="roles"
+                            ng-model="vm.selected.roles.data"
+                            items="vm.roles"
+                            items-translation="ROLES."
+                            multiple="true"
+                            on-save="vm.update"
+                            label="{{ 'OTHER.SELECT_FROM_LIST' | translate }}"
+                    >
+                        <div layout="row" layout-align="start center">
+                            <div class="text-edit" flex layout="row" layout-align="start center" ng-if="vm.selected.roles.data.length">
+                                <span ng-repeat="role in vm.selected.roles.data" >
+                                    <span translate="ROLES.{{role.name}}"></span><span ng-if="!$last">,&nbsp; </span>
+                                </span>
+                            </div>
+                            <div class="set-edit-text" ng-if="!vm.selected.roles.data.length" translate="FILES.CLICK_TO_ASSIGN"></div>
+                        </div>
+                    </inline-select>
+                </td>
+            </tr>
+
+            <tr class="users">
+                <th translate="FILES.USERS"></th>
+                <td>
+                    <inline-chips flex layout="row" layout-align="start center"
+                        name="users"
+                        selected-items="vm.selected.users.data"
+                        on-search="vm.searchUsers"
+                        on-save="vm.update"
+                        show-name="name"
+                        show-image="avatar"
+                        show-email="email"
+                        placeholder="{{ 'FILES.USERS_SEARCH' | translate }}"
+                        secondary-placeholder="{{ 'FILES.USERS_SEARCH_MORE' | translate }}"
+                    >
+                        <div layout="row" layout-align="start center">
+                            <div class="text-edit" layout="row" layout-wrap flex ng-if="vm.selected.users.data.length">
+                                <span ng-repeat="user in vm.selected.users.data" >
+                                    {{user.first_name}} {{user.last_name}}<span ng-if="!$last">,&nbsp; </span>
+                                </span>
+                            </div>
+                            <div class="set-edit-text" ng-if="!vm.selected.users.data.length" translate="FILES.CLICK_TO_ASSIGN"></div>
+                        </div>
+                    </inline-chips>
+                </td>
+            </tr>
+
+
+
+        </table>
+    </div>
+
+</md-content>
+<!-- / SIDENAV CONTENT -->

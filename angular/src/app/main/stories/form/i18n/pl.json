@@ -1,0 +1,13 @@
+{
+    "STORIES_FORM": {
+        "TITLE_ADD": "Nowe oznaczenie",
+        "TITLE_EDIT": "Edytuj oznaczenie",
+        "UPDATE_SUCCESS": "Zaktualizowano oznaczenie",
+        "ADD_SUCCESS": "Dodano oznaczenie",
+        "COLOR": "Kolor",
+        "COLOR_HEX": "W formacie heksadecymalnym, np. #228CC0"
+    },
+    "ERRORS": {
+        "COLOR_HEX": "Podaj poprawny kolor w formacie HEX, np. #228CC0"
+    }
+}

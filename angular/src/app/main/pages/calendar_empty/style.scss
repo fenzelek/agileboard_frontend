@@ -1,0 +1,21 @@
+#calendar-empty-dialog {
+  overflow: auto;
+  margin: 10px;
+  padding: 0 10px;
+  min-width: 280px;
+  max-width: 420px;
+
+  .title {
+    .icon {
+      margin-right: 6px;
+      min-width: 42px;
+    }
+  }
+
+  .content {
+    margin-bottom: 26px;
+    font-size: 15px;
+    text-align: justify;
+  }
+
+}

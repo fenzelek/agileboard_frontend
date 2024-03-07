@@ -1,0 +1,88 @@
+<div id="scrumboard" ng-class="{ 'compact-view': vm.compact_view }"
+    class="scrumboard-ticket page-layout simple fullwidth doc-page"
+    layout="row" layout-wrap layout-align="start start">
+
+    <!-- HEADER -->
+    <!--<div flex="100">-->
+    <div class="header md-accent-bg" layout="row" layout-align="space-between" flex="100">
+        <div layout="column" layout-align="space-between" flex="100">
+            <div layout="column" layout-align="start stretch" class="mb-10">
+                <div class="title" layout="row" layout-align="start start">
+                    <button ng-click="vm.goBack()" class="mr-10">
+                        <md-icon md-font-icon="icon-arrow-left-bold" class="blue-100-fg font-size-20"></md-icon>
+                    </button>
+                    <span>
+                        {{ vm.ticket.title }} - {{ vm.ticket.name }}
+                    </span>
+                </div>
+                <div ng-if="vm.ticket.description" class="description html-content" data-ellipsis
+                    ng-bind-html="vm.ticket.trustedDescription"></div>
+
+                <div layout="row" layout-wrap layout-align="start center" class="mt-10 mb-10">
+                    <div ng-if="vm.ticket.reporting_user.data" layout="row" layout-align="start center" class="mr-10 font-size-14 text-bold">
+                        <img class="list-card-member-avatar mr-10" ng-src="{{vm.getAvatar(vm.ticket.reporting_user.data.avatar)}}">
+                        {{ vm.ticket.reporting_user.data.first_name }} {{ vm.ticket.reporting_user.data.last_name }}
+                    </div>
+                    <div ng-if="vm.ticket.assigned_user.data" layout="row" layout-align="start center" class="font-size-14 text-bold">
+                        <md-icon hide-xs md-font-icon="icon-hand-pointing-right" class="blue-200-fg mr-10"></md-icon>
+                        <img class="list-card-member-avatar mr-10" ng-src="{{vm.getAvatar(vm.ticket.assigned_user.data.avatar)}}">
+                        {{ vm.ticket.assigned_user.data.first_name }} {{ vm.ticket.assigned_user.data.last_name }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="options-row" flex layout-wrap layout="row" layout-align="space-between end">
+                <div layout="row" layout-wrap>
+                    <div ng-if="vm.ticket.sprint.data" class="dark-bg">
+                        {{ 'OTHER.SPRINT' | translate}}:&nbsp;
+                        {{ vm.ticket.sprint.data.name }}
+                    </div>
+                    <div ng-if="vm.ticket.stories.data.length" class="dark-bg">
+                        {{ 'OTHER.STORIES' | translate}}:&nbsp;
+                        <span ng-repeat="story in vm.ticket.stories.data">
+                            {{story.name}}<span ng-if="!$last">, </span>
+                        </span>
+                    </div>
+                    <div ng-if="vm.ticket.sprint.data" class="dark-bg">
+                        {{ 'BOARD_TICKET.ESTIMATE' | translate}}:&nbsp;
+                        {{ vm.formatEstimate(vm.ticket.estimate_time) }}
+                    </div>
+                </div>
+                <div layout="row">
+                    <div class="compact-switch">
+                        <md-button class="md-icon-button option-selector" ng-class="{ 'active': vm.compact_view }" layout="row" layout-align="center center" ng-click="vm.toggleCompactView()">
+                            <md-icon md-font-icon class="icon s18 md-default-theme md-font material-icons" ng-class="{ 'icon-grid': !vm.compact_view, 'icon-grid-off': vm.compact_view }"></md-icon>
+                            <md-tooltip>
+                                <span ng-if="vm.compact_view" translate="{{ 'BOARD.BACK_TO_STANDARD_VIEW' | translate }}"></span>
+                                <span ng-if="!vm.compact_view" translate="{{ 'BOARD.SWITCH_TO_COMPACT_VIEW' | translate }}"></span>
+                            </md-tooltip>
+                        </md-button>
+                    </div>
+                    <div class="search-bar">
+                        <ms-search-bar ng-model="vm.search"></ms-search-bar>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <div class="center" layout="column" layout-align="start stretch" flex>
+
+        <div class="alert-success" ng-if="vm.msg_success" bind-html-compile="vm.msg_success"></div>
+        <div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+        <!-- CONTENT -->
+        <md-content class="content" flex layout="column"
+            ng-include="'app/main/agile/scrumboard-ticket/views/board/board-view.html'"></md-content>
+        <!-- / CONTENT -->
+    </div>
+
+    <!-- TASK DETAILS SIDENAV -->
+    <md-sidenav class="preview-sidenav md-sidenav-right" md-component-id="preview-sidenav" md-is-locked-open="$mdMedia('gt-md')"
+                ng-include="'app/main/agile/sidenav/sidenav.html'" ng-show="vm.selected_ticket"
+                ms-sidenav-helper>
+    </md-sidenav>
+    <!-- / TASK DETAILS SIDENAV -->
+
+</div>

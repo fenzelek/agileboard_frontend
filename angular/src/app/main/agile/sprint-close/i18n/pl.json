@@ -1,0 +1,12 @@
+{
+    "SPRINT_CLOSE": {
+        "TITLE": "Zamknij etap",
+        "SPRINT": "Etap gdzie przenieść nieskończone zadania.",
+        "BACKLOG": "Lista zadań"
+    },
+    "ERRORS": {
+        "sprint": {
+            "invalid_current_status": "Etap ma już ten status."
+        }
+    }
+}

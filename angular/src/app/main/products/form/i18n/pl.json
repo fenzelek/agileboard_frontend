@@ -1,0 +1,21 @@
+{
+    "PRODUCTS_FORM": {
+        "TITLE_ADD": "Nowa usługa/towar",
+        "TITLE_EDIT": "Edytuj towar/usługę",
+        "PKWIU": "PKWiU",
+        "TAX": "VAT",
+        "DESCRIPTION": "Opis",
+        "PRICE_NET": "Cena netto (zł)",
+        "PRICE": "Cena (zł)",
+        "PRINT": "Drukuj opis na fakturze",
+        "UPDATE_SUCCESS": "Zaktualizowano usługę/towar",
+        "ADD_SUCCESS": "Dodano usługę/towar",
+        "UNIT": "J. m.",
+        "TYPE": "Typ",
+        "TYPE_1": "Towar",
+        "TYPE_2": "Usługa"
+    },
+    "ERRORS": {
+
+    }
+}

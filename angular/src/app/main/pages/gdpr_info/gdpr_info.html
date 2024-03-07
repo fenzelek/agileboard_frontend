@@ -1,0 +1,42 @@
+<md-dialog class="gdpr-info-dialog">
+    <md-toolbar class="md-accent md-hue-2" layout="row" layout-align="space-between center">
+        <div class="ph-24" translate="GDPR_INFO.TITLE"></div>        
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="content">
+            <p class="mt-0">
+                25 maja 2018 roku weszło w życie rozporządzenie RODO. W związku z tym chcielibyśmy poinformować Cię o przetwarzaniu Twoich danych osobowych oraz zasadach, na jakich będzie się to odbywało. Poniżej znajdziesz podstawowe informacje na ten temat.Szanujemy Twoją prywatność i kiedy wyrazisz zgodę to zakres naszych uprawnień pozostanie taki jak przed 25 maja. Nie zwiększy się. Twoje dane są u nas bezpieczne, a zgodę możesz wycofać w każdej chwili na podstronie <a ng-click="vm.goToPrivacyPolicy()">polityki prywatności</a>.
+            </p>
+
+            <h3>Kto będzie administratorem Twoich danych?</h3>
+            <p>
+                To będzie DevPark sp.z o.o. ul. Wspólna 15/1, Komorniki. Tam będziesz mógł zgłaszać pytania, uwagi i zastrzeżenia.
+            </p>
+
+            <h3>Jakie dane przetwarzamy i w jakim celu?</h3>
+            <p>
+                Nie znamy twojego imienia i nazwiska, nie wiemy gdzie mieszkasz i co robisz. To się nie zmienia. Przetwarzamy tylko te dane, które podajesz lub pozostawiasz w ramach korzystania serwisu. Są to dane niezbędne do założenia konta oraz dane, które pozostawiasz w ramach poruszania się po naszych stronach, które zostawiasz w plikach cookies. Pozwalają ci się one zalogować w serwisie, a dodatkowo umożliwiają nam personalizację treści i reklam oraz analizowania ruchu na stronach. Dostęp do tych informacji z naszej strony mają także podmioty powiązane oraz nasi zaufani partnerzy, którzy wykorzystują je do personalizowania treści i reklam.
+            </p>
+
+            <h3>Czy jeśli się nie zgodzę to znikną reklamy?</h3>
+            <p>
+                Gdyby nie reklamy nasz serwis nie mógłby zapewniać ci tyle radości co dzień - nad serwisem pracuje codziennie wiele osób. Twórcy RODO zajmuję się tylko danymi osobowymi, toteż mimo sprzeciwu ilość reklam będzie wciąż podobna, ale nie będą one już dopasowane do Ciebie.
+            </p>
+
+            <h3>Jakie masz prawa w stosunku do Twoich danych?</h3>
+            <p>
+                Masz między innymi prawo do żądania dostępu do tych danych, sprostowania, usunięcia lub ograniczenia ich przetwarzania. Możesz także wycofać zgodę na przetwarzanie danych osobowych, zgłosić sprzeciw oraz skorzystać z innych praw wymienionych szczegółowo w <a ng-click="vm.goToPrivacyPolicy()">polityce prywatności</a>.
+            </p>
+
+            <p>
+                    Dlatego też proszę, zaznacz przycisk "OK, przejdź do serwisu", jeżeli zgadzasz się na przetwarzanie Twoich danych osobowych zbieranych w ramach korzystania przez ciebie z naszego serwisu, w tym w wersji "desktop", jak i "mobile", a także zbieranych w tzw. plikach cookies przez nas i naszych Zaufanych Partnerów, w celach marketingowych. Swoją zgodę możesz w dowolnym momencie wycofać na stronie <a ng-click="vm.goToPrivacyPolicy()">polityki prywatności</a>.
+            </p>
+
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button ng-click="vm.hide()"><span translate="GDPR_INFO.HIDE"></span></md-button>
+        <md-button ng-click="vm.accept()" class="md-raised md-accent"><span translate="GDPR_INFO.ACCEPT"></span></md-button>
+    </md-dialog-actions>
+</md-dialog>
+    

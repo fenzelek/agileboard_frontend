@@ -1,0 +1,8 @@
+{
+    "PAYMENT_BACK": {
+        "TITLE": "Płatność",
+        "CONTENT": "Dziękujemy za dokonanie płatności. Operacja jest w trakcie przetwarzania. W zarządzaniu firmą w zakładce 'płatności' znajdziesz informacje o statusie zamówienia."
+    },
+    "ERRORS": {
+    }
+}

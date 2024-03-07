@@ -1,0 +1,18 @@
+{
+    "USER_EDIT": {
+        "TITLE": "Edytuj profil",
+        "PASSWORD": "Hasło",
+        "NAME": "Imię",
+        "SURNAME": "Nazwisko",
+        "PASSWORD_CONFIRM": "Hasło (potwierdź)",
+        "PASSWORD_OLD": "Aktualne hasło",
+        "AVATAR": "Avatar (max 1MB)",
+        "DELETE_AVATAR": "Usuń avatar",
+        "SUCCESS": "Zaktualizowano profil"
+    },
+    "ERRORS": {
+        "password" : {
+            "invalid_password": "Podane aktualne hasło jest niepoprawne."
+        }
+    }
+}

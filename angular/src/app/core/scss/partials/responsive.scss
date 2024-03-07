@@ -1,0 +1,58 @@
+// columns
+.w-12 {
+  width: 100%;
+}
+.w-6 {
+  width: 50%;
+}
+.w-4 {
+  width: 33.333%;
+}
+.w-3 {
+  width: 25%;
+}
+.w-2 {
+  width: 16.666%;
+}
+
+@media screen and (min-width: 768px) {
+  .md\:w-12 {
+    width: 100%;
+  }
+  .md\:w-6 {
+    width: 50%;
+  }
+  .md\:w-4 {
+    width: 33.333%;
+  }
+  .md\:w-3 {
+    width: 25%;
+  }
+  .md\:w-2 {
+    width: 16.666%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .lg\:w-12 {
+    width: 100%;
+  }
+  .lg\:w-6 {
+    width: 50%;
+  }
+  .lg\:w-4 {
+    width: 33.333%;
+  }
+  .lg\:w-3 {
+    width: 25%;
+  }
+  .lg\:w-2 {
+    width: 16.666%;
+  }
+}
+
+// general
+.row {
+  margin-left: -10px;
+  margin-right: -10px;
+}

@@ -1,0 +1,484 @@
+<div id="invoice-form" class="page-layout simple fullwidth doc-page" layout="column">
+
+	<!-- HEADER -->
+	<div class="header md-accent-bg" layout="row" layout-align="space-between">
+		<div layout="column" layout-align="space-between" flex="100">
+			<div layout="row">
+				<div class="title" flex="70">
+					<span translate="INVOICES_FORM_EDIT.TITLE_EDIT"></span>: {{vm.title}}
+				</div>
+				<div flex="30" layout="row" layout-align="end center">
+					<md-button href="/invoices/list" class="md-raised" aria-label="Go Back" translate="OTHER.GO_BACK" translate-attr-aria-label="OTHER.GO_BACK">
+						Go Back
+					</md-button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- / HEADER -->
+
+	<!-- CONTENT -->
+	<div class="content" layout="column">
+		<a name="up"></a>
+		<div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+		<div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+		<div layout="row">
+
+			<div class="form-wrapper  rounded-container min-1000 max-1000">
+
+				<form id="formInvoice" name="formInvoice" novalidate ng-submit="vm.send()">
+
+					<div class="form-title" translate="INVOICES_FORM_EDIT.GENERAL"></div>
+
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex-gt-sm>
+							<label><span translate="INVOICES_FORM_EDIT.ISSUE_DATE"></span></label>
+							<input ng-model="vm.form.issue_date" name="issue_date" moment-picker="vm.form.issue_date" format="YYYY-MM-DD" start-view="decade" locale="pl" >
+							<div ng-messages="formInvoice.issue_date.$error">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block" flex-gt-sm>
+							<label><span translate="INVOICES_FORM_EDIT.SALE_DATE"></span></label>
+							<input ng-model="vm.form.sale_date" name="sale_date" moment-picker="vm.form.sale_date" format="YYYY-MM-DD" start-view="decade" locale="pl" ng-disabled="vm.is_extra_item" >
+							<div ng-messages="formInvoice.sale_date.$error">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+							</div>
+						</md-input-container>
+					</div>
+
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex-gt-sm ng-if="vm.type != 'margin' && vm.type != 'reverse_charge' && vat_payer" >
+							<label><span translate="INVOICES_FORM_EDIT.COUNT_TAX"></span></label>
+							<md-select ng-model="vm.form.gross_counted" required name="gross_counted" ng-if="!translate_loading" ng-disabled="true" >
+								<md-option ng-value="0" ><span translate="INVOICES_FORM_EDIT.FROM_NET"></span></md-option>
+								<md-option ng-value="1" ><span translate="INVOICES_FORM_EDIT.FROM_GROSS"></span></md-option>
+							</md-select>
+						</md-input-container>
+						<md-input-container class="md-block" flex-gt-sm ng-if="vm.type == 'margin'" >
+							<label><span translate="INVOICES_FORM_EDIT.MARGIN_PROCEDURES"></span></label>
+							<md-select ng-model="vm.form.invoice_margin_procedure_id" required name="invoice_margin_procedure_id" ng-if="!translate_loading"  >
+								<md-option ng-value="procedure.id" ng-repeat="procedure in vm.margin_procedures" >{{procedure.description}}</md-option>
+							</md-select>
+							<div ng-messages="formInvoice.invoice_margin_procedure_id.$error">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block" flex-gt-sm ng-if="vm.type == 'reverse_charge'" >
+							<label><span translate="INVOICES_FORM.REVERSE_CHANGES"></span></label>
+							<md-select ng-model="vm.form.invoice_reverse_charge_id" required name="invoice_reverse_charge_id" ng-if="!translate_loading"  >
+								<md-option ng-value="type.id" ng-repeat="type in vm.reverse_changes" >{{type.description}}</md-option>
+							</md-select>
+							<div ng-messages="formInvoice.invoice_reverse_charge_id.$error">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block" flex-gt-sm ng-if="vm.registries.length > 1" >
+							<label><span translate="INVOICES_FORM_EDIT.REGISTER"></span></label>
+							<md-select ng-model="vm.form.invoice_registry_id" required name="invoice_registry_id" ng-if="!translate_loading" ng-disabled="true" >
+								<md-option ng-value="register.id" ng-repeat="register in vm.registries" >
+									{{register.prefix}}<span ng-if="register.prefix != ''">/</span>{{vm.invoice_formats[register.invoice_format_id].name}}
+								</md-option>
+							</md-select>
+						</md-input-container>
+						<md-input-container class="md-block" flex-gt-sm ng-if="vm.registries.length < 2" >
+						</md-input-container>
+					</div>
+
+					<div class="form-title mb-10" translate="INVOICES_FORM_EDIT.CLIENT"></div>
+
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex-gt-sm="50">
+							<label><span translate="OTHER.NAME"></span></label>
+							<md-autocomplete autocomplete-required md-input-name="contractor"
+											 ng-model-options="{debounce:200}"
+											 md-selected-item="vm.contractor"
+											 md-search-text="vm.search_text_contractor"
+											 md-items="item in vm.searchContractor(vm.search_text_contractor)"
+											 md-item-text="item.name"
+											 ng-click="vm.selectedAutocompleteContractor('contractor')">
+								<md-item-template>
+									<span md-highlight-text="vm.search_text_contractor">{{item.name}}</span>
+								</md-item-template>
+								<md-not-found>
+									<span translate="OTHER.NOT_FOUND"></span>
+									<a ng-click="vm.addNewContractor()" translate="OTHER.ADD_NEW_1"></a>
+								</md-not-found>
+							</md-autocomplete>
+							<div ng-messages="formInvoice.contractor.$error">
+								<div ng-message="selectedItem" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block" flex-gt-sm="50">
+							<div layout-gt-sm="row" layout-wrap="" ng-if="vm.contractor.id" class="mb-30 ml-30">
+								{{vm.contractor.name}}<br>
+								<div layout="row" flex="100">
+									{{ vm.contractor.main_address_street }}
+									{{ vm.contractor.main_address_number }},
+									{{ vm.contractor.main_address_zip_code }}
+									{{ vm.contractor.main_address_city }}
+								</div>
+								<div layout="row" flex="100">
+									<span translate="INVOICES_FORM_EDIT.VATIN"></span>: {{vm.contractor.vatin_prefix.data.key}}{{vm.contractor.vatin}}
+								</div>
+							</div>
+						</md-input-container>
+					</div>
+
+					<div layout-gt-sm="row" ng-if="vm.addresses_delivery_enabled">
+						<md-input-container class="md-block" flex-gt-sm flex="50">
+							<md-checkbox ng-model="vm.form.default_delivery" name="default_delivery">
+								<span translate="INVOICES_FORM_EDIT.DELIVERY_ADDRESS_OTHER"></span>
+							</md-checkbox>
+						</md-input-container>
+					</div>
+
+					<div layout-gt-sm="row" ng-if="vm.addresses_delivery_enabled && vm.form.default_delivery">
+						<md-input-container class="md-block" flex-gt-sm="50">
+							<label><span translate="OTHER.NAME"></span></label>
+							<md-autocomplete autocomplete-required md-input-name="delivery_contractor"
+											 ng-model-options="{debounce:200}"
+											 md-selected-item="vm.delivery_contractor"
+											 md-search-text="vm.search_text_delivery_contractor"
+											 md-items="item in vm.searchContractor(vm.search_text_delivery_contractor)"
+											 md-item-text="item.name"
+											 md-selected-item-change="vm.changeContractorDelivery()"
+											 ng-click="vm.selectedAutocompleteContractor('contractor_delivery')">
+								<md-item-template>
+									<span md-highlight-text="vm.search_text_delivery_contractor">{{item.name}}</span>
+								</md-item-template>
+								<md-not-found>
+									<span translate="OTHER.NOT_FOUND"></span>
+									<a ng-click="vm.addNewContractor()" translate="OTHER.ADD_NEW_1"></a>
+								</md-not-found>
+							</md-autocomplete>
+							<div ng-messages="formInvoice.delivery_contractor.$error">
+								<div ng-message="selectedItem" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block"  flex-gt-sm ng-if="vm.delivery_contractor && vm.delivery_contractor.addresses.data">
+							<label><span translate="INVOICES_FORM_EDIT.DELIVERY_ADDRESS"></span></label>
+							<md-select ng-model="vm.form.delivery_address_id" required name="delivery_address_id" ng-if="!translate_loading">
+								<md-option ng-value="address.id" ng-repeat="address in vm.delivery_contractor.addresses.data" >{{address.name}}</md-option>
+							</md-select>
+							<div ng-messages="formInvoice.delivery_address_id.$error">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+							</div>
+						</md-input-container>
+					</div>
+
+					<div class="form-title mb-10" translate="INVOICES_FORM_EDIT.PRODUCTS"></div>
+
+					<div layout="row">
+						<div class="table-wrapper table-products">
+							<md-table-container>
+								<table md-table>
+									<thead md-head >
+									<tr md-row hide-xs hide-sm>
+										<th md-column><span translate="OTHER.No">Lp.</span></th>
+										<th md-column width="40%"><span translate="INVOICES_FORM_EDIT.PRODUCT"></span></th>
+										<th md-column width="10%"><span translate="INVOICES_FORM_EDIT.QUANTITY"></span></th>
+										<th md-column width="10%" ><span translate="INVOICES_FORM_EDIT.UNIT"></span></th>
+										<th md-column width="10%" ng-if="!vm.form.gross_counted"><span translate="INVOICES_FORM_EDIT.PRICE_NET"></span></th>
+										<th md-column width="10%" ng-if="!vm.form.gross_counted"><span translate="INVOICES_FORM_EDIT.PRICE_NET_SUM"></span></th>
+										<th md-column width="10%" ng-if="vm.form.gross_counted">
+											<span ng-if="vat_payer" translate="INVOICES_FORM_EDIT.PRICE_GROSS"></span>
+											<span ng-if="!vat_payer" translate="INVOICES_FORM_EDIT.PRICE"></span>
+										</th>
+										<th md-column width="10%" ng-if="vm.form.gross_counted">
+											<span ng-if="vat_payer" translate="INVOICES_FORM_EDIT.PRICE_GROSS_SUM"></span>
+											<span ng-if="!vat_payer" translate="INVOICES_FORM_EDIT.PRICE_SUM"></span>
+										</th>
+										<th md-column width="10%" ng-if="vat_payer"><span translate="INVOICES_FORM_EDIT.TAX"></span></th>
+										<th md-column><span translate="OTHER.ACTION">Akcje</span></th>
+									</tr>
+									</thead>
+									<tbody md-body>
+									<tr md-row ng-repeat="item in vm.form.items">
+										<td md-cell>{{ ($index + 1) }}</td>
+										<td md-cell>
+											<div class="short-services" hide-sm hide-xs>
+												<span ng-repeat="product in vm.products_short_list" ng-click="item.current_service = product">
+													{{product.name}}
+												</span>
+											</div>
+											<md-input-container class="md-block" flex-gt-sm>
+												<label hide-gt-sm ><span translate="INVOICES_FORM_EDIT.PRODUCT"></span></label>
+												<md-autocomplete autocomplete-required  ng-disabled="vm.is_extra_item"
+																 md-input-name="company_service_id_{{$index}}"
+																 ng-model-options="{debounce:200}"
+																 md-selected-item="item.current_service"
+																 md-search-text="item.search_text"
+																 md-items="item in vm.searchProducts(item.search_text)"
+																 md-item-text="item.name"
+																 ng-click="vm.selectedAutocompleteProduct($index)">
+													<md-item-template>
+														<span md-highlight-text="item.search_text">{{item.name}}</span>
+													</md-item-template>
+													<md-not-found>
+														<span translate="OTHER.NOT_FOUND"></span>
+														<a ng-click="vm.addNewProduct()" translate="OTHER.ADD_NEW_4"></a>
+													</md-not-found>
+												</md-autocomplete>
+												<div ng-messages="formInvoice['company_service_id_'+$index].$error">
+													<div ng-message="selectedItem" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+												</div>
+											</md-input-container>
+											<md-input-container class="md-block input-style" flex="100"  ng-if="item.custom_name_enable && vm.custom_name_products_enable">
+												<input ng-model="item.custom_name" name="custom_name_{{$index}}" required ng-maxlength="255">
+												<div ng-messages="formInvoice['custom_name_'+$index].$error">
+													<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+													<div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_255"></span></div>
+												</div>
+											</md-input-container>
+											<div class="custom-name-checkbox" ng-if="vm.custom_name_products_enable">
+												<a ng-if="!item.custom_name_enable" ng-click="item.custom_name_enable=true" translate="INVOICES_FORM_EDIT.CUSTOM_NAME_ENABLE"></a>
+												<a ng-if="item.custom_name_enable" ng-click="vm.clearCustomName(item)" translate="INVOICES_FORM_EDIT.CUSTOM_NAME_DISABLE"></a>
+											</div>
+										</td>
+										<td md-cell>
+											<md-input-container class="md-block input-style" flex-gt-sm>
+												<label hide-gt-sm ><span translate="INVOICES_FORM_EDIT.QUANTITY"></span></label>
+												<input ng-model="item.quantity" name="quantity_{{$index}}" required type="number" step="{{item.service_unit.decimal ? 0.001 : 1}}" min="1" ng-disabled="vm.is_extra_item">
+												<div ng-messages="formInvoice['quantity_'+$index].$error">
+													<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+													<div ng-message="number" ><span translate="ERRORS.FORM.NUMBER"></span></div>
+													<div ng-message="min" ><span translate="ERRORS.FORM.NUMBER"></span></div>
+													<div ng-message="step" >
+														<span ng-if="!item.service_unit.decimal" translate="ERRORS.FORM.INTEGER"></span>
+														<span ng-if="item.service_unit.decimal" translate="ERRORS.FORM.NUMBER_3_DP"></span>
+													</div>
+												</div>
+											</md-input-container>
+										</td>
+										<td md-cell>
+											<md-input-container class="md-block select-style" flex-gt-sm>
+												<label hide-gt-sm ><span translate="INVOICES_FORM_EDIT.UNIT"></span></label>
+												<md-select ng-model="item.service_unit_id" required name="service_unit_id_{{$index}}" ng-disabled="vm.is_extra_item" >
+													<md-option ng-value="unit.id" ng-repeat="unit in vm.units" ng-if="unit.id">{{unit.slug}}</md-option>
+												</md-select>
+												<div ng-messages="formInvoice['service_unit_id_'+$index].$error">
+													<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+												</div>
+											</md-input-container>
+										</td>
+										<td md-cell>
+											<md-input-container class="md-block input-style" flex-gt-sm  ng-if="!vm.form.gross_counted">
+												<label hide-gt-sm ><span translate="INVOICES_FORM_EDIT.PRICE_NET"></span></label>
+												<input ng-model="item.price_net" name="price_net_{{$index}}" required type="number" step="0.01" min="0.01" ng-disabled="vm.is_extra_item" >
+												<div ng-messages="formInvoice['price_net_'+$index].$error">
+													<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+													<div ng-message="number" ><span translate="ERRORS.FORM.NUMBER_2_DP"></span></div>
+													<div ng-message="min" ><span translate="ERRORS.FORM.NUMBER_2_DP"></span></div>
+													<div ng-message="step" ><span translate="ERRORS.FORM.NUMBER_2_DP"></span></div>
+												</div>
+											</md-input-container>
+											<md-input-container class="md-block input-style" flex-gt-sm  ng-if="vm.form.gross_counted">
+												<label hide-gt-sm >
+													<span ng-if="vat_payer" translate="INVOICES_FORM_EDIT.PRICE_GROSS"></span>
+													<span ng-if="!vat_payer" translate="INVOICES_FORM_EDIT.PRICE"></span>
+												</label>
+												<input ng-model="item.price_gross" name="price_gross_{{$index}}" required type="number" step="0.01" min="0.01" ng-disabled="vm.is_extra_item" >
+												<div ng-messages="formInvoice['price_gross_'+$index].$error">
+													<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+													<div ng-message="number" ><span translate="ERRORS.FORM.NUMBER_2_DP"></span></div>
+													<div ng-message="min" ><span translate="ERRORS.FORM.NUMBER_2_DP"></span></div>
+													<div ng-message="step" ><span translate="ERRORS.FORM.NUMBER_2_DP"></span></div>
+												</div>
+											</md-input-container>
+										</td>
+										<td md-cell>
+											<md-input-container class="md-block input-style" flex-gt-sm  ng-if="!vm.form.gross_counted">
+												<label hide-gt-sm ><span translate="INVOICES_FORM_EDIT.PRICE_NET_SUM"></span></label>
+												<input ng-model="item.price_net_sum" required ng-disabled="true">
+											</md-input-container>
+											<md-input-container class="md-block input-style" flex-gt-sm  ng-if="vm.form.gross_counted">
+												<label hide-gt-sm >
+													<span ng-if="vat_payer" translate="INVOICES_FORM_EDIT.PRICE_GROSS_SUM"></span>
+													<span ng-if="!vat_payer" translate="INVOICES_FORM_EDIT.PRICE_SUM"></span>
+												</label>
+												<input ng-model="item.price_gross_sum" required ng-disabled="true">
+											</md-input-container>
+										</td>
+										<td md-cell ng-if="vat_payer">
+											<md-input-container class="md-block select-style" flex-gt-sm>
+												<label hide-gt-sm ><span translate="INVOICES_FORM_EDIT.TAX"></span></label>
+												<md-select ng-model="item.vat_rate_id" required name="vat_rate_id_{{$index}}" ng-disabled="vm.is_extra_item || vm.type == 'margin' || vm.type == 'reverse_charge'" >
+													<md-option ng-value="null" ></md-option>
+													<md-option ng-value="tax.id" ng-repeat="tax in vm.taxes" >{{tax.name}}</md-option>
+												</md-select>
+												<div ng-messages="formInvoice['vat_rate_id_'+$index].$error">
+													<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+												</div>
+											</md-input-container>
+										</td>
+										<td md-cell>
+											<md-button class="md-fab md-mini md-warn" ng-click="vm.deleteProduct($index)" ng-if="vm.form.items.length > 1" >
+												<md-icon md-font-icon="icon-close-circle font-size-22"></md-icon>
+											</md-button>
+										</td>
+									</tr>
+									</tbody>
+								</table>
+							</md-table-container>
+						</div>
+					</div>
+
+					<div layout-gt-sm="row" layout-align="end none" ng-if="!vm.is_extra_item">
+						<md-button type="button" class="md-raised md-accent" ng-click="vm.addProduct()" translate="INVOICES_FORM_EDIT.ADD_PRODUCT" >
+							ADD
+						</md-button>
+					</div>
+
+					<div class="form-title mb-10" translate="INVOICES_FORM_EDIT.SUMMARY"></div>
+
+					<div layout-gt-sm="row" ng-if="!vm.is_extra_item">
+						<md-input-container class="md-block" flex-gt-sm>
+							<md-checkbox ng-model="vm.special_payment" name="special_payment" ng-change="vm.changeSpecialPayment()" >
+								<span translate="INVOICES_FORM_EDIT.PARTIAL_PAYMENT"></span>
+							</md-checkbox>
+						</md-input-container>
+					</div>
+
+					<div layout-gt-sm="row" ng-if="vm.special_payment">
+						<md-input-container class="md-block" flex-gt-sm>
+							<label><span translate="INVOICES_FORM_EDIT.TERM"></span></label>
+							<input ng-model="vm.today" moment-picker="vm.today" format="YYYY-MM-DD" start-view="year" locale="pl" ng-disabled="true">
+						</md-input-container>
+						<md-input-container class="md-block" flex-gt-sm>
+							<label><span translate="INVOICES_FORM_EDIT.AMOUNT"></span></label>
+							<input ng-model="vm.form.special_payment.amount" name="partial_amount" required type="number" step="0.01" min="0.01" max="{{(vm.form.price_gross - 0.01)}}">
+							<div ng-messages="formInvoice.partial_amount.$error">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+								<div ng-message="number" ><span translate="ERRORS.FORM.NUMBER_2_DP"></span></div>
+								<div ng-message="min" ><span translate="ERRORS.FORM.NUMBER_2_DP"></span></div>
+								<div ng-message="max" ><span translate="ERRORS.FORM.MAX_AMOUNT"></span></div>
+								<div ng-message="step" ><span translate="ERRORS.FORM.NUMBER_2_DP"></span></div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block" flex-gt-sm>
+							<label><span translate="INVOICES_FORM_EDIT.PAYMENT_METHOD"></span></label>
+							<md-select ng-model="vm.form.special_payment.payment_method_id" required name="partials_payment_method_id" ng-if="!translate_loading" >
+								<md-option ng-value="payment_method.id" ng-repeat="payment_method in vm.payment_methods"
+										   ng-disabled="payment_method.id == vm.form.payment_method_id"
+										   ng-if="payment_method.slug == 'gotowka' || payment_method.slug == 'karta'" >
+									{{payment_method.name}}
+								</md-option>
+							</md-select>
+							<div ng-messages="formInvoice.partials_payment_method_id.$error">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+							</div>
+						</md-input-container>
+					</div>
+
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex-gt-sm>
+							<label><span translate="INVOICES_FORM_EDIT.TERM"></span></label>
+							<input ng-model="vm.payment_date" name="payment_date" moment-picker="vm.payment_date" format="YYYY-MM-DD" start-view="year" locale="pl" min-date="vm.start_callendar" max-date="vm.stop_callendar" ng-disabled="vm.is_extra_item || vm.disabled_payment_date">
+							<div ng-messages="formInvoice.payment_date.$error">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block" flex-gt-sm  ng-if="vm.special_payment">
+							<label><span translate="INVOICES_FORM_EDIT.AMOUNT"></span></label>
+							<input ng-value="vm.round(vm.form.price_gross - vm.form.special_payment.amount)" ng-disabled="true">
+						</md-input-container>
+						<md-input-container class="md-block" flex-gt-sm>
+							<label><span translate="INVOICES_FORM_EDIT.PAYMENT_METHOD"></span></label>
+							<md-select ng-model="vm.form.payment_method_id" required name="payment_method_id" ng-if="!translate_loading" ng-disabled="vm.is_extra_item">
+								<md-option ng-value="payment_method.id" ng-repeat="payment_method in vm.payment_methods"
+										   ng-disabled="payment_method.id == vm.form.special_payment.payment_method_id">
+									{{payment_method.name}}
+								</md-option>
+							</md-select>
+							<div ng-messages="formInvoice.payment_method_id.$error">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+							</div>
+						</md-input-container>
+					</div>
+
+					<div layout-gt-sm="row" ng-if="vm.company.bank_accounts.data.length > 1 && vm.form.payment_method_id == 2">
+						<md-input-container class="md-block" flex-gt-sm>
+							<label><span translate="INVOICES_FORM_EDIT.BANK_ACCOUNT"></span></label>
+							<md-select ng-model="vm.form.bank_account_id" required name="bank_account" ng-if="!translate_loading" >
+								<md-option ng-value="bank_account.id" ng-repeat="bank_account in vm.company.bank_accounts.data">
+									{{bank_account.bank_name}}
+								</md-option>
+							</md-select>
+							<div ng-messages="formInvoice.bank_account.$error">
+								<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+							</div>
+						</md-input-container>
+					</div>
+
+					<div layout-gt-sm="row" ng-if="!vm.is_extra_item">
+						<md-input-container class="md-block" flex-gt-sm>
+							<md-checkbox ng-model="vm.show_description" >
+								<span translate="INVOICES_FORM_EDIT.DESCRIPTION"></span>
+							</md-checkbox>
+						</md-input-container>
+					</div>
+
+					<div layout-gt-sm="row"  ng-if="vm.show_description">
+						<md-input-container class="md-block" flex-gt-sm>
+							<label><span translate="INVOICES_FORM_EDIT.DESCRIPTION"></span></label>
+							<textarea ng-model="vm.form.description" ng-maxlength="1000" name="description" ></textarea>
+						</md-input-container>
+					</div>
+
+					<div layout-gt-sm="row" class="mb-30 ml-30" >
+						<div class="table-wrapper width-auto" ng-if="vm.form.taxes.length && vat_payer"  flex-gt-sm>
+							<md-table-container>
+								<table md-table md-progress="vm.promise">
+									<thead md-head >
+									<tr md-row>
+										<th md-column md-numeric><span translate="INVOICES_FORM_EDIT.TAX"></span></th>
+										<th md-column md-numeric><span translate="INVOICES_FORM_EDIT.PRICE_NET_SUM"></span></th>
+										<th md-column md-numeric><span translate="INVOICES_FORM_EDIT.PRICE_GROSS_SUM"></span></th>
+									</tr>
+									</thead>
+									<tbody md-body>
+									<tr md-row ng-repeat="tax in vm.form.taxes">
+										<td md-cell>{{vm.taxes[tax.vat_rate_id].name}}</td>
+										<td md-cell>{{ tax.price_net.toFixed(2) | numFormat }}zł</td>
+										<td md-cell>{{ tax.price_gross.toFixed(2) | numFormat }}zł</td>
+									</tr>
+									</tbody>
+								</table>
+							</md-table-container>
+						</div>
+						<div layout-gt-sm="row" layout-wrap="" flex-gt-sm class="p-20 font-size-18">
+							<div layout="row" flex="100" layout-align="end center">
+								<div class="block">
+									<span ng-if="vat_payer"><span translate="INVOICES_FORM_EDIT.PRICE_NET_SUMMARY"></span>: <b>&nbsp;{{vm.form.price_net.toFixed(2) | numFormat}}zł</b><br></span>
+									<span ng-if="vat_payer" ><span translate="INVOICES_FORM_EDIT.PRICE_GROSS_SUMMARY"></span>: <b>&nbsp;{{vm.form.price_gross.toFixed(2) | numFormat}}zł</b></span>
+									<span ng-if="!vat_payer" ><span translate="INVOICES_FORM_EDIT.PRICE_SUMMARY"></span>: <b>&nbsp;{{vm.form.price_gross.toFixed(2) | numFormat}}zł</b></span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex-gt-sm>
+							<span class="require">*</span> <span translate="INFO.REQUIRE_INFO"></span>
+						</md-input-container>
+					</div>
+
+					<div layout="row"  layout-align="end none">
+						<md-button href="/invoices/list" class="md-raised" aria-label="Go Back" translate="OTHER.GO_BACK" translate-attr-aria-label="OTHER.GO_BACK">
+							Go Back
+						</md-button>
+						<md-button type="submit" class="md-raised md-accent" aria-label="SAVE"
+								   ng-disabled="formInvoice.$invalid || vm.request_sending"
+								   translate="INVOICES_FORM_EDIT.SAVE"
+								   translate-attr-aria-label="INVOICES_FORM_EDIT.SAVE">
+						</md-button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

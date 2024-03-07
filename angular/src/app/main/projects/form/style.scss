@@ -1,0 +1,67 @@
+#projects-show {
+  @media screen and (min-width: 960px) {
+    .contact-item {
+      float: left;
+      width: 33%;
+    }
+  }
+}
+
+#projects-form {
+
+  md-tabs-wrapper {
+    background: #FFF;
+    z-index: 999;
+  }
+
+  .form-title {
+    margin-bottom: 1em;
+  }
+
+  .color-title {
+    font-size: 0.9em;
+    color: rgba(0,0,0,0.54);
+    padding-left: 3px;
+    margin-bottom: 5px;
+  }
+
+  .color-container {
+    width: 45px;
+    height: 45px;
+  }
+
+  .color-circle {
+    display: block;
+    cursor: pointer;
+    box-sizing: border-box;
+    width: 22px;
+    height: 22px;
+    border-radius: 100%;
+    margin: 0;
+    background-color: rgba(0,0,0,0.54);
+    box-shadow: none;
+
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &.selected {
+      width: 32px;
+      height: 32px;
+      border-radius: 100%;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+  }
+
+  .role-title {
+    min-width: 100px;
+    margin-right: 10px;
+  }
+
+  .role-options {
+    md-checkbox {
+        margin: 0 3rem 0 0;
+        color: rgba(0,0,0,0.75);
+    }
+  }
+}

@@ -1,0 +1,317 @@
+
+<div class="ph-5">
+    <!-- Show/hide sprints buttons -->
+    <div layout="row" layout-align="end center" class="mt-5 mb-10">
+        <md-button ng-click="vm.showAllSprints()" class="md-raised button-min">
+            <span translate="BACKLOG.SHOW_ALL_SPRINTS"></span>
+        </md-button>
+        <md-button ng-click="vm.hideAllSprints()" class="md-raised button-min">
+            <span translate="BACKLOG.HIDE_ALL_SPRINTS"></span>
+        </md-button>
+    </div>
+
+    <!-- SPRINT -->
+    <div class="ph-5" ui-sortable="vm.sortableSprintOptions" ng-model="vm.sprints">
+        <div class="sprint rounded-container md-whiteframe-2dp" layout="column" ng-repeat="sprint in vm.sprints track by sprint.id"
+             ng-class="{'blue-100-bg': sprint.status == 'active', 'amber-100-bg': sprint.status == 'paused', 'sprint-enable-move': sprint.id, 'backlog-backlog': sprint.id == 0}"
+             ng-show="vm.searchSprintFilter(sprint)">
+
+            <!--BACKLOG-->
+            <div ng-if="sprint.id == 0" class="sprint-handle handle-backlog" flex layout="row" layout-align="none center">
+                <div class="title"  flex layout="row" layout-align="start center" layout-wrap>
+                    <!-- sprint toggle -->
+                    <md-button ng-click="vm.toggleSprint($index)" class="md-icon-button sprint-toggle-button" >
+                        <md-icon md-font-icon class="md-font material-icons icon" ng-class="{'icon-menu-down': !sprint.hidden, 'icon-menu-right': sprint.hidden }"></md-icon>
+                    </md-button>
+                    <span translate="BACKLOG.BACKLOG"></span>
+                </div>
+                <md-button type="button" class="md-raised button-min" ng-if="vm.statuses_defined" ng-click="vm.addEditTicket()" translate="BACKLOG.CREATE_TICKET" ></md-button>
+            </div>
+
+            <!--OTHER SPRINT-->
+            <div ng-if="sprint.id != 0" class="sprint-handle" flex="nogrow" layout="row" layout-align="none center">
+                <md-icon md-font-icon="icon-drag-horizontal" class="icon move pl-10"></md-icon>
+                <div class="title" flex layout="row" layout-align="start center" layout-wrap>
+                    <!-- sprint name -->
+                    <span class="name" ng-if="current_project_user_role == 'client'">
+                        <!-- sprint toggle -->
+                        <md-button ng-click="vm.toggleSprint($index)" class="md-icon-button sprint-toggle-button" >
+                            <md-icon md-font-icon class="md-font material-icons icon" ng-class="{'icon-menu-down': !sprint.hidden, 'icon-menu-right': sprint.hidden }"></md-icon>
+                        </md-button>
+                        {{sprint.name}}
+                    </span>
+                    <div class="name" ng-if="vm.hasAccess(vm.edit_permissions)" layout="row" layout-align="start center">
+                        <!-- sprint toggle -->
+                        <md-button ng-click="vm.toggleSprint($index)" class="md-icon-button sprint-toggle-button" >
+                            <md-icon md-font-icon class="md-font material-icons icon" ng-class="{'icon-menu-down': !sprint.hidden, 'icon-menu-right': sprint.hidden }"></md-icon>
+                        </md-button>
+                        <inline-text flex layout="row" layout-align="start center"
+                                name="{{ $index }}"
+                                ng-model="sprint.name"
+                                on-save="vm.updateSprint"
+                                simple="true"
+                        >
+                            <div layout="row" layout-align="start center">
+                                <div class="text-edit" ng-if="sprint.name">
+                                    {{ sprint.name }}
+                                </div>
+                                <div class="set-edit-text" ng-if="!sprint.name" translate="BACKLOG.CLICK_TO_ADD"></div>
+                                <md-tooltip><span translate="BACKLOG.SPRINT_NAME_CLICK"></span></md-tooltip>
+                            </div>
+                        </inline-text>
+                    </div>
+                    <!-- sprint dates -->
+                    <div ng-if="vm.hasAccess(vm.edit_permissions)" class="dates" layout="row" layout-align="start center" layout-wrap>
+                        <div class="date" layout="row">
+                            <md-icon md-font-icon="icon-alarm-plus" class="s20"></md-icon>
+                            <inline-datepicker flex layout="row" layout-align="start center"
+                                    name="planned_activation"
+                                    item="{{ sprint }}"
+                                    ng-model="sprint.planned_activation"
+                                    max-date="{{sprint.planned_closing}}"
+                                    format="YYYY-MM-DD"
+                                    on-save="vm.setPlannedDate"
+                                    placeholder="{{ 'BACKLOG.SPRINT_START_DATE' | translate }}"
+                            >
+                                <div layout="row" layout-align="start center">
+                                    <div class="text-edit" ng-if="sprint.planned_activation">
+                                        <span >{{ sprint.planned_activation | datetime:'yyyy-MM-dd' }}</span>
+                                    </div>
+                                    <div class="set-edit-text" ng-if="!sprint.planned_activation">
+                                        <span class="no-date">{{ 'BACKLOG.CLICK_TO_ADD' | translate }}</span>
+                                    </div>
+                                    <md-tooltip>{{ 'BACKLOG.SPRINT_START_DATE' | translate }}</md-tooltip>
+                                </div>
+                            </inline-datepicker>
+                        </div>
+                        <div class="date" layout="row">
+                            <md-icon md-font-icon="icon-alarm-check" class="s20"></md-icon>
+                            <inline-datepicker flex layout="row" layout-align="start center"
+                                    name="planned_closing"
+                                    item="{{ sprint }}"
+                                    ng-model="sprint.planned_closing"
+                                    min-date="{{sprint.planned_activation}}"
+                                    format="YYYY-MM-DD"
+                                    on-save="vm.setPlannedDate"
+                                    placeholder="{{ 'BACKLOG.SPRINT_CLOSE_DATE' | translate }}"
+                            >
+                                <div layout="row" layout-align="start center">
+                                    <div class="text-edit" ng-if="sprint.planned_closing">
+                                        <span >{{ sprint.planned_closing | datetime:'yyyy-MM-dd' }}</span>
+                                    </div>
+                                    <div class="set-edit-text" ng-if="!sprint.planned_closing">
+                                        <span class="no-date">{{ 'BACKLOG.CLICK_TO_ADD' | translate }}</span>
+                                    </div>
+                                    <md-tooltip>{{ 'BACKLOG.SPRINT_CLOSE_DATE' | translate }}</md-tooltip>
+                                </div>
+                            </inline-datepicker>
+                        </div>
+                    </div>
+                    <!-- if not have access to edit sprints -->
+                    <div ng-if="!vm.hasAccess(vm.edit_permissions)" class="dates" layout="row" layout-align="start center" layout-wrap>
+                        <div ng-if="sprint.planned_activation" class="date" layout="row" layout-align="start center">
+                            <md-icon md-font-icon="icon-alarm-check" class="s20"></md-icon>
+                            <span class="date-text">{{ sprint.planned_activation | datetime:'yyyy-MM-dd' }}</span>
+                            <md-tooltip>{{ 'BACKLOG.SPRINT_START_DATE' | translate }}</md-tooltip>
+                        </div>
+                        <div ng-if="sprint.planned_closing" class="date" layout="row" layout-align="start center">
+                            <md-icon md-font-icon="icon-alarm-check" class="s20"></md-icon>
+                            <span class="date-text">{{ sprint.planned_closing | datetime:'yyyy-MM-dd' }}</span>
+                            <md-tooltip>{{ 'BACKLOG.SPRINT_CLOSE_DATE' | translate }}</md-tooltip>
+                        </div>
+                    </div>
+
+                </div>
+                <div layout="row" layout-align="end center" layout-wrap>
+                    <md-icon ng-if="sprint.locked" md-font-icon="icon-lock"></md-icon>
+                    <md-button type="button" class="md-raised button-min" ng-if="vm.statuses_defined"
+                        ng-click="vm.addEditTicket(undefined, sprint.id)" ng-disabled="sprint.locked">
+                        <md-icon hide-gt-sm md-font-icon="icon-plus" class="s20"></md-icon>
+                        <span hide-xs>{{ 'BACKLOG.CREATE_TICKET' | translate }}</span>
+                    </md-button>
+                    <md-menu ng-if="current_project_user_role == 'owner' || current_project_user_role == 'admin'">
+                        <md-button class="md-icon-button" ng-click="$mdMenu.open()" aria-label="more">
+                            <md-icon md-font-icon="icon-dots-vertical"></md-icon>
+                        </md-button>
+
+                        <md-menu-content width="3">
+                            <md-menu-item>
+                                <md-button ng-click="vm.exportSprint(sprint)" aria-label="Export">
+                                    <span translate="BACKLOG.EXPORT"></span>
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item ng-if="sprint.status == 'inactive'">
+                                <md-button ng-click="vm.activeSprint(sprint.id)" aria-label="Active">
+                                    <span translate="BACKLOG.ACTIVE"></span>
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item ng-if="sprint.status == 'active'">
+                                <md-button ng-click="vm.pauseSprint(sprint.id)" aria-label="Pause">
+                                    <span translate="BACKLOG.PAUSE"></span>
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item ng-if="sprint.status == 'paused'">
+                                <md-button ng-click="vm.resumeSprint(sprint.id)" aria-label="Resume">
+                                    <span translate="BACKLOG.RESUME"></span>
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button ng-click="vm.cloneSprint(sprint.id)" aria-label="Clone">
+                                    <span translate="BACKLOG.CLONE"></span>
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item  ng-if="sprint.status == 'active'">
+                                <md-button ng-click="vm.closeSprint(sprint.id)" aria-label="Close">
+                                    <span translate="BACKLOG.CLOSE"></span>
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item ng-if="sprint.tickets.length == 0">
+                                <md-button ng-click="vm.deleteSprint(sprint.id)" aria-label="Delete">
+                                    <span translate="OTHER.DELETE"></span>
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-divider></md-menu-divider>
+                            <md-menu-item ng-if="!sprint.locked">
+                                <md-button ng-click="vm.lockSprint(sprint.id)" aria-label="Lock">
+                                    <span translate="BACKLOG.LOCK"></span>
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item ng-if="sprint.locked">
+                                <md-button ng-click="vm.unlockSprint(sprint.id)" aria-label="Unlock">
+                                    <span translate="BACKLOG.UNLOCK"></span>
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                </div>
+            </div>
+
+            <div ng-show="!sprint.hidden" class="backlog-items" ng-class="{ 'sortable': !sprint.locked }" flex
+                ui-sortable="vm.sortableOptions" ng-model="sprint.tickets" sprint-key="{{$index}}">
+                <div class="backlog-item md-background-bg {{ vm.getTicketTimeClass(ticket.scheduled_time_start, ticket.scheduled_time_end) }}" layout="row" layout-align="start center" layout-wrap
+                    ng-repeat="ticket in sprint.tickets track by ticket.id" ticket-id="{{ticket.id}}"
+                    ng-show="vm.userFilter(ticket) && vm.searchFilter(ticket)"
+                    ng-class="{'selected': ticket.selected, 'completed': ticket.status_id == vm.last_status_id, 'bug':ticket.type_id == vm.bug_id }">
+
+                    <div class="handle">
+                        <md-icon md-font-icon="icon-drag-vertical" class="icon"></md-icon>
+                    </div>
+
+                    <div layout="row" layout-align="start center" flex>
+                        <div class="info" flex layout="row" layout-align="start center">
+                            <div class="code" layout="row" layout-align="start center">
+                                <a class="title" ng-click="$event.preventDefault();vm.openSidenav(ticket.id);" href="/projects/{{ticket.project_id}}/ticket/{{ticket.title}}">
+                                    {{ticket.title}}
+                                </a>
+                                <div layout="row" layout-align="start center" layout-wrap>
+                                    <div class="name">
+                                        {{ticket.name}}
+                                    </div>
+                                    <div class="stories" layout="row" layout-align="start center" layout-wrap ng-if="ticket.stories.data.length">
+                                        <span ng-repeat="story in ticket.stories.data" class="badge story" layout="row" layout-align="start center"
+                                            ng-style="{ 'color': story.color, 'border-color': story.color }" >
+                                            <span>{{ story.name }}</span>
+                                        </span>
+                                    </div>
+                                    <div class="scheduled_time" layout="row" layout-align="start center" ng-if="ticket.scheduled_time_end">
+                                    <span class="badge date" layout="row" layout-align="start center" >
+                                        <span>{{ ticket.scheduled_time_end | datetime:tickets_date_format }}</span>
+                                    </span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--<div class="notes" ng-bind-html="ticket.description">-->
+                            <!--</div>-->
+                        </div>
+
+                        <!-- avatar - hide on smartphones -->
+                        <div hide-xs ng-if="ticket.assigned_user.data" class="list-card-members">
+                            <div class="list-card-member">
+                                <img class="list-card-member-avatar" ng-src="{{vm.getAvatar(ticket.assigned_user.data.avatar)}}">
+                                <md-tooltip>
+                                    <div class="name">{{ ticket.assigned_user.data.first_name}} {{ ticket.assigned_user.data.last_name}}</div>
+                                </md-tooltip>
+                            </div>
+                        </div>
+                        <!-- time estimations - hide on smartphones -->
+                        <div hide-xs layout="row" layout-align="center center">
+                            <div class="estimate text-right" ng-if="ticket.estimate_time || ticket.stats.data.tracked_summary">
+                                <md-tooltip><span translate="BACKLOG.ESTIMATE_TIME"></span></md-tooltip>
+                                {{vm.formatEstimate(ticket.estimate_time, true)}}
+                            </div>
+                            <div class="estimate-separator" ng-if="vm.hasAccess(vm.permissions) &&
+                              (ticket.estimate_time || ticket.stats.data.tracked_summary) && current_company_settings.enable_activity">/</div>
+                            <div class="estimate" ng-if="vm.hasAccess(vm.permissions) &&
+                              (ticket.estimate_time || ticket.stats.data.tracked_summary) && current_company_settings.enable_activity"
+                              ng-class="{'red-800-fg': ticket.stats.data.time_usage > 100, 'green-800-fg': ticket.stats.data.time_usage <= 100 && ticket.estimate_time, 'purple-500-fg': ticket.stats.data.time_usage <= 100 && !ticket.estimate_time }">
+                                <md-tooltip><span translate="BACKLOG.LOGGED_TIME"></span></md-tooltip>
+                                {{vm.formatEstimate(ticket.stats.data.tracked_summary, true)}}
+                            </div>
+                        </div>
+
+                        <md-menu >
+                            <md-button class="md-icon-button" ng-click="$mdMenu.open()" aria-label="more">
+                                <md-icon md-font-icon="icon-dots-vertical"></md-icon>
+                            </md-button>
+
+                            <md-menu-content width="3">
+                                <md-menu-item >
+                                    <md-button ng-click="vm.addEditTicket(ticket.id, ticket.sprint_id)" aria-label="Edit">
+                                        <span translate="OTHER.EDIT"></span>
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-item >
+                                    <md-button ng-click="vm.deleteTicket(ticket.id, ticket.sprint_id)" aria-label="Delete">
+                                        <span translate="OTHER.DELETE"></span>
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                    </div>
+                </div>
+                <div class="empty-sprint" translate="BACKLOG.EMPTY" ng-if="sprint.tickets.length == 0 && !vm.loading_tickets && !sprint.loading"></div>
+                <div class="empty-sprint" ng-if="vm.loading_tickets || sprint.loading" layout="row" layout-align="center center">
+                    <md-progress-circular class="md-accent" md-diameter="30"></md-progress-circular>
+                </div>
+            </div>
+            <div ng-show="!sprint.hidden && sprint.stats" flex="nogrow" layout="row" class="sprint-footer" layout-align="end">
+                <div class="estimate" ng-if="sprint.stats.data.tickets_estimate_time || sprint.stats.data.tracked_summary">
+                    <md-tooltip><span translate="BACKLOG.ESTIMATE_TIME"></span></md-tooltip>
+                    {{vm.formatEstimate(sprint.stats.data.tickets_estimate_time, true)}}
+                </div>
+                <div class="estimate-separator" ng-if="vm.hasAccess(vm.permissions) &&
+                  (sprint.stats.data.tickets_estimate_time || sprint.stats.data.tracked_summary) && current_company_settings.enable_activity">/</div>
+                <div class="estimate" ng-if="vm.hasAccess(vm.permissions) &&
+                  (sprint.stats.data.tickets_estimate_time || sprint.stats.data.tracked_summary) && current_company_settings.enable_activity"
+                  ng-class="{'red-800-fg': sprint.stats.data.time_usage > 100, 'green-800-fg': sprint.stats.data.time_usage <= 100}">
+                    <md-tooltip><span translate="BACKLOG.LOGGED_TIME"></span></md-tooltip>
+                    {{vm.formatEstimate(sprint.stats.data.tracked_summary, true )}}
+                </div>
+                <div class="estimate" ng-if="vm.hasAccess(vm.permissions) && sprint.stats.data.activity_level && current_company_settings.enable_activity">
+                    <md-tooltip><span translate="BACKLOG.TIME_USAGE"></span></md-tooltip>
+                    {{sprint.stats.data.time_usage }} %
+                </div>
+            </div>
+            <div ng-show="!sprint.hidden && current_company_settings.enable_activity && sprint.stats" flex="nogrow" layout="row" class="sprint-footer sprint-footer-level2" layout-align="end">
+                <div ng-if="vm.hasAccess(vm.permissions)">
+                    <span translate="BACKLOG.ESTIMATION_LEFT"></span>:
+                    <b ng-if="sprint.stats.data.estimation_left < 0">0s</b>
+                    <b ng-if="sprint.stats.data.estimation_left > -1">{{vm.formatEstimate(sprint.stats.data.estimation_left, true )}}</b>
+                </div>
+                <div ng-if="vm.hasAccess(vm.permissions)">
+                    <span translate="BACKLOG.UN_STARTED_ESTIMATION"></span>: <b>{{vm.formatEstimate(sprint.stats.data.un_started_estimations, true )}}</b>
+                </div>
+                <div ng-if="vm.hasAccess(vm.permissions)">
+                    <span translate="BACKLOG.EXPECTED_FINAL"></span>: <b>{{vm.formatEstimate(sprint.stats.data.expected_final, true )}}</b>
+                </div>
+                <div ng-if="vm.hasAccess(vm.permissions)">
+                    <span translate="BACKLOG.ATTITUDE_TO_INITIAL"></span>: <b>{{sprint.stats.data.attitude_to_initial}}%</b>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- / SPRINT -->
+
+</div>
+

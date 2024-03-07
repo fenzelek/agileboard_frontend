@@ -1,0 +1,13 @@
+{
+    "STORIES_FORM": {
+        "TITLE_ADD": "New story",
+        "TITLE_EDIT": "Edit story",
+        "UPDATE_SUCCESS": "Updated story successfully",
+        "ADD_SUCCESS": "Added story successfully",
+        "COLOR": "Color",
+        "COLOR_HEX": "In hexadecimal format, eg. #228CC0"
+    },
+    "ERRORS": {
+        "COLOR_HEX": "Enter the correct color in HEX format, eg. #228CC0"        
+    }
+}

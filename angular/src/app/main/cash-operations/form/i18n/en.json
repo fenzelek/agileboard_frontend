@@ -1,0 +1,36 @@
+{
+    "CASH_OPERATIONS_FORM": {
+        "TITLE_ADD_1": "New cash operation",
+        "TITLE_ADD_2": "New cashless operation",
+        "TITLE_EDIT_1": "Edit cash operation",
+        "TITLE_EDIT_2": "Edit cashless operation",
+        "NUMBER": "Number",
+        "METHOD": "Payment method",
+        "SUM": "Summary",
+        "CASH_START": "Initial state",
+        "CASH_STOP": "Final state",
+        "CASH_RELEASED": "Cash released",
+        "CASH_TOOK": "Cash accepted",
+        "DESCRIPTION": "Description",
+        "RECEIPT": "Receipt number",
+        "INVOICE": "Invoice number",
+        "RECEIPT_2": "Receipt",
+        "INVOICE_2": "Invoice",
+        "AMOUNT": "Amount",
+        "DIRECTION": "Type",
+        "PDF": "Generate PDF",
+        "DATE": "Date",
+        "DIRECTION_LIST": {
+            "initial": "Initial state",
+            "in": "Cash accepted",
+            "out": "Cash released",
+            "final": "Final state"
+        },
+        "UPDATE_SUCCESS": "Updated operation",
+        "ADD_SUCCESS": "Added operation",
+        "WRONG_SELECTED": "In the receipt / invoice number you have entered the number but you have no choice from the receipt."
+    },
+    "ERRORS": {
+
+    }
+}

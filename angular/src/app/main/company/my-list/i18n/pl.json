@@ -1,0 +1,28 @@
+{
+    "COMPANY_MY_LIST": {
+        "TITLE": "Lista firm i zaproszeń",
+        "TITLE_COMPANIES": "Firmy do których należę",
+        "TITLE_INVITATIONS": "Zaproszenia do firm",
+        "ADD": "Utwórz firmę",
+        "TITLE_1": "Firmy",
+        "TITLE_2": "Zaproszenia do akceptacji",
+        "OWNER": "Właściciel",
+        "EXPIRATION": "Wygasa",
+        "CREATE": "Wysłane",
+        "ACCEPT": "Akceptuj",
+        "REJECT": "Odrzuć",
+        "REJECT_QUESTION": "Czy na pewno chcesz odrzucić te zaproszenie?",
+        "ACCEPT_QUESTION": "Czy na pewno chcesz zaakceptować te zaproszenie?",
+        "NO_INVITATIONS": "Brak oczekujących zaproszeń.",
+        "NO_COMPANIES": "Brak firm do których należysz.",
+        "CREATE_COMPANY_DIALOG": "Tworzysz firmę o nazwie takiej, jak Twój adres e-mail. Możesz później zmienić nazwę i inne dane firmy w zakładce Zarządzaj firmą."
+    },
+    "ERRORS": {
+        "company_invitation": {
+            "not_pending" : "Zaproszenie zostało już wcześniej zaakceptowane.",
+            "expired" : "Czas oczekiwanie na akceptacje upłynął.",
+            "invalid_email_given" : "Nieprawidłowy adres email.",
+            "already_assigned_to_company" : "Już dołaczyłeś do tej firmy."
+        }
+    }
+}

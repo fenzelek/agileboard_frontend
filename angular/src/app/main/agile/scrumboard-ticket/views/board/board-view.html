@@ -1,0 +1,88 @@
+<!-- BOARD -->
+<div id="board" flex layout="column" layout-align="start stretch">
+
+    <!-- Statuses name -->
+    <div class="statuses" layout="row">
+        <div class="list-wrapper" ng-repeat="status in vm.statuses track by status.id">
+            <div class="list" layout="column">
+                <!-- LIST HEADER -->
+                <div class="list-header" layout="row" layout-align="space-between center">
+                    <!-- Status name -->
+                    <div class="list-header-name">
+                        {{ status.name }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PARENT -->
+    <div class="tickets" layout="row">
+        <div class="list-wrapper" ng-repeat="status in vm.statuses track by status.id">
+        <!-- LIST -->
+            <div class="list" layout="row" layout-align="start stretch">
+                <!-- LIST CONTENT -->
+                <div class="list-content" flex="100" layout="row" layout-align="start stretch">
+                    <div flex="100" class="list-cards" ui-sortable="vm.sortableCardOptions" ng-model="status.tickets.data" status-key="{{$index}}">
+                        <div ng-if="status.tickets.data.length"
+                            ng-show="vm.searchFilter(ticket) && ticket.id === vm.ticket.id"
+                            class="list-card md-whiteframe-2dp {{ vm.getTicketTimeClass(ticket.scheduled_time_start, ticket.scheduled_time_end) }}"
+                            ng-repeat="ticket in status.tickets.data track by ticket.id" ticket-id="{{ticket.id}}">
+                            <md-content ng-include="'app/main/agile/scrumboard-ticket/views/board/board-ticket.html'"></md-content>
+                        </div>
+                    </div>
+                </div>
+                <!-- / LIST CONTENT -->
+            </div>
+        </div>
+        <!-- / LIST -->
+    </div>
+    <!-- /PARENT -->
+
+    <!-- DIVIDER -->
+    <div class="statuses list-divider" layout="row">
+        <div class="list-wrapper" ng-repeat="status in vm.statuses track by status.id">
+            <div class="list" layout="column">
+                <!-- LIST HEADER -->
+                <div class="list-header" layout="row" layout-align="space-between center">
+                    <!-- Status name -->
+                    <div class="list-header-name">
+                        <span ng-if="$first">{{ 'OTHER.SUBTASKS' | translate }}:</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHILDS -->
+    <div class="tickets" layout="row">
+        <div class="list-wrapper" ng-repeat="status in vm.statuses track by status.id">
+        <!-- LIST -->
+            <div class="list" layout="row" layout-align="start stretch">
+                <!-- LIST CONTENT -->
+                <div class="list-content" flex="100" layout="row" layout-align="start stretch">
+                    <div flex="100" class="list-cards" ui-sortable="vm.sortableCardOptions" ng-model="status.tickets.data" status-key="{{$index}}">
+                        <div ng-if="status.tickets.data.length"
+                            ng-show="vm.searchFilter(ticket) && ticket.id !== vm.ticket.id"
+                            class="list-card md-whiteframe-2dp {{ vm.getTicketTimeClass(ticket.scheduled_time_start, ticket.scheduled_time_end) }}"
+                            ng-repeat="ticket in status.tickets.data track by ticket.id" ticket-id="{{ticket.id}}">
+                            <md-content ng-include="'app/main/agile/scrumboard-ticket/views/board/board-ticket.html'"></md-content>
+                        </div>
+                    </div>
+                </div>
+                <!-- / LIST CONTENT -->
+            </div>
+        </div>
+        <!-- / LIST -->
+    </div>
+    <!-- /CHILDS -->
+
+
+    <!-- NOSTATUSES INFO -->
+    <div ng-if="vm.statuses.length < 1" class="no-records-info" layout="column" layout-align="center center">
+        <md-icon md-font-icon="icon-table-row-remove" class="s62"></md-icon>
+        <span translate="BOARD.NO_STATUSES"></span>
+    </div>
+
+</div>
+<!-- / BOARD -->

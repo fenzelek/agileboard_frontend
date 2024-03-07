@@ -1,0 +1,11 @@
+{
+    "LOGIN-QUICK": {
+        "TITLE" : "Logowanie",
+        "INFO": "Trwa logowanie do strony"
+    },
+    "ERRORS": {
+        "auth": {
+            "cannot_create_token": "Błąd podczas logowania. Spróbuj ponownie później."
+        }
+    }
+}

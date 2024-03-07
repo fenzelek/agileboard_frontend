@@ -1,0 +1,101 @@
+<div id="projects-show" class="page-layout simple fullwidth doc-page" layout="column">
+
+	<!-- HEADER -->
+	<div class="header md-accent-bg" layout="row" layout-align="space-between">
+		<div layout="column" layout-align="space-between" flex="100">
+			<div layout="row">
+				<div class="title" flex="70">
+					<span translate="PROJECTS_SHOW.TITLE"></span> -
+					{{current_project_name}}
+				</div>
+				<div flex="30" layout="row" layout-align="end center" ng-if="vm.role == 'owner' || vm.role == 'admin'">
+					<md-button href="/projects/form/edit/{{vm.project.id}}" class="md-raised" translate="OTHER.EDIT"></md-button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- / HEADER -->
+
+	<!-- CONTENT -->
+	<div class="content max-1000" layout="column">
+
+		<div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+		<div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+		<div layout="row">
+			<div class="form-wrapper  rounded-container min-1000">
+				<div class="form-title" translate="PROJECTS_SHOW.USERS"></div>
+				<md-list class="fixedRows">
+					<md-list-item class="md-2-line contact-item" ng-repeat="user in vm.users">
+						<img ng-src="{{vm.getAvatar(user.user.data.avatar)}}" class="md-avatar" alt="" />
+						<div class="md-list-item-text compact">
+							<h3>{{user.user.data.first_name}} {{user.user.data.last_name}}</h3>
+							<p translate="ROLES.{{user.role.data.name}}"></p>
+						</div>
+					</md-list-item>
+				</md-list>
+			</div>
+		</div>
+
+		<div layout="row" class="mt-20">
+			<div class="form-wrapper  rounded-container min-1000">
+				<div class="form-title" translate="PROJECTS_SHOW.STATS.TITLE"></div>
+
+				<div layout-gt-sm="row" class="mt-20 mb-20 font-size-18">
+					<div flex-gt-sm="45" flex="100">
+						<div layout="row">
+							<div layout="column" flex="50" translate="PROJECTS_SHOW.STATS.TOTAL_ESTIMATE_TIME" ng-if="vm.hasAccess(['admin', 'owner'])"></div>
+							<div layout="column" flex="50" translate="PROJECTS_SHOW.STATS.TOTAL_ESTIMATE_TIME" ng-if="vm.hasAccess(['developer'])"></div>
+							<div layout="column" flex class="bold">{{vm.formatEstimate(vm.project.stats.data.total_estimate_time, true)}}</div>
+						</div>
+						<div layout="row">
+							<div layout="column" flex="50" translate="PROJECTS_SHOW.STATS.NON_TODO_ESTIMATE_TIME" ng-if="vm.hasAccess(['admin', 'owner'])"></div>
+							<div layout="column" flex="50" translate="PROJECTS_SHOW.STATS.MY_NON_TODO_ESTIMATE_TIME" ng-if="vm.hasAccess(['developer'])"></div>
+							<div layout="column" flex class="bold">{{vm.formatEstimate(vm.project.stats.data.non_todo_estimate_time, true)}}</div>
+						</div>
+						<div ng-if="current_company_settings.enable_activity" layout="row">
+							<div layout="column" flex="50" translate="PROJECTS_SHOW.STATS.TRACKED" ng-if="vm.hasAccess(['admin', 'owner'])"></div>
+							<div layout="column" flex="50" translate="PROJECTS_SHOW.STATS.MY_TRACKED" ng-if="vm.hasAccess(['developer'])"></div>
+							<div layout="column" flex class="bold">{{vm.formatEstimate(vm.project.stats.data.tracked, true)}}</div>
+						</div>
+					</div>
+					<div flex-gt-sm="55" flex="100">
+						<div layout="row">
+							<div layout="column" flex="50" translate="PROJECTS_SHOW.STATS.NOT_ESTIMATED_TICKETS_COUNT"></div>
+							<div layout="column" flex class="bold">{{vm.project.stats.data.not_estimated_tickets_count}}</div>
+						</div>
+						<div layout="row">
+							<div layout="column" flex="50" translate="PROJECTS_SHOW.STATS.NOT_ASSIGNED_TICKETS_COUNT"></div>
+							<div layout="column" flex class="bold">{{vm.project.stats.data.not_assigned_tickets_count}}</div>
+						</div>
+					</div>
+				</div>
+
+
+        <div class="table-wrapper" ng-if="vm.project.stats.data.time_tracking_summary.data.length &&
+            vm.hasAccess(['owner', 'admin']) && current_company_settings.enable_activity">
+					<md-table-container>
+						<table md-table >
+							<thead md-head >
+							<tr md-row>
+								<th md-column><span translate="PROJECTS_SHOW.STATS.USER"></span></th>
+								<th md-column><span translate="PROJECTS_SHOW.STATS.TIME"></span></th>
+								<th md-column><span translate="PROJECTS_SHOW.STATS.ACTIVITY"></span></th>
+							</tr>
+							</thead>
+							<tbody md-body>
+							<tr md-row ng-repeat="tracking in vm.project.stats.data.time_tracking_summary.data">
+								<td md-cell>{{ tracking.user.data.first_name }} {{ tracking.user.data.last_name }}</td>
+								<td md-cell>{{vm.formatEstimate(tracking.tracked_sum)}}</td>
+								<td md-cell>{{ tracking.activity_level }}%</td>
+							</tr>
+							</tbody>
+						</table>
+					</md-table-container>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+</div>

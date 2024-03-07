@@ -1,0 +1,16 @@
+{
+    "AGILE_STATUSES": {
+        "TITLE": "Board configuration",
+        "NAME": "Name",
+        "SCHEME": "Select from example scheme list",
+        "ERROR_COUNT": "There must be at last 2 statuses.",
+        "SAVED_SUCCESS": "Saved statuses successfully",
+        "ADD_STATUS": "Add status",
+        "DELETE_STATUS": "Delete status",
+        "EMPTY": "or add status by button below (minimum 2)",
+        "SELECT_PROJECT": "Select project",
+        "FROM_PROJECT": "From project..."
+    },
+    "ERRORS": {
+    }
+}

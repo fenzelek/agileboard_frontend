@@ -1,0 +1,38 @@
+{
+    "BUY_WIZARD": {
+        "TITLE": "Payment",
+        "TYPE_PAYMENT": "Payment type",
+        "PAYMENT_METHOD": "Payment method",
+        "DATA": "Data",
+        "SUMMARY": "Summary",
+        "SUBSCRIPTION": "Renewable payment (subscription)",
+        "ONE_TIME": "One-time payment",
+        "CARD": "Card",
+        "OTHER_TYPE": "Other method",
+        "BUY": "Ok, I pay",
+        "SELECT_CARD": "Select card",
+        "OTHER_CARD": "Other",
+        "CARD_NUMBER": "Card number",
+        "CARD_CVV2": "CVV2",
+        "CARD_MONTH": "Expiration month",
+        "CARD_YEAR": "Expiration year",
+        "REGULATIONS_1": "By saving the card details, ",
+        "REGULATIONS_2": "I accept the PayU account regulations",
+        "REGULATIONS_3": "and I want to use it for subsequent payments.",
+        "PRICE": "Gross price",
+        "MONTH": "Month",
+        "PACKAGE": "Package",
+        "MODULE": "Module"
+    },
+    "ERRORS": {
+        "payu": {
+            "warning_continue_cvv": "CVV code error."
+        },
+        "FORM": {
+            "CARD_NUMBER": "Incorrect card number. Enter a number with no interruptions, consisting of 12-19 characters.",
+            "CARD_CVV2": "Incorrect code. Enter a number from the range 000-999.",
+            "CARD_MONTH": "Incorrect month number. Enter a number from 01-12.",
+            "CARD_YEAR": "Incorrect year. Provide a full year, e.g. 2021."
+        }
+    }
+}

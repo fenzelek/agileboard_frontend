@@ -1,0 +1,18 @@
+{
+    "USER_EDIT": {
+        "TITLE": "Edit profile",
+        "PASSWORD": "Password",
+        "NAME": "First name",
+        "SURNAME": "Last name",
+        "PASSWORD_CONFIRM": "Password (Confirm)",
+        "PASSWORD_OLD": "Current password",
+        "AVATAR": "Avatar (max 1MB)",
+        "DELETE_AVATAR": "Delete avatar",
+        "SUCCESS": "Updated profile"
+    },
+    "ERRORS": {
+        "password" : {
+            "invalid_password": "The current password is incorrect."
+        }
+    }
+}

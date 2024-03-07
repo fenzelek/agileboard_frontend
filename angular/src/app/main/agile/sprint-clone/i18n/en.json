@@ -1,0 +1,9 @@
+{
+    "SPRINT_CLONE": {
+        "TITLE": "Clone sprint",
+        "DESC": "Clone sprint with all sprint tasks:",
+        "NEW_NAME": "New name",
+        "ACTIVATED": "Activate cloned sprint",
+        "CLONE": "Clone"
+    }
+}

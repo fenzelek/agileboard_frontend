@@ -1,0 +1,27 @@
+{
+    "PROJECT_WIZARD": {
+        "TITLE": "Project wizard",
+        "CLOSE": "Close",
+        "START": "Let's get started!",
+        "PROJECT_NAME": "Project name",
+        "PROJECT_NAME_DESC": "What you have to do? Just name it:",
+        "PROJECT_NAME_PLACEHOLDER": "Enter project name",
+        "PROJECT_SHORT_NAME": "Project short name",
+        "STATUSES": "Statuses",
+        "STATUSES_DESC": "Every task has it's own status, enter the list of your project statuses. Most of the projects starts with this:",
+        "STATUSES_ADD": "Add status",
+        "STATUSES_ADD_NEXT": "Add next",
+        "SPRINT": "Sprint",
+        "SPRINT_DESC": "Sprint is a group of tasks that are related to each other in some way. It may be same functionality, time to finish etc. You choose.",
+        "SPRINT_NAME": "Sprint name",
+        "SPRINT_FIRST": "My first sprint",
+        "TICKET": "Task",
+        "TICKET_DESC": "Let's create the first task to the just created sprint:",
+        "TICKET_NAME": "Task name",
+        "TICKET_FIRST": "My first task",
+        "SUMMARY": "Summary",
+        "SUMMARY_DESC": "Let's check that everything is correct. You can click \"Previous\" button and correct everything.",
+        "SUMMARY_END": "If everything is ok, click \"Save\" button:",
+        "ERROR": "Error occured"
+    }
+}

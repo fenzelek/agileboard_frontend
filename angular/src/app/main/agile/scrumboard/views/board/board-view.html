@@ -1,0 +1,248 @@
+<!-- BOARD -->
+<div id="board" flex layout="column" layout-align="start stretch">
+
+    <!-- stycky statuses -->
+    <div class="statuses" layout="row" repaint-on-scroll>
+        <div class="list-wrapper" ng-repeat="status in vm.statuses track by status.id">
+            <div class="list" layout="column">
+                <!-- LIST HEADER -->
+                <div class="list-header" layout="row" layout-align="space-between center">
+                    <!-- Status name -->
+                    <div class="list-header-name">
+                        {{status.name}}
+                    </div>
+                    <!-- Status ticket number -->
+                    <div ng-if="status.tickets.data && status.tickets.data.length" class="list-header-tickets grey-700-fg">
+                        <i class="s10 md-font material-icons icon-library-books grey-600-fg"></i>
+                        {{ vm.getStatusTicketsNumber(status) }}
+                    </div>
+                    <!-- Status actions -->
+                    <md-menu class="list-header-actions" md-position-mode="right bottom">
+                        <md-button ng-click="$mdMenu.open()" class="md-icon-button">
+                            <md-icon md-font-icon="icon-menu-down"></md-icon>
+                        </md-button>
+                        <md-menu-content>
+                            <md-menu-item>
+                                <md-menu md-position-mode="cascade" md-nest-level="1">
+                                    <md-button ng-disabled="!status.tickets.data || !status.tickets.data.length"
+                                        ng-click="$mdMenu.open()" class="childs-option" role="menuitem">
+                                        {{ 'BOARD.MOVE_STATUS_TICKETS_TO' | translate }}
+                                    </md-button>
+                                    <md-menu-content width="3">
+                                        <md-menu-item ng-if="status.id !== s.id" ng-repeat="s in vm.statuses">
+                                            <md-button ng-click="vm.moveAllTicketsToStatus(status.tickets.data || [], s.id)">
+                                                {{ s.name }}
+                                            </md-button>
+                                        </md-menu-item>
+                                    </md-menu-content>
+                                </md-menu>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- LIST -->
+    <div class="tickets" layout="row">
+        <div class="list-wrapper" ng-repeat="status in vm.statuses track by status.id">
+
+            <div class="list" layout="row" layout-align="start stretch">
+
+                <!-- LIST CONTENT -->
+                <div class="list-content" flex="100" layout="row" layout-align="start stretch">
+
+                    <div class="list-cards" flex="100" ui-sortable="vm.sortableCardOptions"
+                        ng-model="status.tickets.data" status-key="{{$index}}">
+                        <!-- CARD -->
+                        <div ng-if="status.tickets.data.length" ng-show="vm.userFilter(ticket) && vm.searchFilter(ticket)"
+                             class="list-card md-whiteframe-2dp {{ vm.getTicketTimeClass(ticket.scheduled_time_start, ticket.scheduled_time_end) }}"
+                             ng-repeat="ticket in status.tickets.data track by ticket.id" ticket-id="{{ticket.id}}">
+
+                            <!-- CARD SORT HANDLE -->
+                            <div class="list-card-sort-handle">
+                                <md-icon md-font-icon="icon-cursor-move" class="icon s16"></md-icon>
+                            </div>
+                            <!-- /CARD SORT HANDLE -->
+
+                            <div class="list-card-header" layout="row" layout-align="start center">
+
+                                <div flex layout="row" layout-align="start center">
+                                    <!-- CARD CODE -->
+                                    <div class="list-card-code" layout="row" layout-align="start center">
+                                        <a ng-click="$event.preventDefault();vm.openSidenav(ticket.id)"
+                                            ng-href="/projects/{{ticket.project_id}}/ticket/{{ticket.title}}">
+                                            {{ticket.title}}
+                                        </a>
+                                        <div class="copy-code-block">
+                                            <md-icon ng-click="vm.copyToClipboard(ticket.title)"
+                                                md-font-icon="icon-clipboard-outline" class="icon s16"></md-icon>
+                                            <md-tooltip>{{ 'BOARD.COPY_TO_CLIPBOARD' | translate }}</md-tooltip>
+                                        </div>
+                                    </div>
+                                    <!-- / CARD CODE -->
+
+                                    <!-- CARD COMPACT INFO -->
+                                    <!-- <div class="list-card-compact-info" layout="row" layout-align="start center">
+                                        <md-icon ng-if="ticket.comments_count" md-font-icon="icon-comment-outline" class="icon s12"></md-icon>
+                                        <md-icon ng-if="ticket.files_count" md-font-icon="icon-attachment" class="icon s12"></md-icon>
+                                    </div> -->
+                                    <!-- / CARD COMPACT INFO -->
+                                </div>
+
+
+                                <!-- CARD MEMBERS -->
+                                <div ng-if="ticket.assigned_user.data" class="list-card-members">
+                                    <div class="list-card-member">
+                                        <img class="list-card-member-avatar" ng-src="{{vm.getAvatar(ticket.assigned_user.data.avatar)}}">
+                                        <md-tooltip>
+                                            <div class="name">{{ ticket.assigned_user.data.first_name}} {{ ticket.assigned_user.data.last_name}}</div>
+                                        </md-tooltip>
+                                    </div>
+                                </div>
+                                <!-- / CARD MEMBERS -->
+                                <!-- CARD CHECK ITEMS STATUS -->
+                                <!--<span ng-if="vm.board.cards.getById(cardId).checkItems"-->
+                                    <!--class="badge check-items"-->
+                                    <!--ng-class="{'completed': vm.board.cards.getById(cardId).checkItemsChecked === vm.board.cards.getById(cardId).checkItems}"-->
+                                    <!--layout="row" layout-align="start center">-->
+                                    <!--<i class="icon-checkbox-marked-circle s16"></i>-->
+                                    <!--<span>{{vm.board.cards.getById(cardId).checkItemsChecked}}</span>-->
+                                    <!--<span>/</span>-->
+                                    <!--<span>{{vm.board.cards.getById(cardId).checkItems}}</span>-->
+                                <!--</span>-->
+                                <!-- / CARD CHECK ITEMS STATUS -->
+                            </div>
+
+                            <!-- click-preview -->
+                            <div class="click-preview">
+                                <!-- CARD NAME -->
+                                <div class="list-card-name">{{ticket.name}}</div>
+                                <!-- / CARD NAME -->
+
+                                <!-- CARD DETAILS -->
+                                <div class="list-card-details">
+
+                                    <div ng-if="ticket.estimate_time"
+                                        class="list-card-badges" layout="column" layout-align="start center">
+
+                                        <!-- TIME estimated/charged -->
+                                        <span class="badge estimation" layout="row" layout-align="start center" flex="100">
+                                            <i class="icon-clock s12"></i>
+                                            <span>{{vm.formatEstimate(ticket.estimate_time)}}</span>
+                                        </span>
+                                        <!-- / TIME estimated/charged -->
+
+                                        <!-- CARD DUE -->
+                                        <!--<span class="badge due-date"-->
+                                            <!--ng-class="{'overdue': vm.isOverdue(vm.board.cards.getById(cardId).due)}"-->
+                                            <!--ng-if="vm.board.cards.getById(cardId).due" layout="row"-->
+                                            <!--layout-align="start center" flex="100">-->
+                                            <!--<i class="icon-calendar s16"></i>-->
+                                            <!--<span>{{vm.board.cards.getById(cardId).due | date:'mediumDate'}}</span>-->
+                                        <!--</span>-->
+                                        <!-- / CARD DUE -->
+
+                                    </div>
+                                </div>
+
+                                <!-- Scheduled date -->
+                                <div class="list-card-badges" layout="row" layout-align="center center" layout-wrap ng-if="ticket.scheduled_time_end">
+                                    <span class="badge date" layout="row" layout-align="start center">
+                                        <span>{{ ticket.scheduled_time_end | datetime:tickets_date_format }}</span>
+                                    </span>
+                                </div>
+
+                                <!-- STORIES -->
+                                <div class="list-card-stories" layout="row" layout-align="center center" layout-wrap ng-if="ticket.stories.data.length">
+                                    <span ng-repeat="story in ticket.stories.data" class="badge story" layout="row" layout-align="start center"
+                                        ng-style="{ 'color': story.color, 'border-color': story.color }" >
+                                        <span>{{ story.name }}</span>
+                                    </span>
+                                </div>
+                                <!-- /STORIES -->
+
+                                <!-- SPRINT -->
+                                <div class="list-card-sprint grey-600-fg" ng-if="ticket.sprint_name">
+                                    {{ ticket.sprint_name }}
+                                </div>
+                                <!-- /SPRINT -->
+
+                                <!-- RELATED TASKS -->
+                                <md-progress-linear ng-if="ticket.sub_tickets.data.length" class="progress-bar--small"
+                                    md-mode="determinate" value="{{ vm.getSubtasksProgress(ticket.sub_tickets.data) }}"
+                                ></md-progress-linear>
+                                <!-- /RELATED TASKS -->
+
+                                <!-- / CARD DETAILS -->
+
+                                <!-- CARD FOOTER -->
+                                <div class="list-card-footer" layout="row" layout-align="space-between center">
+
+                                    <div layout="row" layout-align="start center">
+
+                                        <!-- BUG -->
+                                        <span ng-if="ticket.type_id == vm.bug_id" class="list-card-footer-item"
+                                            layout="row" layout-align="start center">
+                                            <i class="icon-alert-circle s16 red-900-fg"></i>
+                                        </span>
+                                        <!-- / BUG -->
+
+                                        <!-- ATTACHMENT -->
+                                        <span class="list-card-footer-item"
+                                            layout="row" layout-align="start center">
+                                            <i class="icon-attachment s12"></i>
+                                            <span class="value">{{ticket.files_count}}</span>
+                                        </span>
+                                        <!-- / ATTACHMENT -->
+
+                                        <!-- COMMENTS -->
+                                        <span class="list-card-footer-item"
+                                            layout="row" layout-align="start center">
+                                            <i class="icon-comment s12"></i>
+                                            <span class="value">{{ticket.comments_count}}</span>
+                                        </span>
+                                        <!-- / COMMENTS -->
+                                    </div>
+
+                                    <!-- RELATED TASKS ICON -->
+                                    <span ng-if="ticket.parent_tickets.data.length || ticket.sub_tickets.data.length"
+                                        class="list-card-footer-item ml-auto" layout="row" layout-align="start center">
+                                        <i ng-if="!ticket.sub_tickets.data.length" class="icon-swap-horizontal s16 text-bold green-600-fg"></i>
+                                        <a ng-if="ticket.sub_tickets.data.length" class="list-card-link"
+                                            ng-href="/projects/{{ticket.project_id}}/agile/{{ticket.title}}">
+                                            <i class="icon-swap-horizontal s16 text-bold green-600-fg"></i>
+                                            <md-tooltip>{{ 'BOARD.SHOW_SUB_TICKETS_BOARD' | translate }}</md-tooltip>
+                                        </a>
+                                    </span>
+                                    <!-- / RELATED TASKS ICON -->
+
+                                </div>
+                                <!-- CARD FOOTER -->
+                            </div>
+                            <!-- /click-preview -->
+
+                        </div>
+                        <!-- / CARD -->
+                    </div>
+                </div>
+                <!-- / LIST CONTENT -->
+
+            </div>
+        </div>
+        <!-- / LIST -->
+    </div>
+    <!-- /TICKETS -->
+
+
+    <!-- NOSTATUSES INFO -->
+    <div ng-if="vm.statuses.length < 1" class="no-records-info" layout="column" layout-align="center center">
+        <md-icon md-font-icon="icon-table-row-remove" class="s62"></md-icon>
+        <span translate="BOARD.NO_STATUSES"></span>
+    </div>
+
+</div>
+<!-- / BOARD -->

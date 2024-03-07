@@ -1,0 +1,129 @@
+<div id="online-sales-list" class="page-layout simple fullwidth doc-page" layout="column">
+
+	<!-- HEADER -->
+	<div class="header md-accent-bg" layout="row" layout-align="space-between">
+		<div layout="column" layout-align="space-between">
+			<div class="title" translate="ONLINE_SALES_LIST.TITLE"></div>
+		</div>
+	</div>
+	<!-- / HEADER -->
+
+	<!-- CONTENT -->
+	<div class="content" layout="column">
+
+		<div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+		<div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+		<div ng-if="vm.pagination.total == 0" class="info">
+			<span translate="ONLINE_SALES_LIST.INFO"></span>&nbsp;<a href="http://fvonline.pl">kontakt@fvonline.pl</a>
+		</div>
+
+		<div layout="row" ng-if="vm.pagination.total != 0">
+
+			<div class="form-wrapper  rounded-container min-1000">
+				<div layout="row" >
+					<md-input-container class="md-block" flex-gt-xs="33">
+						<label><span translate="OTHER.FROM"></span></label>
+						<input ng-model="vm.query.date_start" name="date_start" moment-picker="vm.query.date_start" format="YYYY-MM-DD" start-view="decade" locale="pl" input-clear>
+					</md-input-container>
+					<md-input-container class="md-block" flex-gt-xs="33">
+						<label><span translate="OTHER.TO"></span></label>
+						<input ng-model="vm.query.date_end" name="date_end" moment-picker="vm.query.date_end" format="YYYY-MM-DD" start-view="decade" locale="pl" input-clear>
+					</md-input-container>
+					<md-input-container class="md-block" flex-gt-xs="33">
+						<label><span translate="ONLINE_SALES_LIST.TRANSACTION_NUMBER"></span></label>
+						<input ng-model="vm.query.transaction_number" name="transaction_number">
+					</md-input-container>
+				</div>
+				<div layout="row" layout-wrap="" >
+					<md-input-container class="md-block" flex-gt-sm="33" flex="50">
+						<label><span translate="ONLINE_SALES_LIST.NUMBER"></span></label>
+						<input ng-model="vm.query.number" name="number">
+					</md-input-container>
+					<md-input-container class="md-block" flex-gt-sm="33" flex="50">
+						<label><span translate="ONLINE_SALES_LIST.EMAIL"></span></label>
+						<input ng-model="vm.query.email" name="email">
+					</md-input-container>
+					<div layout="row" layout-align="start center" flex-gt-sm="33" flex="100">
+						<md-button class="md-raised md-button md-default-theme md-accent" ng-click="vm.getOnlineSales()" >
+							<span translate="ONLINE_SALES_LIST.SEARCH" ></span>
+						</md-button>
+						<md-button class="md-raised md-button md-default-theme md-accent" ng-click="vm.pdf()" >
+							<span translate="ONLINE_SALES_LIST.GENERATE_PDF" ></span>
+						</md-button>
+					</div>
+				</div>
+
+				<div ng-if="vm.pagination.total > 0" class="table-wrapper">
+					<md-table-container>
+						<table md-table md-progress="vm.promise">
+							<thead md-head md-order="vm.query.sort" md-on-reorder="vm.getOnlineSales" >
+							<tr md-row>
+								<th md-column><span translate="OTHER.No">Lp.</span></th>
+								<th md-column><span translate="ONLINE_SALES_LIST.NUMBER"></span></th>
+								<th md-column><span translate="ONLINE_SALES_LIST.TRANSACTION_NUMBER"></span></th>
+								<th md-column><span translate="ONLINE_SALES_LIST.EMAIL"></span></th>
+								<th md-column><span translate="ONLINE_SALES_LIST.CREATED"></span></th>
+								<th md-column md-numeric><span translate="ONLINE_SALES_LIST.PRICE_NET"></span></th>
+								<th md-column md-numeric><span translate="ONLINE_SALES_LIST.PRICE_GROSS"></span></th>
+								<th md-column md-numeric><span translate="ONLINE_SALES_LIST.VAT_SUM"></span></th>
+								<th md-column ><span translate="OTHER.ACTION">Akcje</span></th>
+							</tr>
+							</thead>
+							<tbody md-body>
+							<tr md-row ng-repeat="sale in vm.online_sales">
+								<td md-cell>{{ vm.pagination | no:$index }}</td>
+								<td md-cell>{{ sale.number }}</td>
+								<td md-cell>{{ sale.transaction_number }}</td>
+								<td md-cell>{{ sale.email }}</td>
+								<td md-cell>{{ sale.sale_date }}</td>
+								<td md-cell>{{ sale.price_net.toFixed(2) | numFormat }}zł</td>
+								<td md-cell>{{ sale.price_gross.toFixed(2) | numFormat }}zł</td>
+								<td md-cell>{{ sale.vat_sum.toFixed(2) | numFormat }}zł</td>
+								<td md-cell>
+									<md-menu>
+										<md-button class="md-icon-button" ng-click="$mdMenu.open()"
+												   aria-label="more">
+											<md-icon md-font-icon="icon-dots-vertical"></md-icon>
+										</md-button>
+
+										<md-menu-content width="3">
+											<md-menu-item>
+												<md-button ng-click="vm.details(sale.id)" aria-label="Show">
+													<span translate="OTHER.DETAILS"></span>
+												</md-button>
+											</md-menu-item>
+											<md-menu-item ng-if="sale.invoices.data.length">
+												<md-button ng-click="vm.invoices($index)">
+													<span translate="ONLINE_SALES_LIST.INVOICES"></span>
+												</md-button>
+											</md-menu-item>
+											<md-menu-item ng-if="!sale.invoices.data.length && !vm.is_tax_office">
+												<md-button ng-click="vm.invoice(sale.id)" aria-label="Edit">
+													<span translate="ONLINE_SALES_LIST.GENERATE_INVOICE"></span>
+												</md-button>
+											</md-menu-item>
+										</md-menu-content>
+									</md-menu>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</md-table-container>
+
+					<md-table-pagination md-label="{{vm.table_translate}}" md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.pagination.total}}" md-on-paginate="vm.getOnlineSales" md-page-select></md-table-pagination>
+				</div>
+
+				<div layout="row"  ng-if="vm.pagination.total == 0" translate="OTHER.NO_RECORDS" class="text-center" ></div>
+
+				<div class="font-size-16">
+					<div class="bold" translate="ONLINE_SALES_LIST.SUM"></div>
+					<div ><span translate="ONLINE_SALES_LIST.SUM_GROSS"></span>: {{vm.reports.price_gross_report.toFixed(2) | numFormat}}zł</div>
+					<div ><span translate="ONLINE_SALES_LIST.SUM_NET"></span>: {{vm.reports.price_net_report.toFixed(2) | numFormat}}zł</div>
+					<div ><span translate="ONLINE_SALES_LIST.VAT_SUM"></span>: {{vm.reports.vat_sum_report.toFixed(2) | numFormat}}zł</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

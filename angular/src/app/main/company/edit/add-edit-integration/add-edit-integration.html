@@ -1,0 +1,63 @@
+<md-dialog aria-label="METHOD">
+    <div id="add-edit-integration-dialog">
+        <form id="addEditIntegration" name="addEditIntegration" >
+            <div layout-gt-sm="row">
+                <div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+                <div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+            </div>
+            <div class="mb-20">
+                <span translate="COMPANY_EDIT.INTEGRATIONS.NEW_INTEGRATION" class="font-size-16"></span>
+            </div>
+            <md-input-container class="md-block" md-no-float>
+                <label><span translate="COMPANY_EDIT.INTEGRATIONS.PROVIDER"></span></label>
+                <md-select ng-model="vm.form.integration_provider_id" required name="integration_provider_id" ng-disabled="vm.edit">
+                    <md-option ng-value="provider.id" ng-repeat="provider in vm.providers" >{{provider.name}}</md-option>
+                </md-select>
+                <div ng-messages="addEditIntegration.integration_provider_id.$error">
+                    <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                </div>
+            </md-input-container>
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex>
+                    <label><span translate="COMPANY_EDIT.INTEGRATIONS.APP_TOKEN"></span></label>
+                    <input ng-model="vm.form.settings.app_token" required ng-maxlength="500"  name="settings_app_token">
+                    <div ng-messages="addEditIntegration.settings_app_token.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_500"></span></div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex>
+                    <label><span translate="COMPANY_EDIT.INTEGRATIONS.AUTH_TOKEN"></span></label>
+                    <input ng-model="vm.form.settings.auth_token" required ng-maxlength="500"  name="settings_auth_token">
+                    <div ng-messages="addEditIntegration.settings_auth_token.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_500"></span></div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex>
+                    <label><span translate="COMPANY_EDIT.INTEGRATIONS.START_TIME"></span></label>
+                    <input ng-model="vm.form.settings.start_time" moment-picker="vm.form.settings.start_time" format="YYYY-MM-DD HH:mm:ss" start-view="year" locale="{{ vm.lang }}" required>
+                    <div ng-messages="addEditIntegration.settings_start_time.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <div layout-gt-sm="row"  layout-align="end none">
+                <md-button ng-if="!vm.edit" type="button" class="md-raised md-accent" aria-label="CANCEL"
+                           translate="OTHER.CANCEL" ng-click="vm.hide()"
+                           translate-attr-aria-label="OTHER.CANCEL">
+                </md-button>
+                <md-button type="button" class="md-raised md-accent" aria-label="SEND"
+                           ng-disabled="addEditIntegration.$invalid || vm.request_sending"
+                           translate="OTHER.SAVE" ng-click="vm.create()"
+                           translate-attr-aria-label="OTHER.SAVE">
+                </md-button>
+            </div>
+        </form>
+    </div>
+</md-dialog>

@@ -1,0 +1,94 @@
+<div id="login" class="flex-scrollable guest-layout" layout="column" ms-scroll>
+    <div id="login-form-wrapper" class="guest-wrapper" layout="column" layout-align="center center">
+        <div id="login-form" class="rounded-container guest-form">
+            <logo-sqr></logo-sqr>
+
+            <div class="title" translate="LOGIN.TITLE">Log in to your account</div>
+
+            <div class="error">{{ vm.msg_error }}</div>
+            <div class="success">{{ vm.msg_success }}</div>
+            <div class="error" ng-if="vm.not_active_link != ''">
+                <span translate="ERRORS.ACTIVE_1"></span>
+                <a href="{{vm.not_active_link}}" translate="ERRORS.ACTIVE_2"></a>
+            </div>
+
+            <form name="loginForm"
+                    novalidate
+                    ng-submit="vm.submitLoginForm()">
+                <md-input-container class="md-block" md-no-float>
+                    <label><span translate="LOGIN.EMAIL"></span></label>
+                    <input ng-model="vm.form.email" required  ng-maxlength="255" name="login" type="email">
+                    <div ng-messages="loginForm.login.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                        <div ng-message="email" ><span translate="ERRORS.FORM.EMAIL"></span></div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" md-no-float>
+                    <label><span translate="LOGIN.PASSWORD"></span></label>
+                    <input type="password" ng-model="vm.form.password" required name="password_login" id="password" >
+                    <div ng-messages="loginForm.password_login.$error">
+                        <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                    </div>
+                </md-input-container>
+
+                <div class="remember-forgot-password" layout="row" layout-xs="column"
+                     layout-align="end">
+                    <!-- <md-checkbox class="remember-me" ng-model="data.cb1" aria-label="Remember Me">
+                        <span translate="LOGIN.REMEMBER_ME">Remember Me</span>
+                    </md-checkbox> -->
+
+                    <a ui-sref="app.forgot-password" class="forgot-password md-accent-color"
+                       translate="LOGIN.FORGOT_PASSWORD">Forgot Password?</a>
+                </div>
+
+                <md-button type="submit" class="md-raised md-accent" aria-label="LOG IN"
+                           ng-disabled="loginForm.$invalid || loginForm.$pristine"
+                           translate="LOGIN.LOG_IN" translate-attr-aria-label="LOGIN.LOG_IN">
+                    LOG IN
+                </md-button>
+            </form>
+
+            <!-- <div class="separator">
+                <span class="text" translate="LOGIN.OR">OR</span>
+            </div>
+
+            <md-button class="md-raised google">
+                <div layout="row" layout-align="center center">
+                <span>
+                    <md-icon md-font-icon="icon-google-plus" class="s16"></md-icon>
+                    <span translate="LOGIN.WITH_GOOGLE">Log in with Google</span>
+                </span>
+                </div>
+            </md-button>
+
+            <md-button class="md-raised facebook">
+                <div layout="row" layout-align="center center">
+                <span>
+                    <md-icon md-font-icon="icon-facebook" class="s16"></md-icon>
+                    <span translate="LOGIN.WITH_FACEBOOK">Log in with Facebook</span>
+                </span>
+                </div>
+            </md-button> -->
+
+            <div class="register" layout="row" layout-sm="column" layout-align="center center">
+                <span class="text" translate="LOGIN.DONT_HAVE_ACCOUNT">Don't have an account?</span>
+                <a class="link" ui-sref="app.register" translate="LOGIN.CREATE_ACCOUNT">Create an account</a>
+            </div>
+
+            <div class="languages-no-login" layout="row" layout"column" layout-align="end center">
+                <div ng-click="vm.changeLanguage('pl')" class="mr-5" >
+                    <span>
+                        <img class="flag" ng-src="assets/images/flags/pl.png">
+                    </span>
+                </div>
+                <div ng-click="vm.changeLanguage('en')" >
+                    <span >
+                        <img class="flag" ng-src="assets/images/flags/us.png">
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer ng-include="'app/layouts/footer.html'"></footer>
+</div>

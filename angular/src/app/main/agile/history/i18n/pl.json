@@ -1,0 +1,20 @@
+{
+    "HISTORY": {
+        "TITLE": "Historia",
+        "SPRINTS": "Etapy",
+        "STORIES": "Oznaczenia",
+        "ALL_SPRINTS": "Wszystkie etapy",
+        "ALL_STORIES": "Wszystkie oznaczenia",
+        "FILTERS": "Filtry",
+        "EMPTY": "Brak zadań",
+        "NO_DATA": "brak danych",
+        "SPRINT_START_DATE": "Data rozpoczęcia etapu",
+        "SPRINT_CLOSE_DATE": "Data zakończenia etapu",
+        "ESTIMATE_TIME": "Estymacja",
+        "LOGGED_TIME": "Zalogowany czas",
+        "TIME_USAGE": "Wykorzystanie czasu",
+        "LOCK": "Zablokuj dodawanie zadań",
+        "UNLOCK": "Odblokuj dodawanie zadań",
+        "EXPORT": "Eksport"
+    }
+}

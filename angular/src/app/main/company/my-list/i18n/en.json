@@ -1,0 +1,28 @@
+{
+    "COMPANY_MY_LIST": {
+        "TITLE": "List of companies and invitations",
+        "TITLE_COMPANIES": "Companies to which I belong",
+        "TITLE_INVITATIONS": "Invitations to companies",
+        "ADD": "Create company",
+        "TITLE_1": "Companies",
+        "TITLE_2": "Invitations to be accepted",
+        "OWNER": "Owner",
+        "EXPIRATION": "Expiration",
+        "CREATE": "Sent",
+        "ACCEPT": "Accept",
+        "REJECT": "Reject",
+        "REJECT_QUESTION": "Are you sure you want to reject this invitation?",
+        "ACCEPT_QUESTION": "Are you sure you want to accept this invitation?",
+        "NO_INVITATIONS": "No waiting invitations.",
+        "NO_COMPANIES": "No companies to which you belong.",
+        "CREATE_COMPANY_DIALOG": "You are creating a company with the name as your e-mail address. You can change the name and other company details in the Manage company section later."
+    },
+    "ERRORS": {
+        "company_invitation": {
+            "not_pending" : "The invitation has already been accepted.",
+            "expired" : "Time to wait for acceptance has expired.",
+            "invalid_email_given" : "Incorrect e-mail address.",
+            "already_assigned_to_company" : "You have already joined this company."
+        }
+    }
+}

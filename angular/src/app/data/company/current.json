@@ -1,0 +1,20 @@
+{
+  "data": {
+    "name": "Test",
+    "vatin": "1234567890",
+    "email": "sdaa@sdsds.pl",
+    "phone": "555555555",
+    "bank_account_number": "646445444546",
+    "bank_name": "Kasa",
+    "main_address_zip_code": "10-100",
+    "main_address_city": "CityName",
+    "main_address_street": "Address",
+    "main_address_number": "1/10",
+    "main_address_country": "POLSKA",
+    "contact_address_zip_code": "10-100",
+    "contact_address_city": "CityName",
+    "contact_address_street": "Address",
+    "contact_address_number": "1/10",
+    "contact_address_country": "POLSKA"
+  }
+}

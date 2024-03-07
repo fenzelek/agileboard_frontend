@@ -1,0 +1,10 @@
+{
+    "ERROR500": {
+        "CODE": "Nieoczekiwany błąd",
+        "MESSAGE": "Sprawdź połączenie z internetem",
+        "SUBMESSAGE": "Jeśli problem pojawi się ponownie skontaktuj się z administratorem",
+        "SUBMESSAGE_1": "tel",
+        "SUBMESSAGE_2": "e-mail",
+        "BACK": "Wróć do strony"
+    }
+}

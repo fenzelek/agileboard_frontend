@@ -1,0 +1,18 @@
+{
+    "REGISTER": {
+        "TITLE": "Create an account",
+        "FIRST_NAME": "First Name",
+        "LAST_NAME": "Last Name",
+        "EMAIL": "Email",
+        "KEY": "Discount code",
+        "PASSWORD": "Password",
+        "PASSWORD_CONFIRM": "Password (Confirm)",
+        "READ_ACCEPT": "I read and accept",
+        "TERMS_COND": "terms and conditions",
+        "CREATE_ACCOUNT": "CREATE MY ACCOUNT",
+        "ALREADY_HAVE": "Already have an account?",
+        "LOGIN": "Log in",
+        "SUCCESS": "Account created. An activation link has been sent to your email address.",
+        "ACCOUNT_EXISTS": "Account with this e-mail arleady exists."
+    }
+}

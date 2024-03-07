@@ -1,0 +1,191 @@
+#tasks-calendar {
+    position: relative;
+    height: 100%;
+    max-height: 100%;
+
+    $header-height: 110px;
+
+    .header {
+        position: relative;
+        min-height: $header-height !important;
+        height: $header-height !important;
+        padding-top: 14px !important;
+        padding-bottom: 0 !important;
+        overflow: hidden;
+
+        .title {
+            font-size: 30px;
+
+            .beta-sign {
+                display: inline-block;
+                font-size: 12px;
+                border: 1px solid #fff;
+                padding: 2px 5px;
+                border-radius: 5px;
+                margin-left: 10px;
+                cursor: default;
+            }
+        }
+
+        .bottom-menu-wrapper {
+            position: relative;
+        }
+
+        .button-wrapper {
+            border-radius: 5px 5px 0 0;
+        }
+
+        .months {
+            background: rgba($color: #000000, $alpha: 0.12);
+        }
+    }
+
+    md-content {
+        background-color: transparent;
+    }
+
+    .close-calendar {
+        margin-left: 15px;
+        margin-right: 10px;
+    }
+
+    .search-bar {
+        margin-right: 30px;
+    }
+
+    .add-ticket-btn {
+        margin-right: 30px;
+        margin-bottom: 10px;
+    }
+
+    .center {
+        background-color: #E5E7E8;
+        margin: 0 0 10px 1px;
+        max-height: calc(100% - #{$header-height});
+        height: calc(100% - #{$header-height});
+        overflow-y: auto;
+
+        .content {
+            padding: 0;
+            margin-right: 20px;
+            margin-top: 10px;
+        }
+    }
+
+    .content {
+
+        #calendar {
+
+            .calendar-event {
+                padding: 0 10px;
+                margin: 3px !important;
+                background: #fff;
+                color: #000;
+                border-radius: 7px;
+                font-size: 11px;
+                cursor: move;
+
+                .event-title {
+                    flex: auto;
+                    text-decoration: underline;
+                    cursor: pointer;
+                    font-weight: 700;
+                    font-size: 1.3rem;
+                    margin-bottom: 5px;
+                }
+
+                .event-title-padding {
+                    padding-top: 11px;
+                    margin-top: 0;
+                    margin-bottom: 5px;
+                    line-height: 1.1;
+                }
+
+                .event-title-red {
+                    color: #f00;
+                }
+
+                .event-title-orange {
+                    color: #ff9600;
+                }
+
+                .event-title-green {
+                    color: #4caf50;
+                }
+
+                .event-title-blue {
+                    color: rgb(3,155,229);
+                }
+
+                .event-name {
+                    margin: 2px 0 2px 0;
+                }
+
+                .event-sprint {
+                    color: rgba(0,0,0,0.5);
+                    flex: auto;
+                    margin: 2px 0 2px 0;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .event-status {
+                    color: rgba(0,0,0,0.5);
+                    flex: auto;
+                    margin: 5px 0;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .list-card-footer {
+                    border-top: 1px solid rgba(0, 0, 0, 0.12);
+
+                    .list-card-footer-item {
+                        height: 30px;
+                        color: rgba(0,0,0,0.5);
+                        padding: 0 3px;
+                    }
+                }
+            }
+
+            .fc-toolbar {
+                display: none;
+            }
+
+            .fc-day-grid {
+                background: #EEF0F2;
+            }
+
+            .fc-day-header {
+                background: #dcdcdc;
+                border: 1px solid rgba(0, 0, 0, 0.12);
+            }
+        }
+
+        .calendar-title {
+            margin-left: 20px;
+            font-size: 26px;
+            text-transform: capitalize;
+        }
+
+        .calendar-view-type {
+            color: #615e5e;
+        }
+
+        .md-icon-button {
+            padding: 0;
+        }
+
+    }
+
+    .preview-sidenav {
+        md-content {
+          bottom: 10px;
+        }
+    }
+
+
+}
+

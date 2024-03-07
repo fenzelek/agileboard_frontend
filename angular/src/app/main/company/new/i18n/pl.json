@@ -1,0 +1,23 @@
+{
+    "COMPANY_NEW": {
+        "TITLE": "Nowa firma",
+        "NAME": "Nazwa",
+        "GET_GUS": "Pobierz dane z GUS i utwórz",
+        "SKIP": "Przejdź do formularza",
+        "NIP": "NIP",
+        "SUCCESS": "Utworzono nową firmę",
+        "GUS_ERROR": "Brak danych w gusie dla podanego nipu",
+        "VAT_PAYER_YES": "Firma jest płatnikiem VAT",
+        "VAT_PAYER_NO": "Firma zwolniona z VAT",
+        "VAT_REASON": "Powód",
+        "VAT_REASON_OTHER": "Inny powód"
+    },
+    "ERRORS": {
+        "company": {
+            "creation_limit" : "Przekroczyłeś limit ilości utworzonych firm."
+        },
+        "gus": {
+            "technical_problems": "System GUS jest w tym momencie niedostępny. Spróbuj ponownie za chwilę lub pomiń ten krok."
+        }
+    }
+}

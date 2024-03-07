@@ -1,0 +1,15 @@
+{
+    "CLONE_PROJECT": {
+        "TITLE": "Sklonuj projekt",
+        "CLONING": "Klonowanie projektu",
+        "NEW_NAME": "Nowa nazwa",
+        "NEW_SHORT_NAME": "Nowa krótka nazwa",
+        "CLONED_SUCCESSFULLY": "Projektu sklonowany, trwa przekierowywanie...",
+        "TOO_MANY_PROJECTS" : "Posiadasz maksymalna liczbę projektów. Przejdź do pakietów aby zwiększyć ich ilość."
+    },
+    "ERRORS": {
+        "package": {
+            "limit_reached" : "Obecny pakiet na to nie pozwala. Zmień pakiet na wyższy."
+        }
+    }
+}

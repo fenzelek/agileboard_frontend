@@ -1,0 +1,20 @@
+{
+    "CONTRACTORS_LIST": {
+        "TITLE": "Contractors",
+        "SEARCH": "Search",
+        "CONTRACTOR": "Contractor",
+        "NIP": "NIP",
+        "CREATED": "Created",
+        "PAID": "Paid",
+        "AFTER": "After the deadline",
+        "SUM": "Sum",
+        "TO_PAY": "To pay",
+        "ADD": "Add",
+        "INVOICE_ADD": "Invoice add",
+        "DELETE_QUESTION": "Are you sure you want to delete this contractor?",
+        "DELETE_SUCCESS": "Deleting contractor successfully."
+    },
+    "ERRORS": {
+
+    }
+}

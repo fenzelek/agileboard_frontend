@@ -1,0 +1,14 @@
+<md-dialog>
+    <div id="blockade-company-dialog">
+        <h1>
+            <md-icon md-font-icon="icon-calendar-blank" class="icon s42"></md-icon>
+            <span translate="BLOCKADE_COMPANY.TITLE"></span>
+        </h1>
+        <div class="content">
+            <div ng-repeat="block in vm.blockade_company">
+                <span translate="{{'BLOCKADE_COMPANY.INFO.' + block}}"></span>
+            </div>
+        </div>
+        <md-button ng-click="vm.hide()">{{ 'OTHER.CLOSE' | translate }}</md-button>
+    </div>
+</md-dialog>

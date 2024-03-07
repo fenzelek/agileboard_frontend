@@ -1,0 +1,131 @@
+notifications {
+  position: relative;
+
+  .options {
+    display: flex;
+    gap: 10px;
+    width: min-content;
+    background: rgb(3,155,229);
+    border-radius: 8px;
+    line-height: 14px;
+    align-items: center;
+    padding: 6px 10px;
+    color: white;
+    margin: 10px 15px 0 10px;
+
+    .unread-count {
+      font-size: 14px;
+      font-weight: bold;
+    }
+  
+    md-icon {
+      color: white !important;
+    }
+  }
+
+}
+
+#notifications {
+  height: 100%;
+  background-color: #fff;
+  align-items: flex-start;
+
+  .notifications-empty {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    gap: 12px;
+
+    md-icon {
+      width: 50px;
+      height: 50px;
+      font-size: 50px;
+    }
+  }
+
+  .notifications-wrapper {
+    width: 100%;
+  }
+
+  .notification {
+    padding: 15px;
+    cursor: pointer;
+    border-bottom: solid 2px rgba(0, 0, 0, 0.05);
+
+    &--source-deleted {
+      background: #ffdbdb;
+
+      .name {
+        color: red;
+      }
+    }
+
+    &:nth-last-child(1) {
+      border-bottom: none;
+    }
+    &:hover {
+      border-bottom-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .author {
+      color: #228CC0;
+      padding-right: 2px;
+    }
+
+    .name {
+      margin-top: 3px;
+
+      md-icon {
+        margin-right: 1px;
+        width: 18px;
+        height: 18px;
+        font-size: 18px;
+        line-height: 17px;
+        min-width: initial;
+        min-height: initial;
+        color: inherit;
+      }
+    }
+
+    .meta {
+      color:rgba(0, 0, 0, 0.75);
+      font-size: 11px;
+      position: relative;
+
+      &.read {
+        // color:rgba(0, 0, 0, 0.5);
+
+        .read-status {
+          border: none;
+        }
+      }
+    }
+
+    /* 
+      Absolute positioning is used to avoid angular render glitch,
+      causing two opposite ng-if's to render simultanously for a split second, causing the view to jump.
+    */
+    .read-status {
+      position: absolute;
+      top: 18px;
+      right: 0;
+      padding-left: 4px;
+      border-left: solid 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .time {
+      text-align: right;
+    }
+
+    .message {
+      & > p {
+        margin: 0;
+      }
+    }
+  }
+
+}

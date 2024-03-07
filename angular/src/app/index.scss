@@ -1,0 +1,145 @@
+/**
+ *  Do not remove this comments bellow. It's the markers used by wiredep to inject
+ *  sass dependencies when defined in the bower.json of your dependencies
+ */
+// bower:scss
+// endbower
+
+/**
+ *  Do not remove this comments bellow. It's the markers used by gulp-inject to inject
+ *  all your sass files automatically
+ */
+// injector
+// endinjector
+
+.error {
+	color: rgb(213, 0, 0);
+}
+
+.success {
+  color: rgb(9, 165, 32);
+}
+
+.errors-wrapper {
+  font-size: 12px;
+  padding-top: 10px;
+}
+
+.md-button {
+  font-weight: 600;
+}
+
+// chips dot fix, eg. FRON... -> FRONT
+.md-contact-chips .md-chips .md-contact-name {
+  text-rendering: auto;
+}
+
+// chips suggestion width to 100% if there is no avatar before
+.md-contact-suggestion .md-contact-name {
+  width: 100%;
+}
+.md-contact-suggestion img + .md-contact-name {
+  width: 120px;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 100;
+  src: url(/assets/fonts/Roboto-Regular.woff);
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: italic;
+  font-weight: 100;
+  src: url(/assets/fonts/Roboto-Italic.woff);
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: url(/assets/fonts/Roboto-Bold.woff);
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: italic;
+  font-weight: 700;
+  src: url(/assets/fonts/Roboto-BoldItalic.woff);
+}
+
+
+.moment-picker.top .moment-picker-container {
+  top: auto;
+  bottom: auto !important;
+  margin-top: 4px !important;
+  margin-bottom: 0px !important;
+}
+
+.moment-picker.top .moment-picker-container::before, .moment-picker.top .moment-picker-container::after {
+  border: 8px solid transparent;
+  border-bottom: 8px solid transparent !important;
+  border-top: none !important;
+  top: -9px !important;
+  bottom: auto !important;
+}
+
+#cookie-alert {
+  position: fixed;
+  bottom: -1px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  z-index: 1000;
+  padding: 10px;
+  font-family: Arial;
+  font-size: 14px;
+  opacity: 1;
+  background-color: #1b1b1b;
+  color: #999;
+  text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.1);
+  border-top: 1px solid #444;
+  border-bottom: 1px solid #444;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.15);
+
+  #info {
+    width:calc(100% - 72px);
+    display:inline-block;
+    vertical-align:middle;
+    text-align:center;
+  }
+
+  #buttons {
+    width: 52px;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: right;
+
+    a {
+      &:hover {
+        text-decoration: none;
+      }
+
+      img {
+        display: inline;
+        border: 0;
+        padding: 0;
+        margin: 0;
+      }
+    }
+
+    &>img {
+      border: 0;
+      cursor: pointer;
+      margin-left: 8px;
+    }
+  }
+}
+
+.html-content {
+  p {
+    margin: 0;
+  }
+}

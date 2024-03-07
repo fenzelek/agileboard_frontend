@@ -1,0 +1,36 @@
+    {
+    "ADD_EDIT_TICKET": {
+        "TITLE_ADD": "Nowe zadanie",
+        "TITLE_EDIT": "Edycja zadania:",
+        "SPRINT": "Etap",
+        "TYPE": "Typ",
+        "ASSIGNED": "Przypisany do",
+        "REPORTER": "Zgłaszający",
+        "DESCRIPTION": "Opis",
+        "ADD_FILE": "Dodaj pliki",
+        "DELETE_FILE": "Usuń plik",
+        "ESTIMATE": "Estymacja, przykład: 8h 30m",
+        "ESTIMATE_ERROR": "Błąd formatu estymacji",
+        "STORIES": "Oznaczenia",
+        "STORIES_SEARCH": "Szukaj oznaczenia...",
+        "ADD_MORE": "Dodaj następne...",
+        "CREATE_NEW": "Utwórz nowe: ",
+        "SCHEDULED_DATE_START": "Planowana data startu",
+        "SCHEDULED_DATE_END": "Planowana data końca",
+        "BACKLOG": "Lista zadań",
+
+        "TYPES": {
+            "Task": "Zadanie",
+            "Bug": "Błąd",
+            "TestCase": "Przypadek testowy",
+            "Internal": "Zadanie wewnętrzne",
+            "Estimate": "Estymacja",
+            "Meetings": "Spotkanie"
+        }
+    },
+    "ERRORS": {
+        "project": {
+            "no_statuses_created": "Tablica w tym projekcie nie została skonfigurowana."
+        }
+    }
+}

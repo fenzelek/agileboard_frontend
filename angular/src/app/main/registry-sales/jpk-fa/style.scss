@@ -1,0 +1,9 @@
+#jpk-fa-dialog {
+  margin: 10px;
+  min-width: 400px;
+
+  .moment-picker-container {
+    position: absolute;
+    z-index: 20000;
+  }
+}

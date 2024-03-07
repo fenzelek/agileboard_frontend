@@ -1,0 +1,50 @@
+#time-tracker-screens {
+  background: #fff;
+
+  .activity {
+    min-width: 100%;
+
+    @media screen and (min-width: 420px) {
+      min-width: 150px;
+      max-width: 210px;
+    }
+  }
+
+  .details {
+    border: solid 1px #f3f3f3;
+  }
+
+  .screenshot-preview {
+    cursor: pointer;
+    &.no-screenshots {
+      cursor: default;
+    }
+  }
+
+  .no-screenshots {
+    background: #f3f3f3;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 10px;
+    text-align: center;
+  }
+
+  .spread {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .loader-wrap {
+    position: relative;
+    
+    .loader {
+      position: absolute;
+      left: 50%;
+      top: 20px;
+      transform: translateX(-50%);
+    }
+  }
+
+}

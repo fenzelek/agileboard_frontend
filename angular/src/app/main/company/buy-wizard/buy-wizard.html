@@ -1,0 +1,246 @@
+<div id="company-new" class="page-layout simple fullwidth doc-page" layout="column">
+
+	<!-- HEADER -->
+	<div class="header md-accent-bg" layout="row" layout-align="space-between">
+		<div layout="column" layout-align="space-between">
+			<div class="title" translate="BUY_WIZARD.TITLE"></div>
+		</div>
+	</div>
+	<!-- / HEADER -->
+
+	<!-- CONTENT -->
+	<div class="content" layout="column">
+
+		<div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+		<div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+
+		<div layout="row">
+
+			<div class="form-wrapper  rounded-container min-1000">
+				<!-- FORM WIZARD -->
+				<ms-form-wizard flex>
+					<md-tabs md-dynamic-height md-selected="msWizard.selectedIndex" md-center-tabs="true">
+						<md-tab>
+							<md-tab-label>
+								<span class="ms-form-wizard-step-label">
+									<span class="ms-form-wizard-step-number md-accent-bg"
+										  ng-if="wizardStep1.$invalid">1</span>
+									<span class="ms-form-wizard-step-number md-accent-bg" ng-if="wizardStep1.$valid">
+										<i class="icon-check s16"></i>
+									</span>
+									<span class="ms-form-wizard-step-text" translate="BUY_WIZARD.TYPE_PAYMENT"></span>
+								</span>
+							</md-tab-label>
+
+							<md-tab-body>
+								<form name="wizardStep1" class="md-inline-form" ms-form-wizard-form novalidate>
+									<div layout="column" layout-gt-xs="row" flex="100">
+										<md-radio-group ng-model="vm.form.subscription" required  layout="column" layout-gt-xs="row" flex="100">
+											<md-input-container class="md-block" md-no-float flex="100" flex-gt-xs="50"
+												ng-if="vm.enable_card_pay && vm.payment.days && (vm.first_module.package.data || (vm.package_current.subscription.data && vm.package_current.subscription.data.active))">
+													<md-radio-button ng-value="true">
+														<span translate="BUY_WIZARD.SUBSCRIPTION"></span>
+													</md-radio-button>
+											</md-input-container>
+											<md-input-container class="md-block" md-no-float flex="100" flex-gt-xs="50">
+												<md-radio-button ng-value="false">
+													<span translate="BUY_WIZARD.ONE_TIME"></span>
+												</md-radio-button>
+											</md-input-container>
+										</md-radio-group>
+									</div>
+								</form>
+							</md-tab-body>
+						</md-tab>
+
+						<md-tab ng-disabled="wizardStep1.$invalid">
+							<md-tab-label>
+								<span class="ms-form-wizard-step-label">
+									<span class="ms-form-wizard-step-number md-accent-bg"
+										  ng-if="wizardStep2.$invalid">2</span>
+									<span class="ms-form-wizard-step-number md-accent-bg" ng-if="wizardStep2.$valid">
+										<i class="icon-check s16"></i>
+									</span>
+									<span class="ms-form-wizard-step-text" translate="BUY_WIZARD.PAYMENT_METHOD"></span>
+								</span>
+							</md-tab-label>
+
+							<md-tab-body>
+								<form name="wizardStep2" class="md-inline-form" ms-form-wizard-form novalidate>
+									<div layout="column" layout-gt-xs="row" flex="100">
+										<md-radio-group ng-model="vm.form.type" required  layout="column" layout-gt-xs="row" flex="100">
+											<md-input-container class="md-block" md-no-float flex="100" flex-gt-xs="50" ng-if="vm.enable_card_pay">
+												<md-radio-button ng-value="true">
+													<span translate="BUY_WIZARD.CARD"></span>
+												</md-radio-button>
+											</md-input-container>
+											<md-input-container class="md-block" md-no-float flex="100" flex-gt-xs="50" ng-if="!vm.form.subscription">
+												<md-radio-button ng-value="false">
+													<!--<span translate="BUY_WIZARD.OTHER_TYPE"></span>-->
+													<span>PayU</span>
+												</md-radio-button>
+											</md-input-container>
+										</md-radio-group>
+									</div>
+								</form>
+							</md-tab-body>
+						</md-tab>
+
+						<md-tab ng-disabled="wizardStep1.$invalid || wizardStep2.$invalid || !vm.form.type">
+							<md-tab-label>
+								<span class="ms-form-wizard-step-label">
+									<span class="ms-form-wizard-step-number md-accent-bg"
+										  ng-if="wizardStep3.$invalid">3</span>
+									<span class="ms-form-wizard-step-number md-accent-bg" ng-if="wizardStep3.$valid">
+										<i class="icon-check s16"></i>
+									</span>
+									<span class="ms-form-wizard-step-text"  translate="BUY_WIZARD.DATA"></span>
+								</span>
+							</md-tab-label>
+							<md-tab-body>
+								<form name="wizardStep3" ms-form-wizard-form novalidate>
+									<md-input-container class="md-block" flex="100">
+										<label><span translate="BUY_WIZARD.SELECT_CARD"></span></label>
+										<md-select ng-model="vm.form.token" name="token" ng-if="!translate_loading">
+											<md-option ng-value="null" ><span translate="BUY_WIZARD.OTHER_CARD"></span></md-option>
+											<md-option ng-value="card.value" ng-repeat="card in vm.card_list">{{card.cardNumberMasked}}</md-option>
+										</md-select>
+									</md-input-container>
+
+									<div layout="column" layout-gt-xs="row" ng-if="vm.form.token == null">
+										<md-input-container flex="100" flex-gt-xs="50">
+											<label><span translate="BUY_WIZARD.CARD_NUMBER"></span></label>
+											<input name="card_number" ng-model="vm.form.card_number" required ng-pattern="/^([0-9]{12,19})$/">
+											<div ng-messages="wizardStep3.card_number.$error" ng-show="wizardStep3.card_number.$dirty" role="alert">
+												<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+												<div ng-message="pattern" ><span translate="ERRORS.FORM.CARD_NUMBER"></span></div>
+											</div>
+										</md-input-container>
+
+										<md-input-container flex="100" flex-gt-xs="50">
+											<label><span translate="BUY_WIZARD.CARD_CVV2"></span></label>
+											<input name="card_cvv" ng-model="vm.form.card_cvv" required ng-pattern="/^([0-9]{3})$/">
+											<div ng-messages="wizardStep3.card_cvv.$error" ng-show="wizardStep3.card_cvv.$dirty" role="alert">
+												<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+												<div ng-message="pattern" ><span translate="ERRORS.FORM.CARD_CVV2"></span></div>
+											</div>
+										</md-input-container>
+									</div>
+
+									<div layout="column" layout-gt-xs="row" ng-if="vm.form.token == null">
+										<md-input-container flex="100" flex-gt-xs="50">
+											<label><span translate="BUY_WIZARD.CARD_MONTH"></span></label>
+											<input name="card_exp_month" ng-model="vm.form.card_exp_month" required ng-pattern="/^((0[1-9]{1})|(1[0-2]{1}))$/">
+											<div ng-messages="wizardStep3.card_exp_month.$error" ng-show="wizardStep3.card_exp_month.$dirty" role="alert">
+												<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+												<div ng-message="pattern" ><span translate="ERRORS.FORM.CARD_MONTH"></span></div>
+											</div>
+										</md-input-container>
+										<md-input-container flex="100" flex-gt-xs="50">
+											<label><span translate="BUY_WIZARD.CARD_YEAR"></span></label>
+											<input name="card_exp_year" ng-model="vm.form.card_exp_year" required ng-pattern="/^([0-9]{4})$/">
+											<div ng-messages="wizardStep3.card_exp_year.$error" ng-show="wizardStep3.card_exp_year.$dirty" role="alert">
+												<div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+												<div ng-message="pattern" ><span translate="ERRORS.FORM.CARD_YEAR"></span></div>
+											</div>
+										</md-input-container>
+									</div>
+
+									<div layout="column" layout-gt-xs="row" ng-if="vm.form.token == null">
+										<md-input-container class="md-block" flex="100">
+											<md-checkbox ng-model="vm.formWizard.accept" name="other_contact_address" required >
+												<span translate="BUY_WIZARD.REGULATIONS_1"></span>
+												<a href="https://static.payu.com/sites/terms/files/REGULAMIN_SWIADCZENIA_USLUGI_PAYU.pdf">
+													<span translate="BUY_WIZARD.REGULATIONS_2"></span>
+												</a>
+												<span translate="BUY_WIZARD.REGULATIONS_3"></span>
+											</md-checkbox>
+										</md-input-container>
+									</div>
+								</form>
+							</md-tab-body>
+						</md-tab>
+
+						<md-tab ng-disabled="wizardStep1.$invalid || wizardStep2.$invalid">
+							<md-tab-label>
+								<span class="ms-form-wizard-step-label">
+									<span class="ms-form-wizard-step-number md-accent-bg">4</span>
+									<span class="ms-form-wizard-step-text" translate="BUY_WIZARD.SUMMARY"></span>
+								</span>
+							</md-tab-label>
+							<md-tab-body>
+								<form name="wizardStep4" class="md-inline-form" ms-form-wizard-form novalidate>
+									<div layout="column" flex="100">
+										<div flex="100" ng-if="vm.first_module.package.data">
+											<span translate="BUY_WIZARD.PACKAGE"></span>:
+											<span translate="COMPANY_EDIT.PACKAGES.PACKAGES_LIST.{{vm.first_module.package.data.slug}}"></span>
+										</div>
+										<div flex="100" ng-if="!vm.first_module.package.data">
+											<span translate="BUY_WIZARD.MODULE"></span>:
+											{{vm.first_module.module.data.name}}
+											<span ng-if="vm.first_module.module_mod.data.value != 1">
+												({{vm.first_module.module_mod.data.value}})
+											</span>
+										</div>
+										<div flex="100">
+											<span translate="BUY_WIZARD.TYPE_PAYMENT"></span>:
+											<span translate="BUY_WIZARD.SUBSCRIPTION" ng-if="vm.form.subscription"></span>
+											<span translate="BUY_WIZARD.ONE_TIME" ng-if="!vm.form.subscription"></span>
+										</div>
+										<div flex="100">
+											<span translate="BUY_WIZARD.PAYMENT_METHOD"></span>:
+											<span translate="BUY_WIZARD.CARD" ng-if="vm.form.type"></span>
+											<!--<span translate="BUY_WIZARD.OTHER_TYPE" ng-if="!vm.form.type"></span>-->
+											<span ng-if="!vm.form.type"><span>PayU</span></span>
+										</div>
+										<div flex="100">
+											<span translate="BUY_WIZARD.PRICE"></span>:
+											{{(vm.payment.price_total / 100).toFixed(2)}}{{vm.payment.currency	}}<!--
+											--><span ng-if="vm.form.subscription">/</span><span translate="BUY_WIZARD.MONTH" ng-if="vm.form.subscription"></span>
+										</div>
+									</div>
+								</form>
+
+							</md-tab-body>
+						</md-tab>
+					</md-tabs>
+
+					<div class="navigation" flex layout="row" layout-align="center center">
+						<md-button class="md-raised md-accent" ng-click="msWizard.previousStep(2)"
+								   ng-if="msWizard.selectedIndex == 3 && !vm.form.type"
+								   ng-disabled="msWizard.isFirstStep()">
+							<span translate="OTHER.PREV"></span>
+						</md-button>
+						<md-button class="md-raised md-accent" ng-click="msWizard.previousStep()"
+								   ng-if="!(msWizard.selectedIndex == 3 && !vm.form.type)"
+								   ng-disabled="msWizard.isFirstStep()">
+							<span translate="OTHER.PREV"></span>
+						</md-button>
+						<div class="steps">
+							<span ng-repeat="form in msWizard.forms"
+								  ng-class="{'selected md-accent-bg':msWizard.selectedIndex === $index}"></span>
+						</div>
+						<md-button class="md-raised md-accent" ng-click="msWizard.nextStep(2)"
+								   ng-if="msWizard.selectedIndex == 1 && !vm.form.type"
+								   ng-disabled="msWizard.currentStepInvalid()">
+							<span translate="OTHER.NEXT"></span>
+						</md-button>
+						<md-button class="md-raised md-accent" ng-click="msWizard.nextStep()"
+								   ng-hide="msWizard.isLastStep()"
+								   ng-if="!(msWizard.selectedIndex == 1 && !vm.form.type)"
+								   ng-disabled="msWizard.currentStepInvalid()">
+							<span translate="OTHER.NEXT"></span>
+						</md-button>
+						<md-button class="md-raised md-warn" ng-click="vm.sendForm();" ng-show="msWizard.isLastStep()"
+								   ng-disabled="(wizardStep3.$invalid && vm.form.type) || vm.request_sending">
+							<span translate="BUY_WIZARD.BUY"></span>
+						</md-button>
+					</div>
+
+				</ms-form-wizard>
+				<!-- / FORM WIZARD -->
+			</div>
+		</div>
+
+	</div>
+</div>

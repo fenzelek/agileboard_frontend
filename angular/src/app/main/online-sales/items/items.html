@@ -1,0 +1,30 @@
+<md-dialog aria-label="METHOD">
+    <div id="online-sales-items-dialog">
+        <div class="table-wrapper">
+            <md-table-container>
+                <table md-table>
+                    <thead md-head >
+                    <tr md-row>
+                        <th md-column><span translate="OTHER.No">Lp.</span></th>
+                        <th md-column><span translate="OTHER.NAME"></span></th>
+                        <th md-column md-numeric><span translate="ONLINE_SALES_LIST.QUANTITY"></span></th>
+                        <th md-column md-numeric><span translate="ONLINE_SALES_LIST.PRICE_NET"></span></th>
+                        <th md-column md-numeric><span translate="ONLINE_SALES_LIST.PRICE_GROSS"></span></th>
+                        <th md-column md-numeric><span translate="ONLINE_SALES_LIST.VAT_SUM"></span></th>
+                    </tr>
+                    </thead>
+                    <tbody md-body>
+                    <tr md-row ng-repeat="item in vm.items">
+                        <td md-cell>{{ ($index + 1) }}</td>
+                        <td md-cell>{{ item.name }}</td>
+                        <td md-cell>{{ item.quantity }}</td>
+                        <td md-cell>{{ item.price_net_sum.toFixed(2) | numFormat }}zł</td>
+                        <td md-cell>{{ item.price_gross_sum.toFixed(2) | numFormat }}zł</td>
+                        <td md-cell>{{ item.vat_sum.toFixed(2) | numFormat }}zł</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+        </div>
+    </div>
+</md-dialog>

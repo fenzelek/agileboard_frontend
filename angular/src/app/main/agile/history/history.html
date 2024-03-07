@@ -1,0 +1,167 @@
+<div id="history" class="page-layout simple fullwidth doc-page" layout="column">
+
+    <!-- HEADER -->
+    <div class="header md-accent-bg" layout="row" layout-align="space-between"  flex="100">
+        <div layout="column" layout-align="space-between" flex="100">
+            <div layout="row">
+                <div class="title">
+                    <span><span translate="HISTORY.TITLE"></span> - </span>
+                    {{current_project_name}}
+                </div>
+            </div>
+            <div class="options-row" flex layout-wrap layout="row" layout-align="space-between end">
+
+            <!-- mobile menu -->
+            <div class="header-filters-btn">
+                <md-menu md-offset="0 48">
+                    <div class="selected-option button" ng-click="$mdMenu.open()" md-menu-origin md-menu-align-target role="button">
+                        <span translate="HISTORY.FILTERS">Filters</span><md-icon md-font-icon="icon-menu-down" class="s20 white-fg"></md-icon>
+                    </div>
+                    <md-menu-content width="2" class="md-menu-bar-menu">
+                        <!-- sprints -->
+                        <md-menu-item class="md-indent">
+                            <md-menu md-position-mode="cascade" md-nest-level="1">
+                                <md-button ng-click="$mdMenu.open()" class="childs-option" role="menuitem" >
+                                    <md-icon md-font-icon="icon-flag-variant"></md-icon> <span translate="HISTORY.SPRINTS"></span>
+                                </md-button>
+                                <md-menu-content width="3">
+                                    <md-menu-item ng-repeat="sprint in vm.sprints_copy">
+                                        <md-button ng-click="vm.selectSprint(sprint.id)" >
+                                            <span ng-if="sprint.name != ''" ng-class="{'secondary-text': vm.selected_sprint.id == sprint.id}">{{sprint.name}}</span>
+                                            <span ng-if="sprint.name == ''" ng-class="{'secondary-text': vm.selected_sprint.id == sprint.id}" translate="{{sprint.translate}}"></span>
+                                        </md-button>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                        </md-menu-item>
+                        <!-- stories -->
+                        <md-menu-item class="md-indent">
+                            <md-menu md-position-mode="cascade" md-nest-level="1">
+                                <md-button ng-click="$mdMenu.open()" class="childs-option" role="menuitem">
+                                    <md-icon md-font-icon="icon-star"></md-icon> <span translate="HISTORY.STORIES"></span>
+                                </md-button>
+                                <md-menu-content width="3">
+                                    <md-menu-item ng-repeat="story in vm.stories">
+                                        <md-button ng-click="vm.selectStory(story.id)" >
+                                            <span ng-if="story.name != ''" ng-class="{'secondary-text': vm.selected_story.id == story.id}">{{story.name}}</span>
+                                            <span ng-if="story.name == ''" ng-class="{'secondary-text': vm.selected_story.id == story.id}" translate="{{story.translate}}"></span>
+                                        </md-button>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                        </md-menu-item>
+                        <!-- users -->
+                        <md-menu-item ng-if="vm.hasPermission('ticket_show', ['all', 'reporter', 'not_assigned'])" class="md-indent">
+                            <md-menu md-position-mode="cascade" md-nest-level="1">
+                                <md-button ng-click="$mdMenu.open()" class="childs-option" role="menuitem">
+                                    <md-icon md-font-icon="icon-account"></md-icon> <span translate="OTHER.USERS"></span>
+                                </md-button>
+                                <md-menu-content width="3">
+                                    <md-menu-item ng-repeat="user in vm.users">
+                                        <md-button ng-click="vm.selectUser(user.id)" >
+                                            <span ng-if="user.user.data" ng-class="{'secondary-text': vm.selected_user.user.data.id == user.user.data.id}">{{user.user.data.first_name}} {{user.user.data.last_name}}</span>
+                                            <span ng-if="!user.user.data" ng-class="{'secondary-text': vm.selected_user.id == user.id}" translate="{{user.translate}}"></span>
+                                        </md-button>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </div>
+
+
+            <!-- tablet / tesktop menu -->
+            <div class="header-filters-block" layout="row">
+                <!-- sprints filter -->
+                <div layout="row" layout-align="start end">
+                    <md-select class="md-no-underline" ng-model="vm.selected_sprint" data-md-container-class="searchable-select"
+                            ng-change="vm.selectSprint(vm.selected_sprint.id)" md-on-close="vm.sprintSearch = ''">
+                        <!-- Search field -->
+                        <md-select-header class="select-header">
+                            <input class="select-search md-text" type="search" ng-model="vm.sprintSearch"
+                                placeholder="{{ 'OTHER.SEARCH' | translate }}...">
+                        </md-select-header>
+                        <!-- List -->
+                        <md-optgroup>
+                            <md-option ng-value="sprint" ng-repeat="sprint in vm.sprints_copy"
+                                ng-show="searchItem(sprint, 'name', vm.sprintSearch)">
+                                <span ng-if="sprint.name != ''">
+                                    <md-icon md-font-icon="icon-flag-variant" class="icon s20"></md-icon>
+                                    {{ sprint.name }}
+                                </span>
+                                <span ng-if="sprint.name == ''" translate="{{sprint.translate}}"></span>
+                            </md-option>
+                        </md-optgroup>
+                    </md-select>
+                </div>
+
+                <!-- stories filter -->
+                <div layout="row" layout-align="start end">
+                    <md-select class="md-no-underline" ng-model="vm.selected_story" data-md-container-class="searchable-select"
+                        ng-change="vm.selectStory(vm.selected_story.id)" md-on-close="vm.storySearch = ''">
+                        <!-- Search field -->
+                        <md-select-header class="select-header">
+                            <input class="select-search md-text" type="search" ng-model="vm.storySearch"
+                                placeholder="{{ 'OTHER.SEARCH' | translate }}...">
+                        </md-select-header>
+                        <!-- List -->
+                        <md-optgroup>
+                            <md-option ng-value="story" ng-repeat="story in vm.stories"
+                                ng-show="searchItem(story, 'name', vm.storySearch)">
+                                <span ng-if="story.name != ''">
+                                    <md-icon md-font-icon="icon-star" class="icon s20"></md-icon>
+                                    {{ story.name }}
+                                </span>
+                                <span ng-if="story.name == ''" translate="{{story.translate}}"></span>
+                            </md-option>
+                        </md-optgroup>
+                    </md-select>
+                </div>
+
+                <!-- users filter -->
+                <div ng-show="vm.hasPermission('ticket_show', ['all', 'reporter', 'not_assigned'])" layout="row" layout-align="start end">
+                    <md-select class="md-no-underline" ng-model="vm.selected_user" data-md-container-class="searchable-select"
+                        ng-change="vm.selectUser(vm.selected_user.id)" md-on-close="vm.userSearch = ''">
+                        <!-- Search field -->
+                        <md-select-header class="select-header">
+                            <input class="select-search md-text" type="search" ng-model="vm.userSearch"
+                                placeholder="{{ 'OTHER.SEARCH' | translate }}...">
+                        </md-select-header>
+                        <!-- List -->
+                        <md-optgroup>
+                            <md-option ng-value="user" ng-repeat="user in vm.users"
+                                ng-show="searchItem(user.user.data, 'first_name', vm.userSearch) || searchItem(user.user.data, 'last_name', vm.userSearch) ||
+                                    (vm.userSearch === '' && !user.user.data)">
+                                <span ng-if="user.user.data">
+                                    <md-icon md-font-icon="icon-account" class="icon s20"></md-icon>
+                                    {{ user.user.data.first_name }} {{ user.user.data.last_name }}
+                                </span>
+                                <md-icon ng-if="user.id == 'none'" md-font-icon="icon-account-remove" class="icon s20"></md-icon>
+                                <span ng-if="!user.user.data" translate="{{ user.translate }}"></span>
+                            </md-option>
+                        </md-optgroup>
+                    </md-select>
+                </div>
+            </div>
+
+            <div class="search-bar">
+                <ms-search-bar ng-model="vm.search" ng-model-options="{ debounce: 200 }"></ms-search-bar>
+            </div>
+            </div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <div class="center" layout="column" flex>
+        <md-content class="content center">
+            <!-- backlog list pane -->
+            <md-progress-circular ng-if="vm.loading" class="md-accent"></md-progress-circular>
+            <md-content id="sprints-list" class="backlog-list-pane ph-5" flex
+                ng-include="'app/main/agile/history/views/list/list-view.html'">
+            </md-content>
+        <!-- / backlog list pane -->
+        </md-content>
+    </div>
+
+</div>

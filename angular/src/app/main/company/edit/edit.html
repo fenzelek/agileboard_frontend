@@ -1,0 +1,83 @@
+<div id="company-edit" class="page-layout simple tabbed doc-page" layout="column">
+    <a name="up"></a>
+    <!-- HEADER -->
+    <div class="header md-accent-bg" layout="row" layout-align="space-between">
+        <div layout="column" layout-align="space-between">
+            <div class="title">
+                {{ 'COMPANY_EDIT.TITLE' | translate }} - {{ vm.company.name }}
+            </div>
+
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content" layout="column">
+        <md-tabs md-dynamic-height md-selected="vm.tab_selected">
+
+            <md-tab md-on-select="::tabGeneral = true">
+                <md-tab-label><span translate="COMPANY_EDIT.TAB1"></span></md-tab-label>
+                <md-tab-body>
+                    <div ng-include="'app/main/company/edit/tabs/tab1.html'" ng-if="tabGeneral"></div>
+                </md-tab-body>
+            </md-tab>
+
+            <md-tab ng-if="invoices_active" md-on-select="::tabMethods = true">
+                <md-tab-label><span translate="COMPANY_EDIT.TAB2"></span></md-tab-label>
+                <md-tab-body>
+                    <div ng-include="'app/main/company/edit/tabs/tab2.html'" ng-if="tabMethods"></div>
+                </md-tab-body>
+            </md-tab>
+
+            <md-tab ng-if="invoices_active" md-on-select="::tabInvoice = true">
+                <md-tab-label><span translate="COMPANY_EDIT.TAB3"></span></md-tab-label>
+                <md-tab-body>
+                    <div ng-include="'app/main/company/edit/tabs/tab3.html'" ng-if="tabInvoice"></div>
+                </md-tab-body>
+            </md-tab>
+
+            <md-tab ng-if="invoices_active" md-on-select="::tabTax = true">
+                <md-tab-label><span translate="COMPANY_EDIT.TAB10"></span></md-tab-label>
+                <md-tab-body>
+                    <div ng-include="'app/main/company/edit/tabs/tab10.html'" ng-if="tabTax"></div>
+                </md-tab-body>
+            </md-tab>
+
+            <md-tab md-on-select="::tabUsers = true">
+                <md-tab-label><span translate="COMPANY_EDIT.TAB4"></span></md-tab-label>
+                <md-tab-body>
+                    <div ng-include="'app/main/company/edit/tabs/tab4.html'" ng-if="tabUsers"></div>
+                </md-tab-body>
+            </md-tab>
+
+            <md-tab ng-if="projects_active" md-on-select="::tabIntegrations = true">
+                <md-tab-label><span translate="COMPANY_EDIT.TAB7"></span></md-tab-label>
+                <md-tab-body>
+                    <div ng-include="'app/main/company/edit/tabs/tab7.html'" ng-if="tabIntegrations"></div>
+                </md-tab-body>
+            </md-tab>
+
+            <md-tab ng-if="projects_active" md-on-select="::tabSettings = true">
+                <md-tab-label><span translate="COMPANY_EDIT.TAB9"></span></md-tab-label>
+                <md-tab-body>
+                    <div ng-include="'app/main/company/edit/tabs/tab9.html'" ng-if="tabSettings"></div>
+                </md-tab-body>
+            </md-tab>
+
+            <md-tab ng-if="vm.user_role == 'owner'" md-on-select="::tabPackage = true">
+                <md-tab-label><span translate="COMPANY_EDIT.TAB11"></span></md-tab-label>
+                <md-tab-body>
+                    <div ng-include="'app/main/company/edit/tabs/tab11.html'" ng-if="tabPackage"></div>
+                </md-tab-body>
+            </md-tab>
+
+            <md-tab ng-if="vm.user_role == 'owner'" md-on-select="::tabPayments = true">
+                <md-tab-label><span translate="COMPANY_EDIT.TAB13"></span></md-tab-label>
+                <md-tab-body>
+                    <div ng-include="'app/main/company/edit/tabs/tab13.html'" ng-if="tabPayments"></div>
+                </md-tab-body>
+            </md-tab>
+        </md-tabs>
+
+    </div>
+</div>

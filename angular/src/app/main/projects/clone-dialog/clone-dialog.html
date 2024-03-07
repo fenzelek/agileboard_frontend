@@ -1,0 +1,45 @@
+<md-dialog aria-label="METHOD">
+    <div id="clone-project-dialog">
+        <form id="cloneProject" name="cloneProject">
+            <div class="mb-15 font-size-18">
+                {{ 'CLONE_PROJECT.CLONING' | translate }} -
+                <span class="grey-600-fg">{{ vm.projectName }}</span>
+            </div>
+
+            <div layout-gt-sm="row">
+                <div class="alert-error" ng-if="vm.msg_error">{{ vm.msg_error }}</div>
+                <div class="alert-success" ng-if="vm.msg_success">{{ vm.msg_success }}</div>
+            </div>
+
+            <md-input-container class="md-block" flex>
+                <label><span translate="CLONE_PROJECT.NEW_NAME"></span></label>
+                <input ng-model="vm.form.name" required name="name">
+                <div ng-messages="cloneProject.name.$error">
+                    <div ng-message="required" class="my-message"><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm ng-class="{ 'md-input-invalid': vm.shortNameError }">
+                <label><span translate="CLONE_PROJECT.NEW_SHORT_NAME"></span></label>
+                <input ng-model="vm.form.short_name" required ng-maxlength="100" name="short_name"
+                    ng-change="vm.checkShortName()" capitalize ng-model-options="{ debounce: 300 }">
+                <span class="api-error" ng-if="vm.shortNameError" translate="ERRORS.NOT_UNIQUE"></span>
+                <div ng-messages="cloneProject.short_name.$error">
+                    <div ng-message="required" ><span translate="ERRORS.FORM.REQUIRE"></span></div>
+                    <div ng-message="maxlength" ><span translate="ERRORS.FORM.MAX_100"></span></div>
+                </div>
+            </md-input-container>
+
+            <div layout-gt-sm="row"  layout-align="end none">
+                <md-button type="button" class="md-raised" aria-label="CANCEL"
+                            translate="OTHER.CANCEL" ng-click="vm.hide()"
+                            translate-attr-aria-label="OTHER.CANCEL">
+                </md-button>
+                <md-button type="button" class="md-raised md-accent" aria-label="CLONE"
+                            ng-disabled="cloneProject.$invalid || vm.request_sending || vm.shortNameError"
+                            translate="OTHER.CLONE" ng-click="vm.clone()"
+                            translate-attr-aria-label="OTHER.CLONE">
+                </md-button>
+            </div>
+        </form>
+    </div>
+</md-dialog>

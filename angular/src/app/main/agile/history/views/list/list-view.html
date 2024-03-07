@@ -1,0 +1,139 @@
+
+<!-- SPRINT -->
+<div ng-show="vm.searchSprintFilter(sprint)" ng-repeat="sprint in vm.sprints" ng-if="sprint.id"
+    class="sprint rounded-container md-whiteframe-1dp" layout="column" >
+    <div class="sprint-handle" flex layout="row" layout-align="start center">
+        <!-- sprint toggle -->
+        <md-button ng-click="vm.toggleSprint($index)" class="md-icon-button sprint-toggle-button" >
+            <md-icon md-font-icon class="md-font material-icons icon" ng-class="{'icon-menu-down': !sprint.hidden, 'icon-menu-right': sprint.hidden }"></md-icon>
+        </md-button>
+        <div class="title">{{sprint.name}}</div>
+        <div class="dates" layout="row" layout-align="start center">
+            <div class="date" layout="row" layout-align="start center">
+                <md-icon md-font-icon="icon-alarm-plus" class="s16"></md-icon>
+                <span ng-if="sprint.activated_at">{{ sprint.activated_at | datetime }}</span>
+                <span ng-if="!sprint.activated_at" class="no-data" >{{ 'HISTORY.NO_DATA' | translate }}</span>
+                <md-tooltip>{{ 'HISTORY.SPRINT_START_DATE' | translate }}</md-tooltip>
+            </div>
+            <div class="date" layout="row" layout-align="start center">
+                <md-icon md-font-icon="icon-alarm-check" class="s16"></md-icon>
+                <span ng-if="sprint.closed_at">{{ sprint.closed_at | datetime }}</span>
+                <span ng-if="!sprint.closed_at" class="no-data">{{ 'HISTORY.NO_DATA' | translate }}</span>
+                <md-tooltip>{{ 'HISTORY.SPRINT_CLOSE_DATE' | translate }}</md-tooltip>
+            </div>
+        </div>
+        <div style="margin-left: auto;">
+            <md-icon ng-if="sprint.locked" md-font-icon="icon-lock"></md-icon>
+            <md-menu ng-if="current_project_user_role == 'owner' || current_project_user_role == 'admin'">
+                <md-button class="md-icon-button" ng-click="$mdMenu.open()" aria-label="more">
+                    <md-icon md-font-icon="icon-dots-vertical"></md-icon>
+                </md-button>
+                <md-menu-content width="3">
+                    <md-menu-item ng-if="!sprint.locked">
+                        <md-button ng-click="vm.lockSprint(sprint)" aria-label="Lock">
+                            <span translate="HISTORY.LOCK"></span>
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item ng-if="sprint.locked">
+                        <md-button ng-click="vm.unlockSprint(sprint)" aria-label="Unlock">
+                            <span translate="HISTORY.UNLOCK"></span>
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="vm.exportSprint(sprint)" aria-label="Export">
+                            <span translate="HISTORY.EXPORT"></span>
+                        </md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </div>
+    </div>
+
+    <div ng-if="!sprint.hidden" class="backlog-items" flex>
+        <md-progress-circular ng-if="sprint.loading" md-diameter="30" class="md-accent"></md-progress-circular>
+        <div class="backlog-item" md-ink-ripple layout="row" layout-align="start center"
+             ng-repeat="ticket in sprint.tickets"
+             ng-show="vm.userFilter(ticket) && vm.searchFilter(ticket)"
+             ng-class="{'bug':ticket.type_id == vm.bug_id}">
+
+            <div layout="row" layout-align="start center" flex>
+                <div class="info" flex layout="row" layout-align="start center">
+                    <div class="code" layout="row" layout-align="start center">
+                        <a class="title" href="/projects/{{ticket.project_id}}/ticket/{{ticket.title}}">
+                            {{ticket.title}}
+                        </a>
+                        <div layout="row" layout-align="start center" layout-wrap>
+                            <div class="name">
+                                {{ticket.name}}
+                            </div>
+                            <div class="stories" layout="row" layout-align="start center" layout-wrap ng-if="ticket.stories.data.length">
+                                <span ng-repeat="story in ticket.stories.data" class="badge story" layout="row" layout-align="start center"
+                                    ng-style="{ 'color': story.color, 'border-color': story.color }" >
+                                    <span>{{ story.name }}</span>
+                                </span>
+                            </div>
+                            <div class="scheduled_time" layout="row" layout-align="start center" ng-if="ticket.scheduled_time_end">
+                                <span class="badge date" layout="row" layout-align="start center" >
+                                    <span>{{ ticket.scheduled_time_end | datetime:tickets_date_format }}</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- <a href="/projects/{{ticket.project_id}}/ticket/{{ticket.title}}"> {{ticket.title}}</a>
+                        <span class="title" flex>
+                            {{ticket.name}}
+                        </span> -->
+                    </div>
+
+                    <!--<div class="notes" ng-bind-html="ticket.description">-->
+                    <!--</div>-->
+                </div>
+
+                <!-- Assigned user avatar -->
+                <div ng-if="ticket.assigned_user.data" class="list-card-members">
+                    <div class="list-card-member">
+                        <img class="list-card-member-avatar" ng-src="{{vm.getAvatar(ticket.assigned_user.data.avatar)}}">
+                        <md-tooltip>
+                            <div class="name">{{ ticket.assigned_user.data.first_name}} {{ ticket.assigned_user.data.last_name}}</div>
+                        </md-tooltip>
+                    </div>
+                </div>
+                <!-- Ticket estimations and times -->
+                <div hide-xs layout="row" layout-align="center center">
+                    <div class="estimate text-right" ng-if="ticket.estimate_time || ticket.stats.data.tracked_summary">
+                        <md-tooltip><span translate="HISTORY.ESTIMATE_TIME"></span></md-tooltip>
+                        {{ vm.formatEstimate(ticket.estimate_time, true) }}
+                    </div>
+                    <div class="estimate-separator" ng-if="vm.hasAccess(vm.permissions) &&
+                      (ticket.estimate_time || ticket.stats.data.tracked_summary) && current_company_settings.enable_activity">/</div>
+                    <div class="estimate" ng-if="vm.hasAccess(vm.permissions) &&
+                      (ticket.estimate_time || ticket.stats.data.tracked_summary) && current_company_settings.enable_activity"
+                      ng-class="{'red-800-fg': ticket.stats.data.time_usage > 100, 'green-800-fg': ticket.stats.data.time_usage <= 100 && ticket.estimate_time, 'purple-500-fg': ticket.stats.data.time_usage <= 100 && !ticket.estimate_time }">
+                        <md-tooltip><span translate="HISTORY.LOGGED_TIME"></span></md-tooltip>
+                        {{ vm.formatEstimate(ticket.stats.data.tracked_summary, true) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="empty-sprint" translate="HISTORY.EMPTY" ng-if="sprint.tickets == 0 && !sprint.loading"></div>
+    </div>
+    <div ng-show="!sprint.hidden" ng-if="!sprint.loading" flex layout="row" class="sprint-footer" layout-align="end">
+        <div class="estimate" ng-if="sprint.stats.data.tickets_estimate_time || sprint.stats.data.tracked_summary">
+            <md-tooltip><span translate="HISTORY.ESTIMATE_TIME"></span></md-tooltip>
+            {{vm.formatEstimate(sprint.stats.data.tickets_estimate_time, true)}}
+        </div>
+        <div class="estimate-separator" ng-if="vm.hasAccess(vm.permissions) &&
+          (sprint.stats.data.tickets_estimate_time || sprint.stats.data.tracked_summary) && current_company_settings.enable_activity">/</div>
+        <div class="estimate" ng-if="vm.hasAccess(vm.permissions) &&
+          (sprint.stats.data.tickets_estimate_time || sprint.stats.data.tracked_summary) && current_company_settings.enable_activity"
+          ng-class="{'red-800-fg': sprint.stats.data.time_usage > 100, 'green-800-fg': sprint.stats.data.time_usage <= 100}">
+            <md-tooltip><span translate="HISTORY.LOGGED_TIME"></span></md-tooltip>
+            {{vm.formatEstimate(sprint.stats.data.tracked_summary, true )}}
+        </div>
+        <div class="estimate" ng-if="vm.hasAccess(vm.permissions) && sprint.stats.data.activity_level && current_company_settings.enable_activity">
+            <md-tooltip><span translate="HISTORY.TIME_USAGE"></span></md-tooltip>
+            {{sprint.stats.data.time_usage }} %
+        </div>
+    </div>
+</div>
+<!-- / SPRINT -->
