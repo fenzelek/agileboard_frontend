@@ -1,7 +1,7 @@
 # Agile Board
 
 This repository contains only the frontend codebase, that is the web ui side of the system.
-Please see other repositories to find the backend API and Time Tracking app
+Please see other repositories to find all system apps (see tech stack section)
 
 ## About AgileBoard
 AgileBoard is an innovative, open-source project management web application designed to streamline the complexities of <b>project and task management</b> for teams of any size. At its core, AgileBoard offers a dynamic platform for creating, organizing, and tracking tickets across various milestones or sprints, enabling teams to focus on what matters most - delivering value.
@@ -17,10 +17,10 @@ The latest addition to AgileBoard's suite of features is the <b>time tracking</b
 AgileBoard is more than a project management tool; it's a companion in your journey towards agile excellence. By embracing AgileBoard, teams can harness the power of agility, collaboration, and information to drive project success and achieve their goals.
 
 #### AgileBoard tech stack:
-backend: PHP / Laravel framwework
-frontend: AngularJS
-time tracking app: Angular electron
-time tracking mobile app : Xamarin
+- backend is based on Laravel framwework [backend repository](https://github.com/fenzelek/agileboard_backend.git)
+- frontend: AngularJS  [frontend repository](https://github.com/fenzelek/agileboard_frontend.git)
+- time tracking app: Angular electron [timetracker PC repository](https://github.com/fenzelek/agileboard_timetracker_pc.git)
+- time tracking mobile app : Xamarin [timetracker mobile repository](https://github.com/fenzelek/agileboard_timetracker_mobile.git)
 
 ### SPONSORS
 ### **[Denkkraft](https://denkkraft.eu/)**
